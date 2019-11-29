@@ -97,3 +97,39 @@ mat-dialog-container{
     background-color: #fff !important;
     color: #7b7b7b !important;
 }
+
+// =========== ESTILOS DE CONTROLES ===============
+input{
+    border-radius: 20px !important;
+}
+
+// slide
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #ff3300 !important
+}
+.mat-slide-toggle-bar {
+    background-color: #A9AFB0
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #A9AFB0;
+}
+
+// text areas
+textarea {
+    resize: none !important;
+}
+
+// select de material
+.mat-option-text {
+    
+    color: #7b7b7b;
+}
+
+.mat-select-value-text {
+    color: #7b7b7b;
+}
+
+select{
+    border-radius: 20px !important;
+}
