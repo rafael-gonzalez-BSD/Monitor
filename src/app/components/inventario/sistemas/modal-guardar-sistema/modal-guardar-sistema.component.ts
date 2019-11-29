@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ModalGuardarSistemaComponent implements OnInit {
   tituloModal: string;
+  value = '1';
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any ) {
     this.tituloModal =  data.tituloModal;

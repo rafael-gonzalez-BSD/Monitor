@@ -11,9 +11,10 @@ import { ModalGuardarSistemaComponent } from '../../../components/inventario/sis
 })
 export class SistemasComponent implements OnInit {
 
-  constructor( private dialog: MatDialog ) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.abrirModalGuardar();
   }
 
   abrirModalGuardar() {
@@ -21,7 +22,8 @@ export class SistemasComponent implements OnInit {
     dialogConfig.data = {
       id: 1,
       tituloModal: 'Agregar Sistema'
-      };
+    };
+    dialogConfig.height = 'auto';
     this.dialog.open(ModalGuardarSistemaComponent, dialogConfig);
   }
 
