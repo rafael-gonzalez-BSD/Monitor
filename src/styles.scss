@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; background-color: #fff; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// bg-colors
+.bc-orange1{
+    background-color: #ff9900 !important;
+}
+
+.bc-1e2533{
+    background-color: #1e2533 !important;
+}
+.bc-0a1522{
+    background-color: #0a1522 !important;
+}
+
+
+// text-colors
+.tc-dark-gray-01{
+    color: #303030 !important;
+}
+.tc-a9afb0{
+    color: #a9afb0;
+}
+
+.tc-303030{
+    color: #303030;
+}
+
+.tc-7b7b7b{
+    color: #7b7b7b;
+}
+
+// textsize
+.fs-14{
+    font-size: 14px !important;
+}
+
+.fs-16{
+    font-size: 16px !important;
+}
+
+.fs-12{
+    font-size: 12px !important;
+}
+
+.fs-10{
+    font-size: 10px !important;
+}
+
+// ==================== ALINEACION DE TEXTO ===================
+.ta-center{
+    text-align: center !important;
+}
+
+.img-user{
+    width: 40px !important;
+    height: 40px !important;
+}
+
+app-breadcrumb > app-ng7-bootstrap-breadcrumb > nav > ol > li > a {
+    color: #303030 !important;
+}
+
+.router-link-active{
+    color: #f30 !important;
+}
+mat-sidenav-content{
+    color: #7b7b7b !important;
+    background-color: #fff !important;
+    
+}
+.wrapper{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.row{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.li-breadcrumb{
+    display: inline;
+    font-weight: bold;
+    font-size: 14px !important;
+}
+
+// =========ESTILOS DE BOTONES ==============
+.boton-ternium{
+    background-color: #ff3300;
+    border-radius: 20px !important;
+    color: #FFF;
+}
