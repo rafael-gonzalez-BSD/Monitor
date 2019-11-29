@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./procesos.component.scss']
 })
 export class ProcesosComponent implements OnInit {
-
+  tableColumns: string[] = ['accion', 'sistema', 'identificador', 'proceso', 'estado', 'critico'];
+  dataSource = [];
   constructor() { }
 
   ngOnInit() {
