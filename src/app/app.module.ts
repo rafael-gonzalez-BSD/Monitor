@@ -29,7 +29,7 @@ import { SistemasComponent } from './pages/inventario/sistemas/sistemas.componen
 import { ProcesosComponent } from './pages/inventario/procesos/procesos.component';
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
-import { MatTableModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -62,7 +62,7 @@ import { MatTableModule } from '@angular/material';
     MaterialModule,
     BreadcrumbModule,
     Ng7BootstrapBreadcrumbModule,
-    MatTableModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
