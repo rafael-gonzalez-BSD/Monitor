@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  urlApi: 'http://ap.bsdenterprise.com:8095/MonitorProcesos/api/'
 };
