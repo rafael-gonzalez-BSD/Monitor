@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Sistema } from '../../models/inventario/sistema';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Respuesta } from '../../models/base/respuesta';
-import { debug } from 'util';
 
 @Injectable({
   providedIn: 'root'
