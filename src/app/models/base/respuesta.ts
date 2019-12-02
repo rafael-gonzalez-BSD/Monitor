@@ -1,4 +1,4 @@
-export class Respuesta {
+export class RespuestaModel {
     datos: any;
     mensaje: string;
     id: number;
