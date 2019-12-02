@@ -16,34 +16,36 @@
 
     <div class="form-group">
         <div class="row">
-            <mat-table [dataSource]="dataSource">
-                <ng-container matColumnDef="accion">
-                    <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="sistema">
-                    <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="identificador">
-                    <mat-header-cell *matHeaderCellDef>Identificador</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="proceso">
-                    <mat-header-cell *matHeaderCellDef>Proceso</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="critico">
-                    <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
-                    <mat-cell *matCellDef="let policy"></mat-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
-            </mat-table>
+            <div class="col-12">
+                <mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="accion">
+                        <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.procesoId}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="sistema">
+                        <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.sistemaDescripcion}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="identificador">
+                        <mat-header-cell *matHeaderCellDef>Identificador</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.procesoId}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="proceso">
+                        <mat-header-cell *matHeaderCellDef>Proceso</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.procesoDescripcion}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.baja}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="critico">
+                        <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.critico}}</mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+                </mat-table>
+            </div>
         </div>
     </div>
 </div>

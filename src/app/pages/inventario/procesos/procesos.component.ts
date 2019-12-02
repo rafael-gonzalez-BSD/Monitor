@@ -13,13 +13,17 @@ export class ProcesosComponent implements OnInit {
   constructor(private procesoService: ProcesoService) { }
 
   ngOnInit() {
-    this.obtenerProcesos(new Proceso());
+    const m = new Proceso();
+    m.opcion = 4;
+    m.sistemaId = 0;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    this.obtenerProcesos(m);
   }
 
   obtenerProcesos(m: Proceso) {
     this.procesoService.obtenerProcesos(m).subscribe((res: any) => {
-      console.log(res);
-      this.dataSource = res;
+      this.dataSource = res.datos;
     });
   }
 }
