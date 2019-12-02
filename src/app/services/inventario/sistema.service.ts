@@ -14,12 +14,7 @@ export class SistemaService {
   constructor( private http: HttpClient ) { }
 
   guardarSistema(sistema: Sistema): Observable<Sistema> {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     const url = `${environment.urlApi}sistema`;
-    console.log(sistema);
-    console.log(url);
-    
     return this.http.post<Sistema>(url, sistema);
   }
 }

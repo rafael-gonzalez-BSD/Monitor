@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { GerenciaService } from '../../../../services/general/gerencia.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Sistema } from 'src/app/models/inventario/sistema';
@@ -23,7 +23,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any,
                private gerenciaService: GerenciaService,
-               private sistemaService: SistemaService ) {
+               private sistemaService: SistemaService,
+               private modal: MatDialog ) {
     this.tituloModal =  data.tituloModal;
    }
    ngOnInit() {
@@ -67,21 +68,22 @@ export class ModalGuardarSistemaComponent implements OnInit {
       this.sistemaModel.SistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
       this.sistemaModel.Baja = this.toggleBaja;
       this.sistemaModel.Alias = this.grupoFormulario.value.Alias;
-      this.sistemaModel.GerenciaId = 1; // this.grupoFormulario.value.GerenciaId;
+      this.sistemaModel.GerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.Descripcion = this.grupoFormulario.value.Descripcion;
 
-      console.log(this.sistemaModel);
       this.sistemaService.guardarSistema(sistemaModel).subscribe(
         (response: any) => {
-          alert('Registro almacenado correctamente');
-          console.log(response);
+          if (response.satisfactorio) {
+            alert(response.mensaje);
+            this.cerrarModal();
+          } else {
+            alert(response.mensaje);
+          }
         },
         err => {
           alert('Ocurrió un error');
         },
         () => {
-          // this.resetForm();
-          alert('Tarea completada');
         }
       );
     }
@@ -93,6 +95,10 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   changeMatToggle(event) {
     this.toggleBaja = !event.checked;
+  }
+
+  cerrarModal() {
+    this.modal.closeAll();
   }
 
 }
