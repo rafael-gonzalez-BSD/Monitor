@@ -10,7 +10,7 @@ import { Sistema } from 'src/app/models/inventario/sistema';
   styleUrls: ['./modal-guardar-sistema.component.scss']
 })
 export class ModalGuardarSistemaComponent implements OnInit {
-  
+
   tituloModal: string;
   // tslint:disable-next-line: ban-types
   datos: Object[] = [];
