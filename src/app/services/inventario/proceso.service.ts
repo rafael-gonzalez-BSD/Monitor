@@ -17,8 +17,8 @@ export class ProcesoService {
     return this.http.post<Respuesta>(url, m);
   }
 
-  obtenerProcesos() {
-    const url = `${environment.urlApi}proceso`;
-    return this.http.get(url);
+  obtenerProcesos(m: Proceso) {
+    const url = `${environment.urlApi}proceso/all`;
+    return this.http.get(url, m);
   }
 }

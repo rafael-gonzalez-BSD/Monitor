@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   urlApi: 'http://ap.bsdenterprise.com:8095/MonitorProcesos/api/'
 };
 
