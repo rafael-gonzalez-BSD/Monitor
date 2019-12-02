@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 // tslint:disable-next-line: max-line-length
 import { ModalGuardarSistemaComponent } from '../../../components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
+// tslint:disable-next-line: max-line-length
+import { ModalFiltrosSistemaComponent } from '../../../components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
 
 
 @Component({
@@ -11,10 +13,10 @@ import { ModalGuardarSistemaComponent } from '../../../components/inventario/sis
 })
 export class SistemasComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private modal: MatDialog) { }
 
   ngOnInit() {
-    this.abrirModalGuardar();
+    
   }
 
   abrirModalGuardar() {
@@ -24,7 +26,19 @@ export class SistemasComponent implements OnInit {
       tituloModal: 'Agregar Sistema'
     };
     dialogConfig.height = 'auto';
-    this.dialog.open(ModalGuardarSistemaComponent, dialogConfig);
+    this.modal.open(ModalGuardarSistemaComponent, dialogConfig);
+  }
+
+  abrirModalFiltros() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: 1,
+      tituloModal: 'Filtros'
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '70%';
+    dialogConfig.maxWidth = '768px';
+    this.modal.open(ModalFiltrosSistemaComponent, dialogConfig);
   }
 
 }

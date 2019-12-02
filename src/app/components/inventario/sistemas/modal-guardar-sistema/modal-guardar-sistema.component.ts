@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { GerenciaService } from '../../../../services/general/gerencia.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

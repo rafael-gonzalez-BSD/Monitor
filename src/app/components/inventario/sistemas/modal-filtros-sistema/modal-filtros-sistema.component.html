@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{tituloModal}}</h2>
+
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            <label for="">Sistema</label>
+            <select formControlName="GerenciaId" class="form-control">
+                <option value="">Seleccione...</option>
+            </select>
+            <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
+                    <div class="container-error" *ngIf="GerenciaId.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div> -->
+        </div>
+        <div class="col-lg-6 form-group">
+            <label for="">Estado</label>
+            <select formControlName="Baja" class="form-control">
+                <option value="">Seleccione...</option>
+            </select>
+            <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
+                    <div class="container-error" *ngIf="GerenciaId.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div> -->
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button class="boton-ternium" mat-button>Buscar</button>
+</mat-dialog-actions>

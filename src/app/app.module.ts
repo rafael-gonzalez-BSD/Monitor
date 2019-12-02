@@ -31,6 +31,7 @@ import { MantenimientosComponent } from './pages/inventario/mantenimientos/mante
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -54,7 +55,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SistemasComponent,
     ProcesosComponent,
     MantenimientosComponent,
-    ModalGuardarSistemaComponent
+    ModalGuardarSistemaComponent,
+    ModalFiltrosSistemaComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModalGuardarSistemaComponent]
+  entryComponents: [
+    ModalGuardarSistemaComponent,
+    ModalFiltrosSistemaComponent
+  ]
 })
 export class AppModule { }
