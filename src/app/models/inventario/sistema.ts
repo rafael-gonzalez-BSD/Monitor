@@ -1,3 +1,4 @@
+import { Opcion } from '../base/opcion';
 export class Sistema {
     SistemaId?: number;
     SistemaDescripcion: string;
@@ -5,4 +6,5 @@ export class Sistema {
     Alias: string;
     GerenciaId: number;
     Descripcion: string;
+    Opcion: number; 
 }
