@@ -30,6 +30,7 @@ import { ProcesosComponent } from './pages/inventario/procesos/procesos.componen
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -62,7 +63,8 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     BreadcrumbModule,
     Ng7BootstrapBreadcrumbModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

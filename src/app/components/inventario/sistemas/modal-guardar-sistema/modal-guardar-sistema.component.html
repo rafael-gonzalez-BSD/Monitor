@@ -1,42 +1,89 @@
 <h2 mat-dialog-title>{{tituloModal}}</h2>
-<mat-dialog-content class="mat-typography">
-    <div class="row">
-        <div class="col-lg-3 form-group">
-            <label for="">Identificador</label>
-            <input class="form-control" type="text">
+<form [formGroup]="grupoFormulario">
+    <mat-dialog-content class="mat-typography">
+        <div class="row">
+            <div class="col-lg-3 form-group">
+                <label for="">Identificador</label>
+                <input class="form-control" type="text" readonly>
+            </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Nombre</label>
+                <input formControlName="SistemaDescripcion" class="form-control" type="text">
+                <div class="div-errors"
+                    *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 form-group">
+                <label for="">Estado</label> <br>
+                <mat-slide-toggle formControlName="Baja"></mat-slide-toggle>
+                <div class="div-errors" *ngIf="Baja.invalid && ( Baja.touched )">
+                    <div class="container-error" *ngIf="Baja.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 form-group">
-            <label for="">Nombre</label>
-            <input class="form-control" type="text">
+        <div class="row">
+            <div class="col-lg-6 form-group">
+                <label for="">Alias</label>
+                <input formControlName="Alias" class="form-control" type="text">
+                <div class="div-errors" *ngIf="Alias.invalid && ( Alias.touched )">
+                    <div class="container-error" *ngIf="Alias.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="Alias.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="Alias.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Área Propietaria</label>
+                <select formControlName="GerenciaId" name="" id="" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Gerencia 1</option>
+                    <option value="2">Gerencia 2</option>
+                    <option value="3">Gerencia 3</option>
+                    <option value="4">Gerencia 4</option>
+                </select>
+                <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
+                    <div class="container-error" *ngIf="GerenciaId.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3 form-group">
-            <label for="">Estado</label> <br>
-            <mat-slide-toggle></mat-slide-toggle>
+        <div class="row">
+            <div class="col-lg-12 form-group">
+                <label for="">Descripción</label>
+                <textarea formControlName="Descripcion" rows="3" class="form-control"></textarea>
+                <div class="div-errors" *ngIf="Descripcion.invalid && ( Descripcion.touched )">
+                    <div class="container-error" *ngIf="Descripcion.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="Descripcion.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="Descripcion.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 form-group">
-            <label for="">Alias</label>
-            <input class="form-control" type="text">
-        </div>
-        <div class="col-lg-6 form-group">
-            <label for="">Área Propietaria</label>
-            <select name="" id="" class="form-control">
-                <option value="1">Option 1</option>
-                <option value="1">Option 1</option>
-                <option value="1">Option 1</option>
-                <option value="1">Option 1</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 form-group">
-            <label for="">Descipción</label>
-            <textarea rows="3" class="form-control"></textarea>
-        </div>
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button class="boton-ternium" mat-button>Guardar</button>
-</mat-dialog-actions>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button class="boton-ternium" mat-button>Guardar</button>
+    </mat-dialog-actions>
+</form>
