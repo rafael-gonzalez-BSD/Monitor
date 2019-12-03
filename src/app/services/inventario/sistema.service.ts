@@ -22,4 +22,12 @@ export class SistemaService {
     const resultado = this.http.get(url,  {params: parametros});
     return resultado;
   }
+  // tslint:disable-next-line: no-shadowed-variable
+  consultarSistemaAll(Opcion: string, SistemaDescripcion: string, Baja?: string) {
+    const  parametros = new  HttpParams().set('Opcion', Opcion)
+    .set('SistemaDescripcion', SistemaDescripcion);
+    const url = `${environment.urlApi}sistema/all`;
+    const resultado = this.http.get(url,  {params: parametros});
+    return resultado;
+  }
 }

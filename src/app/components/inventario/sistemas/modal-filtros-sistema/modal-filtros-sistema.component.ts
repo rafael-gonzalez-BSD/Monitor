@@ -23,7 +23,7 @@ export class ModalFiltrosSistemaComponent implements OnInit {
       if (response.satisfactorio) {
         this.datosComboSistema = response.datos;
       } else {
-        alert('Error al consultar el combo de sistemas');        
+        alert('Error al consultar el combo de sistemas');
       }
     },
     err => {

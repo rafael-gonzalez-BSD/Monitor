@@ -15,9 +15,7 @@ export class SistemasComponent implements OnInit {
 
   constructor(private modal: MatDialog) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   abrirModalGuardar() {
     const dialogConfig = new MatDialogConfig();

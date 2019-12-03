@@ -34,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GrillaProcesoComponent } from './components/inventario/procesos/grilla-proceso/grilla-proceso.component';
 import { CintillaProcesoComponent } from './components/inventario/procesos/cintilla-proceso/cintilla-proceso.component';
 import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
+import { GrillaSistemaComponent } from './components/inventario/sistemas/grilla-sistema/grilla-sistema.component';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -60,7 +61,8 @@ import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/m
     ModalGuardarSistemaComponent,
     GrillaProcesoComponent,
     CintillaProcesoComponent,
-    ModalFiltrosSistemaComponent
+    ModalFiltrosSistemaComponent,
+    GrillaSistemaComponent
   ],
   imports: [
     BrowserModule,
