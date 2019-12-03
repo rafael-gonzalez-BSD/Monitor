@@ -12,7 +12,10 @@ import { SistemaService } from '../../../../services/inventario/sistema.service'
 })
 export class ModalGuardarSistemaComponent implements OnInit {
 
-  tituloModal: string;
+  tituloModal: string;  
+  opcion: number;
+  datosEditar: any;
+  test = 'texto de prueba';
   // tslint:disable-next-line: ban-types
   datosCombo: Object[] = [];
   grupoFormulario: FormGroup;
@@ -26,6 +29,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
                private sistemaService: SistemaService,
                private modal: MatDialog ) {
     this.tituloModal =  data.tituloModal;
+    this.opcion = data.opcion;
+    this.datosEditar = data.datosEditar;
    }
    ngOnInit() {
      this.grupoFormulario = this.validarFormulario();
@@ -35,7 +40,6 @@ export class ModalGuardarSistemaComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      // Baja: new FormControl(null, [Validators.required]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       GerenciaId: new FormControl('', [Validators.required]),
       Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
@@ -53,7 +57,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
     });
   }
-
+  get SistemaId() { return this.grupoFormulario.get('SistemaId'); }
   get SistemaDescripcion() { return this.grupoFormulario.get('SistemaDescripcion'); }
   get Baja() { return this.grupoFormulario.get('Baja'); }
   get Alias() { return this.grupoFormulario.get('Alias'); }
@@ -64,7 +68,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     if (this.grupoFormulario.valid) {
       console.log(this.toggleBaja);
       this.sistemaModel = sistemaModel;
-      this.sistemaModel.Opcion = 1;
+      this.sistemaModel.Opcion = this.opcion;
       this.sistemaModel.SistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
       this.sistemaModel.Baja = this.toggleBaja;
       this.sistemaModel.Alias = this.grupoFormulario.value.Alias;

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>{{tituloModal}}</h2>
+<form [formGroup]="grupoFormulario" (ngSubmit)="guardarProceso(this.procesoModel)">
+    <mat-dialog-content class="mat-typography">
+        <div class="row">
+            <div class="col-lg-6 form-group toggleProceso" style="display: none;">
+                <label for="">Identificador</label>
+                <input class="form-control" type="text" readonly>
+            </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Nombre</label>
+                <input formControlName="procesoDescripcion" class="form-control" type="text">
+                <div class="div-errors" *ngIf="procesoDescripcion.invalid && ( procesoDescripcion.touched )">
+                    <div class="container-error" *ngIf="procesoDescripcion.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="procesoDescripcion.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="procesoDescripcion.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Sistema</label>
+                <select formControlName="sistemaId" name="" id="" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}
+                    </option>
+                </select>
+                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                    <div class="container-error" *ngIf="sistemaId.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 form-group">
+                <label for="">Estado</label> <br>
+                <mat-slide-toggle (change)="changeEstadoMatToggle($event)">
+                </mat-slide-toggle>
+
+            </div>
+            <div class="col-lg-3 form-group">
+                <label for="">Crítico</label> <br>
+                <mat-slide-toggle (change)="changeCriticoMatToggle($event)">
+                </mat-slide-toggle>
+
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button class="boton-ternium" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+    </mat-dialog-actions>
+</form>

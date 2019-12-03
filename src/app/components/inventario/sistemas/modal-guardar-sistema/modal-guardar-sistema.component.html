@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-lg-3 form-group">
                 <label for="">Identificador</label>
-                <input class="form-control" type="text" readonly>
+                <input formControlName="SistemaId" class="form-control" type="text" readonly [(ngModel)]="test">
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Nombre</label>
-                <input formControlName="SistemaDescripcion" class="form-control" type="text">
+                <input formControlName="SistemaDescripcion" class="form-control" type="text" [(ngModel)]="test">
                 <div class="div-errors" *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
                     <div class="container-error" *ngIf="SistemaDescripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>

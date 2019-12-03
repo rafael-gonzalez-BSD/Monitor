@@ -1,7 +1,10 @@
 import { ProcesoService } from './../../../services/inventario/proceso.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Proceso } from '../../../models/inventario/proceso';
-import { MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+// tslint:disable-next-line: max-line-length
+import { ModalGuardarProcesoComponent } from '../../../components/inventario/procesos/modal-guardar-proceso/modal-guardar-proceso.component';
+// tslint:disable-next-line: max-line-length
+import { ModalFiltrosProcesoComponent } from '../../../components/inventario/procesos/modal-filtros-proceso/modal-filtros-proceso.component';
 
 @Component({
   selector: 'app-procesos',
@@ -9,27 +12,19 @@ import { MatTableDataSource } from '@angular/material';
   styleUrls: ['./procesos.component.scss']
 })
 export class ProcesosComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'sistema', 'identificador', 'proceso', 'estado', 'critico'];
-  dataSource: MatTableDataSource<Proceso>;
+  constructor(private modal: MatDialog) {}
 
-  constructor(private procesoService: ProcesoService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-    const m = new Proceso();
-    m.opcion = 4;
-    m.sistemaId = 0;
-    m.procesoId = 0;
-    m.procesoDescripcion = '';
-    this.obtenerProcesos(m);
-  }
-
-  obtenerProcesos(m: Proceso) {
-    this.procesoService.obtenerProcesos(m).subscribe((res: any) => {
-      this.dataSource = new MatTableDataSource(res.datos);
-    });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  abrirModalFiltros() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: 1,
+      tituloModal: 'Filtros'
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '70%';
+    dialogConfig.maxWidth = '768px';
+    this.modal.open(ModalFiltrosProcesoComponent, dialogConfig);
   }
 }

@@ -9,12 +9,11 @@ import { Proceso } from '../../models/inventario/proceso';
   providedIn: 'root'
 })
 export class ProcesoService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  insertar(m: Proceso): Observable<RespuestaModel> {
+  guardarProceso(proceso: Proceso): Observable<Proceso> {
     const url = `${environment.urlApi}proceso`;
-    return this.http.post<RespuestaModel>(url, m);
+    return this.http.post<Proceso>(url, proceso);
   }
 
   obtenerProcesos(m: Proceso) {

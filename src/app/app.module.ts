@@ -12,9 +12,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavbarMovilComponent } from './components/navbar-movil/navbar-movil.component';
 import { LayoutMobilComponent } from './layouts/layout-mobil/layout-mobil.component';
 import { NavbarWebComponent } from './components/navbar-web/navbar-web.component';
-import {BreadcrumbModule} from 'primeng/breadcrumb';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import {Ng7BootstrapBreadcrumbModule} from 'ng7-bootstrap-breadcrumb';
+import { Ng7BootstrapBreadcrumbModule } from 'ng7-bootstrap-breadcrumb';
 
 import { DashboardComponent } from './pages/dashboard-monitor/dashboard/dashboard.component';
 import { ExcepcionesComponent } from './pages/dashboard-monitor/excepciones/excepciones.component';
@@ -34,6 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GrillaProcesoComponent } from './components/inventario/procesos/grilla-proceso/grilla-proceso.component';
 import { CintillaProcesoComponent } from './components/inventario/procesos/cintilla-proceso/cintilla-proceso.component';
 import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
+import { ModalGuardarProcesoComponent } from './components/inventario/procesos/modal-guardar-proceso/modal-guardar-proceso.component';
+import { ModalFiltrosProcesoComponent } from './components/inventario/procesos/modal-filtros-proceso/modal-filtros-proceso.component';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -60,7 +62,9 @@ import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/m
     ModalGuardarSistemaComponent,
     GrillaProcesoComponent,
     CintillaProcesoComponent,
-    ModalFiltrosSistemaComponent
+    ModalFiltrosSistemaComponent,
+    ModalGuardarProcesoComponent,
+    ModalFiltrosProcesoComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,9 @@ import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/m
   bootstrap: [AppComponent],
   entryComponents: [
     ModalGuardarSistemaComponent,
-    ModalFiltrosSistemaComponent
+    ModalFiltrosSistemaComponent,
+    ModalGuardarProcesoComponent,
+    ModalFiltrosProcesoComponent
   ]
 })
-export class AppModule { }
+export class AppModule {}
