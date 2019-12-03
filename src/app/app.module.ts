@@ -36,6 +36,7 @@ import { CintillaProcesoComponent } from './components/inventario/procesos/cinti
 import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
 import { ModalGuardarProcesoComponent } from './components/inventario/procesos/modal-guardar-proceso/modal-guardar-proceso.component';
 import { ModalFiltrosProcesoComponent } from './components/inventario/procesos/modal-filtros-proceso/modal-filtros-proceso.component';
+import { GrillaSistemaComponent } from './components/inventario/sistemas/grilla-sistema/grilla-sistema.component';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -64,7 +65,8 @@ import { ModalFiltrosProcesoComponent } from './components/inventario/procesos/m
     CintillaProcesoComponent,
     ModalFiltrosSistemaComponent,
     ModalGuardarProcesoComponent,
-    ModalFiltrosProcesoComponent
+    ModalFiltrosProcesoComponent,
+    GrillaSistemaComponent
   ],
   imports: [
     BrowserModule,
