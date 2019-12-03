@@ -8,44 +8,11 @@
                 <li class="li-breadcrumb"><a class="tc-7b7b7b" [routerLink]="['../sistemas']">Procesos</a></li>
 
                 <button [routerLink]="['site']" mat-icon-button>
-                            <i class="fa fa-filter" style="font-size:1.5em;"></i>
-                        </button>
+                                            <i class="fa fa-filter" style="font-size:1.5em;"></i>
+                                        </button>
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-12">
-                <mat-table [dataSource]="dataSource">
-                    <ng-container matColumnDef="accion">
-                        <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.procesoId}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="sistema">
-                        <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.sistemaDescripcion}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="identificador">
-                        <mat-header-cell *matHeaderCellDef>Identificador</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.procesoId}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="proceso">
-                        <mat-header-cell *matHeaderCellDef>Proceso</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.procesoDescripcion}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="estado">
-                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.baja}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="critico">
-                        <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.critico}}</mat-cell>
-                    </ng-container>
-                    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
-                </mat-table>
-            </div>
-        </div>
-    </div>
+    <app-cintilla-proceso></app-cintilla-proceso>
+    <app-grilla-proceso></app-grilla-proceso>
 </div>

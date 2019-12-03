@@ -31,6 +31,8 @@ import { MantenimientosComponent } from './pages/inventario/mantenimientos/mante
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GrillaProcesoComponent } from './components/inventario/procesos/grilla-proceso/grilla-proceso.component';
+import { CintillaProcesoComponent } from './components/inventario/procesos/cintilla-proceso/cintilla-proceso.component';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -54,7 +56,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SistemasComponent,
     ProcesosComponent,
     MantenimientosComponent,
-    ModalGuardarSistemaComponent
+    ModalGuardarSistemaComponent,
+    GrillaProcesoComponent,
+    CintillaProcesoComponent
   ],
   imports: [
     BrowserModule,
