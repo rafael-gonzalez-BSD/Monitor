@@ -72,6 +72,9 @@ import { CintillaProcesoComponent } from './components/inventario/procesos/cinti
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModalGuardarSistemaComponent]
+  entryComponents: [
+    ModalGuardarSistemaComponent,
+    ModalFiltrosSistemaComponent
+  ]
 })
 export class AppModule { }
