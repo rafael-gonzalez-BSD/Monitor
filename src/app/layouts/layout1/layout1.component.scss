@@ -1,79 +1,77 @@
-mat-sidenav-container{
+mat-sidenav-container {
     height: 100%;
     background-color: #F6F6F6;
 }
 
-mat-sidenav{
+mat-sidenav {
     background-color: #0a1522;
     width: 270px;
     visibility: visible !important;
     //spadding: 10px;
 }
 
-mat-toolbar{
+mat-toolbar {
     background-color: #0a1522 !important;
     height: 50px;
     padding-left: 0px;
     padding-right: 0px;
 }
 
-
 .menu-button {
     // transition: 300ms ease-in-out;
     transform: rotate(0deg);
-  }
-  .menu-button.rotated {
+}
+
+.menu-button.rotated {
     transform: rotate(180deg);
-  }
-  .submenu {
+}
+
+.submenu {
     overflow-y: hidden;
     //transition: 300ms ease-in-out;
     height: 0;
     margin-bottom: 1px;
-  }
-  .submenu.expanded {
+}
+
+.submenu.expanded {
     height: 100%;
-  }
+}
 
-
-.mat-list-menu{
+.mat-list-menu {
     width: 99%;
     padding-top: 1px;
 }
 
-mat-list-item :hover{
+mat-list-item :hover {
     color: #fff;
 }
 
-.item-secondary{
+.item-secondary {
     width: 180px;
     text-align: left;
     text-decoration: none;
 }
 
-
-app-navbar-movil{
+app-navbar-movil {
     display: none;
 }
 
-#wrapper{
+#wrapper {
     padding-left: 10px;
 }
 
 // =================== MEDIA QUERYS =====================================
 @media (max-width: 1024px) {
-    app-navbar-movil{
+    app-navbar-movil {
         display: block;
     }
-    app-navbar-web{
+    app-navbar-web {
         display: none;
     }
-    mat-sidenav{
+    mat-sidenav {
         visibility: hidden !important;
     }
-    mat-sidenav-content{
+    mat-sidenav-content {
         margin-left: 0px !important;
     }
-    
 }
-

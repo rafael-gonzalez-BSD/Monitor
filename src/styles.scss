@@ -1,4 +1,5 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'assets/scss/ternium.scss';
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -14,6 +15,14 @@ body {
 }
 
 // bg-colors
+.bc-f25c29 {
+    background-color: #F25C29 !important;
+}
+
+.bc-e7e7e7 {
+    background-color: #e7e7e7 !important;
+}
+
 .bc-orange1 {
     background-color: #ff9900 !important;
 }
@@ -27,6 +36,10 @@ body {
 }
 
 // text-colors
+.tc-white {
+    color: #FFF;
+}
+
 .tc-dark-gray-01 {
     color: #303030 !important;
 }

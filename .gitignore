@@ -29,6 +29,7 @@ speed-measure-plugin*.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.vscode/settings.json
 .history/*
 
 # misc
@@ -39,6 +40,9 @@ speed-measure-plugin*.json
 npm-debug.log
 yarn-error.log
 testem.log
+.prettierrc
+tslint.json
+package-lock.json
 /typings
 
 # System Files
