@@ -17,7 +17,7 @@ export class SistemaService {
     return this.http.post<Sistema>(url, sistema);
   }
   consultarSistemaCombo() {
-    const  parametros = new  HttpParams().set('Opcion', '3').set('Baja', '0');
+    const  parametros = new  HttpParams().set('Opcion', '3').set('Baja', 'false');
     const url = `${environment.urlApi}sistema/combo`;
     const resultado = this.http.get(url,  {params: parametros});
     return resultado;

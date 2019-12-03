@@ -9,8 +9,7 @@
             <div class="col-lg-6 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="SistemaDescripcion" class="form-control" type="text">
-                <div class="div-errors"
-                    *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
+                <div class="div-errors" *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
                     <div class="container-error" *ngIf="SistemaDescripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -24,14 +23,9 @@
             </div>
             <div class="col-lg-3 form-group">
                 <label for="">Estado</label> <br>
-                <mat-slide-toggle  (change) = "changeMatToggle($event)">
-
+                <mat-slide-toggle (change)="changeMatToggle($event)">
                 </mat-slide-toggle>
-                <!-- <div class="div-errors" *ngIf="Baja.invalid && ( Baja.touched )">
-                    <div class="container-error" *ngIf="Baja.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                </div> -->
+
             </div>
         </div>
         <div class="row">
@@ -53,8 +47,9 @@
             <div class="col-lg-6 form-group">
                 <label for="">Área Propietaria</label>
                 <select formControlName="GerenciaId" name="" id="" class="form-control">
-                        <option value="">Seleccione...</option>
-                    <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}</option>
+                    <option value="">Seleccione...</option>
+                    <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}
+                    </option>
                 </select>
                 <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
                     <div class="container-error" *ngIf="GerenciaId.errors.required">
@@ -83,6 +78,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancelar</button>
-        <button class="boton-ternium" mat-button [disabled]=!grupoFormulario.valid >Guardar</button>
+        <button class="boton-ternium" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
 </form>

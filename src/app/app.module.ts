@@ -59,7 +59,8 @@ import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/m
     MantenimientosComponent,
     ModalGuardarSistemaComponent,
     GrillaProcesoComponent,
-    CintillaProcesoComponent
+    CintillaProcesoComponent,
+    ModalFiltrosSistemaComponent
   ],
   imports: [
     BrowserModule,

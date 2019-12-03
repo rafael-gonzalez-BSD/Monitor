@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-lg-6 form-group">
             <label for="">Sistema</label>
-            <select formControlName="GerenciaId" class="form-control">
-                <option value="">Seleccione...</option>
+            <select  class="form-control">
+                <option value="">Todos</option>
+                <option *ngFor="let item of datosComboSistema" value={{item.identificador}}>{{item.descripcion}}</option>
             </select>
             <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
                     <div class="container-error" *ngIf="GerenciaId.errors.required">
@@ -15,8 +16,10 @@
         </div>
         <div class="col-lg-6 form-group">
             <label for="">Estado</label>
-            <select formControlName="Baja" class="form-control">
-                <option value="">Seleccione...</option>
+            <select class="form-control">
+                <option value="">Todos</option>
+                <option value="0">Encendido</option>
+                <option value="1">Apagado</option>
             </select>
             <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
                     <div class="container-error" *ngIf="GerenciaId.errors.required">

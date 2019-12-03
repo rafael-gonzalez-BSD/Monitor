@@ -26,6 +26,8 @@ export class SistemasComponent implements OnInit {
       tituloModal: 'Agregar Sistema'
     };
     dialogConfig.height = 'auto';
+    dialogConfig.width = '70%';
+    dialogConfig.maxWidth = '768px';
     this.modal.open(ModalGuardarSistemaComponent, dialogConfig);
   }
 

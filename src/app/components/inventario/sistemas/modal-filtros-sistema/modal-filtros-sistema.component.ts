@@ -20,8 +20,11 @@ export class ModalFiltrosSistemaComponent implements OnInit {
   }
   consultarSistemaCombo() {
     this.sistemaService.consultarSistemaCombo().subscribe((response: any) => {
-      this.datosComboSistema =  response;
-      console.log(this.datosComboSistema);
+      if (response.satisfactorio) {
+        this.datosComboSistema = response.datos;
+      } else {
+        alert('Error al consultar el combo de sistemas');        
+      }
     },
     err => {
     },
