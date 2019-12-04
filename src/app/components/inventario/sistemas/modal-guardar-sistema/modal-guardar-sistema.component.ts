@@ -15,6 +15,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   tituloModal: string;  
   opcion: number;
   datosEditar: any;
+  insercion: boolean;
   // tslint:disable-next-line: ban-types
   datosCombo: Object[] = [];
   grupoFormulario: FormGroup;
@@ -30,6 +31,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal =  data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
+    this.insercion =  data.insercion;
     
    }
    ngOnInit() {
@@ -67,16 +69,19 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   guardarSistema(sistemaModel: Sistema) {
     if (this.grupoFormulario.valid) {
-      console.log(this.toggleBaja);
+      this.insercion === true ? this.opcion = 1:this.opcion=3;
+
       this.sistemaModel = sistemaModel;
       this.sistemaModel.Opcion = this.opcion;
+      this.sistemaModel.SistemaId = this.grupoFormulario.value.SistemaId;
       this.sistemaModel.SistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
       this.sistemaModel.Baja = this.toggleBaja;
       this.sistemaModel.Alias = this.grupoFormulario.value.Alias;
       this.sistemaModel.GerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.Descripcion = this.grupoFormulario.value.Descripcion;
+      
 
-      this.sistemaService.guardarSistema(sistemaModel).subscribe(
+      this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
@@ -92,6 +97,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
         }
       );
     }
+
   }
 
   resetForm() {

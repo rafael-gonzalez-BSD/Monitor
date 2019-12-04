@@ -61,7 +61,7 @@ export class GrillaSistemaComponent implements OnInit {
   consultarSistemaId(datosEditar: any) {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
-    CONFIG_MODAL.data.opcion = 1;
+    CONFIG_MODAL.data.insercion = false;
     CONFIG_MODAL.data.tituloModal = "Editar Sistema";
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
@@ -69,5 +69,17 @@ export class GrillaSistemaComponent implements OnInit {
     this.modal.open(ModalGuardarSistemaComponent, CONFIG_MODAL);
     console.log(datosEditar);
     
+  }
+
+  abrirModalGuardar() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      insercion: true,
+      tituloModal: 'Agregar Sistema'
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
+    this.modal.open(ModalGuardarSistemaComponent, dialogConfig);
   }
 }
