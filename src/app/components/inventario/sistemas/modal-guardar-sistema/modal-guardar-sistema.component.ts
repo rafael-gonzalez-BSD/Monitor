@@ -15,7 +15,6 @@ export class ModalGuardarSistemaComponent implements OnInit {
   tituloModal: string;  
   opcion: number;
   datosEditar: any;
-  test = 'texto de prueba';
   // tslint:disable-next-line: ban-types
   datosCombo: Object[] = [];
   grupoFormulario: FormGroup;
@@ -30,7 +29,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
                private modal: MatDialog ) {
     this.tituloModal =  data.tituloModal;
     this.opcion = data.opcion;
-    this.datosEditar = data.datosEditar;
+    this.datosEditar = data;
+    
    }
    ngOnInit() {
      this.grupoFormulario = this.validarFormulario();
@@ -39,6 +39,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
+      SistemaId : new FormControl(),
       SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       GerenciaId: new FormControl('', [Validators.required]),

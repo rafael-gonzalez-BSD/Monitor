@@ -61,6 +61,7 @@ export class GrillaSistemaComponent implements OnInit {
   consultarSistemaId(datosEditar: any) {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
+    CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = "Editar Sistema";
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
