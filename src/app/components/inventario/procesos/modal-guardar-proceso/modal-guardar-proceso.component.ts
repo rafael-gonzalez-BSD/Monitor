@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Proceso } from '../../../../models/inventario/proceso';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { Opcion } from '../../../../models/base/opcion';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -12,6 +13,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ModalGuardarProcesoComponent implements OnInit {
   tituloModal: string;
+  opcion: number;
+  datosEditar: any;
+  esEdicion: boolean;
   datosCombo: Object[] = [];
   grupoFormulario: FormGroup;
   procesoModel = new Proceso();
@@ -26,6 +30,9 @@ export class ModalGuardarProcesoComponent implements OnInit {
     private modal: MatDialog
   ) {
     this.tituloModal = data.tituloModal;
+    this.opcion = data.opcion;
+    this.datosEditar = data;
+    this.esEdicion = data.edit;
   }
 
   ngOnInit() {
@@ -35,6 +42,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
+      procesoId: new FormControl(),
       procesoDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
       sistemaId: new FormControl('', [Validators.required])
     });
@@ -53,13 +61,13 @@ export class ModalGuardarProcesoComponent implements OnInit {
   guardarProceso(procesoModel: Proceso) {
     if (this.grupoFormulario.valid) {
       this.procesoModel = procesoModel;
-      this.procesoModel.opcion = 1;
+      this.procesoModel.opcion = this.opcion;
       this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
       this.procesoModel.baja = this.toggleBaja;
       this.procesoModel.critico = this.toggleCritico;
       this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId;
 
-      this.procesoService.guardarProceso(procesoModel).subscribe(
+      this.procesoService.guardarProceso(procesoModel, this.esEdicion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
@@ -75,7 +83,9 @@ export class ModalGuardarProcesoComponent implements OnInit {
       );
     }
   }
-
+  get procesoId() {
+    return this.grupoFormulario.get('procesoId');
+  }
   get procesoDescripcion() {
     return this.grupoFormulario.get('procesoDescripcion');
   }

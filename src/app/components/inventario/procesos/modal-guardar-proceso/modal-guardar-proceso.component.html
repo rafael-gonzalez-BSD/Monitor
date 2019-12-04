@@ -2,13 +2,13 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarProceso(this.procesoModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-6 form-group toggleProceso" style="display: none;">
+            <div class="col-lg-6 form-group" *ngIf="esEdicion">
                 <label for="">Identificador</label>
-                <input class="form-control" type="text" readonly>
+                <input class="form-control" formControlName="procesoId" type="text" readonly [ngModel]="datosEditar.procesoId">
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Nombre</label>
-                <input formControlName="procesoDescripcion" class="form-control" type="text">
+                <input formControlName="procesoDescripcion" class="form-control" type="text" [ngModel]="datosEditar.procesoDescripcion">
                 <div class="div-errors" *ngIf="procesoDescripcion.invalid && ( procesoDescripcion.touched )">
                     <div class="container-error" *ngIf="procesoDescripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
-                <select formControlName="sistemaId" name="" id="" class="form-control">
+                <select formControlName="sistemaId" name="" id="" class="form-control" [ngModel]="datosEditar.sistemaId">
                     <option value="">Seleccione...</option>
                     <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}
                     </option>

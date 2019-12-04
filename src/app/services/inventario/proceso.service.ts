@@ -11,9 +11,24 @@ import { Proceso } from '../../models/inventario/proceso';
 export class ProcesoService {
   constructor(private http: HttpClient) {}
 
-  guardarProceso(proceso: Proceso): Observable<Proceso> {
+  guardarProceso(proceso: Proceso, esEdicion: boolean): Observable<Proceso> {
     const url = `${environment.urlApi}proceso`;
-    return this.http.post<Proceso>(url, proceso);
+    if (esEdicion) {
+      return this.http.put<Proceso>(url, proceso);
+    } else {
+      return this.http.post<Proceso>(url, proceso);
+    }
+  }
+
+  consultarProcesoCombo(m: Proceso) {
+    let parametros = new HttpParams();
+    // tslint:disable-next-line: forin
+    for (const key in m) {
+      parametros = parametros.set(key, m[key].toString());
+    }
+
+    const url = `${environment.urlApi}proceso/combo`;
+    return this.http.get(url, { params: parametros });
   }
 
   obtenerProcesos(m: Proceso) {

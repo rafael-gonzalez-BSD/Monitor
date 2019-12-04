@@ -16,7 +16,9 @@
             <mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="accion">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.procesoId}}</mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="consultarProcesoId(row)"><mat-icon>edit</mat-icon></button>
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="sistema">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
