@@ -1,0 +1,47 @@
+<mat-tab-group (selectedTabChange)="router($event)">
+  <mat-tab label="Monitor">
+    <div class="row mt-3">
+      <div class="col-sm-6 mb-3">
+        <div class="card">
+          <span class="span-card ">DASHBOARD</span>
+        </div>
+      </div>
+      <div class="col-sm-6 mb-3">
+        <div class="card">
+          <span class="span-card ">EXCEPCIONES</span>
+        </div>
+      </div>
+      <div class="col-sm-6 mb-3">
+        <div class="card">
+          <span class="span-card ">EJECUCIONES</span>
+        </div>
+      </div>
+      <div class="col-sm-6 mb-3">
+        <div class="card">
+          <span class="span-card ">MONITOREO</span>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Configuración"> Configuración</mat-tab>
+  <mat-tab label="Inventario de Aplicaciones">
+      <div class="row mt-3">
+          <div class="col-sm-6 mb-3">
+            <div class="card" [routerLink]="['../sistemas']" >
+              <span class="span-card ">Catálogo de Sistemas</span>
+            </div>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <div class="card" [routerLink]="['../procesos']" >
+              <span class="span-card ">Catálogo de Procesos</span>
+            </div>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <div class="card" [routerLink]="['../mantenimientos']">
+              <span class="span-card ">Ventana de Mantenimientos</span>
+            </div>
+          </div>
+        </div>
+  </mat-tab>
+</mat-tab-group>

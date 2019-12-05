@@ -12,11 +12,13 @@ import { ProcesosComponent } from './pages/inventario/procesos/procesos.componen
 import { DetalleEjecucionesComponent } from './pages/dashboard-monitor/detalle-ejecuciones/detalle-ejecuciones.component';
 import { DetalleMonitoreoComponent } from './pages/dashboard-monitor/detalle-monitoreo/detalle-monitoreo.component';
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
+import { MenuMovilComponent } from './components/menu-movil/menu-movil.component';
 
 
 
 const rutasSite: Routes = [
   {path: 'dashboard', component: DashboardComponent},
+  {path: 'menu', component: MenuMovilComponent},
   {path: 'excepciones', component: ExcepcionesComponent},
   {path: 'excepciones/:id', component: DetalleExcepcionesComponent},
   {path: 'ejecuciones', component: EjecucionesComponent},

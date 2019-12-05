@@ -1,11 +1,17 @@
-<div class="wrapper">
+
+<div id="contenedor-sistema" class="wrapper">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <li class="li-breadcrumb"><a> <span class="tc-7b7b7b">Inventario de Aplicaciones</span> </a></li> /
             <li class="li-breadcrumb"><a class="tc-7b7b7b" [routerLink]="['../sistemas']">Sistemas</a></li>
 
             <button mat-icon-button (click) = "abrirModalFiltros()">
                 <i class="fa fa-filter" style="font-size:1.5em;"></i>
+            </button>
+        </div>
+        <div class="col-md-2 text-right">
+            <button [routerLink]="['../menu']" mat-icon-button>
+                <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="home">arrow_back</mat-icon>
             </button>
         </div>
     </div>

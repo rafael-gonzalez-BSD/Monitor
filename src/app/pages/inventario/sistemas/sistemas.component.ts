@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 // tslint:disable-next-line: max-line-length
 import { ModalFiltrosSistemaComponent } from '../../../components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 
 @Component({
@@ -11,9 +12,14 @@ import { ModalFiltrosSistemaComponent } from '../../../components/inventario/sis
 })
 export class SistemasComponent implements OnInit {
 
-  constructor(private modal: MatDialog) { }
+  constructor(private modal: MatDialog, public breakpointObserver: BreakpointObserver) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // if (this.breakpointObserver.isMatched('(min-width: 500px)')) {
+    //   console.log('Enough room!');
+    // }
+    
+  }
   abrirModalFiltros() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {

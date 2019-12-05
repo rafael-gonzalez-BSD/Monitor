@@ -37,6 +37,10 @@ import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/m
 import { ModalGuardarProcesoComponent } from './components/inventario/procesos/modal-guardar-proceso/modal-guardar-proceso.component';
 import { ModalFiltrosProcesoComponent } from './components/inventario/procesos/modal-filtros-proceso/modal-filtros-proceso.component';
 import { GrillaSistemaComponent } from './components/inventario/sistemas/grilla-sistema/grilla-sistema.component';
+import { MenuMovilComponent } from './components/menu-movil/menu-movil.component';
+import { LayoutBaseComponent } from './layouts/layout-base/layout-base.component';
+import { ContenedorPrincipalComponent } from './components/contenedor-principal/contenedor-principal.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -66,7 +70,10 @@ import { GrillaSistemaComponent } from './components/inventario/sistemas/grilla-
     ModalFiltrosSistemaComponent,
     ModalGuardarProcesoComponent,
     ModalFiltrosProcesoComponent,
-    GrillaSistemaComponent
+    GrillaSistemaComponent,
+    MenuMovilComponent,
+    LayoutBaseComponent,
+    ContenedorPrincipalComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +83,8 @@ import { GrillaSistemaComponent } from './components/inventario/sistemas/grilla-
     BreadcrumbModule,
     Ng7BootstrapBreadcrumbModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent],

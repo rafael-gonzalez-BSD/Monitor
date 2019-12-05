@@ -21,9 +21,6 @@ export class GrillaSistemaComponent implements OnInit {
   Baja = null;
   datosGrilla: any;
 
-  // modal
-
-
   constructor(private sistemaService: SistemaService, private modal: MatDialog) { }
 
   ngOnInit() {
