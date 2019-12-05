@@ -9,10 +9,15 @@ import { Proceso } from '../../models/inventario/proceso';
 })
 export class ProcesoService {
   filtros = new EventEmitter();
+  setFiltros = new EventEmitter();
   constructor(private http: HttpClient) {}
 
   obtenerFiltros(m: Proceso) {
     this.filtros.emit(m);
+  }
+
+  setearFiltros(m: Proceso) {
+    this.setFiltros.emit(m);
   }
 
   guardarProceso(proceso: Proceso, esEdicion: boolean): Observable<Proceso> {

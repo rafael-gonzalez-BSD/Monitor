@@ -14,8 +14,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   dataSource: Object[] = [];
   tituloModal: string;
   opcion: number;
-  datosComboSistema: Object[] = [];
-  datosComboProceso: Object[] = [];
+  datosComboSistema = [];
+  datosComboProceso = [];
   grupoFormulario: FormGroup;
   procesoModel = new Proceso();
 
@@ -37,20 +37,30 @@ export class ModalFiltrosProcesoComponent implements OnInit {
 
   buscar(procesoModel: Proceso) {
     if (this.grupoFormulario.valid) {
-      this.procesoModel = procesoModel;
+      const procesoCintilla = new Proceso();
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
         this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
+        const comboProceso = this.datosComboProceso['datos'];
+        procesoCintilla.procesoDescripcion = comboProceso.find(
+          x => x.identificador.toString() === this.procesoModel.procesoId
+        ).descripcion;
       } else {
         this.procesoModel.procesoId = 0;
+        procesoCintilla.procesoDescripcion = '';
       }
 
       if (this.grupoFormulario.value.sistemaId) {
         this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId;
+        const comboSistema = this.datosComboSistema['datos'];
+        procesoCintilla.sistemaDescripcion = comboSistema.find(
+          x => x.identificador.toString() === this.procesoModel.sistemaId
+        ).descripcion;
       } else {
         this.procesoModel.sistemaId = 0;
+        procesoCintilla.sistemaDescripcion = '';
       }
-
+      this.procesoService.setearFiltros(procesoCintilla);
       this.procesoService.obtenerFiltros(this.procesoModel);
 
       // this.procesoService.obtenerProcesos(procesoModel).subscribe((res: any) => {
@@ -66,6 +76,16 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       sistemaId: new FormControl()
     });
   }
+
+  // alSeleccionarComboSistema(e: Event) {
+  //   const textoSeleccionado = e.target['options'][e.target['options'].selectedIndex].text;
+  //   this.procesoModel.sistemaDescripcion = textoSeleccionado;
+  // }
+
+  // alSeleccionarComboProceso(e: Event) {
+  //   const textoSeleccionado = e.target['options'][e.target['options'].selectedIndex].text;
+  //   this.procesoModel.procesoDescripcion = textoSeleccionado;
+  // }
 
   consultarSistemaCombo() {
     this.sistemaService.consultarSistemaCombo().subscribe(

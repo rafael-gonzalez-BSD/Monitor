@@ -29,14 +29,9 @@ export class GrillaProcesoComponent implements OnInit {
     m.procesoId = 0;
     m.procesoDescripcion = '';
     this.obtenerProcesos(m);
-    this.procesoService.filtros.subscribe(m => {
-      console.log('Filtros', m);
+    this.procesoService.filtros.subscribe((m: any) => {
       this.obtenerProcesos(m);
     });
-  }
-
-  obtenerFiltros($event) {
-    console.log('Filtros obtenidos', $event);
   }
 
   abrirModalGuardar() {
