@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ModalGuardarProcesoComponent } from '../modal-guardar-proceso/modal-guardar-proceso.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -28,13 +29,18 @@ export class GrillaProcesoComponent implements OnInit {
     m.procesoId = 0;
     m.procesoDescripcion = '';
     this.obtenerProcesos(m);
+    this.procesoService.filtros.subscribe((m: any) => {
+      this.obtenerProcesos(m);
+    });
   }
 
   abrirModalGuardar() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Nuevo Proceso'
+      tituloModal: 'Nuevo Proceso',
+      edit: false,
+      opcion: 1
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
@@ -48,6 +54,19 @@ export class GrillaProcesoComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  consultarProcesoId(datosEditar: any) {
+    console.log('Datos de edicion', datosEditar);
+    const CONFIG_MODAL = new MatDialogConfig();
+    CONFIG_MODAL.data = datosEditar;
+    CONFIG_MODAL.data.edit = true;
+    CONFIG_MODAL.data.opcion = 3;
+    CONFIG_MODAL.data.tituloModal = 'Editar Proceso';
+    CONFIG_MODAL.height = 'auto';
+    CONFIG_MODAL.width = '90%';
+    CONFIG_MODAL.maxWidth = '1024px';
+    this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
   }
 
   applyFilter(filterValue: string) {

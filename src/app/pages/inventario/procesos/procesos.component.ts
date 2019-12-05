@@ -20,7 +20,8 @@ export class ProcesosComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Filtros'
+      tituloModal: 'Filtros',
+      opcion: 4
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
