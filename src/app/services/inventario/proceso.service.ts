@@ -1,15 +1,19 @@
 import { environment } from './../../../environments/environment.prod';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RespuestaModel } from '../../models/base/respuesta';
 import { Proceso } from '../../models/inventario/proceso';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcesoService {
+  filtros = new EventEmitter();
   constructor(private http: HttpClient) {}
+
+  obtenerFiltros(m: Proceso) {
+    this.filtros.emit(m);
+  }
 
   guardarProceso(proceso: Proceso, esEdicion: boolean): Observable<Proceso> {
     const url = `${environment.urlApi}proceso`;
@@ -24,7 +28,7 @@ export class ProcesoService {
     let parametros = new HttpParams();
     // tslint:disable-next-line: forin
     for (const key in m) {
-      parametros = parametros.set(key, m[key].toString());
+      parametros = parametros.set(key, m[key]);
     }
 
     const url = `${environment.urlApi}proceso/combo`;
@@ -35,7 +39,7 @@ export class ProcesoService {
     let parametros = new HttpParams();
     // tslint:disable-next-line: forin
     for (const key in m) {
-      parametros = parametros.set(key, m[key].toString());
+      parametros = parametros.set(key, m[key]);
     }
 
     const url = `${environment.urlApi}proceso/all`;

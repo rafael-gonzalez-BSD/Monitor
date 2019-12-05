@@ -29,6 +29,14 @@ export class GrillaProcesoComponent implements OnInit {
     m.procesoId = 0;
     m.procesoDescripcion = '';
     this.obtenerProcesos(m);
+    this.procesoService.filtros.subscribe(m => {
+      console.log('Filtros', m);
+      this.obtenerProcesos(m);
+    });
+  }
+
+  obtenerFiltros($event) {
+    console.log('Filtros obtenidos', $event);
   }
 
   abrirModalGuardar() {
@@ -36,7 +44,8 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.data = {
       id: 1,
       tituloModal: 'Nuevo Proceso',
-      edit: false
+      edit: false,
+      opcion: 1
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';

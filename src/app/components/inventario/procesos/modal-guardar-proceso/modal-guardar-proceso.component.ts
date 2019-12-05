@@ -60,8 +60,14 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   guardarProceso(procesoModel: Proceso) {
     if (this.grupoFormulario.valid) {
+      debugger;
+      console.log('Modelo Proceso', procesoModel);
       this.procesoModel = procesoModel;
       this.procesoModel.opcion = this.opcion;
+      if (this.grupoFormulario.value.procesoId) {
+        this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
+      }
+
       this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
       this.procesoModel.baja = this.toggleBaja;
       this.procesoModel.critico = this.toggleCritico;
