@@ -13,20 +13,26 @@ import { DetalleEjecucionesComponent } from './pages/dashboard-monitor/detalle-e
 import { DetalleMonitoreoComponent } from './pages/dashboard-monitor/detalle-monitoreo/detalle-monitoreo.component';
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { MenuMovilComponent } from './components/menu-movil/menu-movil.component';
+import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepciones/config-excepciones.component';
+import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
+import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
 
 const rutasSite: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
   { path: 'menu', component: MenuMovilComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'excepciones', component: ExcepcionesComponent },
   { path: 'excepciones/:id', component: DetalleExcepcionesComponent },
   { path: 'ejecuciones', component: EjecucionesComponent },
   { path: 'ejecuciones/:id', component: DetalleEjecucionesComponent },
   { path: 'monitoreo', component: MonitoreoComponent },
   { path: 'monitoreo/:id', component: DetalleMonitoreoComponent },
+  { path: 'config-excepciones', component: ConfigExcepcionesComponent },
+  { path: 'config-ejecuciones', component: ConfigEjecucionesComponent },
+  { path: 'config-conectores', component: ConfigConectoresComponent },
   { path: 'sistemas', component: SistemasComponent },
   { path: 'procesos', component: ProcesosComponent },
   { path: 'mantenimientos', component: MantenimientosComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
+  { path: '**', pathMatch: 'full', redirectTo: 'menu' }
 ];
 
 const routes: Routes = [

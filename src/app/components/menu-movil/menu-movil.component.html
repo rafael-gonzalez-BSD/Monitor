@@ -1,45 +1,28 @@
 <mat-tab-group (selectedTabChange)="enrutamiento($event)" [(selectedIndex)]="tabActivo">
   <mat-tab label="Monitor">
     <div class="row mt-3">
-      <div class="col-sm-6 mb-3">
-        <div class="card">
-          <span class="span-card ">Dashboard</span>
-        </div>
-      </div>
-      <div class="col-sm-6 mb-3">
-        <div class="card">
-          <span class="span-card ">Bitácora de Excepciones</span>
-        </div>
-      </div>
-      <div class="col-sm-6 mb-3">
-        <div class="card">
-          <span class="span-card ">Bitácora de Ejecuciones</span>
-        </div>
-      </div>
-      <div class="col-sm-6 mb-3">
-        <div class="card">
-          <span class="span-card ">Monitoreo</span>
+      <div class="col-sm-6 mb-3" *ngFor="let item of tarjetasMonitor">
+        <div class="card" [routerLink]="item.ruta" routerLinkActive="router-link-active" >
+          <span class="span-card ">{{item.titulo}}</span>
         </div>
       </div>
     </div>
 
   </mat-tab>
-  <mat-tab label="Configuración"> Configuración</mat-tab>
+  <mat-tab label="Configuración">
+      <div class="row mt-3">
+          <div class="col-sm-6 mb-3" *ngFor="let item of tarjetasConfiguracion">
+            <div class="card" [routerLink]="item.ruta">
+              <span class="span-card ">{{item.titulo}}</span>
+            </div>
+          </div>
+        </div>
+  </mat-tab>
   <mat-tab label="Inventario de Aplicaciones">
       <div class="row mt-3">
-          <div class="col-sm-6 mb-3">
-            <div class="card" [routerLink]="['../sistemas']" >
-              <span class="span-card ">Catálogo de Sistemas</span>
-            </div>
-          </div>
-          <div class="col-sm-6 mb-3">
-            <div class="card" [routerLink]="['../procesos']" >
-              <span class="span-card ">Catálogo de Procesos</span>
-            </div>
-          </div>
-          <div class="col-sm-6 mb-3">
-            <div class="card" [routerLink]="['../mantenimientos']">
-              <span class="span-card ">Ventana de Mantenimientos</span>
+          <div class="col-sm-6 mb-3" *ngFor="let item of tarjetasInventario">
+            <div class="card" [routerLink]="item.ruta">
+              <span class="span-card ">{{item.titulo}}</span>
             </div>
           </div>
         </div>
