@@ -22,6 +22,18 @@
                 </div>
             </div>
             <div class="col-lg-6 form-group">
+
+                <mat-form-field>
+                    <label for="">Sistema</label>
+                    <input matInput [matAutocomplete]="sistemaId" formControlName="sistemaId">
+                </mat-form-field>
+                <mat-autocomplete #sistemaId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let sistema of (datosCombo | async)?.datos" [value]="sistema.descripcion">
+                        <span>{{sistema.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            <!-- <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
                 <select formControlName="sistemaId" name="" id="" class="form-control" [ngModel]="datosEditar.sistemaId">
                     <option value="">Seleccione...</option>
@@ -33,7 +45,7 @@
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-3 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle (change)="changeEstadoMatToggle($event)">

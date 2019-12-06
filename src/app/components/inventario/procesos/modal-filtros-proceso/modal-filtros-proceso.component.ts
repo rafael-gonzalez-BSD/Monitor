@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Proceso } from '../../../../models/inventario/proceso';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
+import { Sistema } from 'src/app/models/inventario/sistema';
 
 @Component({
   selector: 'app-modal-filtros-proceso',
@@ -88,7 +89,9 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   // }
 
   consultarSistemaCombo() {
-    this.sistemaService.consultarSistemaCombo().subscribe(
+    const m = new Sistema();
+    m.Opcion = 3;
+    this.sistemaService.consultarSistemaCombo(m).subscribe(
       (res: any) => {
         this.datosComboSistema = res;
       },

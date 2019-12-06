@@ -22,7 +22,7 @@ import {
   MatPaginatorModule,
   MatPaginatorIntl,
   MatSortModule,
-  MatPaginator
+  MatAutocompleteModule
 } from '@angular/material';
 
 @NgModule({
@@ -45,7 +45,8 @@ import {
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
@@ -66,7 +67,8 @@ import {
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatAutocompleteModule
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: getLangPaginatorIntl() }]
 })
