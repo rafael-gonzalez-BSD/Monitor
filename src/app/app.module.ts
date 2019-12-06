@@ -47,6 +47,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepciones/config-excepciones.component';
 import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
 import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,9 @@ import { ConfigConectoresComponent } from './pages/configuracion/config-conector
     ReactiveFormsModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalGuardarSistemaComponent,

@@ -75,7 +75,7 @@ export class MenuMovilComponent implements OnInit {
           
         } else {
           console.log(rout.url);
-          if (rout.url==='site/dashboard' || rout.url === 'site/menu') {
+          if (rout.url==='/site/dashboard' || rout.url === '/site/menu') {
             rout.navigate(['site/dashboard']);
           console.log('Se manda al dasboard desde el menu ts');            
           }
