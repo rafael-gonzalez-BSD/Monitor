@@ -14,13 +14,10 @@ import { GeneralesService } from '../../../services/general/generales.service';
   styleUrls: ['./sistemas.component.scss']
 })
 export class SistemasComponent implements OnInit {
-  @Input() menuMovil: MenuMovilComponent;
   
 
   constructor(private modal: MatDialog, 
-    public breakpointObserver: BreakpointObserver, 
-    private router: Router,
-    private generalesService: GeneralesService) { }
+    private router: Router) { }
 
   ngOnInit() {
     

@@ -70,10 +70,17 @@ export class MenuMovilComponent implements OnInit {
     this.breakpointObserver
       .observe(['(max-width: 1025px)', Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
       .subscribe((state: BreakpointState) => {
+        console.log(rout.url);
         if (state.matches) {
-
+          
         } else {
-          rout.navigate(['site/dashboard']);
+          console.log(rout.url);
+          if (rout.url==='site/dashboard' || rout.url === 'site/menu') {
+            rout.navigate(['site/dashboard']);
+          console.log('Se manda al dasboard desde el menu ts');            
+          }
+          
+          
         }
       });
   }
