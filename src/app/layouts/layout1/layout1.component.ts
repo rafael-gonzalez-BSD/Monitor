@@ -13,6 +13,7 @@ export class Layout1Component implements OnInit {
   mostrarMenu1 =  false;
   mostrarMenu2 =  false;
   constructor(private sidebarService: SidebarService, private router: Router, private breakpointObserver: BreakpointObserver) {
+    //localStorage.setItem('indexMenu', '0');
     
    }
 

@@ -1,24 +1,24 @@
-<mat-tab-group (selectedTabChange)="router($event)">
+<mat-tab-group (selectedTabChange)="enrutamiento($event)" [(selectedIndex)]="tabActivo">
   <mat-tab label="Monitor">
     <div class="row mt-3">
       <div class="col-sm-6 mb-3">
         <div class="card">
-          <span class="span-card ">DASHBOARD</span>
+          <span class="span-card ">Dashboard</span>
         </div>
       </div>
       <div class="col-sm-6 mb-3">
         <div class="card">
-          <span class="span-card ">EXCEPCIONES</span>
+          <span class="span-card ">Bitácora de Excepciones</span>
         </div>
       </div>
       <div class="col-sm-6 mb-3">
         <div class="card">
-          <span class="span-card ">EJECUCIONES</span>
+          <span class="span-card ">Bitácora de Ejecuciones</span>
         </div>
       </div>
       <div class="col-sm-6 mb-3">
         <div class="card">
-          <span class="span-card ">MONITOREO</span>
+          <span class="span-card ">Monitoreo</span>
         </div>
       </div>
     </div>
