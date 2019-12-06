@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 // tslint:disable-next-line: max-line-length
 import { ModalFiltrosSistemaComponent } from '../../../components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { MenuMovilComponent } from '../../../components/menu-movil/menu-movil.component';
+import { Router } from '@angular/router';
+import { GeneralesService } from '../../../services/general/generales.service';
 
 
 @Component({
@@ -11,13 +14,16 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
   styleUrls: ['./sistemas.component.scss']
 })
 export class SistemasComponent implements OnInit {
+  @Input() menuMovil: MenuMovilComponent;
+  
 
-  constructor(private modal: MatDialog, public breakpointObserver: BreakpointObserver) { }
+  constructor(private modal: MatDialog, 
+    public breakpointObserver: BreakpointObserver, 
+    private router: Router,
+    private generalesService: GeneralesService) { }
 
   ngOnInit() {
-    // if (this.breakpointObserver.isMatched('(min-width: 500px)')) {
-    //   console.log('Enough room!');
-    // }
+    
     
   }
   abrirModalFiltros() {
@@ -30,6 +36,11 @@ export class SistemasComponent implements OnInit {
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
     this.modal.open(ModalFiltrosSistemaComponent, dialogConfig);
+  }
+
+  regresar(){
+    localStorage.setItem('indexMenu', '2');
+    this.router.navigate(['site/menu']);
   }
 
 }
