@@ -44,6 +44,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 
 // import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepciones/config-excepciones.component';
+import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
+import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import { LayoutModule } from '@angular/cdk/layout';
     GrillaSistemaComponent,
     MenuMovilComponent,
     LayoutBaseComponent,
-    ContenedorPrincipalComponent
+    ContenedorPrincipalComponent,
+    ConfigExcepcionesComponent, 
+    ConfigEjecucionesComponent,
+    ConfigConectoresComponent
   ],
   imports: [
     BrowserModule,

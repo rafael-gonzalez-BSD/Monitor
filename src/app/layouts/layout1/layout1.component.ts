@@ -21,6 +21,22 @@ export class Layout1Component implements OnInit {
     this.sidebarService.change.subscribe(open => {
       this.open = open;
     });
+
+    // this.breakpointObserver
+    //   .observe(['(max-width: 1025px)', Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
+    //   .subscribe((state: BreakpointState) => {
+    //     if (state.matches) {
+    //       console.log('match true');
+    //       let url = this.router.url;
+    //       console.log(url);
+          
+    //       this.router.navigate(['site/menu']);
+          
+
+    //     } else {
+          
+    //     }
+    //   });
     
   }
 }

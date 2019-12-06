@@ -10,10 +10,60 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./menu-movil.component.scss']
 })
 export class MenuMovilComponent implements OnInit {
-  debugger;
   // tslint:disable-next-line: radix
   tabActivo = parseInt(localStorage.getItem('indexMenu'));
-  selected = new FormControl(0);
+  tarjetasMonitor = [
+    {
+      titulo: 'Dashboard',
+      ruta: '../dashboard'
+    },
+    {
+      titulo: 'Bitácora de Excepciones',
+      ruta: '../excepciones'
+    },
+    {
+      titulo: 'Bitácora de Ejecuciones',
+      ruta: '../ejecuciones'
+    },
+    {
+      titulo: 'Monitoreo',
+      ruta: '../monitoreo'
+    }
+  ];
+
+  tarjetasConfiguracion = [
+    {
+      titulo: 'Bitácora de Excepciones',
+      ruta: '../config-excepciones'
+    },
+    {
+      titulo: 'Bitácora de Ejecuciones',
+      ruta: '../config-ejecuciones'
+    },
+    {
+      titulo: 'Bitácora de Monitoreo',
+      ruta: '../config-conectorees'
+    }
+  ];
+
+  tarjetasInventario = [
+    {
+      titulo: 'Catálogo de Sistemas',
+      ruta: '../sistemas'
+    },
+    {
+      titulo: 'Catálogo de Procesos',
+      ruta: '../procesos'
+    },
+    {
+      titulo: 'Catálogo de Perfiles',
+      ruta: ''
+    },
+    {
+      titulo: 'Administrar Mantenimientos',
+      ruta: '../mantenimientos'
+    }
+  ];
 
 
   constructor(private rout: Router, private breakpointObserver: BreakpointObserver, private generalesService: GeneralesService) {
@@ -23,18 +73,15 @@ export class MenuMovilComponent implements OnInit {
         if (state.matches) {
 
         } else {
-          rout.navigate(['../dashboard']);
+          rout.navigate(['site/dashboard']);
         }
       });
-
-
-
   }
 
   ngOnInit() {
   }
 
-  enrutamiento(tab) {
+  enrutamiento( tab ) {
     switch (tab.index) {
       case 0: {
         localStorage.setItem('indexMenu', '0')
@@ -54,7 +101,4 @@ export class MenuMovilComponent implements OnInit {
       }
     }
   }
-
-
-
 }
