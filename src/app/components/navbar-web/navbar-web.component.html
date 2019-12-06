@@ -1,20 +1,19 @@
 <mat-toolbar>
     <div>
-        <img [ngClass]="{'img-display-none': !opened}" id="logo-ternium" src="../../../assets/img/logo-ternium.png"
-            alt="">
+        <img [ngClass]="{'img-display-none': !opened}" id="logo-ternium" src="./assets/img/logo-ternium.png" alt="">
     </div>
     <div class="titulo-web" [ngClass]="{'titulo-navbar': !opened}">
         <div class="titulo-monitor">MONITOR</div>
         <div class="titulo-proceso">PROCESOS</div>
     </div>
 
-    <button [ngClass]="{'icono-nav-toogle-closed': !opened}" class="icono-nav-toogle" mat-icon-button
-        (click)="showSidebar()">
+    <button [ngClass]="{'icono-nav-toogle-closed': !opened}" class="icono-nav-toogle" mat-icon-button (click)="showSidebar()">
         <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="menu">menu</mat-icon>
     </button>
     <button [routerLink]="['site']" mat-icon-button class="icono-home">
         <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="home">home</mat-icon>
     </button>
     <span style="flex: 1 1 auto;"></span>
-    <img class="img-user" src="../../../assets/img/user_icon.png" alt="usuario">
+    <img class="img-user" src="./assets/img/user_icon.png" alt="usuario">
+
 </mat-toolbar>

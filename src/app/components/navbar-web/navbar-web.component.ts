@@ -10,11 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar-web.component.scss']
 })
 export class NavbarWebComponent implements OnInit {
+  opened = true;
+  constructor(private sidebarService: SidebarService, private router: Router) {}
 
-  constructor(private sidebarService: SidebarService, private router: Router) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   showSidebar() {
     this.sidebarService.toggle();
@@ -23,5 +22,4 @@ export class NavbarWebComponent implements OnInit {
   goHome() {
     this.router.navigate(['site']);
   }
-
 }

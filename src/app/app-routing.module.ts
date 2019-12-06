@@ -14,34 +14,32 @@ import { DetalleMonitoreoComponent } from './pages/dashboard-monitor/detalle-mon
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { MenuMovilComponent } from './components/menu-movil/menu-movil.component';
 
-
-
 const rutasSite: Routes = [
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'menu', component: MenuMovilComponent},
-  {path: 'excepciones', component: ExcepcionesComponent},
-  {path: 'excepciones/:id', component: DetalleExcepcionesComponent},
-  {path: 'ejecuciones', component: EjecucionesComponent},
-  {path: 'ejecuciones/:id', component: DetalleEjecucionesComponent},
-  {path: 'monitoreo', component: MonitoreoComponent},
-  {path: 'monitoreo/:id', component: DetalleMonitoreoComponent},
-  {path: 'sistemas', component: SistemasComponent},
-  {path: 'procesos', component: ProcesosComponent},
-  {path: 'mantenimientos', component: MantenimientosComponent},
-  {path: '**', pathMatch: 'full', redirectTo: 'dashboard'}
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'menu', component: MenuMovilComponent },
+  { path: 'excepciones', component: ExcepcionesComponent },
+  { path: 'excepciones/:id', component: DetalleExcepcionesComponent },
+  { path: 'ejecuciones', component: EjecucionesComponent },
+  { path: 'ejecuciones/:id', component: DetalleEjecucionesComponent },
+  { path: 'monitoreo', component: MonitoreoComponent },
+  { path: 'monitoreo/:id', component: DetalleMonitoreoComponent },
+  { path: 'sistemas', component: SistemasComponent },
+  { path: 'procesos', component: ProcesosComponent },
+  { path: 'mantenimientos', component: MantenimientosComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
 ];
-
 
 const routes: Routes = [
   {
-    path: 'site', component: Layout1Component,
+    path: 'site',
+    component: Layout1Component,
     children: rutasSite
   },
-  {path: '**', pathMatch: 'full', redirectTo: 'site'}
+  { path: '**', pathMatch: 'full', redirectTo: 'site' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -5,6 +5,7 @@ import { Proceso } from '../../../../models/inventario/proceso';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { Sistema } from 'src/app/models/inventario/sistema';
+import { RespuestaModel } from '../../../../models/base/respuesta';
 
 @Component({
   selector: 'app-modal-filtros-proceso',
@@ -15,8 +16,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   dataSource: Object[] = [];
   tituloModal: string;
   opcion: number;
-  datosComboSistema = [];
-  datosComboProceso = [];
+  datosComboSistema: RespuestaModel;
+  datosComboProceso: RespuestaModel;
   grupoFormulario: FormGroup;
   procesoModel = new Proceso();
 
