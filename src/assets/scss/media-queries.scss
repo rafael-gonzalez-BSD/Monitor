@@ -1,6 +1,60 @@
 // =================== MEDIA QUERYS =====================================
 @media (max-width: 736px) {
-    .item-breadcrumb{
+    .item-breadcrumb {
         font-size: small !important;
-    }  
+    }
+}
+
+@media screen and (max-width: 1160px) {
+    .mat-table {
+        border: 0;
+        vertical-align: middle;
+        ////Oculta el header de la tabla
+        // .mat-header-cell {
+        //     display: none;
+        //     border: 10px solid;
+        //     clip: rect(0 0 0 0);
+        //     height: 1px;
+        //     margin: -1px;
+        //     padding: 0;
+        //     position: absolute;
+        //     width: 1px;
+        // }
+        .mat-header-row {
+            display: none;
+        }
+        .mat-row {
+            display: block;
+            border-bottom: 5px solid #ddd;
+            &::after {
+                display: none;
+            }
+        }
+        caption {
+            font-size: 1em;
+        }
+        .mat-cell {
+            display: block;
+            border-bottom: 1px solid #e7e7e7;
+            font-size: 12px;
+            text-align: right;
+            height: 30px;
+            padding: 15px;
+            .mat-icon-button {
+                top: -10px;
+                right: -10px;
+            }
+            &:before {
+                content: attr(data-label);
+                display: block;
+                float: left;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 12px;
+            }
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
 }
