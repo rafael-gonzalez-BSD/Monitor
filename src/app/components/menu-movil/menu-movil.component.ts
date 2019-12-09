@@ -42,7 +42,7 @@ export class MenuMovilComponent implements OnInit {
     },
     {
       titulo: 'Bitácora de Monitoreo',
-      ruta: '../config-conectorees'
+      ruta: '../config-conectores'
     }
   ];
 

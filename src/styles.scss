@@ -197,3 +197,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1e2533",endCo
 }
 
 
+// mat-tab 
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #ff3300 !important;
+}
+.mat-tab-label-active{
+    color: #ff3300 !important;
+    font-weight: bold;
+}
