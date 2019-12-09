@@ -1,5 +1,5 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import 'assets/scss/ternium.scss';
+@import './assets/scss/ternium.scss';
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -63,6 +63,7 @@ body {
 .tc-ff3300 {
     color: #ff3300 !important;
 }
+
 .tc-f6f6f6 {
     color: #f6f6f6 !important;
 }
@@ -136,11 +137,6 @@ mat-dialog-container {
     color: #7b7b7b !important;
 }
 
-// =========== ESTILOS DE CONTROLES ===============
-input {
-    border-radius: 20px !important;
-}
-
 // slide
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
     background-color: #ff3300 !important
@@ -172,28 +168,19 @@ select {
     border-radius: 20px !important;
 }
 
-// ========== ESTILOS DE TABLAS
-.mat-header-cell {
-    background-color: #a9aFB0 !important;
-    color: white !important;
-}
-
-
 // ============== GRADIENTE ==================
-.gradiente1{
-    background: rgb(255,51,0);
-    background: -moz-linear-gradient(45deg, rgba(255,51,0,1) 0%, rgba(255,153,0,1) 50%);
-    background: -webkit-linear-gradient(45deg, rgba(255,51,0,1) 0%, rgba(255,153,0,1) 50%);
-    background: linear-gradient(45deg, rgba(255,51,0,1) 0%, rgba(255,153,0,1) 50%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff3300",endColorstr="#ff9900",GradientType=1);
+.gradiente1 {
+    background: rgb(255, 51, 0);
+    background: -moz-linear-gradient(45deg, rgba(255, 51, 0, 1) 0%, rgba(255, 153, 0, 1) 50%);
+    background: -webkit-linear-gradient(45deg, rgba(255, 51, 0, 1) 0%, rgba(255, 153, 0, 1) 50%);
+    background: linear-gradient(45deg, rgba(255, 51, 0, 1) 0%, rgba(255, 153, 0, 1) 50%);
+    // filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#ff3300", endColorstr="#ff9900", GradientType=1);
 }
 
-.gradiente2{
-    background: rgb(30,37,51);
-background: -moz-linear-gradient(45deg, rgba(30,37,51,1) 0%, rgba(1,13,26,1) 35%);
-background: -webkit-linear-gradient(45deg, rgba(30,37,51,1) 0%, rgba(1,13,26,1) 35%);
-background: linear-gradient(45deg, rgba(30,37,51,1) 0%, rgba(1,13,26,1) 35%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1e2533",endColorstr="#010d1a",GradientType=1);
+.gradiente2 {
+    background: rgb(30, 37, 51);
+    background: -moz-linear-gradient(45deg, rgba(30, 37, 51, 1) 0%, rgba(1, 13, 26, 1) 35%);
+    background: -webkit-linear-gradient(45deg, rgba(30, 37, 51, 1) 0%, rgba(1, 13, 26, 1) 35%);
+    background: linear-gradient(45deg, rgba(30, 37, 51, 1) 0%, rgba(1, 13, 26, 1) 35%);
+    // filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1e2533", endColorstr="#010d1a", GradientType=1);
 }
-
-

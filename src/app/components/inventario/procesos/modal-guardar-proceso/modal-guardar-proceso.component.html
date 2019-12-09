@@ -23,10 +23,13 @@
             </div>
             <div class="col-lg-6 form-group">
 
-                <mat-form-field>
-                    <label for="">Sistema</label>
-                    <input matInput [matAutocomplete]="sistemaId" formControlName="sistemaId">
-                </mat-form-field>
+                <label for="">Sistema</label>
+                <input class="form-control form-autocompletado" type="text" matInput [matAutocomplete]="sistemaId" formControlName="sistemaId">
+                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                    <div class="container-error" *ngIf="sistemaId.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                </div>
                 <mat-autocomplete #sistemaId="matAutocomplete" [displayWith]="mostrarValor">
                     <mat-option *ngFor="let sistema of (datosCombo | async)?.datos" [value]="sistema.descripcion">
                         <span>{{sistema.descripcion}}</span>
