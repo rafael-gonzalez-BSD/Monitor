@@ -19,3 +19,17 @@
         transition: 0.4s;
       
 }
+
+mat-card {
+    background-color: #7b7b7b;    
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.contenido-card{
+    color: #e7e7e7 !important;
+    font-size: 17px !important;
+}
