@@ -68,18 +68,20 @@ export class MenuMovilComponent implements OnInit {
 
   constructor(private rout: Router, private breakpointObserver: BreakpointObserver, private generalesService: GeneralesService) {
     this.breakpointObserver
-      .observe(['(max-width: 1025px)', Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
+      .observe(['(min-width: 1026px)', Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
       .subscribe((state: BreakpointState) => {
-        console.log(rout.url);
         if (state.matches) {
+          console.log('match');
+          
+          console.log(rout.url);
+          if ( rout.url === '/site/menu') {
+            rout.navigate(['site/dashboard']);
+          } 
+          
           
         } else {
-          console.log(rout.url);
-          if (rout.url==='/site/dashboard' || rout.url === '/site/menu') {
-            rout.navigate(['site/dashboard']);
-          console.log('Se manda al dasboard desde el menu ts');            
-          }
-          
+                  
+          console.log('no match');
           
         }
       });
