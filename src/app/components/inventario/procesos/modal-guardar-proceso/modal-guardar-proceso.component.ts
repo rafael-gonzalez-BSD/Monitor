@@ -60,7 +60,9 @@ export class ModalGuardarProcesoComponent implements OnInit {
     return new FormGroup({
       procesoId: new FormControl(),
       procesoDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-      sistemaId: new FormControl('', [Validators.required])
+      sistemaId: new FormControl('', [Validators.required]),
+      baja: new FormControl(),
+      critico: new FormControl()
     });
   }
 
@@ -131,10 +133,10 @@ export class ModalGuardarProcesoComponent implements OnInit {
     this.grupoFormulario.reset();
   }
   changeEstadoMatToggle(event) {
-    this.toggleBaja = !event.checked;
+    this.toggleBaja = event.checked;
   }
   changeCriticoMatToggle(event) {
-    this.toggleCritico = !event.checked;
+    this.toggleCritico = event.checked;
   }
   cerrarModal() {
     this.modal.closeAll();

@@ -48,13 +48,13 @@
             </div> -->
             <div class="col-lg-3 form-group">
                 <label for="">Estado</label> <br>
-                <mat-slide-toggle (change)="changeEstadoMatToggle($event)">
+                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
                 </mat-slide-toggle>
 
             </div>
             <div class="col-lg-3 form-group">
                 <label for="">Crítico</label> <br>
-                <mat-slide-toggle (change)="changeCriticoMatToggle($event)">
+                <mat-slide-toggle formControlName="critico" [ngModel]="datosEditar.critico" (change)="changeCriticoMatToggle($event)">
                 </mat-slide-toggle>
 
             </div>

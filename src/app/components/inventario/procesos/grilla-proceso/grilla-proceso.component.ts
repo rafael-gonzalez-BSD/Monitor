@@ -69,6 +69,10 @@ export class GrillaProcesoComponent implements OnInit {
     this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
   }
 
+  actualizarEstado(e: Event, row) {}
+
+  actualizarCritico(e: Event, row) {}
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

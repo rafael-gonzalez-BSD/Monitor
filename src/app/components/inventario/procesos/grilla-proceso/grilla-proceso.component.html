@@ -44,13 +44,17 @@
                 <!-- COLUMNA ESTADO -->
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="estado">{{row.baja}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="estado">
+                        <mat-slide-toggle [checked]="row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
+                    </mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA CRITICO -->
                 <ng-container matColumnDef="critico">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Crítico</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="critico">{{row.critico}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="critico">
+                        <mat-slide-toggle [checked]="row.critico" (change)="actualizarCritico($event,row)"></mat-slide-toggle>
+                    </mat-cell>
                 </ng-container>
 
                 <!-- CONFIGURACION DE COLUMNAS Y FILAS -->
