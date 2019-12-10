@@ -22,6 +22,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   sistemaModel = new Sistema();
 
   toggleBaja = true;
+  gerenciaId: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,6 +33,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
+    this.gerenciaId =  data.gerenciaId;
     this.insercion = data.insercion;
   }
   ngOnInit() {
@@ -44,7 +46,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
       SistemaId: new FormControl(),
       SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      GerenciaId: new FormControl('', [Validators.required]),
+      GerenciaId: new FormControl('-1', [Validators.required]),
       Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)])
     });
   }
@@ -52,10 +54,10 @@ export class ModalGuardarSistemaComponent implements OnInit {
   consultarGerenciaCombo() {
     this.gerenciaService.consultarGerenciaCombo().subscribe(
       (response: any) => {
-        this.datosCombo = response;
+        this.datosCombo = response.datos;
         console.log(this.datosCombo);
       },
-      err => {},
+      err => {console.log('Error interno al consultar gerencia');},
       () => {}
     );
   }
@@ -80,11 +82,14 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   guardarSistema(sistemaModel: Sistema) {
     if (this.grupoFormulario.valid) {
-      this.insercion === true ? (this.opcion = 1) : (this.opcion = 3);
+      this.insercion ? (this.opcion = 1) : (this.opcion = 3);
 
       this.sistemaModel = sistemaModel;
+      if (this.grupoFormulario.value.SistemaId) {
+        this.sistemaModel.SistemaId = this.grupoFormulario.value.SistemaId;
+      }
       this.sistemaModel.Opcion = this.opcion;
-      this.sistemaModel.SistemaId = this.grupoFormulario.value.SistemaId;
+      
       this.sistemaModel.SistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
       this.sistemaModel.Baja = this.toggleBaja;
       this.sistemaModel.Alias = this.grupoFormulario.value.Alias;

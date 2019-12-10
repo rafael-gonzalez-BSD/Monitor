@@ -29,7 +29,6 @@ export class GrillaSistemaComponent implements OnInit {
 
   consultarSistemaAll() {
     this.sistemaService.consultarSistemaAll(this.Opcion, this.SistemaDescripcion, this.Baja).subscribe((response: any) => {
-      console.log(response);
       if (response.satisfactorio) {
         this.dataSource = new MatTableDataSource(response.datos);
         this.dataSource.paginator = this.paginator;
@@ -72,7 +71,8 @@ export class GrillaSistemaComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       insercion: true,
-      tituloModal: 'Agregar Sistema'
+      tituloModal: 'Agregar Sistema',
+      gerenciaId: '-1'
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';

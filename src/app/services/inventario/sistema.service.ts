@@ -13,6 +13,7 @@ export class SistemaService {
   constructor(private http: HttpClient) {}
 
   guardarSistema(sistema: Sistema, insercion: boolean): Observable<Sistema> {
+    debugger
 
     let resultado: any;
     if (insercion) {
