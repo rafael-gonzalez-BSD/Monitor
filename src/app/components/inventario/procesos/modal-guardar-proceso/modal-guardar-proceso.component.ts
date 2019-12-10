@@ -46,7 +46,6 @@ export class ModalGuardarProcesoComponent implements OnInit {
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name))
-      // switchMap(value => this.filter(value, 3))
     );
   }
 
