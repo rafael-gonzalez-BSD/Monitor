@@ -96,8 +96,6 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   guardarProceso(procesoModel: Proceso) {
     if (this.grupoFormulario.valid) {
-      debugger;
-      console.log('Modelo Proceso', procesoModel);
       this.procesoModel = procesoModel;
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
@@ -113,6 +111,11 @@ export class ModalGuardarProcesoComponent implements OnInit {
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
+            const m = new Proceso();
+            m.opcion = 4;
+            m.sistemaId = 0;
+            m.procesoId = 0;
+            this.procesoService.obtenerFiltros(m);
             this.cerrarModal();
           } else {
             alert(response.mensaje);

@@ -1,5 +1,14 @@
 // ========== ESTILOS DE TABLAS
-.mat-header-cell {
-    background-color: #a9aFB0 !important;
-    color: white !important;
+.mat-table {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    .mat-header-cell {
+        background-color: #1e2533 !important;
+        color: white !important;
+        font-weight: bold;
+        font-size: 14px;
+    }
+}
+
+.mat-paginator {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
