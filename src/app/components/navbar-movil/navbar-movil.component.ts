@@ -9,10 +9,16 @@ import { GeneralesService } from '../../services/general/generales.service';
 export class NavbarMovilComponent implements OnInit {
   titulo = 'MENÚ';
 
-  constructor(private generalService: GeneralesService) { }
+  constructor(private generalService: GeneralesService) { 
+    
+    
+  }
 
   ngOnInit() {
-    this.setearTitulo();    
+    setTimeout(()=> {
+      this.setearTitulo();
+  }, 0);
+        
   }
 
   setearTitulo() {

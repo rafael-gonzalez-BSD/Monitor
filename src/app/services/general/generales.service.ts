@@ -9,8 +9,6 @@ export class GeneralesService {
   constructor() { }
 
   setearTituloMovil(t: string) {
-    this.setTituloMovil.emit(t);
-    console.log(t);
-    
+    this.setTituloMovil.emit(t);    
   }
 }

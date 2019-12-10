@@ -21,6 +21,7 @@ export class SistemasComponent implements OnInit {
     private generalesService: GeneralesService) { }
 
   ngOnInit() {
+    
     this.setearTitulo('CATÁLOGO DE SISTEMAS');  
     
   }

@@ -83,11 +83,7 @@ export class MenuMovilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setearTitulo('MENÚ');
-  }
-
-  setearTitulo(titulo){
-    this.generalesService.setearTituloMovil(titulo);
+    this.generalesService.setearTituloMovil('MENÚ');
   }
 
   enrutamiento( tab ) {
