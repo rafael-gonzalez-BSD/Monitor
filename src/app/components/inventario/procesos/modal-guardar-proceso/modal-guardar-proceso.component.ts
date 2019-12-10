@@ -4,12 +4,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Proceso } from '../../../../models/inventario/proceso';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { Opcion } from '../../../../models/base/opcion';
 import { Observable } from 'rxjs';
-import { debounceTime, switchMap, startWith, tap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { Combo } from '../../../../models/base/combo';
-import { RespuestaModel } from '../../../../models/base/respuesta';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -21,7 +19,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
   opcion: number;
   datosEditar: any;
   esEdicion: boolean;
-  datosCombo: Observable<Combo>;
+  datosCombo: Combo[] = [];
+  sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
   procesoModel = new Proceso();
 
@@ -42,18 +41,27 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   ngOnInit() {
     this.grupoFormulario = this.validarFormulario();
-    // this.consultarSistemaCombo();
-    this.datosCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
+    this.consultarSistemaCombo();
+    this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
       startWith(''),
-      switchMap(value => (value.length >= 4 ? this.filter(value, 3) : []))
+      map(value => (typeof value === 'string' ? value : value.descripcion)),
+      map(name => this.filter(name))
+      // switchMap(value => this.filter(value, 3))
     );
   }
 
-  filter(valor: string, opcion: number) {
-    const m = new Sistema();
-    m.SistemaDescripcion = valor;
-    m.Opcion = opcion;
-    return this.sistemaService.consultarSistemaCombo(m);
+  mostrarValor(obj: Combo) {
+    if (obj) return obj.descripcion;
+  }
+
+  filter(valor: string) {
+    if (valor.length < 4) return [];
+
+    const filterName = valor.toLowerCase();
+    const datos: Combo[] = this.datosCombo['datos'];
+
+    return datos.filter(option => option.descripcion.toLowerCase().includes(filterName, 0));
+    // return this.sistemaService.consultarSistemaCombo(m);
   }
 
   validarFormulario() {
@@ -78,10 +86,6 @@ export class ModalGuardarProcesoComponent implements OnInit {
     );
   }
 
-  mostrarValor(sistema) {
-    if (sistema) return sistema;
-  }
-
   guardarProceso(procesoModel: Proceso) {
     if (this.grupoFormulario.valid) {
       debugger;
@@ -95,7 +99,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
       this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
       this.procesoModel.baja = this.toggleBaja;
       this.procesoModel.critico = this.toggleCritico;
-      this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId;
+      this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
       this.procesoService.guardarProceso(procesoModel, this.esEdicion).subscribe(
         (response: any) => {
