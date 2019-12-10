@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-6 form-group" *ngIf="esEdicion">
                 <label for="">Identificador</label>
-                <input class="form-control" formControlName="procesoId" type="text" readonly [ngModel]="datosEditar.procesoId">
+                <input class="form-control form-autocompletado" formControlName="procesoId" type="text" readonly [ngModel]="datosEditar.procesoId">
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Nombre</label>
@@ -65,6 +65,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancelar</button>
-        <button class="boton-ternium" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
 </form>

@@ -2,11 +2,14 @@
 .btn-ternium-primary {
     background-color: #ff3300 !important;
     border-radius: 20px !important;
-    color: #FFF !important;
-}
-
-.btn :hover {
-    background-color: #fff;
-    border-radius: 20px !important;
-    color: #ff3300;
+    color: #FFF;
+    &:disabled {
+        background-color: #ff6039;
+        color: whitesmoke !important;
+    }
+    &:hover {
+        background-color: black;
+        transform: translate3d(0, 0, 0);
+        transition: background .4s cubic-bezier(.25, .8, .25, 1), box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+    }
 }
