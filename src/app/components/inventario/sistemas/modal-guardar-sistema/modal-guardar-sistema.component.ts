@@ -86,15 +86,15 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
       this.sistemaModel = sistemaModel;
       if (this.grupoFormulario.value.SistemaId) {
-        this.sistemaModel.SistemaId = this.grupoFormulario.value.SistemaId;
+        this.sistemaModel.sistemaId = this.grupoFormulario.value.SistemaId;
       }
       this.sistemaModel.Opcion = this.opcion;
       
-      this.sistemaModel.SistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
-      this.sistemaModel.Baja = this.toggleBaja;
-      this.sistemaModel.Alias = this.grupoFormulario.value.Alias;
-      this.sistemaModel.GerenciaId = this.grupoFormulario.value.GerenciaId;
-      this.sistemaModel.Descripcion = this.grupoFormulario.value.Descripcion;
+      this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
+      this.sistemaModel.baja = this.toggleBaja;
+      this.sistemaModel.alias = this.grupoFormulario.value.Alias;
+      this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
+      this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
 
       this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
         (response: any) => {
