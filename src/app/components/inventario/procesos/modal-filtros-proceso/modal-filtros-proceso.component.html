@@ -6,7 +6,7 @@
                 <label for="">Sistema</label>
                 <select formControlName="sistemaId" name="" id="" class="form-control">
                   <option selected value="">Seleccione...</option>
-                  <option *ngFor="let item of datosComboSistema.datos" value={{item.identificador}}>{{item.descripcion}}
+                  <option *ngFor="let item of datosComboSistema?.datos" value={{item.identificador}}>{{item.descripcion}}
                   </option>
               </select>
             </div>
@@ -14,7 +14,7 @@
                 <label for="">Proceso</label>
                 <select formControlName="procesoId" name="" id="" class="form-control">
                 <option selected value="">Seleccione...</option>
-                <option *ngFor="let item of datosComboProceso.datos" value={{item.identificador}}>{{item.descripcion}}
+                <option *ngFor="let item of datosComboProceso?.datos" value={{item.identificador}}>{{item.descripcion}}
                 </option>
             </select>
             </div>
@@ -22,6 +22,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button (click)="cerrarModal()">Cancelar</button>
-        <button class="boton-ternium" mat-button>Buscar</button>
+        <button class="btn-ternium-primary" mat-button>Buscar</button>
     </mat-dialog-actions>
 </form>
