@@ -45,7 +45,7 @@
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="estado">
-                        <mat-slide-toggle [checked]="row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
+                        <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
                     </mat-cell>
                 </ng-container>
 

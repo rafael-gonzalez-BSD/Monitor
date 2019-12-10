@@ -1,9 +1,9 @@
 import { ProcesoService } from './../../../../services/inventario/proceso.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Proceso } from '../../../../models/inventario/proceso';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatAutocompleteTrigger } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Sistema } from '../../../../models/inventario/sistema';
@@ -15,6 +15,7 @@ import { Combo } from '../../../../models/base/combo';
   styleUrls: ['./modal-guardar-proceso.component.scss']
 })
 export class ModalGuardarProcesoComponent implements OnInit {
+  @ViewChild(MatAutocompleteTrigger, null) auto: MatAutocompleteTrigger;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -36,6 +37,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
+    this.datosEditar.baja = !data.baja;
     this.esEdicion = data.edit;
   }
 
@@ -47,8 +49,15 @@ export class ModalGuardarProcesoComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name))
     );
-  }
 
+    if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
+  }
+  setearValorAutocomplete(campo: string, id: number, desc: string) {
+    this.grupoFormulario.get(campo).setValue({
+      identificador: id,
+      descripcion: desc
+    });
+  }
   mostrarValor(obj: Combo) {
     if (obj) return obj.descripcion;
   }
@@ -96,7 +105,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
       }
 
       this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
-      this.procesoModel.baja = this.toggleBaja;
+      this.procesoModel.baja = !this.toggleBaja;
       this.procesoModel.critico = this.toggleCritico;
       this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
