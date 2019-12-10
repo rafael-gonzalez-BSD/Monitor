@@ -12,9 +12,7 @@ export class NavbarMovilComponent implements OnInit {
   constructor(private generalService: GeneralesService) { }
 
   ngOnInit() {
-    this.setearTitulo();
-    this.titulo =  'MENÚ';
-    
+    this.setearTitulo();    
   }
 
   setearTitulo() {

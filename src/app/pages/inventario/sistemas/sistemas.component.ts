@@ -17,12 +17,17 @@ export class SistemasComponent implements OnInit {
   
 
   constructor(private modal: MatDialog, 
-    private router: Router) { }
+    private router: Router,
+    private generalesService: GeneralesService) { }
 
   ngOnInit() {
-    
+    this.setearTitulo('CATÁLOGO DE SISTEMAS');  
     
   }
+  setearTitulo(titulo){
+    this.generalesService.setearTituloMovil(titulo);
+  }
+
   abrirModalFiltros() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
