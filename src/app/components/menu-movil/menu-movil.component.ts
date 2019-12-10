@@ -49,19 +49,23 @@ export class MenuMovilComponent implements OnInit {
   tarjetasInventario = [
     {
       titulo: 'Catálogo de Sistemas',
-      ruta: '../sistemas'
+      ruta: '../sistemas',
+      tituloMovil: 'CATÁLOGO DE SISTEMAS'
     },
     {
       titulo: 'Catálogo de Procesos',
-      ruta: '../procesos'
+      ruta: '../procesos',
+      tituloMovil: 'CATÁLOGO DE PROCESOS'
     },
     {
       titulo: 'Catálogo de Perfiles',
-      ruta: ''
+      ruta: '',
+      tituloMovil: 'CATÁLOGO DE PERFILES'
     },
     {
       titulo: 'Administrar Mantenimientos',
-      ruta: '../mantenimientos'
+      ruta: '../mantenimientos',
+      tituloMovil: 'ADMINISTRAR DE MANTENIMIENTOS'
     }
   ];
 
@@ -79,6 +83,10 @@ export class MenuMovilComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  setearTitulo(titulo){
+    this.generalesService.setearTituloMovil(titulo);
   }
 
   enrutamiento( tab ) {

@@ -30,8 +30,8 @@
   </mat-tab>
   <mat-tab label="Inventario de Aplicaciones">
     <div class="row mt-3">
-      <div class="col-sm-6 mb-3 " *ngFor="let item of tarjetasInventario">
-        <mat-card [routerLink]=[(item.ruta)]>
+      <div class="col-sm-6 mb-3 " *ngFor="let item of tarjetasInventario" >
+        <mat-card [routerLink]=[(item.ruta)] (click) = "setearTitulo([(item.tituloMovil)])">
           <mat-card-content>
             <div class="contenido-card">
               {{item.titulo}}

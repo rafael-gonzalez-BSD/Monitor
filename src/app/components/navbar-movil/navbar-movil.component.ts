@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GeneralesService } from '../../services/general/generales.service';
 
 @Component({
   selector: 'app-navbar-movil',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar-movil.component.scss']
 })
 export class NavbarMovilComponent implements OnInit {
+  titulo = 'MENÚ';
 
-  constructor() { }
+  constructor(private generalService: GeneralesService) { }
 
   ngOnInit() {
+    this.setearTitulo();
+    this.titulo =  'MENÚ';
+    
+  }
+
+  setearTitulo() {
+    this.generalService.setTituloMovil.subscribe((t: string) => {
+      this.titulo = t;
+    });
   }
 
 }
