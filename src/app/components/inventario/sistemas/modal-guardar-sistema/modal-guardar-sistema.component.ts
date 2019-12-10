@@ -101,6 +101,10 @@ export class ModalGuardarSistemaComponent implements OnInit {
           if (response.satisfactorio) {
             alert(response.mensaje);
             this.cerrarModal();
+            const m = new Sistema();
+            m.opcion = 4;
+            m.sistemaDescripcion = '';
+            this.sistemaService.obtenerFiltros(m);
           } else {
             alert(response.mensaje);
           }

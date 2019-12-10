@@ -16,9 +16,6 @@ export class GrillaSistemaComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  opcion = '4';
-  sistemaDescripcion = 'si';
-  baja = null;
   datosGrilla: any;
 
   constructor(private sistemaService: SistemaService, private modal: MatDialog) { }
@@ -28,6 +25,9 @@ export class GrillaSistemaComponent implements OnInit {
     m.Opcion = 4;
     m.sistemaDescripcion = '';
     this.consultarSistemaAll(m);
+    this.sistemaService.filtros.subscribe((m: any) => {
+      this.consultarSistemaAll(m);
+    });
   }
 
   consultarSistemaAll(m: Sistema) {

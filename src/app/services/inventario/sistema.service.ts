@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Sistema } from '../../models/inventario/sistema';
 import { Observable } from 'rxjs';
@@ -10,6 +10,8 @@ import { tap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SistemaService {
+  filtros = new EventEmitter();
+
   constructor(private http: HttpClient) {}
 
   guardarSistema(sistema: Sistema, insercion: boolean): Observable<Sistema> {
@@ -53,5 +55,9 @@ export class SistemaService {
     const url = `${environment.urlApi}sistema/all`;
     const resultado = this.http.get(url, { params: parametros });
     return resultado;
+  }
+
+  obtenerFiltros(m: Sistema) {
+    this.filtros.emit(m);
   }
 }
