@@ -1,6 +1,12 @@
 // =========ESTILOS DE BOTONES ==============
 .btn-ternium-primary {
-    background-color: #ff3300;
+    background-color: #ff3300 !important;
     border-radius: 20px !important;
-    color: #FFF;
+    color: #FFF !important;
+}
+
+.btn :hover {
+    background-color: #fff;
+    border-radius: 20px !important;
+    color: #ff3300;
 }
