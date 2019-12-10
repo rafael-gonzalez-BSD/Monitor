@@ -16,6 +16,7 @@ import { config } from 'rxjs';
 export class GrillaProcesoComponent implements OnInit {
   tableColumns: string[] = ['accion', 'sistema', 'identificador', 'proceso', 'estado', 'critico'];
   dataSource: MatTableDataSource<Proceso>;
+  procesoModel = new Proceso();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -69,9 +70,37 @@ export class GrillaProcesoComponent implements OnInit {
     this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
   }
 
-  actualizarEstado(e: Event, row) {}
+  actualizarEstado(e: Event, row) {
+    this.procesoModel.opcion = 4;
+    this.procesoModel.procesoId = row.procesoId;
+    this.procesoModel.baja = !e['checked'];
 
-  actualizarCritico(e: Event, row) {}
+    this.procesoService.actualizarEstado(this.procesoModel).subscribe(
+      (response: any) => {
+        alert(response.mensaje);
+      },
+      err => {
+        alert('Ocurrió un error');
+      },
+      () => {}
+    );
+  }
+
+  actualizarCritico(e: Event, row) {
+    this.procesoModel.opcion = 5;
+    this.procesoModel.procesoId = row.procesoId;
+    this.procesoModel.critico = e['checked'];
+
+    this.procesoService.actualizarCritico(this.procesoModel).subscribe(
+      (response: any) => {
+        alert(response.mensaje);
+      },
+      err => {
+        alert('Ocurrió un error');
+      },
+      () => {}
+    );
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

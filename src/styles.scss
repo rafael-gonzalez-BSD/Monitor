@@ -111,6 +111,7 @@ mat-sidenav-content {
 .wrapper {
     padding-left: 5px;
     padding-right: 5px;
+    margin: 15px 0;
 }
 
 .row {
@@ -178,12 +179,13 @@ select {
     // filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1e2533", endColorstr="#010d1a", GradientType=1);
 }
 
-
-// mat-tab 
-.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+// mat-tab
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: #ff3300 !important;
 }
-.mat-tab-label-active{
+
+.mat-tab-label-active {
     color: #ff3300 !important;
     font-weight: bold;
 }

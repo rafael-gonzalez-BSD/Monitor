@@ -29,6 +29,16 @@ export class ProcesoService {
     }
   }
 
+  actualizarEstado(proceso: Proceso) {
+    const url = `${environment.urlApi}proceso/estado`;
+    return this.http.patch<Proceso>(url, proceso);
+  }
+
+  actualizarCritico(proceso: Proceso) {
+    const url = `${environment.urlApi}proceso/critico`;
+    return this.http.patch<Proceso>(url, proceso);
+  }
+
   consultarProcesoCombo(m: Proceso) {
     let parametros = new HttpParams();
     // tslint:disable-next-line: forin
