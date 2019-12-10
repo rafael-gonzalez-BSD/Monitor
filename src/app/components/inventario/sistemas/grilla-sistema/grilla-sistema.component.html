@@ -1,15 +1,12 @@
-<div class="row">
+<div class="row controles-tabla">
     <div class="col-6 col-md-6">
-        <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
-        </mat-form-field>
     </div>
     <div class="col-6 col-md-6 text-right">
-
         <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Agregar</button>
-
     </div>
 </div>
+
 <div class="row">
     <div class="col-12">
         <div class="mat-elevation-z5">
