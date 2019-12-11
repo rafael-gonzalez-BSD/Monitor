@@ -1,6 +1,6 @@
 import { ProcesoService } from './../../../../services/inventario/proceso.service';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Proceso } from '../../../../models/inventario/proceso';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { MatDialog, MAT_DIALOG_DATA, MatAutocompleteTrigger } from '@angular/material';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { Combo } from '../../../../models/base/combo';
+import { RequireMatch } from '../../../../extensions/autocomplete/require-match';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -39,11 +40,13 @@ export class ModalGuardarProcesoComponent implements OnInit {
     this.datosEditar = data;
     this.datosEditar.baja = !data.baja;
     this.esEdicion = data.edit;
+    this.datosCombo = data.datosCombo;
   }
 
   ngOnInit() {
+    // this.consultarSistemaCombo();
+
     this.grupoFormulario = this.validarFormulario();
-    this.consultarSistemaCombo();
     this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.descripcion)),
@@ -66,9 +69,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
     if (valor.length < 4) return [];
 
     const filterName = valor.toLowerCase();
-    const datos: Combo[] = this.datosCombo['datos'];
 
-    return datos.filter(option => option.descripcion.toLowerCase().includes(filterName, 0));
+    return this.datosCombo.filter(option => option.descripcion.toLowerCase().includes(filterName, 0));
     // return this.sistemaService.consultarSistemaCombo(m);
   }
 
@@ -76,7 +78,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
     return new FormGroup({
       procesoId: new FormControl(),
       procesoDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-      sistemaId: new FormControl('', [Validators.required]),
+      sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl(),
       critico: new FormControl()
     });
@@ -87,7 +89,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
     m.Opcion = 3;
     this.sistemaService.consultarSistemaCombo(m).subscribe(
       (response: any) => {
-        this.datosCombo = response;
+        this.datosCombo = response['datos'];
       },
       err => {},
       () => {}

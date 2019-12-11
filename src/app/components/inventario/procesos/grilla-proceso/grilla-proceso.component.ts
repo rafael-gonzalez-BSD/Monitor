@@ -6,7 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ModalGuardarProcesoComponent } from '../modal-guardar-proceso/modal-guardar-proceso.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { config } from 'rxjs';
+import { SistemaService } from '../../../../services/inventario/sistema.service';
+import { Sistema } from 'src/app/models/inventario/sistema';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -21,7 +22,7 @@ export class GrillaProcesoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private procesoService: ProcesoService, private modal: MatDialog) {}
+  constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
 
   ngOnInit() {
     const m = new Proceso();
@@ -46,7 +47,10 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
+      dialogConfig.data.datosCombo = res['datos'];
+      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    });
   }
 
   obtenerProcesos(m: Proceso) {
@@ -67,7 +71,10 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-    this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
+      CONFIG_MODAL.data.datosCombo = res['datos'];
+      this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+    });
   }
 
   actualizarEstado(e: Event, row) {

@@ -7,4 +7,9 @@ export class Sistema extends Opcion {
   gerenciaId: number;
   descripcion: string;
   opcion: number;
+
+  constructor(opcion?: number) {
+    super();
+    this.opcion = opcion || 0;
+  }
 }
