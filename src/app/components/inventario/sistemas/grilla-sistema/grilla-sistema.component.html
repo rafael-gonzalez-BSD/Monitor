@@ -41,7 +41,9 @@
                 </ng-container>
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="Estado">{{row.baja}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Estado">
+                            <mat-slide-toggle [checked]="!row.baja" (change)="actualizarCritico($event,row)"></mat-slide-toggle>
+                    </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>

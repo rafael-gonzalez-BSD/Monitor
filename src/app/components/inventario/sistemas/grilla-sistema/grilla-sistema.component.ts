@@ -16,21 +16,24 @@ export class GrillaSistemaComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  Opcion = '4';
-  SistemaDescripcion = 'si';
-  Baja = null;
   datosGrilla: any;
 
   constructor(private sistemaService: SistemaService, private modal: MatDialog) { }
 
   ngOnInit() {
-    this.consultarSistemaAll();
+    const m = new Sistema();
+    m.Opcion = 4;
+    m.sistemaDescripcion = '';
+    this.consultarSistemaAll(m);
+    this.sistemaService.filtros.subscribe((m: any) => {
+      this.consultarSistemaAll(m);
+    });
   }
 
-  consultarSistemaAll() {
-    this.sistemaService.consultarSistemaAll(this.Opcion, this.SistemaDescripcion, this.Baja).subscribe((response: any) => {
-      console.log(response);
-      if (response.satisfactorio) {
+  consultarSistemaAll(m: Sistema) {
+    
+    this.sistemaService.consultarSistemaAll(m).subscribe((response: any) => {
+      if (response.satisfactorio) {        
         this.dataSource = new MatTableDataSource(response.datos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -59,7 +62,7 @@ export class GrillaSistemaComponent implements OnInit {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.insercion = false;
-    CONFIG_MODAL.data.tituloModal = "Editar Sistema";
+    CONFIG_MODAL.data.tituloModal = 'Editar Sistema';
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
@@ -72,7 +75,8 @@ export class GrillaSistemaComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       insercion: true,
-      tituloModal: 'Agregar Sistema'
+      tituloModal: 'Agregar Sistema',
+      gerenciaId: '-1'
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';

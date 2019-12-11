@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Sistema } from '../../models/inventario/sistema';
 import { Observable } from 'rxjs';
@@ -10,10 +10,11 @@ import { tap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SistemaService {
+  filtros = new EventEmitter();
+
   constructor(private http: HttpClient) {}
 
   guardarSistema(sistema: Sistema, insercion: boolean): Observable<Sistema> {
-
     let resultado: any;
     if (insercion) {
       const url = `${environment.urlApi}sistema`;
@@ -27,8 +28,8 @@ export class SistemaService {
 
   buscarSistemaCombo(valor: string, opcion: number): Observable<Sistema> {
     const m = new Sistema();
-    m.Opcion = opcion;
-    m.SistemaDescripcion = valor;
+    m.opcion = opcion;
+    m.sistemaDescripcion = valor;
     let parametros = new HttpParams();
     for (const key in m) {
       parametros = parametros.set(key, m[key]);
@@ -46,10 +47,17 @@ export class SistemaService {
     return this.http.get(url, { params: parametros });
   }
   // tslint:disable-next-line: no-shadowed-variable
-  consultarSistemaAll(Opcion: string, SistemaDescripcion: string, Baja?: string) {
-    const parametros = new HttpParams().set('Opcion', Opcion).set('SistemaDescripcion', SistemaDescripcion);
+  consultarSistemaAll(m: Sistema) {
+    let parametros = new HttpParams();
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
     const url = `${environment.urlApi}sistema/all`;
     const resultado = this.http.get(url, { params: parametros });
     return resultado;
+  }
+
+  obtenerFiltros(m: Sistema) {
+    this.filtros.emit(m);
   }
 }

@@ -24,9 +24,8 @@ export class ProcesoService {
     const url = `${environment.urlApi}proceso`;
     if (esEdicion) {
       return this.http.put<Proceso>(url, proceso);
-    } else {
-      return this.http.post<Proceso>(url, proceso);
     }
+    return this.http.post<Proceso>(url, proceso);
   }
 
   actualizarEstado(proceso: Proceso) {

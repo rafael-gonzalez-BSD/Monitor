@@ -1,14 +1,15 @@
 import { Opcion } from '../base/opcion';
 export class Sistema extends Opcion {
-  SistemaId?: number;
-  SistemaDescripcion: string;
-  Baja: boolean;
-  Alias: string;
-  GerenciaId: number;
-  Descripcion: string;
+  sistemaId: number;
+  sistemaDescripcion: string;
+  baja: boolean;
+  alias: string;
+  gerenciaId: number;
+  descripcion: string;
+  opcion: number;
 
   constructor(opcion?: number) {
     super();
-    this.Opcion = opcion || 0;
+    this.opcion = opcion || 0;
   }
 }

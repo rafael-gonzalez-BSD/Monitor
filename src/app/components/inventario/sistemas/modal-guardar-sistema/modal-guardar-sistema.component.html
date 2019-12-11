@@ -2,7 +2,7 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarSistema(this.sistemaModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-3 form-group">
+            <div class="col-lg-3 form-group" *ngIf="!insercion">
                 <label for="">Identificador</label>
                 <input formControlName="SistemaId" class="form-control" type="text" readonly [ngModel]="datosEditar.sistemaId">
             </div>
@@ -46,9 +46,9 @@
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Área Propietaria</label>
-                <select formControlName="GerenciaId" name="" id="" class="form-control" [ngModel]="datosEditar.gerenciaId">
-                    <option value="">Seleccione...</option>
-                    <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}
+                <select formControlName="GerenciaId" class="form-control" [ngModel]="gerenciaId">
+                    <option value="-1">Seleccionar...</option>
+                    <option *ngFor="let item of datosCombo" value={{item.identificador}}>{{item.descripcion}}
                     </option>
                 </select>
                 <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
