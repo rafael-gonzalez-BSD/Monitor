@@ -18,12 +18,21 @@ export class SistemasComponent implements OnInit {
 
   constructor(private modal: MatDialog, 
     private router: Router,
-    private generalesService: GeneralesService) { }
+    private generalesService: GeneralesService,
+    private breakpointObserver: BreakpointObserver) {
+      // seteamos el  título del navbar movil
+      this.breakpointObserver
+      .observe(['(min-width: 813px)'])
+      .subscribe((state: BreakpointState) => {
+        if (!state.matches) {
+          this.setearTitulo('CATÁLOGO DE SISTEMAS');           
+        }
+      });
 
-  ngOnInit() {
-    
-    this.setearTitulo('CATÁLOGO DE SISTEMAS');  
-    
+     }
+
+  ngOnInit() {    
+    this.setearTitulo('CATÁLOGO DE SISTEMAS');     
   }
   setearTitulo(titulo){
     this.generalesService.setearTituloMovil(titulo);

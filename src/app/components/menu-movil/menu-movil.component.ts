@@ -75,9 +75,9 @@ export class MenuMovilComponent implements OnInit {
       .observe(['(min-width: 813px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          if ( rout.url === '/site/menu') {
+          if (rout.url === '/site/menu') {
             rout.navigate(['site/dashboard']);
-          } 
+          }
         }
       });
   }
@@ -86,7 +86,7 @@ export class MenuMovilComponent implements OnInit {
     this.generalesService.setearTituloMovil('MENÚ');
   }
 
-  enrutamiento( tab ) {
+  enrutamiento(tab) {
     switch (tab.index) {
       case 0: {
         localStorage.setItem('indexMenu', '0')
