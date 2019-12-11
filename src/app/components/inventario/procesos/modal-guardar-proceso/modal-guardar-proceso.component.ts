@@ -67,11 +67,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   filter(valor: string) {
     if (valor.length < 4) return [];
-
     const filterName = valor.toLowerCase();
-
     return this.datosCombo.filter(option => option.descripcion.toLowerCase().includes(filterName, 0));
-    // return this.sistemaService.consultarSistemaCombo(m);
   }
 
   validarFormulario() {

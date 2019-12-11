@@ -39,19 +39,6 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <!-- <div class="col-lg-6 form-group">
-                <label for="">Sistema</label>
-                <select formControlName="sistemaId" name="" id="" class="form-control" [ngModel]="datosEditar.sistemaId">
-                    <option value="">Seleccione...</option>
-                    <option *ngFor="let item of datosCombo.datos" value={{item.identificador}}>{{item.descripcion}}
-                    </option>
-                </select>
-                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
-                    <div class="container-error" *ngIf="sistemaId.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                </div>
-            </div> -->
             <div class="col-lg-3 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">

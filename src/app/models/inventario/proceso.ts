@@ -1,15 +1,19 @@
 export class Proceso {
-    procesoId: number;
-    procesoDescripcion: string;
-    critico: boolean;
-    usuarioCreacionId: number;
-    fechaCreacion: string;
-    usuarioModificacionId: number;
-    fechaModificacion: string;
-    usuarioBajaId: number | null;
-    fechaBaja: string | null;
-    baja: boolean;
-    sistemaId: number;
-    sistemaDescripcion: string;
-    opcion: number;
+  procesoId: number;
+  procesoDescripcion: string;
+  critico: boolean;
+  usuarioCreacionId: number;
+  fechaCreacion: string;
+  usuarioModificacionId: number;
+  fechaModificacion: string;
+  usuarioBajaId: number | null;
+  fechaBaja: string | null;
+  baja: boolean;
+  sistemaId: number;
+  sistemaDescripcion: string;
+  opcion: number;
+
+  constructor(opcion?: number) {
+    this.opcion = opcion || 0;
+  }
 }
