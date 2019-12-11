@@ -6,4 +6,9 @@ export class Sistema extends Opcion {
   Alias: string;
   GerenciaId: number;
   Descripcion: string;
+
+  constructor(opcion?: number) {
+    super();
+    this.Opcion = opcion || 0;
+  }
 }
