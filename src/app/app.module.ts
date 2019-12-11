@@ -48,6 +48,7 @@ import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepci
 import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
 import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CintillaSistemaComponent } from './components/inventario/sistemas/cintilla-sistema/cintilla-sistema.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     ContenedorPrincipalComponent,
     ConfigExcepcionesComponent,
     ConfigEjecucionesComponent,
-    ConfigConectoresComponent
+    ConfigConectoresComponent,
+    CintillaSistemaComponent
   ],
   imports: [
     BrowserModule,
