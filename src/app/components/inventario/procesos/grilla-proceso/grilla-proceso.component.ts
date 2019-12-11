@@ -47,7 +47,10 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
+      dialogConfig.data.datosCombo = res['datos'];
+      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    });
   }
 
   obtenerProcesos(m: Proceso) {
