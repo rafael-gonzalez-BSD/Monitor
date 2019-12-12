@@ -1,7 +1,7 @@
 import { ProcesoService } from './../../../../services/inventario/proceso.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ModalGuardarProcesoComponent } from '../modal-guardar-proceso/modal-guardar-proceso.component';
@@ -18,6 +18,10 @@ export class GrillaProcesoComponent implements OnInit {
   tableColumns: string[] = ['accion', 'sistema', 'identificador', 'proceso', 'estado', 'critico'];
   dataSource: MatTableDataSource<Proceso>;
   procesoModel = new Proceso();
+  pageSizeOptions = [10, 25, 100];
+  pageSize = 10;
+  length: number;
+  pageEvent: PageEvent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -25,15 +29,15 @@ export class GrillaProcesoComponent implements OnInit {
   constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
 
   ngOnInit() {
-    const m = new Proceso();
-    m.opcion = 4;
-    m.sistemaId = 0;
-    m.procesoId = 0;
-    m.procesoDescripcion = '';
-    this.obtenerProcesos(m);
     this.procesoService.filtros.subscribe((m: any) => {
       this.obtenerProcesos(m);
     });
+    this.procesoService.obtenerFiltros();
+    this.procesoService.setearFiltros();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
   abrirModalGuardar() {
@@ -55,9 +59,11 @@ export class GrillaProcesoComponent implements OnInit {
 
   obtenerProcesos(m: Proceso) {
     this.procesoService.obtenerProcesos(m).subscribe((res: any) => {
+      debugger;
       this.dataSource = new MatTableDataSource(res.datos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.length = res.datos.length;
     });
   }
 

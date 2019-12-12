@@ -67,11 +67,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   filter(valor: string) {
     if (valor.length < 4) return [];
-
     const filterName = valor.toLowerCase();
-
     return this.datosCombo.filter(option => option.descripcion.toLowerCase().includes(filterName, 0));
-    // return this.sistemaService.consultarSistemaCombo(m);
   }
 
   validarFormulario() {
@@ -113,11 +110,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
-            const m = new Proceso();
-            m.opcion = 4;
-            m.sistemaId = 0;
-            m.procesoId = 0;
-            this.procesoService.obtenerFiltros(m);
+            this.procesoService.obtenerFiltros();
+            this.procesoService.setearFiltros();
             this.cerrarModal();
           } else {
             alert(response.mensaje);
