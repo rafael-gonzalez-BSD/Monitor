@@ -59,7 +59,6 @@ export class GrillaProcesoComponent implements OnInit {
 
   obtenerProcesos(m: Proceso) {
     this.procesoService.obtenerProcesos(m).subscribe((res: any) => {
-      debugger;
       this.dataSource = new MatTableDataSource(res.datos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
