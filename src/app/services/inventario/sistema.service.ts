@@ -11,6 +11,7 @@ import { tap, map } from 'rxjs/operators';
 })
 export class SistemaService {
   filtros = new EventEmitter();
+  setFiltros = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -45,6 +46,7 @@ export class SistemaService {
     }
     const url = `${environment.urlApi}sistema/combo`;
     return this.http.get(url, { params: parametros });
+    
   }
   // tslint:disable-next-line: no-shadowed-variable
   consultarSistemaAll(m: Sistema) {
@@ -59,5 +61,9 @@ export class SistemaService {
 
   obtenerFiltros(m: Sistema) {
     this.filtros.emit(m);
+  }
+
+  setearFiltros(m: Sistema) {
+    this.setFiltros.emit(m);
   }
 }

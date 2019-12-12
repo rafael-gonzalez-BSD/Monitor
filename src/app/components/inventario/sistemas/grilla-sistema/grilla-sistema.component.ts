@@ -22,7 +22,7 @@ export class GrillaSistemaComponent implements OnInit {
 
   ngOnInit() {
     const m = new Sistema();
-    m.Opcion = 4;
+    m.opcion = 4;
     m.sistemaDescripcion = '';
     this.consultarSistemaAll(m);
     this.sistemaService.filtros.subscribe((m: any) => {
@@ -37,7 +37,8 @@ export class GrillaSistemaComponent implements OnInit {
         this.dataSource = new MatTableDataSource(response.datos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
+        console.log(response.datos);
+        
       } else {
         alert('Error al consultar el listado de sistemas');
       }

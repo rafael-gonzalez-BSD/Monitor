@@ -1,35 +1,35 @@
 <h2 mat-dialog-title>{{tituloModal}}</h2>
 
 <mat-dialog-content class="mat-typography">
-    <div class="row">
-        <div class="col-lg-6 form-group">
-            <label for="">Sistema</label>
-            <select  class="form-control">
-                <option value="">Todos</option>
-                <option *ngFor="let item of datosComboSistema" value={{item.identificador}}>{{item.descripcion}}</option>
-            </select>
-            <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
-                    <div class="container-error" *ngIf="GerenciaId.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
+    <form [formGroup]="grupoFormulario">
+        <div class="row">
+            <div class="col-lg-6 form-group">
+                <label for="">Sistema</label>
+                <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
+                        <span>{{sistema.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                    <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                        <span class="tc-ff3300">Campo Inválido</span>
                     </div>
-                </div> -->
+                </div>
+            </div>
+
+            <div class="col-lg-6 form-group">
+                <label>Estado</label>
+                <mat-select [(value)]="selected">
+                    <mat-option value="-1">Ambos</mat-option>
+                    <mat-option value="0">Encendido</mat-option>
+                    <mat-option value="1">Apagado</mat-option>
+                  </mat-select>
+            </div>
         </div>
-        <div class="col-lg-6 form-group">
-            <label for="">Estado</label>
-            <select class="form-control">
-                <option value="">Todos</option>
-                <option value="0">Encendido</option>
-                <option value="1">Apagado</option>
-            </select>
-            <!-- <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
-                    <div class="container-error" *ngIf="GerenciaId.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                </div> -->
-        </div>
-    </div>
+    </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button class="boton-ternium" mat-button>Buscar</button>
+    <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
+    <button class="btn-ternium-primary" mat-button>Buscar</button>
 </mat-dialog-actions>
