@@ -25,15 +25,11 @@ export class GrillaProcesoComponent implements OnInit {
   constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
 
   ngOnInit() {
-    const m = new Proceso();
-    m.opcion = 4;
-    m.sistemaId = 0;
-    m.procesoId = 0;
-    m.procesoDescripcion = '';
-    this.obtenerProcesos(m);
     this.procesoService.filtros.subscribe((m: any) => {
       this.obtenerProcesos(m);
     });
+    this.procesoService.obtenerFiltros();
+    this.procesoService.setearFiltros();
   }
 
   abrirModalGuardar() {

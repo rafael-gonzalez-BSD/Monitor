@@ -12,11 +12,13 @@ export class ProcesoService {
   setFiltros = new EventEmitter();
   constructor(private http: HttpClient) {}
 
-  obtenerFiltros(m: Proceso) {
+  obtenerFiltros() {
+    const m: Proceso = JSON.parse(localStorage.getItem('filtrosProcesos'));
     this.filtros.emit(m);
   }
 
-  setearFiltros(m: Proceso) {
+  setearFiltros() {
+    const m: Proceso = JSON.parse(localStorage.getItem('filtrosProcesos'));
     this.setFiltros.emit(m);
   }
 

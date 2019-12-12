@@ -52,8 +52,6 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosComboProceso.datos))
     );
-
-    // TODO - Integrar el seteo de los filtros si existen en el localstorage
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -76,38 +74,35 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   buscar(procesoModel: Proceso) {
     debugger;
     if (this.grupoFormulario.valid) {
-      const procesoCintilla = new Proceso();
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
-        this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
-        const comboProceso = this.datosComboProceso['datos'];
-        procesoCintilla.procesoDescripcion = comboProceso.find(
-          x => x.identificador.toString() === this.procesoModel.procesoId
-        ).descripcion;
+        this.procesoModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
+        this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
       } else {
         this.procesoModel.procesoId = 0;
-        procesoCintilla.procesoDescripcion = '';
+        this.procesoModel.procesoDescripcion = '';
       }
 
       if (this.grupoFormulario.value.sistemaId) {
-        this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId;
-        const comboSistema = this.datosComboSistema['datos'];
-        procesoCintilla.sistemaDescripcion = comboSistema.find(
-          x => x.identificador.toString() === this.procesoModel.sistemaId
-        ).descripcion;
+        this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.procesoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
       } else {
         this.procesoModel.sistemaId = 0;
-        procesoCintilla.sistemaDescripcion = '';
+        this.procesoModel.sistemaDescripcion = '';
       }
-      this.procesoService.setearFiltros(procesoCintilla);
-      this.procesoService.obtenerFiltros(this.procesoModel);
+
+      localStorage.setItem('filtrosProcesos', JSON.stringify(this.procesoModel));
+
+      this.procesoService.setearFiltros();
+
+      this.procesoService.obtenerFiltros();
     }
   }
 
   validaFormulario() {
     return new FormGroup({
-      procesoId: new FormControl({}, [RequireMatch]),
-      sistemaId: new FormControl({}, [RequireMatch])
+      procesoId: new FormControl('', [RequireMatch]),
+      sistemaId: new FormControl('', [RequireMatch])
     });
   }
 

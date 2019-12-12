@@ -110,11 +110,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
-            const m = new Proceso();
-            m.opcion = 4;
-            m.sistemaId = 0;
-            m.procesoId = 0;
-            this.procesoService.obtenerFiltros(m);
+            this.procesoService.obtenerFiltros();
+            this.procesoService.setearFiltros();
             this.cerrarModal();
           } else {
             alert(response.mensaje);
