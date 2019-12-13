@@ -12,3 +12,16 @@
 .mat-paginator {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
