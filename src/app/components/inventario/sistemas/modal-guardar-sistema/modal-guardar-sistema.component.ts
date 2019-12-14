@@ -33,7 +33,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
-    this.gerenciaId =  data.gerenciaId;
+    this.gerenciaId = data.gerenciaId;
     this.insercion = data.insercion;
   }
   ngOnInit() {
@@ -57,7 +57,9 @@ export class ModalGuardarSistemaComponent implements OnInit {
         this.datosCombo = response.datos;
         console.log(this.datosCombo);
       },
-      err => {console.log('Error interno al consultar gerencia');},
+      err => {
+        console.log('Error interno al consultar gerencia');
+      },
       () => {}
     );
   }
@@ -89,9 +91,9 @@ export class ModalGuardarSistemaComponent implements OnInit {
         this.sistemaModel.sistemaId = this.grupoFormulario.value.SistemaId;
       }
       this.sistemaModel.Opcion = this.opcion;
-      
+
       this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
-      this.sistemaModel.baja = this.toggleBaja;
+      this.sistemaModel.baja = !this.toggleBaja;
       this.sistemaModel.alias = this.grupoFormulario.value.Alias;
       this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
@@ -100,11 +102,9 @@ export class ModalGuardarSistemaComponent implements OnInit {
         (response: any) => {
           if (response.satisfactorio) {
             alert(response.mensaje);
+            this.sistemaService.obtenerFiltros();
+            this.sistemaService.setearFiltros();
             this.cerrarModal();
-            const m = new Sistema();
-            m.opcion = 4;
-            m.sistemaDescripcion = '';
-            this.sistemaService.obtenerFiltros(m);
           } else {
             alert(response.mensaje);
           }
@@ -122,7 +122,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   }
 
   changeMatToggle(event) {
-    this.toggleBaja = !event.checked;
+    this.toggleBaja = event.checked;
   }
 
   cerrarModal() {

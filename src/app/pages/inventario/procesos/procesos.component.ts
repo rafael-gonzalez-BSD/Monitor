@@ -8,6 +8,9 @@ import { ModalFiltrosProcesoComponent } from '../../../components/inventario/pro
 import { SistemaService } from '../../../services/inventario/sistema.service';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { Sistema } from 'src/app/models/inventario/sistema';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { GeneralesService } from '../../../services/general/generales.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-procesos',
@@ -15,9 +18,26 @@ import { Sistema } from 'src/app/models/inventario/sistema';
   styleUrls: ['./procesos.component.scss']
 })
 export class ProcesosComponent implements OnInit {
-  constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
+  constructor(
+    private procesoService: ProcesoService,
+    private generalesService: GeneralesService,
+    private sistemaService: SistemaService,
+    private router: Router,
+    private modal: MatDialog,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    // seteamos el  título del navbar movil
+    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+      if (!state.matches) {
+        this.setearTitulo('CATÁLOGO DE PROCESOS');
+      }
+    });
+  }
 
   ngOnInit() {}
+  setearTitulo(titulo) {
+    this.generalesService.setearTituloMovil(titulo);
+  }
 
   abrirModalFiltros() {
     const dialogConfig = new MatDialogConfig();
@@ -36,5 +56,10 @@ export class ProcesosComponent implements OnInit {
         this.modal.open(ModalFiltrosProcesoComponent, dialogConfig);
       });
     });
+  }
+
+  regresar() {
+    localStorage.setItem('indexMenu', '2');
+    this.router.navigate(['site/menu']);
   }
 }

@@ -8,6 +8,7 @@ import { ModalGuardarProcesoComponent } from '../modal-guardar-proceso/modal-gua
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { Sistema } from 'src/app/models/inventario/sistema';
+import { RespuestaModel } from '../../../../models/base/respuesta';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -40,30 +41,31 @@ export class GrillaProcesoComponent implements OnInit {
     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  abrirModalGuardar() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      id: 1,
-      tituloModal: 'Nuevo Proceso',
-      edit: false,
-      opcion: 1
-    };
-    dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
-    dialogConfig.maxWidth = '768px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
-      dialogConfig.data.datosCombo = res['datos'];
-      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
-    });
+  obtenerProcesos(m: Proceso) {
+    this.procesoService.obtenerProcesos(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          this.dataSource = new MatTableDataSource(res.datos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.length = res.datos.length;
+        } else {
+          alert('Error al consultar el listado de procesos. ' + res.mensaje);
+        }
+      },
+      err => {
+        alert('Ocurrió un error al consultar el listado de procesos');
+      },
+      () => {}
+    );
   }
 
-  obtenerProcesos(m: Proceso) {
-    this.procesoService.obtenerProcesos(m).subscribe((res: any) => {
-      this.dataSource = new MatTableDataSource(res.datos);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.length = res.datos.length;
-    });
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   consultarProcesoId(datosEditar: any) {
@@ -79,6 +81,23 @@ export class GrillaProcesoComponent implements OnInit {
     this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
       CONFIG_MODAL.data.datosCombo = res['datos'];
       this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+    });
+  }
+
+  abrirModalGuardar() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: 1,
+      tituloModal: 'Nuevo Proceso',
+      edit: false,
+      opcion: 1
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '70%';
+    dialogConfig.maxWidth = '768px';
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
+      dialogConfig.data.datosCombo = res['datos'];
+      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
     });
   }
 
@@ -112,13 +131,5 @@ export class GrillaProcesoComponent implements OnInit {
       },
       () => {}
     );
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }

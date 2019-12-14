@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { getLangPaginatorIntl } from './components/inventario/procesos/grilla-proceso/grilla-proceso-lang';
+import { getLangPaginatorIntl } from './extensions/tables/grilla-lang';
 
 import {
   MatButtonModule,

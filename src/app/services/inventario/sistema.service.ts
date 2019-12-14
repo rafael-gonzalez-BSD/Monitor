@@ -46,7 +46,6 @@ export class SistemaService {
     }
     const url = `${environment.urlApi}sistema/combo`;
     return this.http.get(url, { params: parametros });
-    
   }
   // tslint:disable-next-line: no-shadowed-variable
   consultarSistemaAll(m: Sistema) {
@@ -59,11 +58,18 @@ export class SistemaService {
     return resultado;
   }
 
-  obtenerFiltros(m: Sistema) {
+  obtenerFiltros() {
+    const m: Sistema = JSON.parse(localStorage.getItem('filtrosSistemas'));
     this.filtros.emit(m);
   }
 
-  setearFiltros(m: Sistema) {
+  setearFiltros() {
+    const m: Sistema = JSON.parse(localStorage.getItem('filtrosSistemas'));
     this.setFiltros.emit(m);
+  }
+
+  actualizarEstado(sistema: Sistema) {
+    const url = `${environment.urlApi}sistema/estado`;
+    return this.http.patch<Sistema>(url, sistema);
   }
 }

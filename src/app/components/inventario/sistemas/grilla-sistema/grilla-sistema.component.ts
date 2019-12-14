@@ -4,6 +4,8 @@ import { Opcion } from '../../../../models/base/opcion';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { ModalGuardarSistemaComponent } from '../modal-guardar-sistema/modal-guardar-sistema.component';
+import { PageEvent } from '@angular/material/paginator';
+import { Proceso } from '../../../../models/inventario/proceso';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -13,42 +15,47 @@ import { ModalGuardarSistemaComponent } from '../modal-guardar-sistema/modal-gua
 export class GrillaSistemaComponent implements OnInit {
   tableColumns: string[] = ['accion', 'identificador', 'alias', 'nombre', 'areaPropietaria', 'descripcion', 'estado'];
   dataSource: MatTableDataSource<Sistema>;
+  sistemaModel = new Sistema();
+  pageSizeOptions = [10, 25, 100];
+  pageSize = 10;
+  length: number;
+  pageEvent: PageEvent;
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  datosGrilla: any;
-
-  constructor(private sistemaService: SistemaService, private modal: MatDialog) { }
+  constructor(private sistemaService: SistemaService, private modal: MatDialog) {}
 
   ngOnInit() {
-    const m = new Sistema();
-    m.opcion = 4;
-    m.sistemaDescripcion = '';
-    this.consultarSistemaAll(m);
     this.sistemaService.filtros.subscribe((m: any) => {
+      if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
+    this.sistemaService.obtenerFiltros();
+    this.sistemaService.setearFiltros();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
   consultarSistemaAll(m: Sistema) {
-    
-    this.sistemaService.consultarSistemaAll(m).subscribe((response: any) => {
-      if (response.satisfactorio) {        
-        this.dataSource = new MatTableDataSource(response.datos);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(response.datos);
-        
-      } else {
-        alert('Error al consultar el listado de sistemas');
-      }
-    },
+    this.sistemaService.consultarSistemaAll(m).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.dataSource = new MatTableDataSource(response.datos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          console.log(response.datos);
+        } else {
+          alert('Error al consultar el listado de sistemas');
+        }
+      },
       err => {
         alert('Ocurrió un error al consultar el listado de sistemas');
       },
-      () => {
-
-      });
+      () => {}
+    );
   }
 
   applyFilter(filterValue: string) {
@@ -69,7 +76,6 @@ export class GrillaSistemaComponent implements OnInit {
     CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalGuardarSistemaComponent, CONFIG_MODAL);
     console.log(datosEditar);
-    
   }
 
   abrirModalGuardar() {
@@ -83,5 +89,21 @@ export class GrillaSistemaComponent implements OnInit {
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalGuardarSistemaComponent, dialogConfig);
+  }
+
+  actualizarEstado(e: Event, row) {
+    this.sistemaModel.opcion = 4;
+    this.sistemaModel.sistemaId = row.sistemaId;
+    this.sistemaModel.baja = !e['checked'];
+
+    this.sistemaService.actualizarEstado(this.sistemaModel).subscribe(
+      (response: any) => {
+        alert(response.mensaje);
+      },
+      err => {
+        alert('Ocurrió un error');
+      },
+      () => {}
+    );
   }
 }

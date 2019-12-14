@@ -18,6 +18,4 @@ export class CintillaProcesoComponent implements OnInit {
       this.filtroProceso = m.procesoDescripcion || 'N/A';
     });
   }
-
-  setearFiltros(m: Proceso) {}
 }

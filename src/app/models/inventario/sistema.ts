@@ -2,9 +2,10 @@ import { Opcion } from '../base/opcion';
 export class Sistema extends Opcion {
   sistemaId: number;
   sistemaDescripcion: string;
-  baja: boolean;
+  baja?: boolean;
   alias: string;
   gerenciaId: number;
+  bajaDescripcion: string;
   descripcion: string;
   opcion: number;
 

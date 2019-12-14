@@ -3,6 +3,7 @@ import { SidebarService } from '../../services/sidebar.service';
 import { Router } from '@angular/router';
 import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 import { Proceso } from '../../models/inventario/proceso';
+import { Sistema } from '../../models/inventario/sistema';
 
 @Component({
   selector: 'app-layout1',
@@ -19,6 +20,7 @@ export class Layout1Component implements OnInit {
 
   ngOnInit() {
     this.resetearFiltrosProcesos();
+    this.resetearFiltrosSistemas();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;
@@ -33,5 +35,15 @@ export class Layout1Component implements OnInit {
     procesoModel.sistemaDescripcion = '';
     localStorage.removeItem('filtrosProcesos');
     localStorage.setItem('filtrosProcesos', JSON.stringify(procesoModel));
+  }
+
+  resetearFiltrosSistemas() {
+    const sistemaModel = new Sistema(4);
+    sistemaModel.bajaDescripcion = 'Ambos';
+    sistemaModel.baja = null;
+    sistemaModel.sistemaId = 0;
+    sistemaModel.sistemaDescripcion = '';
+    localStorage.removeItem('filtrosSistemas');
+    localStorage.setItem('filtrosSistemas', JSON.stringify(sistemaModel));
   }
 }

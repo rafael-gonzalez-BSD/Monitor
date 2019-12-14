@@ -4,11 +4,11 @@ import { Injectable, EventEmitter } from '@angular/core';
   providedIn: 'root'
 })
 export class GeneralesService {
-  setTituloMovil = new EventEmitter();
+  setTituloMovil = new EventEmitter(true);
 
-  constructor() { }
+  constructor() {}
 
   setearTituloMovil(t: string) {
-    this.setTituloMovil.emit(t);    
+    this.setTituloMovil.emit(t);
   }
 }
