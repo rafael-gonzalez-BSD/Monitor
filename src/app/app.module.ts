@@ -84,6 +84,7 @@ import { CintillaSistemaComponent } from './components/inventario/sistemas/cinti
     ConfigConectoresComponent,
     CintillaSistemaComponent
     
+    
   ],
   imports: [
     BrowserModule,
