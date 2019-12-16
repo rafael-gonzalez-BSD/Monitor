@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { GeneralesService } from 'src/app/services/general/generales.service';
 
 @Component({
   selector: 'app-config-excepciones',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigExcepcionesComponent implements OnInit {
 
-  constructor() { }
+  constructor( private generalesService: GeneralesService,
+    private breakpointObserver: BreakpointObserver) { 
+    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+      if (!state.matches) {
+        this.setearTitulo('CONFIGURAR EXCEPCIONES');
+      }
+    });
+  }
 
   ngOnInit() {
+  }
+
+  setearTitulo(titulo) {
+    this.generalesService.setearTituloMovil(titulo);
   }
 
 }
