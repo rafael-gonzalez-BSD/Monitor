@@ -50,6 +50,9 @@ import { ConfigConectoresComponent } from './pages/configuracion/config-conector
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CintillaSistemaComponent } from './components/inventario/sistemas/cintilla-sistema/cintilla-sistema.component';
 import { CintillaMantenimientosComponent } from './components/inventario/mantenimientos/cintilla-mantenimientos/cintilla-mantenimientos.component';
+import { GrillaMantenimientoComponent } from './components/inventario/mantenimientos/grilla-mantenimiento/grilla-mantenimiento.component';
+import { ModalGuardarMantenimientoComponent } from './components/inventario/mantenimientos/modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
+import { ModalFiltrosMantenimientoComponent } from './components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,10 @@ import { CintillaMantenimientosComponent } from './components/inventario/manteni
     ConfigEjecucionesComponent,
     ConfigConectoresComponent,
     CintillaSistemaComponent,
-    CintillaMantenimientosComponent
+    CintillaMantenimientosComponent,
+    GrillaMantenimientoComponent,
+    ModalGuardarMantenimientoComponent,
+    ModalFiltrosMantenimientoComponent
     
     
   ],
