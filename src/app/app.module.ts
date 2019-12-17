@@ -49,6 +49,7 @@ import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuci
 import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CintillaSistemaComponent } from './components/inventario/sistemas/cintilla-sistema/cintilla-sistema.component';
+import { CintillaMantenimientosComponent } from './components/inventario/mantenimientos/cintilla-mantenimientos/cintilla-mantenimientos.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { CintillaSistemaComponent } from './components/inventario/sistemas/cinti
     ConfigExcepcionesComponent,
     ConfigEjecucionesComponent,
     ConfigConectoresComponent,
-    CintillaSistemaComponent
+    CintillaSistemaComponent,
+    CintillaMantenimientosComponent
     
     
   ],
