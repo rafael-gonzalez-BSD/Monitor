@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatSelect } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Combo } from 'src/app/models/base/combo';
+import { RespuestaModel } from '../../../../models/base/respuesta';
 
 @Component({
   selector: 'app-modal-filtros-sistema',
@@ -15,15 +16,18 @@ import { Combo } from 'src/app/models/base/combo';
 })
 export class ModalFiltrosSistemaComponent implements OnInit {
   tituloModal: string;
-  datosCombo: any;
+  datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
+  sistemaModel = new Sistema();
+  opcion: number;
   selected = '-1';
+  selectedText = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private sistemaService: SistemaService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private modal: MatDialog, private sistemaService: SistemaService) {
     this.tituloModal = data.tituloModal;
+    this.opcion = data.opcion;
     this.consultarSistemaCombo();
-    
   }
 
   ngOnInit() {
@@ -33,9 +37,6 @@ export class ModalFiltrosSistemaComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosCombo))
     );
-
-    console.log(this.sistemaCombo);
-    
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -46,15 +47,55 @@ export class ModalFiltrosSistemaComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      sistemaId: new FormControl('', [Validators.required, RequireMatch]),
-      baja: new FormControl(),
+      sistemaId: new FormControl('', [RequireMatch]),
+      baja: new FormControl()
     });
   }
 
   mostrarValor(obj: Combo) {
     if (obj) return obj.descripcion;
   }
-  
+
+  selectedEstado(e: Event) {
+    const source: MatSelect = e['source'];
+    const seleccionado = source.selected['_element'];
+    this.selectedText = seleccionado.nativeElement.outerText;
+  }
+
+  buscar(sistemaModel: Sistema) {
+    if (this.grupoFormulario.valid) {
+      this.sistemaModel.opcion = this.opcion;
+      if (this.grupoFormulario.value.sistemaId) {
+        this.sistemaModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.sistemaModel.sistemaId = 0;
+        this.sistemaModel.sistemaDescripcion = '';
+      }
+
+      if (this.grupoFormulario.value.baja) {
+        if (this.grupoFormulario.value.baja !== '-1') {
+          this.sistemaModel.baja = this.grupoFormulario.value.baja;
+          this.sistemaModel.bajaDescripcion = this.selectedText;
+        } else {
+          this.sistemaModel.baja = null;
+          this.sistemaModel.bajaDescripcion = 'Ambos';
+        }
+      } else {
+        this.sistemaModel.baja = null;
+        this.sistemaModel.bajaDescripcion = 'Ambos';
+      }
+
+      localStorage.setItem('filtrosSistemas', JSON.stringify(this.sistemaModel));
+
+      this.sistemaService.setearFiltros();
+
+      this.sistemaService.obtenerFiltros();
+
+      this.cerrarModal();
+    }
+  }
+
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
@@ -62,8 +103,6 @@ export class ModalFiltrosSistemaComponent implements OnInit {
       (response: any) => {
         if (response.satisfactorio) {
           this.datosCombo = response.datos;
-          console.log(this.datosCombo);
-          
         } else {
           alert('Error al consultar el combo de sistemas');
         }
@@ -79,5 +118,12 @@ export class ModalFiltrosSistemaComponent implements OnInit {
   get baja() {
     return this.grupoFormulario.get('baja');
   }
-  
+
+  resetForm() {
+    this.grupoFormulario.reset();
+  }
+
+  cerrarModal() {
+    this.modal.closeAll();
+  }
 }

@@ -7,34 +7,30 @@ import { MenuMovilComponent } from '../../../components/menu-movil/menu-movil.co
 import { Router } from '@angular/router';
 import { GeneralesService } from '../../../services/general/generales.service';
 
-
 @Component({
   selector: 'app-sistemas',
   templateUrl: './sistemas.component.html',
   styleUrls: ['./sistemas.component.scss']
 })
 export class SistemasComponent implements OnInit {
-  
-
-  constructor(private modal: MatDialog, 
+  constructor(
+    private modal: MatDialog,
     private router: Router,
     private generalesService: GeneralesService,
-    private breakpointObserver: BreakpointObserver) {
-      // seteamos el  título del navbar movil
-      this.breakpointObserver
-      .observe(['(min-width: 813px)'])
-      .subscribe((state: BreakpointState) => {
-        if (!state.matches) {
-          this.setearTitulo('CATÁLOGO DE SISTEMAS');           
-        }
-      });
-
-     }
-
-  ngOnInit() {    
-    this.setearTitulo('CATÁLOGO DE SISTEMAS');     
+    private breakpointObserver: BreakpointObserver
+  ) {
+    // seteamos el  título del navbar movil
+    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+      if (!state.matches) {
+        this.setearTitulo('CATÁLOGO DE SISTEMAS');
+      }
+    });
   }
-  setearTitulo(titulo){
+
+  ngOnInit() {
+    this.setearTitulo('CATÁLOGO DE SISTEMAS');
+  }
+  setearTitulo(titulo) {
     this.generalesService.setearTituloMovil(titulo);
   }
 
@@ -42,7 +38,8 @@ export class SistemasComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Filtros'
+      tituloModal: 'Filtros',
+      opcion: 4
     };
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
@@ -50,9 +47,8 @@ export class SistemasComponent implements OnInit {
     this.modal.open(ModalFiltrosSistemaComponent, dialogConfig);
   }
 
-  regresar(){
+  regresar() {
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
   }
-
 }

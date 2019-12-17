@@ -1,3 +1,19 @@
 .mat-input-element {
     caret-color: #ced4da !important;
 }
+
+// Medidas de las columnas
+.mat-column-accion {
+    flex: 0 0 80px !important;
+    min-width: 80px !important;
+}
+
+.mat-column-identificador {
+    flex: 0 0 9% !important;
+    min-width: 104px !important;
+}
+
+.mat-column-estado {
+    flex: 0 0 70px !important;
+    min-width: 70px !important;
+}
