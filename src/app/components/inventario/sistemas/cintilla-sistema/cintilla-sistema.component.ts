@@ -17,8 +17,8 @@ export class CintillaSistemaComponent implements OnInit {
     this.sistemaService.setFiltros.subscribe((m: any) => {
       this.filtroSistema = m.sistemaDescripcion || 'N/A';
       if (m.baja === null) this.filtroEstado = 'Ambos';
-      if (m.baja === true) this.filtroEstado = 'Apagado';
-      if (m.baja === false) this.filtroEstado = 'Encendido';
+      if (m.baja === true || m.baja === 'true') this.filtroEstado = 'Apagado';
+      if (m.baja === false || m.baja === 'false') this.filtroEstado = 'Encendido';
     });
   }
 }

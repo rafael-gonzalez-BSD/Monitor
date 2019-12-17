@@ -1,7 +1,6 @@
 <h2 mat-dialog-title>{{tituloModal}}</h2>
-
-<mat-dialog-content class="mat-typography">
-    <form [formGroup]="grupoFormulario">
+<form [formGroup]="grupoFormulario" (ngSubmit)="buscar(this.sistemaModel)">
+    <mat-dialog-content class="mat-typography">
         <div class="row">
             <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
@@ -20,16 +19,18 @@
 
             <div class="col-lg-6 form-group">
                 <label>Estado</label>
-                <mat-select [(value)]="selected">
+                <mat-select formControlName="baja" [(value)]="selected" (selectionChange)="selectedEstado($event)">
                     <mat-option value="-1">Ambos</mat-option>
-                    <mat-option value="0">Encendido</mat-option>
-                    <mat-option value="1">Apagado</mat-option>
-                  </mat-select>
+                    <mat-option value="false">Encendido</mat-option>
+                    <mat-option value="true">Apagado</mat-option>
+                </mat-select>
             </div>
         </div>
-    </form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-    <button class="btn-ternium-primary" mat-button>Buscar</button>
-</mat-dialog-actions>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
+        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Buscar</button>
+    </mat-dialog-actions>
+</form>

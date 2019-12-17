@@ -96,6 +96,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       this.procesoService.setearFiltros();
 
       this.procesoService.obtenerFiltros();
+
+      this.cerrarModal();
     }
   }
 

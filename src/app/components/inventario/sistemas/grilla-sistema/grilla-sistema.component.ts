@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
-import { Opcion } from '../../../../models/base/opcion';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { ModalGuardarSistemaComponent } from '../modal-guardar-sistema/modal-guardar-sistema.component';
-import { PageEvent } from '@angular/material/paginator';
-import { Proceso } from '../../../../models/inventario/proceso';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -46,6 +46,7 @@ export class GrillaSistemaComponent implements OnInit {
           this.dataSource = new MatTableDataSource(response.datos);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.length = response.datos.length;
           console.log(response.datos);
         } else {
           alert('Error al consultar el listado de sistemas');
