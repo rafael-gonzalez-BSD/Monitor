@@ -55,13 +55,12 @@ export class GrillaProcesoComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.length = res.datos.length;
-          this.generalesService.notificar(new NotificacionModel('success', 'Se cargo la grilla Procesos.'));
         } else {
-          this.generalesService.notificar(new NotificacionModel('success', 'Error al consultar el listado de procesos. ' + res.mensaje));
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
         }
       },
       err => {
-        alert('Ocurrió un error al consultar el listado de procesos');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de procesos'));
       },
       () => { }
     );
@@ -85,9 +84,14 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
-      CONFIG_MODAL.data.datosCombo = res['datos'];
-      this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
+      if(res.satisfactorio){
+        CONFIG_MODAL.data.datosCombo = res['datos'];
+        this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+      }
+      else {
+        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
+      }
     });
   }
 
@@ -102,9 +106,14 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
-      dialogConfig.data.datosCombo = res['datos'];
-      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
+      if(res.satisfactorio){
+        dialogConfig.data.datosCombo = res['datos'];
+        this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+      }else{
+        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
+      }
+
     });
   }
 
@@ -115,10 +124,15 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarEstado(this.procesoModel).subscribe(
       (response: any) => {
-        alert(response.mensaje);
+        if(response.satisfactorio){
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+        }else{
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+
       },
       err => {
-        alert('Ocurrió un error');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
       () => { }
     );
@@ -131,10 +145,14 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarCritico(this.procesoModel).subscribe(
       (response: any) => {
-        alert(response.mensaje);
+        if(response.satisfactorio){
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+        }else{
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
       },
       err => {
-        alert('Ocurrió un error');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
       () => { }
     );

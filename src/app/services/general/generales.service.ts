@@ -7,8 +7,9 @@ import { NotificacionModel } from '../../models/base/notificacion';
 export class GeneralesService {
   setTituloMovil = new EventEmitter(true);
   notificacion = new EventEmitter();
+  loader = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
   setearTituloMovil(t: string) {
     this.setTituloMovil.emit(t);
@@ -16,5 +17,13 @@ export class GeneralesService {
 
   notificar(n: NotificacionModel) {
     this.notificacion.emit(n);
+  }
+
+  quitarLoader() {
+    this.loader.emit(true);
+  }
+
+  mnostrarLoader() {
+    this.loader.emit(false);
   }
 }

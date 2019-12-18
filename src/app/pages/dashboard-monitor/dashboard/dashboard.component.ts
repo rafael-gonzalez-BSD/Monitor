@@ -9,8 +9,8 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor( private generalesService: GeneralesService,
-    private breakpointObserver: BreakpointObserver) { 
+  constructor(private generalesService: GeneralesService,
+    private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
         this.setearTitulo('DASHBOARD');
@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.generalesService.quitarLoader();
   }
 
   setearTitulo(titulo) {
