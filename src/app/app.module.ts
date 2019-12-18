@@ -161,7 +161,8 @@ const customNotifierOptions: NotifierOptions = {
     ModalGuardarSistemaComponent,
     ModalFiltrosSistemaComponent,
     ModalGuardarProcesoComponent,
-    ModalFiltrosProcesoComponent
+    ModalFiltrosProcesoComponent,
+    ModalFiltrosMantenimientoComponent
   ]
 })
 export class AppModule { }

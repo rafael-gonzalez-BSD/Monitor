@@ -21,6 +21,7 @@ export class Layout1Component implements OnInit {
   ngOnInit() {
     this.resetearFiltrosProcesos();
     this.resetearFiltrosSistemas();
+    this.resetearFiltrosMantenimientos();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;
@@ -45,5 +46,14 @@ export class Layout1Component implements OnInit {
     sistemaModel.sistemaDescripcion = '';
     localStorage.removeItem('filtrosSistemas');
     localStorage.setItem('filtrosSistemas', JSON.stringify(sistemaModel));
+  }
+
+  resetearFiltrosMantenimientos() {
+    const mantenimientoModel = new Sistema(4);
+    mantenimientoModel.baja = null;
+    mantenimientoModel.sistemaId = 0;
+    mantenimientoModel.sistemaDescripcion = '';
+    localStorage.removeItem('filtrosMantenimientos');
+    localStorage.setItem('filtrosMantenimientos', JSON.stringify(mantenimientoModel));
   }
 }
