@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { Combo } from '../../../../models/base/combo';
 import { startWith, map } from 'rxjs/operators';
 import { RequireMatch } from '../../../../extensions/autocomplete/require-match';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-modal-filtros-proceso',
@@ -32,7 +34,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private modal: MatDialog,
     private procesoService: ProcesoService,
-    private sistemaService: SistemaService
+    private sistemaService: SistemaService,
+    private generalesService: GeneralesService
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
@@ -72,7 +75,6 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   }
 
   buscar(procesoModel: Proceso) {
-    debugger;
     if (this.grupoFormulario.valid) {
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
@@ -115,7 +117,9 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       (res: any) => {
         this.datosComboSistema = res;
       },
-      err => {},
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
       () => {}
     );
   }
@@ -128,7 +132,9 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       (res: any) => {
         this.datosComboProceso = res;
       },
-      err => {},
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
       () => {}
     );
   }

@@ -8,6 +8,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Combo } from 'src/app/models/base/combo';
 import { RespuestaModel } from '../../../../models/base/respuesta';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-modal-filtros-sistema',
@@ -24,7 +26,10 @@ export class ModalFiltrosSistemaComponent implements OnInit {
   selected = '-1';
   selectedText = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private modal: MatDialog, private sistemaService: SistemaService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    private modal: MatDialog,
+    private sistemaService: SistemaService,
+    private generalesService: GeneralesService) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.consultarSistemaCombo();
@@ -104,11 +109,13 @@ export class ModalFiltrosSistemaComponent implements OnInit {
         if (response.satisfactorio) {
           this.datosCombo = response.datos;
         } else {
-          alert('Error al consultar el combo de sistemas');
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el combo de sistemas.' + response.mensaje));
         }
       },
-      err => {},
-      () => {}
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrio un error.'));
+      },
+      () => { }
     );
   }
 

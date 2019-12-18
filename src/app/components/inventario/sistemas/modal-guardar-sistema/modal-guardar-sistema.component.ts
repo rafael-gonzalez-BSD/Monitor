@@ -5,6 +5,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Sistema } from 'src/app/models/inventario/sistema';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { RespuestaModel } from '../../../../models/base/respuesta';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from '../../../../models/base/notificacion';
 
 @Component({
   selector: 'app-modal-guardar-sistema',
@@ -28,6 +30,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private gerenciaService: GerenciaService,
     private sistemaService: SistemaService,
+    private generalesService: GeneralesService,
     private modal: MatDialog
   ) {
     this.tituloModal = data.tituloModal;
@@ -55,12 +58,11 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.gerenciaService.consultarGerenciaCombo().subscribe(
       (response: any) => {
         this.datosCombo = response.datos;
-        console.log(this.datosCombo);
       },
       err => {
-        console.log('Error interno al consultar gerencia');
+        this.generalesService.notificar(new NotificacionModel('error', 'Error interno al consultar gerencia'));
       },
-      () => {}
+      () => { }
     );
   }
   get SistemaId() {
@@ -101,18 +103,18 @@ export class ModalGuardarSistemaComponent implements OnInit {
       this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {
-            alert(response.mensaje);
+            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
             this.sistemaService.obtenerFiltros();
             this.sistemaService.setearFiltros();
             this.cerrarModal();
           } else {
-            alert(response.mensaje);
+            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
           }
         },
         err => {
-          alert('Ocurrió un error');
+          this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
         },
-        () => {}
+        () => { }
       );
     }
   }

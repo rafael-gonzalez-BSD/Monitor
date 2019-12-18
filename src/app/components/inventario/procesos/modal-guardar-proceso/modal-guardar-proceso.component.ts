@@ -9,6 +9,8 @@ import { map, startWith } from 'rxjs/operators';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { Combo } from '../../../../models/base/combo';
 import { RequireMatch } from '../../../../extensions/autocomplete/require-match';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -33,7 +35,8 @@ export class ModalGuardarProcesoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sistemaService: SistemaService,
     private procesoService: ProcesoService,
-    private modal: MatDialog
+    private modal: MatDialog,
+    private generalesService: GeneralesService
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
@@ -88,7 +91,9 @@ export class ModalGuardarProcesoComponent implements OnInit {
       (response: any) => {
         this.datosCombo = response['datos'];
       },
-      err => {},
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de sistemas'));
+      },
       () => {}
     );
   }
@@ -109,16 +114,17 @@ export class ModalGuardarProcesoComponent implements OnInit {
       this.procesoService.guardarProceso(procesoModel, this.esEdicion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {
-            alert(response.mensaje);
+            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
             this.procesoService.obtenerFiltros();
             this.procesoService.setearFiltros();
             this.cerrarModal();
           } else {
+            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
             alert(response.mensaje);
           }
         },
         err => {
-          alert('Ocurrió un error');
+          this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
         },
         () => {}
       );

@@ -9,6 +9,8 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { Sistema } from 'src/app/models/inventario/sistema';
 import { RespuestaModel } from '../../../../models/base/respuesta';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -27,7 +29,11 @@ export class GrillaProcesoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
+  constructor(
+    private procesoService: ProcesoService,
+    private sistemaService: SistemaService,
+    private generalesService: GeneralesService,
+    private modal: MatDialog) { }
 
   ngOnInit() {
     this.procesoService.filtros.subscribe((m: any) => {
@@ -50,13 +56,13 @@ export class GrillaProcesoComponent implements OnInit {
           this.dataSource.sort = this.sort;
           this.length = res.datos.length;
         } else {
-          alert('Error al consultar el listado de procesos. ' + res.mensaje);
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
         }
       },
       err => {
-        alert('Ocurrió un error al consultar el listado de procesos');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de procesos'));
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -78,9 +84,14 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
-      CONFIG_MODAL.data.datosCombo = res['datos'];
-      this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
+      if(res.satisfactorio){
+        CONFIG_MODAL.data.datosCombo = res['datos'];
+        this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
+      }
+      else {
+        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
+      }
     });
   }
 
@@ -95,9 +106,14 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res => {
-      dialogConfig.data.datosCombo = res['datos'];
-      this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
+      if(res.satisfactorio){
+        dialogConfig.data.datosCombo = res['datos'];
+        this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
+      }else{
+        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
+      }
+
     });
   }
 
@@ -108,12 +124,17 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarEstado(this.procesoModel).subscribe(
       (response: any) => {
-        alert(response.mensaje);
+        if(response.satisfactorio){
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+        }else{
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+
       },
       err => {
-        alert('Ocurrió un error');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -124,12 +145,16 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarCritico(this.procesoModel).subscribe(
       (response: any) => {
-        alert(response.mensaje);
+        if(response.satisfactorio){
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+        }else{
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
       },
       err => {
-        alert('Ocurrió un error');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
-      () => {}
+      () => { }
     );
   }
 }
