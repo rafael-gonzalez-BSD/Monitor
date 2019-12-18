@@ -42,6 +42,7 @@ export class GrillaSistemaComponent implements OnInit {
   }
 
   consultarSistemaAll(m: Sistema) {
+    this.generalesService.mostrarLoader();
     this.sistemaService.consultarSistemaAll(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
@@ -56,7 +57,9 @@ export class GrillaSistemaComponent implements OnInit {
       err => {
         this.generalesService.notificar(new NotificacionModel('warning', 'Ocurrió un error al consultar el listado de sistemas'));
       },
-      () => { }
+      () => {
+        this.generalesService.quitarLoader();
+      }
     );
   }
 

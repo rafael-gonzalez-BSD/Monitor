@@ -28,6 +28,7 @@ export class SistemasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.generalesService.mostrarLoader();
     this.setearTitulo('CATÁLOGO DE SISTEMAS');
   }
   setearTitulo(titulo) {
@@ -48,6 +49,7 @@ export class SistemasComponent implements OnInit {
   }
 
   regresar() {
+    this.generalesService.mostrarLoader();
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
   }

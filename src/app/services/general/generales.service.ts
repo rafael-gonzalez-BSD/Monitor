@@ -23,7 +23,7 @@ export class GeneralesService {
     this.loader.emit(true);
   }
 
-  mnostrarLoader() {
+  mostrarLoader() {
     this.loader.emit(false);
   }
 }
