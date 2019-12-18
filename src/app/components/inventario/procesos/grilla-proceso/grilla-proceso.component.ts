@@ -9,6 +9,8 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { Sistema } from 'src/app/models/inventario/sistema';
 import { RespuestaModel } from '../../../../models/base/respuesta';
+import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -27,7 +29,11 @@ export class GrillaProcesoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private procesoService: ProcesoService, private sistemaService: SistemaService, private modal: MatDialog) {}
+  constructor(
+    private procesoService: ProcesoService,
+    private sistemaService: SistemaService,
+    private generalesService: GeneralesService,
+    private modal: MatDialog) { }
 
   ngOnInit() {
     this.procesoService.filtros.subscribe((m: any) => {
@@ -49,14 +55,15 @@ export class GrillaProcesoComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.length = res.datos.length;
+          this.generalesService.notificar(new NotificacionModel('success', 'Se cargo la grilla Procesos.'));
         } else {
-          alert('Error al consultar el listado de procesos. ' + res.mensaje);
+          this.generalesService.notificar(new NotificacionModel('success', 'Error al consultar el listado de procesos. ' + res.mensaje));
         }
       },
       err => {
         alert('Ocurrió un error al consultar el listado de procesos');
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -113,7 +120,7 @@ export class GrillaProcesoComponent implements OnInit {
       err => {
         alert('Ocurrió un error');
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -129,7 +136,7 @@ export class GrillaProcesoComponent implements OnInit {
       err => {
         alert('Ocurrió un error');
       },
-      () => {}
+      () => { }
     );
   }
 }
