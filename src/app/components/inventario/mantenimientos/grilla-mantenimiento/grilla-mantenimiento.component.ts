@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
+import { ModalGuardarMantenimientoComponent } from '../modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
@@ -20,7 +21,8 @@ export class GrillaMantenimientoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private mantenimientoService: MantenimientoService) { }
+  constructor(private mantenimientoService: MantenimientoService,
+    private modal: MatDialog) { }
 
   ngOnInit() {
     this.mantenimientoService.filtros.subscribe((m: any) => {
@@ -48,6 +50,18 @@ export class GrillaMantenimientoComponent implements OnInit {
       },
       () => {}
     );
+  }
+
+  abrirModalGuardar() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      esEdicion: false,
+      tituloModal: 'Nueva Ventana de Mantenimientos',
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
+    this.modal.open(ModalGuardarMantenimientoComponent, dialogConfig);
   }
 
 }
