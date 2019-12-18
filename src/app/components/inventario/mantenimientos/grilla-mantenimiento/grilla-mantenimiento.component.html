@@ -19,7 +19,7 @@
                 <ng-container matColumnDef="accion">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="accion">
-                        <button mat-icon-button (click)="consultarProcesoId(row)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button (click)="consultarMantenimientoId(row)"><mat-icon>edit</mat-icon></button>
                     </mat-cell>
                 </ng-container>
 
@@ -29,16 +29,28 @@
                     <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
                 </ng-container>
 
-                <!-- COLUMNA IDENTIFICADOR -->
-                <ng-container matColumnDef="identificador">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="identificador">{{row.procesoId}}</mat-cell>
+                <!-- COLUMNA FECHAINICIO -->
+                <ng-container matColumnDef="fechaInicio">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="fechaInicio">{{row.fechaDesde | date: 'dd/MM/yyyy'}}</mat-cell>
                 </ng-container>
 
-                <!-- COLUMNA PROCESO -->
-                <ng-container matColumnDef="proceso">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="proceso">{{row.procesoDescripcion}}</mat-cell>
+                <!-- COLUMNA HORAINICIO -->
+                <ng-container matColumnDef="horaInicio">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Inicio</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="horaInicio">{{row.fechaDesde | date: 'HH:mm'}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA FECHAFIN -->
+                <ng-container matColumnDef="fechaFin">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Fin</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="fechaFin">{{row.fechaHasta | date: 'dd/MM/yyyy'}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA HORAFIN -->
+                <ng-container matColumnDef="horaFin">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Fin</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="horaFin">{{row.fechaHasta | date: 'HH:mm'}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ESTADO -->
@@ -46,14 +58,6 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="estado">
                         <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- COLUMNA CRITICO -->
-                <ng-container matColumnDef="critico">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Crítico</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="critico">
-                        <mat-slide-toggle [checked]="row.critico" (change)="actualizarCritico($event,row)"></mat-slide-toggle>
                     </mat-cell>
                 </ng-container>
 
