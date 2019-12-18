@@ -85,6 +85,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   }
 
   guardarSistema(sistemaModel: Sistema) {
+    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.insercion ? (this.opcion = 1) : (this.opcion = 3);
 
@@ -114,7 +115,9 @@ export class ModalGuardarSistemaComponent implements OnInit {
         err => {
           this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
         },
-        () => { }
+        () => {
+          this.generalesService.quitarLoader();
+        }
       );
     }
   }

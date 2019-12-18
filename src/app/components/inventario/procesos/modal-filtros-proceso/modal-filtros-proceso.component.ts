@@ -75,6 +75,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   }
 
   buscar(procesoModel: Proceso) {
+    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
@@ -120,7 +121,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -135,7 +136,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
       },
-      () => {}
+      () => { }
     );
   }
 

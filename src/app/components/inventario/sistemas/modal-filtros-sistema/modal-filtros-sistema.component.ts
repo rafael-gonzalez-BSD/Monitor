@@ -68,6 +68,7 @@ export class ModalFiltrosSistemaComponent implements OnInit {
   }
 
   buscar(sistemaModel: Sistema) {
+    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.sistemaModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {

@@ -48,6 +48,7 @@ export class GrillaProcesoComponent implements OnInit {
   }
 
   obtenerProcesos(m: Proceso) {
+    this.generalesService.mostrarLoader();
     this.procesoService.obtenerProcesos(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
@@ -62,7 +63,9 @@ export class GrillaProcesoComponent implements OnInit {
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de procesos'));
       },
-      () => { }
+      () => {
+        this.generalesService.quitarLoader();
+      }
     );
   }
 
@@ -85,7 +88,7 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
-      if(res.satisfactorio){
+      if (res.satisfactorio) {
         CONFIG_MODAL.data.datosCombo = res['datos'];
         this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
       }
@@ -107,10 +110,10 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
     this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
-      if(res.satisfactorio){
+      if (res.satisfactorio) {
         dialogConfig.data.datosCombo = res['datos'];
         this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
-      }else{
+      } else {
         this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
       }
 
@@ -124,9 +127,9 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarEstado(this.procesoModel).subscribe(
       (response: any) => {
-        if(response.satisfactorio){
+        if (response.satisfactorio) {
           this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-        }else{
+        } else {
           this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
         }
 
@@ -145,9 +148,9 @@ export class GrillaProcesoComponent implements OnInit {
 
     this.procesoService.actualizarCritico(this.procesoModel).subscribe(
       (response: any) => {
-        if(response.satisfactorio){
+        if (response.satisfactorio) {
           this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-        }else{
+        } else {
           this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
         }
       },

@@ -94,11 +94,12 @@ export class ModalGuardarProcesoComponent implements OnInit {
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de sistemas'));
       },
-      () => {}
+      () => { }
     );
   }
 
   guardarProceso(procesoModel: Proceso) {
+    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.procesoModel = procesoModel;
       this.procesoModel.opcion = this.opcion;
@@ -126,7 +127,9 @@ export class ModalGuardarProcesoComponent implements OnInit {
         err => {
           this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
         },
-        () => {}
+        () => {
+          this.generalesService.quitarLoader();
+        }
       );
     }
   }

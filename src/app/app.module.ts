@@ -54,8 +54,6 @@ import { GrillaMantenimientoComponent } from './components/inventario/mantenimie
 import { ModalGuardarMantenimientoComponent } from './components/inventario/mantenimientos/modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
 import { ModalFiltrosMantenimientoComponent } from './components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { LoaderService } from './services/general/loader.service';
-import { LoaderInterceptor } from './extensions/interceptors/loader.interceptor';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 /**
@@ -154,9 +152,9 @@ const customNotifierOptions: NotifierOptions = {
     NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [
-    LoaderService,
+    // LoaderService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -166,4 +164,4 @@ const customNotifierOptions: NotifierOptions = {
     ModalFiltrosProcesoComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }
