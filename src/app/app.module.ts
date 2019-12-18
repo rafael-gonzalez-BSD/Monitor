@@ -29,7 +29,7 @@ import { SistemasComponent } from './pages/inventario/sistemas/sistemas.componen
 import { ProcesosComponent } from './pages/inventario/procesos/procesos.component';
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GrillaProcesoComponent } from './components/inventario/procesos/grilla-proceso/grilla-proceso.component';
 import { CintillaProcesoComponent } from './components/inventario/procesos/cintilla-proceso/cintilla-proceso.component';
@@ -53,6 +53,9 @@ import { CintillaMantenimientosComponent } from './components/inventario/manteni
 import { GrillaMantenimientoComponent } from './components/inventario/mantenimientos/grilla-mantenimiento/grilla-mantenimiento.component';
 import { ModalGuardarMantenimientoComponent } from './components/inventario/mantenimientos/modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
 import { ModalFiltrosMantenimientoComponent } from './components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './services/general/loader.service';
+import { LoaderInterceptor } from './extensions/interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -90,9 +93,8 @@ import { ModalFiltrosMantenimientoComponent } from './components/inventario/mant
     CintillaMantenimientosComponent,
     GrillaMantenimientoComponent,
     ModalGuardarMantenimientoComponent,
-    ModalFiltrosMantenimientoComponent
-    
-    
+    ModalFiltrosMantenimientoComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +108,9 @@ import { ModalFiltrosMantenimientoComponent } from './components/inventario/mant
     LayoutModule
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    LoaderService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

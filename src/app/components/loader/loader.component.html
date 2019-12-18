@@ -1,0 +1,6 @@
+<div class="progress-loader" *ngIf="!loading">
+    <mat-progress-bar [mode]="'determinate'"></mat-progress-bar>
+</div>
+<div class="progress-loading-page" *ngIf="!loading">
+    <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+</div>
