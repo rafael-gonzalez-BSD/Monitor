@@ -12,7 +12,7 @@ import { MantenimientoService } from '../../../../services/inventario/mantenimie
 export class GrillaMantenimientoComponent implements OnInit {
   tableColumns: string[] = ['accion', 'sistema', 'fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'estado'];
   pageSizeOptions = [10, 25, 100];
-  pageSize = 2;
+  pageSize = 10;
   length: number;
   dataSource: MatTableDataSource<Mantenimiento>;
   m: Mantenimiento;
@@ -23,17 +23,18 @@ export class GrillaMantenimientoComponent implements OnInit {
   constructor(private mantenimientoService: MantenimientoService) { }
 
   ngOnInit() {
-    this.m = new Mantenimiento();
-    this.m.opcion = 4;
-    this.obtenerMantenimientos(this.m);
+    this.mantenimientoService.filtros.subscribe((m: any) => {
+      if (m.baja === null) delete m.baja;
+      this.obtenerMantenimientos(m);
+    });
+    this.mantenimientoService.obtenerFiltros();
+    this.mantenimientoService.setearFiltros();
   }
 
   obtenerMantenimientos(m: Mantenimiento) {
     this.mantenimientoService.obtenerMantenimientos(m).subscribe(
       (res: RespuestaModel) => {
-        if (res.satisfactorio) {
-          console.log(res.datos);
-          
+        if (res.satisfactorio) {         
           this.dataSource = new MatTableDataSource(res.datos);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

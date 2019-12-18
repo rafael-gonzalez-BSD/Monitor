@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { Router } from '@angular/router';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ModalFiltrosMantenimientoComponent } from 'src/app/components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
 
 @Component({
   selector: 'app-mantenimientos',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class MantenimientosComponent implements OnInit {
 
-  constructor( private generalesService: GeneralesService,
+  constructor( private modal: MatDialog, private generalesService: GeneralesService,
     private breakpointObserver: BreakpointObserver,
     private router: Router) { 
     // seteamos el  título del navbar movil
@@ -31,6 +33,19 @@ export class MantenimientosComponent implements OnInit {
   regresar() {
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
+  }
+
+  abrirModalFiltros() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: 1,
+      tituloModal: 'Filtros',
+      opcion: 4
+    };
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '70%';
+    dialogConfig.maxWidth = '768px';
+    this.modal.open(ModalFiltrosMantenimientoComponent, dialogConfig);
   }
 
 }

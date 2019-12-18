@@ -113,7 +113,8 @@ import { ModalFiltrosMantenimientoComponent } from './components/inventario/mant
     ModalGuardarSistemaComponent,
     ModalFiltrosSistemaComponent,
     ModalGuardarProcesoComponent,
-    ModalFiltrosProcesoComponent
+    ModalFiltrosProcesoComponent,
+    ModalFiltrosMantenimientoComponent
   ]
 })
 export class AppModule {}
