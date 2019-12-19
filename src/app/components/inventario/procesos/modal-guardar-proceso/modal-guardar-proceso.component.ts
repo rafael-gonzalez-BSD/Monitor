@@ -124,7 +124,6 @@ export class ModalGuardarProcesoComponent implements OnInit {
             this.cerrarModal();
           } else {
             this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-            alert(response.mensaje);
           }
         },
         err => {

@@ -68,7 +68,7 @@ export class SistemaService {
   }
 
   actualizarEstado(sistema: Sistema) {
-    const url = `${environment.urlApi}sistema/estado`;
+    const url = `${environment.urlApi}sistema`;
     return this.http.patch<Sistema>(url, sistema);
   }
 }
