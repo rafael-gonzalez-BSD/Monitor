@@ -42,7 +42,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
-    this.datosEditar.baja = !data.baja;
+    this.datosEditar.baja = data.edit ? !data.baja : true;
     this.esEdicion = data.edit;
     this.consultarSistemaCombo();
   }

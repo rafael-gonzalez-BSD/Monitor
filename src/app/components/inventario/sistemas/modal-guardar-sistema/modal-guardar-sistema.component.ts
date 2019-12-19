@@ -36,6 +36,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
+    this.datosEditar.baja = data.insercion ? this.toggleBaja : !data.baja;
     this.gerenciaId = data.gerenciaId;
     this.insercion = data.insercion;
   }
@@ -50,7 +51,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
       SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       GerenciaId: new FormControl('-1', [Validators.required]),
-      Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)])
+      Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      Baja: new FormControl()
     });
   }
 
