@@ -19,9 +19,7 @@ import { Router } from '@angular/router';
 })
 export class ProcesosComponent implements OnInit {
   constructor(
-    private procesoService: ProcesoService,
     private generalesService: GeneralesService,
-    private sistemaService: SistemaService,
     private router: Router,
     private modal: MatDialog,
     private breakpointObserver: BreakpointObserver

@@ -18,6 +18,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 })
 export class ModalFiltrosSistemaComponent implements OnInit {
   tituloModal: string;
+  datosFiltros: any;
   datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
@@ -30,8 +31,10 @@ export class ModalFiltrosSistemaComponent implements OnInit {
     private modal: MatDialog,
     private sistemaService: SistemaService,
     private generalesService: GeneralesService) {
+    debugger
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
+    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosSistemas'));
     this.consultarSistemaCombo();
   }
 
@@ -42,6 +45,12 @@ export class ModalFiltrosSistemaComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosCombo))
     );
+    if (this.datosFiltros.baja === null) {
+      this.datosFiltros.baja = '-1';
+    }
+    if (this.datosFiltros.sistemaId > 0) {
+      this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
+    }
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -100,6 +109,13 @@ export class ModalFiltrosSistemaComponent implements OnInit {
 
       this.cerrarModal();
     }
+  }
+
+  setearValorAutocomplete(campo: string, id: number, desc: string) {
+    this.grupoFormulario.get(campo).setValue({
+      identificador: id,
+      descripcion: desc
+    });
   }
 
   consultarSistemaCombo() {

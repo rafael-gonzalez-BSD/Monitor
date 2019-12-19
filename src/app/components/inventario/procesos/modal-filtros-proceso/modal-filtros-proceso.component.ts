@@ -23,6 +23,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) autoProceso: MatAutocompleteTrigger;
   tituloModal: string;
   opcion: number;
+  datosFiltros: any;
   datosComboSistema: Combo[];
   datosComboProceso: Combo[];
   sistemaCombo: Observable<Combo[]>;
@@ -39,6 +40,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
+    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosProcesos'));
     this.consultarSistemaCombo();
     this.consultarProcesoCombo();
   }
@@ -55,6 +57,13 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosComboProceso))
     );
+    if (this.datosFiltros.sistemaId > 0) {
+      this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
+    }
+
+    if (this.datosFiltros.procesoId > 0) {
+      this.setearValorAutocomplete('procesoId', this.datosFiltros.procesoId, this.datosFiltros.procesoDescripcion);
+    }
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -116,9 +125,13 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     m.opcion = 3;
     m.baja = false;
     this.sistemaService.consultarSistemaCombo(m).subscribe(
-      (res: any) => {
-        console.log(res.datos);
-        this.datosComboSistema = res.datos;
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          this.datosComboSistema = res.datos;
+        }
+        else {
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al cargar el combo sistema.'));
+        }
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
@@ -130,10 +143,10 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   consultarProcesoCombo() {
     const m = new Proceso();
     m.opcion = 3;
-
-    this.procesoService.consultarProcesoCombo(this.procesoModel).subscribe(
+    this.procesoService.consultarProcesoCombo(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
+          console.log('Combo Proceso', res.datos);
           this.datosComboProceso = res.datos;
         }
         else {
