@@ -66,6 +66,7 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
+    m.baja = false;
     this.sistemaService.consultarSistemaCombo(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {

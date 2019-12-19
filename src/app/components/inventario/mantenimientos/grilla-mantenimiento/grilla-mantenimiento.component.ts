@@ -4,6 +4,7 @@ import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
 import { ModalGuardarMantenimientoComponent } from '../modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
+import { GeneralesService } from 'src/app/services/general/generales.service';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
@@ -21,8 +22,10 @@ export class GrillaMantenimientoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private mantenimientoService: MantenimientoService,
-    private modal: MatDialog) { }
+  constructor(
+    private mantenimientoService: MantenimientoService,
+    private modal: MatDialog,
+    private generalesService: GeneralesService) { }
 
   ngOnInit() {
     this.mantenimientoService.filtros.subscribe((m: any) => {
@@ -48,7 +51,9 @@ export class GrillaMantenimientoComponent implements OnInit {
       err => {
         alert('Ocurrió un error al consultar el listado de mantenimientos');
       },
-      () => {}
+      () => {
+        this.generalesService.quitarLoader();
+      }
     );
   }
 
