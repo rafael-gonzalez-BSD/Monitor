@@ -1,5 +1,5 @@
-import { Opcion } from '../base/opcion';
-export class Sistema extends Opcion {
+
+export class Sistema {
   sistemaId: number;
   sistemaDescripcion: string;
   baja?: boolean;
@@ -8,9 +8,4 @@ export class Sistema extends Opcion {
   bajaDescripcion: string;
   descripcion: string;
   opcion: number;
-
-  constructor(opcion?: number) {
-    super();
-    this.opcion = opcion || 0;
-  }
 }

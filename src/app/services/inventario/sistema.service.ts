@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Sistema } from '../../models/inventario/sistema';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Opcion } from '../../models/base/opcion';
-import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class SistemaService {
   filtros = new EventEmitter();
   setFiltros = new EventEmitter();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   guardarSistema(sistema: Sistema, insercion: boolean): Observable<Sistema> {
     let resultado: any;
@@ -40,7 +38,7 @@ export class SistemaService {
   }
 
   consultarSistemaCombo(m: Sistema) {
-    
+
     let parametros = new HttpParams();
     for (const key in m) {
       parametros = parametros.set(key, m[key]);

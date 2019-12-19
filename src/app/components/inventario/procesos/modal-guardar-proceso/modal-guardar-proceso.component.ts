@@ -11,6 +11,7 @@ import { Combo } from '../../../../models/base/combo';
 import { RequireMatch } from '../../../../extensions/autocomplete/require-match';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { RespuestaModel } from '../../../../models/base/respuesta';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -23,7 +24,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
   opcion: number;
   datosEditar: any;
   esEdicion: boolean;
-  datosCombo: Combo[] = [];
+  datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
   procesoModel = new Proceso();
@@ -43,11 +44,11 @@ export class ModalGuardarProcesoComponent implements OnInit {
     this.datosEditar = data;
     this.datosEditar.baja = !data.baja;
     this.esEdicion = data.edit;
-    this.datosCombo = data.datosCombo;
+    this.consultarSistemaCombo();
   }
 
   ngOnInit() {
-    // this.consultarSistemaCombo();
+
 
     this.grupoFormulario = this.validarFormulario();
     this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
@@ -86,10 +87,12 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
   consultarSistemaCombo() {
     const m = new Sistema();
-    m.Opcion = 3;
+    m.opcion = 3;
+    m.baja = false;
+
     this.sistemaService.consultarSistemaCombo(m).subscribe(
-      (response: any) => {
-        this.datosCombo = response['datos'];
+      (res: RespuestaModel) => {
+        this.datosCombo = res.datos;
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de sistemas'));

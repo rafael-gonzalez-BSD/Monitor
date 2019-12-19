@@ -23,8 +23,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) autoProceso: MatAutocompleteTrigger;
   tituloModal: string;
   opcion: number;
-  datosComboSistema: RespuestaModel;
-  datosComboProceso: RespuestaModel;
+  datosComboSistema: Combo[];
+  datosComboProceso: Combo[];
   sistemaCombo: Observable<Combo[]>;
   procesoCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
@@ -39,8 +39,8 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
-    this.datosComboProceso = data.datosComboProceso;
-    this.datosComboSistema = data.datosComboSistema;
+    this.consultarSistemaCombo();
+    this.consultarProcesoCombo();
   }
 
   ngOnInit() {
@@ -48,12 +48,12 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.descripcion)),
-      map(name => this.filter(name, this.datosComboSistema.datos))
+      map(name => this.filter(name, this.datosComboSistema))
     );
     this.procesoCombo = this.grupoFormulario.get('procesoId').valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.descripcion)),
-      map(name => this.filter(name, this.datosComboProceso.datos))
+      map(name => this.filter(name, this.datosComboProceso))
     );
   }
 
@@ -114,9 +114,11 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
+    m.baja = false;
     this.sistemaService.consultarSistemaCombo(m).subscribe(
       (res: any) => {
-        this.datosComboSistema = res;
+        console.log(res.datos);
+        this.datosComboSistema = res.datos;
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
@@ -126,12 +128,18 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   }
 
   consultarProcesoCombo() {
-    this.procesoModel = new Proceso();
-    this.procesoModel.opcion = 3;
+    const m = new Proceso();
+    m.opcion = 3;
 
     this.procesoService.consultarProcesoCombo(this.procesoModel).subscribe(
-      (res: any) => {
-        this.datosComboProceso = res;
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          this.datosComboProceso = res.datos;
+        }
+        else {
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al cargar el combo proceso.'));
+        }
+
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
