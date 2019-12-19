@@ -20,6 +20,12 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
+            <div class="col-lg-3 form-group">
+                <label for="">Estado</label> <br>
+                <mat-slide-toggle checked = "toggleBaja" (change)="changeMatToggle($event)">
+                </mat-slide-toggle>
+
+            </div>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">

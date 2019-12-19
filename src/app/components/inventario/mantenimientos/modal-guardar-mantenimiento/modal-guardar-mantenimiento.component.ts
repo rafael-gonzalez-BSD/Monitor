@@ -55,7 +55,7 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      sistemaId: new FormControl('', [RequireMatch]),
+      sistemaId: new FormControl('', [RequireMatch, Validators.required]),
     });
   }
 
@@ -71,7 +71,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
       (response: any) => {
         if (response.satisfactorio) {
           this.datosCombo = response.datos;   
-          console.log(this.datosCombo);
           
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de sistemas. ${response.mensaje}`));
@@ -84,4 +83,11 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     );
   }
 
+  mostrarValor(obj: Combo) {
+    if (obj) return obj.descripcion;
+  }
+
+  changeMatToggle(event) {
+    this.toggleBaja = event.checked;    
+  }
 }

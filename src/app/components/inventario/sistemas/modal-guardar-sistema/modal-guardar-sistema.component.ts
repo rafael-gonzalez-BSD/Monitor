@@ -7,6 +7,7 @@ import { SistemaService } from '../../../../services/inventario/sistema.service'
 import { RespuestaModel } from '../../../../models/base/respuesta';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from '../../../../models/base/notificacion';
+import { Combo } from 'src/app/models/base/combo';
 
 @Component({
   selector: 'app-modal-guardar-sistema',
@@ -65,6 +66,9 @@ export class ModalGuardarSistemaComponent implements OnInit {
       () => { }
     );
   }
+
+  
+  
   get SistemaId() {
     return this.grupoFormulario.get('SistemaId');
   }
