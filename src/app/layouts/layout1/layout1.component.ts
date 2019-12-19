@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 import { Proceso } from '../../models/inventario/proceso';
 import { Sistema } from '../../models/inventario/sistema';
+import { Mantenimiento } from '../../models/inventario/mantenimiento';
 
 @Component({
   selector: 'app-layout1',
@@ -29,7 +30,8 @@ export class Layout1Component implements OnInit {
   }
 
   resetearFiltrosProcesos() {
-    const procesoModel = new Proceso(4);
+    const procesoModel = new Proceso();
+    procesoModel.opcion = 4;
     procesoModel.procesoId = 0;
     procesoModel.procesoDescripcion = '';
     procesoModel.sistemaId = 0;
@@ -39,7 +41,8 @@ export class Layout1Component implements OnInit {
   }
 
   resetearFiltrosSistemas() {
-    const sistemaModel = new Sistema(4);
+    const sistemaModel = new Sistema();
+    sistemaModel.opcion = 4;
     sistemaModel.bajaDescripcion = 'Ambos';
     sistemaModel.baja = null;
     sistemaModel.sistemaId = 0;
@@ -49,7 +52,8 @@ export class Layout1Component implements OnInit {
   }
 
   resetearFiltrosMantenimientos() {
-    const mantenimientoModel = new Sistema(4);
+    const mantenimientoModel = new Mantenimiento();
+    mantenimientoModel.opcion = 4;
     mantenimientoModel.baja = null;
     mantenimientoModel.sistemaId = 0;
     mantenimientoModel.sistemaDescripcion = '';

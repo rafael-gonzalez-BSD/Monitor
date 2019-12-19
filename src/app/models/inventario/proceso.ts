@@ -12,8 +12,4 @@ export class Proceso {
   sistemaId: number;
   sistemaDescripcion: string;
   opcion: number;
-
-  constructor(opcion?: number) {
-    this.opcion = opcion || 0;
-  }
 }

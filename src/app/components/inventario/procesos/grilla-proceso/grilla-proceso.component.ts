@@ -87,15 +87,7 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
-      if (res.satisfactorio) {
-        CONFIG_MODAL.data.datosCombo = res['datos'];
-        this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
-      }
-      else {
-        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
-      }
-    });
+    this.modal.open(ModalGuardarProcesoComponent, CONFIG_MODAL);
   }
 
   abrirModalGuardar() {
@@ -109,15 +101,7 @@ export class GrillaProcesoComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe((res: RespuestaModel) => {
-      if (res.satisfactorio) {
-        dialogConfig.data.datosCombo = res['datos'];
-        this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
-      } else {
-        this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de procesos. ' + res.mensaje));
-      }
-
-    });
+    this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
   }
 
   actualizarEstado(e: Event, row) {

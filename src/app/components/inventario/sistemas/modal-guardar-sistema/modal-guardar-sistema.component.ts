@@ -97,7 +97,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
       if (this.grupoFormulario.value.SistemaId) {
         this.sistemaModel.sistemaId = this.grupoFormulario.value.SistemaId;
       }
-      this.sistemaModel.Opcion = this.opcion;
+      this.sistemaModel.opcion = this.opcion;
 
       this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
       this.sistemaModel.baja = !this.toggleBaja;

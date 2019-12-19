@@ -19,7 +19,7 @@
 
             <div class="col-lg-6 form-group">
                 <label>Estado</label>
-                <mat-select formControlName="baja" [(value)]="selected" (selectionChange)="selectedEstado($event)">
+                <mat-select formControlName="baja" [(value)]="selected" (selectionChange)="selectedEstado($event)" [ngModel]="datosFiltros.baja">
                     <mat-option value="-1">Ambos</mat-option>
                     <mat-option value="false">Encendido</mat-option>
                     <mat-option value="true">Apagado</mat-option>

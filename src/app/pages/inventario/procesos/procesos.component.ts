@@ -19,9 +19,7 @@ import { Router } from '@angular/router';
 })
 export class ProcesosComponent implements OnInit {
   constructor(
-    private procesoService: ProcesoService,
     private generalesService: GeneralesService,
-    private sistemaService: SistemaService,
     private router: Router,
     private modal: MatDialog,
     private breakpointObserver: BreakpointObserver
@@ -50,13 +48,7 @@ export class ProcesosComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
-    this.procesoService.consultarProcesoCombo(new Proceso(3)).subscribe(res => {
-      dialogConfig.data.datosComboProceso = res;
-      this.sistemaService.consultarSistemaCombo(new Sistema(3)).subscribe(res2 => {
-        dialogConfig.data.datosComboSistema = res2;
-        this.modal.open(ModalFiltrosProcesoComponent, dialogConfig);
-      });
-    });
+    this.modal.open(ModalFiltrosProcesoComponent, dialogConfig);
   }
 
   regresar() {
