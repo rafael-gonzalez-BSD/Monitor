@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>{{tituloModal}}</h2>
-<form [formGroup]="grupoFormulario" (ngSubmit)="guardarProceso(this.mantenimientoModel)">
+<form [formGroup]="grupoFormulario" (ngSubmit)="guardarMantenimiento(this.mantenimientoModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
             <div class="col-9 form-group">
@@ -35,8 +35,8 @@
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
-                <input class="form-control date-time-disabled"  [ngxTimepicker]="horaDesde" readonly [format]="24" (change)="changeHoraDesde($event)" formControlName="horaDesde">
-                <ngx-material-timepicker  #horaDesde></ngx-material-timepicker>               
+                <input class="form-control date-time-disabled"  [ngxTimepicker]="horaDesde"  [format]="24"  formControlName="horaDesde">
+                <ngx-material-timepicker   #horaDesde></ngx-material-timepicker>               
             </div>
         </div>
         <div class="row">
