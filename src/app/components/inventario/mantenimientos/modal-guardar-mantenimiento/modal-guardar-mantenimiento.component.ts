@@ -25,10 +25,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;  
 
-  public dateTime2: Date;
-
-  
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sistemaService: SistemaService,
@@ -59,8 +55,11 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      sistemaId: new FormControl('', [Validators.required, Validators.required]),
-      fechaDesde: new FormControl('', [Validators.required, Validators.required]),
+      sistemaId: new FormControl('', [Validators.required]),
+      fechaDesde: new FormControl('', [Validators.required]),
+      horaDesde: new FormControl('', [Validators.required]),
+      fechaHasta: new FormControl('', [Validators.required]),
+      horaHasta: new FormControl('', [Validators.required]),
     });
   }
 
@@ -69,7 +68,19 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 
   get fechaDesde() {
-    return this.grupoFormulario.get('fechaDesde');
+    return this.grupoFormulario.get('horaDesde');
+  }
+
+  get horaDesde() {
+    return this.grupoFormulario.get('horaDesde');
+  }
+
+  get fechaHasta() {
+    return this.grupoFormulario.get('fechaHasta');
+  }
+
+  get horaHasta() {
+    return this.grupoFormulario.get('horaHasta');
   }
 
   consultarSistemaCombo() {
@@ -100,7 +111,10 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     this.toggleBaja = event.checked;    
   }
 
-  
- 
+  changeHoraDesde(event)
+  {
+    console.log(event);
+    
+  }
   
 }

@@ -26,26 +26,29 @@
 
             </div>
         </div>
+       
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
-                <label for="">
-                <mat-datepicker-toggle [for]="startDate" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
-                <input  matInput [matDatepicker]="startDate" (click) ="startDate.open()" placeholder="Seleccione una fecha">
-            </label>
-                <!-- <label>Fecha Desde</label>
-                <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control" formControlName="fechaDesde">
-                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time> -->
+                <label>Fecha Desde</label>
+                <input  class="form-control date-time-disabled" [matDatepicker]="fechaDesde" (click) ="fechaDesde.open()" readonly formControlName="fechaDesde">
+                <mat-datepicker #fechaDesde></mat-datepicker>
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <!-- <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
-                <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> -->
-                <!-- <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
-                <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> -->
+                <input class="form-control date-time-disabled"  [ngxTimepicker]="horaDesde" readonly [format]="24" (change)="changeHoraDesde($event)" formControlName="horaDesde">
+                <ngx-material-timepicker  #horaDesde></ngx-material-timepicker>               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 form-group">
+                <label>Fecha Hasta</label>
+                <input  class="form-control date-time-disabled" [matDatepicker]="fechaHasta" (click) ="fechaHasta.open()" readonly formControlName="fechaHasta">
+                <mat-datepicker #fechaHasta></mat-datepicker>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 form-group">
+                <label>Hora Hasta</label>
+                <input class="form-control date-time-disabled" [ngxTimepicker]="horaHasta" readonly [format]="24" (change)="changeHoraDesde($event)" formControlName="horaHasta">
+                <ngx-material-timepicker  #horaHasta></ngx-material-timepicker>           
             </div>
         </div>
     </mat-dialog-content>

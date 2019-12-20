@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,6 +66,10 @@ import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 /**
  * Custom angular notifier options
@@ -192,7 +196,10 @@ export const MY_FORMATS = {
     OwlNativeDateTimeModule,
 
     BsDatepickerModule.forRoot(),
+    NgbModule,
+    NgxMaterialTimepickerModule.setLocale('es-ES')
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     // LoaderService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
