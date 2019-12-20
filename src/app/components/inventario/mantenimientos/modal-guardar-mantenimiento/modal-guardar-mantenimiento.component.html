@@ -9,8 +9,7 @@
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
-                    <div class="container-error"
-                        *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                    <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
@@ -29,15 +28,22 @@
         </div>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
-                <label>Fecha Desde</label>
+                <label for="">
+                <mat-datepicker-toggle [for]="startDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+                <input  matInput [matDatepicker]="startDate" (click) ="startDate.open()" placeholder="Seleccione una fecha">
+            </label>
+                <!-- <label>Fecha Desde</label>
                 <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control" formControlName="fechaDesde">
-                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time> -->
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
-                <input 
-               [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
-        <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!-- <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+                <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> -->
                 <!-- <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
                 <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> -->
             </div>

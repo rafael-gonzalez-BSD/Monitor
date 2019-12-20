@@ -27,6 +27,8 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
 
   public dateTime2: Date;
 
+  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sistemaService: SistemaService,

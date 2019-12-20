@@ -25,7 +25,9 @@ import {
   MatAutocompleteModule,
   MatProgressSpinnerModule,
   MatProgressBarModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatNativeDateModule,
+  DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
 
 @NgModule({
@@ -52,7 +54,8 @@ import {
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -77,7 +80,8 @@ import {
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: getLangPaginatorIntl() }]
 })

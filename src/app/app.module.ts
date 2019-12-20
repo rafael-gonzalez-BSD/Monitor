@@ -64,6 +64,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE, OWL_D
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 /**
  * Custom angular notifier options
@@ -117,6 +119,18 @@ export const MY_MOMENT_FORMATS = {
   monthYearLabel: 'MMM YYYY',
   dateA11yLabel: 'LL',
   monthYearA11yLabel: 'MMMM YYYY',
+};
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'YYYY-MM-DD',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
 };
 
 @NgModule({
@@ -183,7 +197,10 @@ export const MY_MOMENT_FORMATS = {
     // LoaderService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'es' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
     { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS },
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
