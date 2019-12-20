@@ -80,7 +80,6 @@ export class GrillaSistemaComponent implements OnInit {
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalGuardarSistemaComponent, CONFIG_MODAL);
-    console.log(datosEditar);
   }
 
   abrirModalGuardar() {
@@ -103,11 +102,10 @@ export class GrillaSistemaComponent implements OnInit {
 
     this.sistemaService.actualizarEstado(this.sistemaModel).subscribe(
       (response: any) => {
-        alert(response.mensaje);
         this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error'));
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error' + err));
       },
       () => { }
     );

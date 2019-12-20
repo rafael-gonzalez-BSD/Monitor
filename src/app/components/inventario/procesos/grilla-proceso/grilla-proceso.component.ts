@@ -78,7 +78,6 @@ export class GrillaProcesoComponent implements OnInit {
   }
 
   consultarProcesoId(datosEditar: any) {
-    console.log('Datos de edicion', datosEditar);
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;

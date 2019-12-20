@@ -31,7 +31,6 @@ export class ModalFiltrosSistemaComponent implements OnInit {
     private modal: MatDialog,
     private sistemaService: SistemaService,
     private generalesService: GeneralesService) {
-    debugger
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosSistemas'));

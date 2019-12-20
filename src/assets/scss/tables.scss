@@ -25,3 +25,17 @@
 .mat-row {
     width: 100%;
 }
+
+#paginadorGrilla {
+    .mat-select {
+        width: 65px;
+        border: none;
+    }
+    .mat-form-field-underline {
+        display: none;
+    }
+}
+
+#filtroGrilla {
+    width: 180px;
+}

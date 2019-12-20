@@ -146,7 +146,6 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     this.procesoService.consultarProcesoCombo(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
-          console.log('Combo Proceso', res.datos);
           this.datosComboProceso = res.datos;
         }
         else {
