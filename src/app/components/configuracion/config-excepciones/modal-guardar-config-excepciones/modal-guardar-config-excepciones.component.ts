@@ -74,6 +74,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
+      excepcionConfiguracionId: new FormControl(),
       frecuencia: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
       rutaLog: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
       horaDesde: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
@@ -100,6 +101,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
 
   guardarConfiguracionExcepcion(configExcepcionesModel: ConfigExcepciones) {
+    debugger
     this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.configExcepcionesModel = configExcepcionesModel;

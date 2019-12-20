@@ -23,7 +23,7 @@ export class ConfigExcepcionesService {
   }
 
   guardarConfigExcepcion(configExcepciones: ConfigExcepciones, esEdicion: boolean): Observable<ConfigExcepciones> {
-    const url = `${environment.urlApi}proceso`;
+    const url = `${environment.urlApi}excepcionConfiguracion`;
     if (esEdicion) {
       return this.http.put<ConfigExcepciones>(url, configExcepciones);
     }
@@ -31,7 +31,7 @@ export class ConfigExcepcionesService {
   }
 
   actualizarEstado(proceso: ConfigExcepciones) {
-    const url = `${environment.urlApi}proceso/estado`;
+    const url = `${environment.urlApi}excepcionConfiguracion`;
     return this.http.patch<ConfigExcepciones>(url, proceso);
   }
 
@@ -42,7 +42,7 @@ export class ConfigExcepcionesService {
       parametros = parametros.set(key, m[key]);
     }
 
-    const url = `${environment.urlApi}proceso/all`;
+    const url = `${environment.urlApi}excepcionConfiguracion/all`;
     return this.http.get(url, { params: parametros });
   }
 }
