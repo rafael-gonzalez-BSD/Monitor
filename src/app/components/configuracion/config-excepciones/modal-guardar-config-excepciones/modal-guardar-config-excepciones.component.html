@@ -3,7 +3,7 @@
     <mat-dialog-content class="mat-typography">
         <div class="row">
             <div class="col-lg-3 form-group">
-
+                <input formControlName="excepcionConfiguracionId" type="hidden" [ngModel]="datosEditar.excepcionConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">

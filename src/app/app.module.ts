@@ -65,51 +65,13 @@ import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { options } from './NotifierOptions';
 
 /**
  * Custom angular notifier options
  */
-const customNotifierOptions: NotifierOptions = {
-  position: {
-    horizontal: {
-      position: 'middle',
-      distance: 12
-    },
-    vertical: {
-      position: 'top',
-      distance: 12,
-      gap: 10
-    }
-  },
-  theme: 'material',
-  behaviour: {
-    autoHide: 5000,
-    onClick: 'hide',
-    onMouseover: 'pauseAutoHide',
-    showDismissButton: true,
-    stacking: false
-  },
-  animations: {
-    enabled: true,
-    show: {
-      preset: 'slide',
-      speed: 300,
-      easing: 'ease'
-    },
-    hide: {
-      preset: 'fade',
-      speed: 300,
-      easing: 'ease',
-      offset: 50
-    },
-    shift: {
-      speed: 300,
-      easing: 'ease'
-    },
-    overlap: 150
-  }
-};
+const customNotifierOptions: NotifierOptions = options
 
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
@@ -194,14 +156,12 @@ export const MY_FORMATS = {
     BsDatepickerModule.forRoot(),
   ],
   providers: [
-    // LoaderService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'es' },
     { provide: MAT_DATE_LOCALE, useValue: 'es' },
     { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS },
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
-    // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

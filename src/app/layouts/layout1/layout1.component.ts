@@ -69,7 +69,6 @@ export class Layout1Component implements OnInit {
     configExcepcionesModel.opcion = 4;
     configExcepcionesModel.sistemaId = 0;
     configExcepcionesModel.sistemaDescripcion = '';
-    configExcepcionesModel.baja = null;
     localStorage.removeItem('filtrosConfigExcepciones');
     localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(configExcepcionesModel));
   }

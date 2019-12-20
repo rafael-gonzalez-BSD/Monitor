@@ -78,7 +78,7 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;
-    CONFIG_MODAL.data.opcion = 3;
+    CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Excepción';
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
@@ -101,7 +101,7 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
   }
 
   actualizarEstado(e: Event, row) {
-    this.configExcepcionesModel.opcion = 4;
+    this.configExcepcionesModel.opcion = 3;
     this.configExcepcionesModel.excepcionConfiguracionId = row.excepcionConfiguracionId;
     this.configExcepcionesModel.baja = !e['checked'];
 

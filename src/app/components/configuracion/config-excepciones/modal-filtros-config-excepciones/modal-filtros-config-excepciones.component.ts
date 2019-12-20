@@ -26,7 +26,7 @@ export class ModalFiltrosConfigExcepcionesComponent implements OnInit {
   datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
-  configExcepcionesModel: any;
+  configExcepcionesModel = new ConfigExcepciones();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
