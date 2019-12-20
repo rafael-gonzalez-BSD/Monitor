@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
+import { GeneralesService } from '../../../../services/general/generales.service';
 
 @Component({
   selector: 'app-modal-filtros-mantenimiento',
@@ -25,7 +26,12 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   selectedText = '';
 
   // tslint:disable-next-line: max-line-length
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private modal: MatDialog, private sistemaService: SistemaService, private mantenimientoService: MantenimientoService) { 
+  constructor( 
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private modal: MatDialog, 
+    private sistemaService: SistemaService, 
+    private mantenimientoService: MantenimientoService,
+    private generalesService: GeneralesService) { 
     this.opcion = data.opcion;
     this.consultarSistemaCombo();
   }
@@ -76,6 +82,7 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
 
   buscar(mantenimientoModel: Mantenimiento) {
     if (this.grupoFormulario.valid) {
+      this.generalesService.mostrarLoader();
       this.mantenimientoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;

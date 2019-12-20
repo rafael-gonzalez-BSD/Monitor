@@ -18,6 +18,7 @@ export class GrillaMantenimientoComponent implements OnInit {
   length: number;
   dataSource: MatTableDataSource<Mantenimiento>;
   m: Mantenimiento;
+  toggleBaja = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -28,6 +29,7 @@ export class GrillaMantenimientoComponent implements OnInit {
     private generalesService: GeneralesService) { }
 
   ngOnInit() {
+    this.abrirModalGuardar();
     this.mantenimientoService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       this.obtenerMantenimientos(m);
@@ -67,6 +69,10 @@ export class GrillaMantenimientoComponent implements OnInit {
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalGuardarMantenimientoComponent, dialogConfig);
+  }
+
+  changeMatToggle(event) {
+    this.toggleBaja = event.checked;
   }
 
 }
