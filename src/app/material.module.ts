@@ -24,7 +24,8 @@ import {
   MatSortModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDatepickerModule
 } from '@angular/material';
 
 @NgModule({
@@ -50,7 +51,8 @@ import {
     MatSortModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule
   ],
   exports: [
     MatButtonModule,
@@ -74,7 +76,8 @@ import {
     MatSortModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: getLangPaginatorIntl() }]
 })

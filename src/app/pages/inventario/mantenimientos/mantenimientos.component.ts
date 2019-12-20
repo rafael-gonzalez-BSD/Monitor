@@ -24,6 +24,7 @@ export class MantenimientosComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   setearTitulo(titulo) {

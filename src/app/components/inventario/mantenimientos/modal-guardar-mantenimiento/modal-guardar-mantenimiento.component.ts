@@ -23,7 +23,9 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   grupoFormulario: FormGroup;
 
   datosCombo: Combo[];
-  sistemaCombo: Observable<Combo[]>;
+  sistemaCombo: Observable<Combo[]>;  
+
+  public dateTime2: Date;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -55,12 +57,17 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      sistemaId: new FormControl('', [RequireMatch, Validators.required]),
+      sistemaId: new FormControl('', [Validators.required, Validators.required]),
+      fechaDesde: new FormControl('', [Validators.required, Validators.required]),
     });
   }
 
   get sistemaId() {
     return this.grupoFormulario.get('sistemaId');
+  }
+
+  get fechaDesde() {
+    return this.grupoFormulario.get('fechaDesde');
   }
 
   consultarSistemaCombo() {
@@ -90,4 +97,8 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   changeMatToggle(event) {
     this.toggleBaja = event.checked;    
   }
+
+  
+ 
+  
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +56,11 @@ import { ModalFiltrosMantenimientoComponent } from './components/inventario/mant
 import { LoaderComponent } from './components/loader/loader.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 /**
  * Custom angular notifier options
  */
@@ -100,6 +105,16 @@ const customNotifierOptions: NotifierOptions = {
   }
 };
 
+export const MY_MOMENT_FORMATS = {
+  parseInput: 'l LT',
+  fullPickerInput: 'l LT',
+  datePickerInput: 'l',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -137,7 +152,9 @@ const customNotifierOptions: NotifierOptions = {
     GrillaMantenimientoComponent,
     ModalGuardarMantenimientoComponent,
     ModalFiltrosMantenimientoComponent,
-    LoaderComponent
+    LoaderComponent,
+
+    
   ],
   imports: [
     BrowserModule,
@@ -149,11 +166,18 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     ReactiveFormsModule,
     LayoutModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    // ng-pick-datetime
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     // LoaderService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'es'},
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
@@ -164,6 +188,7 @@ const customNotifierOptions: NotifierOptions = {
     ModalFiltrosProcesoComponent,
     ModalFiltrosMantenimientoComponent,
     ModalGuardarMantenimientoComponent
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }
