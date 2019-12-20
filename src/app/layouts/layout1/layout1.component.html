@@ -25,6 +25,27 @@
                     <a class="item-secondary tc-a9afb0" [routerLink]="['monitoreo']" routerLinkActive="router-link-active" mat-button>Monitoreo</a>
                 </mat-list-item>
             </div>
+            <mat-list-item>
+                <div [routerLink]="['configuracion']" routerLinkActive="router-link-active" class="tc-a9afb0 fs-16" style="width: 200px;">
+                    Configuración
+                </div>
+                <div style="display: inline;">
+                    <button mat-button mat-icon-button (click)="mostrarMenu3 = !mostrarMenu3">
+                      <mat-icon class="menu-button a9afb0" [ngClass]="{'rotated' : mostrarMenu3}">expand_more</mat-icon>
+                  </button>
+                </div>
+            </mat-list-item>
+            <div class="submenu   fs-14" [ngClass]="{'expanded' : mostrarMenu3}">
+                <mat-list-item>
+                    <a class="item-secondary tc-a9afb0 " [routerLink]="['config-excepciones']" routerLinkActive="router-link-active" mat-button>Bitácora de Excepciones</a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a class="item-secondary tc-a9afb0" [routerLink]="['config-ejecuciones']" routerLinkActive="router-link-active" mat-button>Bitácora de Ejecución</a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a class="item-secondary tc-a9afb0" [routerLink]="['config-monitoreo']" routerLinkActive="router-link-active" mat-button>Bitácora de Monitoreo</a>
+                </mat-list-item>
+            </div>
 
             <mat-list-item>
                 <div [routerLink]="['sistemas']" routerLinkActive="router-link-active" class="tc-a9afb0 fs-16" style="width: 200px;">

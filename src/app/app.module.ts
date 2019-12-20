@@ -55,6 +55,10 @@ import { ModalGuardarMantenimientoComponent } from './components/inventario/mant
 import { ModalFiltrosMantenimientoComponent } from './components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { CintillaConfigExcepcionesComponent } from './components/configuracion/config-excepciones/cintilla-config-excepciones/cintilla-config-excepciones.component';
+import { GrillaConfigExcepcionesComponent } from './components/configuracion/config-excepciones/grilla-config-excepciones/grilla-config-excepciones.component';
+import { ModalFiltrosConfigExcepcionesComponent } from './components/configuracion/config-excepciones/modal-filtros-config-excepciones/modal-filtros-config-excepciones.component';
+import { ModalGuardarConfigExcepcionesComponent } from './components/configuracion/config-excepciones/modal-guardar-config-excepciones/modal-guardar-config-excepciones.component';
 
 /**
  * Custom angular notifier options
@@ -137,7 +141,11 @@ const customNotifierOptions: NotifierOptions = {
     GrillaMantenimientoComponent,
     ModalGuardarMantenimientoComponent,
     ModalFiltrosMantenimientoComponent,
-    LoaderComponent
+    LoaderComponent,
+    CintillaConfigExcepcionesComponent,
+    GrillaConfigExcepcionesComponent,
+    ModalFiltrosConfigExcepcionesComponent,
+    ModalGuardarConfigExcepcionesComponent
   ],
   imports: [
     BrowserModule,
@@ -163,7 +171,9 @@ const customNotifierOptions: NotifierOptions = {
     ModalGuardarProcesoComponent,
     ModalFiltrosProcesoComponent,
     ModalFiltrosMantenimientoComponent,
-    ModalGuardarMantenimientoComponent
+    ModalGuardarMantenimientoComponent,
+    ModalFiltrosConfigExcepcionesComponent,
+    ModalGuardarConfigExcepcionesComponent
   ]
 })
 export class AppModule { }

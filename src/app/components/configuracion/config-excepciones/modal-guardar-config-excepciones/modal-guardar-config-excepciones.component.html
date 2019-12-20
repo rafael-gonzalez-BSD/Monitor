@@ -1,0 +1,123 @@
+<h2 mat-dialog-title>{{tituloModal}}</h2>
+<form [formGroup]="grupoFormulario" (ngSubmit)="guardarConfiguracionExcepcion(this.configExcepcionesModel)">
+    <mat-dialog-content class="mat-typography">
+        <div class="row">
+            <div class="col-lg-3 form-group">
+
+                <label for="">Sistema</label>
+                <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
+                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                    <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                        <span class="tc-ff3300">Campo Inválido</span>
+                    </div>
+                </div>
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
+                        <span>{{sistema.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            <div class="col-lg-3 form-group">
+                <label for="">Frecuencia</label>
+                <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
+                <div class="div-errors" *ngIf="frecuencia.invalid && ( frecuencia.touched )">
+                    <div class="container-error" *ngIf="frecuencia.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 form-group">
+                <div style="text-align: center;">
+                    <label for="">Horario</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <input formControlName="horaDesde" class="form-control" type="text" [ngModel]="datosEditar.horaDesde">
+                        <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
+                            <div class="container-error" *ngIf="horaDesde.errors.required">
+                                <span class="tc-ff3300">Campo requerido</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaDesde.errors.minlength">
+                                <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaDesde.errors.maxlength">
+                                <span class="tc-ff3300">Máximo 250 caracteres</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <input formControlName="horaHasta" class="form-control" type="text" [ngModel]="datosEditar.horaHasta">
+                        <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
+                            <div class="container-error" *ngIf="horaHasta.errors.required">
+                                <span class="tc-ff3300">Campo requerido</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaHasta.errors.minlength">
+                                <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaHasta.errors.maxlength">
+                                <span class="tc-ff3300">Máximo 250 caracteres</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="">Ruta Log</label>
+                <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
+                <div class="div-errors" *ngIf="rutaLog.invalid && ( rutaLog.touched )">
+                    <div class="container-error" *ngIf="rutaLog.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="rutaLog.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="rutaLog.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="">Ventana Mantenimiento</label>
+                <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
+                <div class="div-errors" *ngIf="rutaLog.invalid && ( rutaLog.touched )">
+                    <div class="container-error" *ngIf="rutaLog.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="rutaLog.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="rutaLog.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 form-group">
+                <label for="">Estado</label> <br>
+                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
+                </mat-slide-toggle>
+
+            </div>
+            <div class="col-lg-2 form-group">
+                <label for="">Test Ruta</label> <br>
+                <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>edit</mat-icon></button>
+
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align=" end ">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+    </mat-dialog-actions>
+</form>

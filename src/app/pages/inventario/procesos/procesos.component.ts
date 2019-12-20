@@ -1,13 +1,7 @@
-import { ProcesoService } from './../../../services/inventario/proceso.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 // tslint:disable-next-line: max-line-length
-import { ModalGuardarProcesoComponent } from '../../../components/inventario/procesos/modal-guardar-proceso/modal-guardar-proceso.component';
-// tslint:disable-next-line: max-line-length
 import { ModalFiltrosProcesoComponent } from '../../../components/inventario/procesos/modal-filtros-proceso/modal-filtros-proceso.component';
-import { SistemaService } from '../../../services/inventario/sistema.service';
-import { Proceso } from 'src/app/models/inventario/proceso';
-import { Sistema } from 'src/app/models/inventario/sistema';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { GeneralesService } from '../../../services/general/generales.service';
 import { Router } from '@angular/router';
