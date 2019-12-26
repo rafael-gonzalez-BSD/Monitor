@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatAutocompleteTrigger, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Combo } from 'src/app/models/base/combo';
 import { Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ConfigExcepciones } from 'src/app/models/configuracion/config-excepciones';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { GeneralesService } from '../../../../services/general/generales.service';
@@ -12,6 +12,7 @@ import { startWith, map } from 'rxjs/operators';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Sistema } from 'src/app/models/inventario/sistema';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-modal-guardar-config-excepciones',
@@ -28,6 +29,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
   configExcepcionesModel = new ConfigExcepciones();
+  regExp = '^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$';
 
   toggleBaja = true;
 
@@ -41,6 +43,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
+    this.datosEditar.horaDesde = this.datosEditar.horaDesde === '' ? '' : this.getTimeValue(this.datosEditar.horaDesde);
+    this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;
     this.esEdicion = data.edit;
     this.consultarSistemaCombo();
@@ -54,7 +58,13 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       map(name => this.filter(name))
     );
     if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion)
+
+    this.grupoFormulario.valueChanges.subscribe(changes => {
+      this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
+      this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
+    });
   }
+
   setearValorAutocomplete(campo: string, id: number, desc: string) {
     this.grupoFormulario.get(campo).setValue({
       identificador: id,
@@ -75,13 +85,36 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       excepcionConfiguracionId: new FormControl(),
-      frecuencia: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-      rutaLog: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-      horaDesde: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-      horaHasta: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
+      frecuencia: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(5),
+        Validators.min(1),
+        Validators.max(32767),
+        Validators.pattern('[(0-9)]*')]),
+      rutaLog: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(250)
+      ]),
+      horaDesde: new FormControl('', [
+        Validators.required,
+        Validators.pattern(this.regExp)
+      ]),
+      horaHasta: new FormControl('', [Validators.required,
+      Validators.pattern(this.regExp)
+      ]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl()
     });
+  }
+
+  updateForm() {
+    setTimeout(() => {
+      this.grupoFormulario.get('horaDesde').updateValueAndValidity();
+      this.grupoFormulario.get('horaHasta').updateValueAndValidity();
+    }, 1);
+
   }
 
   consultarSistemaCombo() {
@@ -101,7 +134,6 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
 
   guardarConfiguracionExcepcion(configExcepcionesModel: ConfigExcepciones) {
-    debugger
     this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.configExcepcionesModel = configExcepcionesModel;
@@ -159,10 +191,10 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     return this.grupoFormulario.get('horaDesde');
   }
   get horaHasta() {
-    return this.grupoFormulario.get('rutaLog');
+    return this.grupoFormulario.get('horaHasta');
   }
   get baja() {
-    return this.grupoFormulario.get('horaHasta');
+    return this.grupoFormulario.get('baja');
   }
   get frecuencia() {
     return this.grupoFormulario.get('frecuencia');
@@ -181,4 +213,41 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     this.modal.closeAll();
   }
 
+  getTimeValue(hour: string) {
+    const totalMinutes = moment.duration(hour).asMinutes();
+
+    let hours = 0;
+    let minutes = 0;
+
+    const dayRem = totalMinutes % 450;
+    if (dayRem) {
+      hours = Math.floor(dayRem / 60);
+      minutes = Math.floor(dayRem % 60);
+    }
+
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  }
+}
+
+export function moreThanTo(to: string): ValidatorFn {
+
+  return (control: AbstractControl): { [key: string]: any } => {
+    if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
+
+    const totalMinutesFrom = moment.duration(control.value).asMinutes();
+    const totalMinutesTo = moment.duration(to).asMinutes();
+
+    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
+  }
+}
+
+export function lessThanFrom(from: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } => {
+    if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
+
+    const totalMinutesFrom = moment.duration(from).asMinutes();
+    const totalMinutesTo = moment.duration(control.value).asMinutes();
+
+    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
+  }
 }

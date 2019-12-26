@@ -28,10 +28,19 @@
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="frecuencia.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                        <span class="tc-ff3300">Mínimo 1 caracter</span>
                     </div>
                     <div class="container-error" *ngIf="frecuencia.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                        <span class="tc-ff3300">Máximo 5 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.min">
+                        <span class="tc-ff3300">El valor numérico mínimo es de 1</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.max">
+                        <span class="tc-ff3300">El valor numérico máximo es de 32767</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
                     </div>
                 </div>
             </div>
@@ -42,30 +51,33 @@
 
                 <div class="row">
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaDesde" class="form-control" type="text" [ngModel]="datosEditar.horaDesde">
+                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
+                        <ngx-material-timepicker (timeSet)="updateForm()" #hD></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                             <div class="container-error" *ngIf="horaDesde.errors.required">
                                 <span class="tc-ff3300">Campo requerido</span>
                             </div>
-                            <div class="container-error" *ngIf="horaDesde.errors.minlength">
-                                <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                            <div class="container-error" *ngIf="horaDesde.errors.pattern">
+                                <span class="tc-ff3300">Formato inválido</span>
                             </div>
-                            <div class="container-error" *ngIf="horaDesde.errors.maxlength">
-                                <span class="tc-ff3300">Máximo 250 caracteres</span>
+                            <div class="container-error" *ngIf="horaDesde.errors.moreThan">
+                                <span class="tc-ff3300">HoraDesde no debe ser mayor a HoraHasta</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaHasta" class="form-control" type="text" [ngModel]="datosEditar.horaHasta">
+                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                        <ngx-material-timepicker (timeSet)="updateForm()" #hH></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.required">
                                 <span class="tc-ff3300">Campo requerido</span>
                             </div>
-                            <div class="container-error" *ngIf="horaHasta.errors.minlength">
-                                <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                            <div class="container-error" *ngIf="horaHasta.errors.pattern">
+                                <span class="tc-ff3300">Formato inválido</span>
                             </div>
-                            <div class="container-error" *ngIf="horaHasta.errors.maxlength">
-                                <span class="tc-ff3300">Máximo 250 caracteres</span>
+
+                            <div class="container-error" *ngIf="horaHasta.errors.lessThan">
+                                <span class="tc-ff3300">HoraHasta no debe ser menor a HoraDesde</span>
                             </div>
                         </div>
                     </div>
@@ -90,24 +102,12 @@
             <div class="col-lg-4 form-group">
                 <label for="">Ventana Mantenimiento</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
-                <div class="div-errors" *ngIf="rutaLog.invalid && ( rutaLog.touched )">
-                    <div class="container-error" *ngIf="rutaLog.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="rutaLog.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="rutaLog.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
-                    </div>
-                </div>
             </div>
 
             <div class="col-lg-2 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
                 </mat-slide-toggle>
-
             </div>
             <div class="col-lg-2 form-group">
                 <label for="">Test Ruta</label> <br>

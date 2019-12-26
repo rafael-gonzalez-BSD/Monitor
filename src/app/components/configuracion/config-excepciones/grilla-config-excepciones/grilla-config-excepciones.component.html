@@ -40,7 +40,7 @@
                 <!-- COLUMNA HORARIO -->
                 <ng-container matColumnDef="horario">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Horario</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horario">{{row.horaDesde}} - {{row.horaHasta}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="horario">{{row.horaDesde | hourFormat}} - {{row.horaHasta | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA VENTANA MANTENIMIENTO -->

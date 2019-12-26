@@ -68,9 +68,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { options } from './NotifierOptions';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { HourFormatPipe } from './pipes/time/hour-format.pipe';
 
 /**
  * Custom angular notifier options
@@ -140,7 +141,8 @@ export const MY_FORMATS = {
     CintillaConfigExcepcionesComponent,
     GrillaConfigExcepcionesComponent,
     ModalFiltrosConfigExcepcionesComponent,
-    ModalGuardarConfigExcepcionesComponent
+    ModalGuardarConfigExcepcionesComponent,
+    HourFormatPipe
   ],
   imports: [
     BrowserModule,
@@ -161,7 +163,7 @@ export const MY_FORMATS = {
     NgbModule,
     NgxMaterialTimepickerModule.setLocale('es-ES')
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'es' },
