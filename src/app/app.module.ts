@@ -197,7 +197,11 @@ export const MY_FORMATS = {
     ModalFiltrosMantenimientoComponent,
     ModalGuardarMantenimientoComponent,
     ModalFiltrosConfigExcepcionesComponent,
-    ModalGuardarConfigExcepcionesComponent
+    ModalGuardarConfigExcepcionesComponent,
+    ModalFiltrosConfigEjecucionesComponent,
+    ModalGuardarConfigEjecucionesComponent,
+    ModalFiltrosConfigConectoresComponent,
+    ModalGuardarConfigConectoresComponent
   ]
 })
 export class AppModule { }

@@ -13,4 +13,6 @@ export class ConfigConectores {
   fechaBaja: string | null;
   baja: boolean;
   sistemaId: number;
+  sistemaDescripcion: string;
+  opcion: number;
 }

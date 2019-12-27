@@ -13,6 +13,7 @@ import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
+import { ConfigEjecucionesService } from '../../../../services/configuracion/config-ejecuciones.service';
 
 @Component({
   selector: 'app-modal-filtros-config-ejecuciones',
@@ -34,6 +35,7 @@ export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private modal: MatDialog,
+    private configEjecucionesService: ConfigEjecucionesService,
     private procesoService: ProcesoService,
     private sistemaService: SistemaService,
     private generalesService: GeneralesService
@@ -106,9 +108,9 @@ export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
 
       localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(this.configEjecucionesModel));
 
-      this.procesoService.setearFiltros();
+      this.configEjecucionesService.setearFiltros();
 
-      this.procesoService.obtenerFiltros();
+      this.configEjecucionesService.obtenerFiltros();
 
       this.cerrarModal();
     }

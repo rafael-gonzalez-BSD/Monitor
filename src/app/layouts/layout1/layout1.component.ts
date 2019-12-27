@@ -6,6 +6,8 @@ import { Proceso } from '../../models/inventario/proceso';
 import { Sistema } from '../../models/inventario/sistema';
 import { Mantenimiento } from '../../models/inventario/mantenimiento';
 import { ConfigExcepciones } from '../../models/configuracion/config-excepciones';
+import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
+import { ConfigConectores } from '../../models/configuracion/config-conectores';
 
 @Component({
   selector: 'app-layout1',
@@ -25,6 +27,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosSistemas();
     this.resetearFiltrosMantenimientos();
     this.resetearFiltrosConfigExcepciones();
+    this.resetearFiltrosConfigEjecuciones();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;
@@ -70,4 +73,27 @@ export class Layout1Component implements OnInit {
     localStorage.removeItem('filtrosConfigExcepciones');
     localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(configExcepcionesModel));
   }
+
+  resetearFiltrosConfigEjecuciones() {
+    const configEjecucionesModel = new ConfigEjecuciones();
+    configEjecucionesModel.opcion = 4;
+    configEjecucionesModel.procesoId = 0;
+    configEjecucionesModel.procesoDescripcion = '';
+    configEjecucionesModel.sistemaId = 0;
+    configEjecucionesModel.sistemaDescripcion = '';
+    localStorage.removeItem('filtrosConfigEjecuciones');
+    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(configEjecucionesModel));
+  }
+
+  resetearFiltrosConfigConectores() {
+    const configConectoresModel = new ConfigConectores();
+    configConectoresModel.opcion = 4;
+    configConectoresModel.conectorConfiguracionId = 0;
+    configConectoresModel.conectorConfiguracionDescripcion = '';
+    configConectoresModel.sistemaId = 0;
+    configConectoresModel.sistemaDescripcion = '';
+    localStorage.removeItem('filtrosConfigConectores');
+    localStorage.setItem('filtrosConfigConectores', JSON.stringify(configConectoresModel));
+  }
+
 }

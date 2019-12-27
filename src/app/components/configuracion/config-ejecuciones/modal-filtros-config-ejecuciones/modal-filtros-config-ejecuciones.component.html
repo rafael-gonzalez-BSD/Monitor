@@ -16,6 +16,20 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Proceso</label>
+                <input class="form-control" type="text" formControlName="procesoId" matInput [matAutocomplete]="procId">
+                <div class="div-errors" *ngIf="procesoId.invalid && ( procesoId.touched )">
+                    <div class="container-error" *ngIf="grupoFormulario.controls['procesoId'].hasError('incorrect')">
+                        <span class="tc-ff3300">Campo Inválido</span>
+                    </div>
+                </div>
+                <mat-autocomplete #procId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let proceso of procesoCombo | async" [value]="proceso">
+                        <span>{{proceso.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
