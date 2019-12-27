@@ -72,6 +72,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { HourFormatPipe } from './pipes/time/hour-format.pipe';
+import { CintillaConfigEjecucionesComponent } from './components/configuracion/config-ejecuciones/cintilla-config-ejecuciones/cintilla-config-ejecuciones.component';
+import { GrillaConfigEjecucionesComponent } from './components/configuracion/config-ejecuciones/grilla-config-ejecuciones/grilla-config-ejecuciones.component';
+import { ModalFiltrosConfigEjecucionesComponent } from './components/configuracion/config-ejecuciones/modal-filtros-config-ejecuciones/modal-filtros-config-ejecuciones.component';
+import { ModalGuardarConfigEjecucionesComponent } from './components/configuracion/config-ejecuciones/modal-guardar-config-ejecuciones/modal-guardar-config-ejecuciones.component';
+import { ModalGuardarConfigConectoresComponent } from './components/configuracion/config-conectores/modal-guardar-config-conectores/modal-guardar-config-conectores.component';
+import { ModalFiltrosConfigConectoresComponent } from './components/configuracion/config-conectores/modal-filtros-config-conectores/modal-filtros-config-conectores.component';
+import { CintillaConfigConectoresComponent } from './components/configuracion/config-conectores/cintilla-config-conectores/cintilla-config-conectores.component';
+import { GrillaConfigConectoresComponent } from './components/configuracion/config-conectores/grilla-config-conectores/grilla-config-conectores.component';
 
 /**
  * Custom angular notifier options
@@ -142,7 +150,15 @@ export const MY_FORMATS = {
     GrillaConfigExcepcionesComponent,
     ModalFiltrosConfigExcepcionesComponent,
     ModalGuardarConfigExcepcionesComponent,
-    HourFormatPipe
+    HourFormatPipe,
+    CintillaConfigEjecucionesComponent,
+    GrillaConfigEjecucionesComponent,
+    ModalFiltrosConfigEjecucionesComponent,
+    ModalGuardarConfigEjecucionesComponent,
+    ModalGuardarConfigConectoresComponent,
+    ModalFiltrosConfigConectoresComponent,
+    CintillaConfigConectoresComponent,
+    GrillaConfigConectoresComponent
   ],
   imports: [
     BrowserModule,
