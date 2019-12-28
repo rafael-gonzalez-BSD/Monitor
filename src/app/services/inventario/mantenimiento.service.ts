@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Proceso } from 'src/app/models/inventario/proceso';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class MantenimientoService {
   filtros = new EventEmitter();
   setFiltros = new EventEmitter();
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerFiltros() {
     const m: Mantenimiento = JSON.parse(localStorage.getItem('filtrosMantenimientos'));
@@ -39,5 +40,10 @@ export class MantenimientoService {
 
     const url = `${environment.urlApi}ventanaMantenimiento/all`;
     return this.http.get(url, { params: parametros });
+  }
+
+  actualizarEstado(m: Mantenimiento) {
+    const url = `${environment.urlApi}proceso/estado`;
+    return this.http.patch<Mantenimiento>(url, m);
   }
 }

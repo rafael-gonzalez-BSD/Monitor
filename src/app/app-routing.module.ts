@@ -28,7 +28,7 @@ const rutasSite: Routes = [
   { path: 'monitoreo/:id', component: DetalleMonitoreoComponent },
   { path: 'config-excepciones', component: ConfigExcepcionesComponent },
   { path: 'config-ejecuciones', component: ConfigEjecucionesComponent },
-  { path: 'config-conectores', component: ConfigConectoresComponent },
+  { path: 'config-monitoreo', component: ConfigConectoresComponent },
   { path: 'sistemas', component: SistemasComponent },
   { path: 'procesos', component: ProcesosComponent },
   { path: 'mantenimientos', component: MantenimientosComponent },
@@ -48,4 +48,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

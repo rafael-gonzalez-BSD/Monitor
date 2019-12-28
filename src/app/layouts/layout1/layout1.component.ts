@@ -28,6 +28,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosMantenimientos();
     this.resetearFiltrosConfigExcepciones();
     this.resetearFiltrosConfigEjecuciones();
+    this.resetearFiltrosConfigConectores();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;

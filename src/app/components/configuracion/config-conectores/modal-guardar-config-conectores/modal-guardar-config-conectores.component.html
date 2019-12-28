@@ -1,1 +1,133 @@
-<p>modal-guardar-config-conectores works!</p>
+<h2 mat-dialog-title>{{tituloModal}}</h2>
+<form [formGroup]="grupoFormulario" (ngSubmit)="guardarConfiguracionConector(this.configConectoresModel)">
+    <mat-dialog-content class="mat-typography">
+        <div class="row">
+            <div class="col-lg-4 form-group">
+                <input formControlName="conectorConfiguracionId" type="hidden" [ngModel]="datosEditar.conectorConfiguracionId">
+                <label for="">Sistema</label>
+                <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
+                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                    <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                        <span class="tc-ff3300">Campo Inválido</span>
+                    </div>
+                </div>
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
+                        <span>{{sistema.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="">Nombre</label>
+                <input formControlName="conectorConfiguracionDescripcion" class="form-control" type="text" [ngModel]="datosEditar.conectorConfiguracionDescripcion">
+                <div class="div-errors" *ngIf="conectorConfiguracionDescripcion.invalid && ( conectorConfiguracionDescripcion.touched )">
+                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="">URL</label>
+                <input formControlName="urlApi" class="form-control" type="text" [ngModel]="datosEditar.urlApi">
+                <div class="div-errors" *ngIf="urlApi.invalid && ( urlApi.touched )">
+                    <div class="container-error" *ngIf="urlApi.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="urlApi.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="urlApi.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="">Frecuencia</label>
+                <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
+                <div class="div-errors" *ngIf="frecuencia.invalid && ( frecuencia.touched )">
+                    <div class="container-error" *ngIf="frecuencia.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.minlength">
+                        <span class="tc-ff3300">Mínimo 1 caracter</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.maxlength">
+                        <span class="tc-ff3300">Máximo 5 caracteres</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.min">
+                        <span class="tc-ff3300">El valor numérico mínimo es de 1</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.max">
+                        <span class="tc-ff3300">El valor numérico máximo es de 32767</span>
+                    </div>
+                    <div class="container-error" *ngIf="frecuencia.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 form-group">
+                <div style="text-align: center;">
+                    <label for="">Horario</label>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
+                        <ngx-material-timepicker (timeSet)="updateForm()" #hD></ngx-material-timepicker>
+                        <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
+                            <div class="container-error" *ngIf="horaDesde.errors.required">
+                                <span class="tc-ff3300">Campo requerido</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaDesde.errors.pattern">
+                                <span class="tc-ff3300">Formato inválido</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaDesde.errors.moreThan">
+                                <span class="tc-ff3300">HoraDesde no debe ser mayor a HoraHasta</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                        <ngx-material-timepicker (timeSet)="updateForm()" #hH></ngx-material-timepicker>
+                        <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
+                            <div class="container-error" *ngIf="horaHasta.errors.required">
+                                <span class="tc-ff3300">Campo requerido</span>
+                            </div>
+                            <div class="container-error" *ngIf="horaHasta.errors.pattern">
+                                <span class="tc-ff3300">Formato inválido</span>
+                            </div>
+
+                            <div class="container-error" *ngIf="horaHasta.errors.lessThan">
+                                <span class="tc-ff3300">HoraHasta no debe ser menor a HoraDesde</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-2 form-group">
+                <label for="">Estado</label> <br>
+                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
+                </mat-slide-toggle>
+            </div>
+            <div class="col-lg-2 form-group">
+                <label for="">Test Ruta</label> <br>
+                <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>edit</mat-icon></button>
+
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align=" end ">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+    </mat-dialog-actions>
+</form>

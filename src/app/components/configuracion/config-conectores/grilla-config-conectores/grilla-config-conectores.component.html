@@ -1,1 +1,61 @@
-<p>grilla-config-conectores works!</p>
+<div class="row controles-tabla">
+    <div class="col-8">
+        <input id="filtroGrilla" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+    </div>
+    <div class="col-4 text-right">
+        <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Agregar</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="mat-elevation-z5">
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <!-- COLUMNA ACCION -->
+                <ng-container matColumnDef="accion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="accion">
+                        <button mat-icon-button (click)="consultarConfigConectoresId(row)"><mat-icon>edit</mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA SISTEMA -->
+                <ng-container matColumnDef="sistema">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA ID CONECTOR -->
+                <ng-container matColumnDef="conectorConfiguracionId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id Conector</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="Id Conector">{{row.conectorConfiguracionId}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA NOMBRE CONECTOR -->
+                <ng-container matColumnDef="conectorConfiguracionDescripcion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Conector</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="Nombre Conector">{{row.conectorConfiguracionDescripcion}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA RUTA LOG -->
+                <ng-container matColumnDef="urlApi">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>URL</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="URL">{{row.urlApi}}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA ESTADO -->
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="estado">
+                        <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- CONFIGURACION DE COLUMNAS Y FILAS -->
+                <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator id="paginadorGrilla" [pageSize]="pageSize" [length]="length" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event" [hidden]="length < pageSize"></mat-paginator>
+        </div>
+    </div>
+</div>
