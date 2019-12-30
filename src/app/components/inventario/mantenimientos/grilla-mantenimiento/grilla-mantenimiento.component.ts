@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig, PageEvent } from '@angular/material';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
@@ -14,23 +14,22 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 })
 export class GrillaMantenimientoComponent implements OnInit {
   tableColumns: string[] = ['accion', 'sistema', 'fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'estado'];
+  dataSource: MatTableDataSource<Mantenimiento>;
+  mantenimientoModel = new Mantenimiento;
   pageSizeOptions = [10, 25, 100];
   pageSize = 10;
   length: number;
-  dataSource: MatTableDataSource<Mantenimiento>;
-  m: Mantenimiento;
-  toggleBaja = false;
+  pageEvent: PageEvent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private mantenimientoService: MantenimientoService,
-    private modal: MatDialog,
-    private generalesService: GeneralesService) { }
+    private generalesService: GeneralesService,
+    private modal: MatDialog) { }
 
   ngOnInit() {
-    this.abrirModalGuardar();
     this.mantenimientoService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       this.obtenerMantenimientos(m);
@@ -44,6 +43,7 @@ export class GrillaMantenimientoComponent implements OnInit {
   }
 
   obtenerMantenimientos(m: Mantenimiento) {
+    this.generalesService.mostrarLoader();
     this.mantenimientoService.obtenerMantenimientos(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
@@ -52,10 +52,16 @@ export class GrillaMantenimientoComponent implements OnInit {
           this.dataSource.sort = this.sort;
           this.length = res.datos.length;
         } else {
-          alert(`Error al consultar el listado de mantenimientos. ${res.mensaje}`);
+          this.generalesService.notificar(
+            new NotificacionModel(
+              'warning',
+              `Error al consultar el listado de mantenimientos. ${res.mensaje}`
+            )
+          );
         }
       },
       err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de mantenimientos'));
         alert('Ocurrió un error al consultar el listado de mantenimientos');
       },
       () => {
@@ -76,7 +82,7 @@ export class GrillaMantenimientoComponent implements OnInit {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;
-    CONFIG_MODAL.data.opcion = 3;
+    CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Ventana de Mantenimientos';
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
@@ -88,8 +94,8 @@ export class GrillaMantenimientoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      esEdicion: false,
       tituloModal: 'Nueva Ventana de Mantenimientos',
+      edit: false,
       opcion: 1
     };
     dialogConfig.height = 'auto';
@@ -99,11 +105,12 @@ export class GrillaMantenimientoComponent implements OnInit {
   }
 
   actualizarEstado(e: Event, row) {
-    this.m.opcion = 3;
-    this.m.ventanaMantenimientoId = row.ventanaMantenimientoId;
-    this.m.baja = !e['checked'];
+    debugger
+    this.mantenimientoModel.opcion = 3;
+    this.mantenimientoModel.ventanaMantenimientoId = row.ventanaMantenimientoId;
+    this.mantenimientoModel.baja = !e['checked'];
 
-    this.mantenimientoService.actualizarEstado(this.m).subscribe(
+    this.mantenimientoService.actualizarEstado(this.mantenimientoModel).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
           this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
@@ -118,9 +125,4 @@ export class GrillaMantenimientoComponent implements OnInit {
       () => { }
     );
   }
-
-  changeMatToggle(event) {
-    this.toggleBaja = event.checked;
-  }
-
 }

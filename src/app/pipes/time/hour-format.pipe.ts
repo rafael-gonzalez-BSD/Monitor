@@ -11,10 +11,9 @@ export class HourFormatPipe implements PipeTransform {
     let hours = 0;
     let minutes = 0;
 
-    const dayRem = totalMinutes % 450;
-    if (dayRem) {
-      hours = Math.floor(dayRem / 60);
-      minutes = Math.floor(dayRem % 60);
+    if (totalMinutes) {
+      hours = Math.floor(totalMinutes / 60);
+      minutes = Math.floor(totalMinutes % 60);
     }
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;

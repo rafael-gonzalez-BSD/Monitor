@@ -1,13 +1,9 @@
 <div class="row controles-tabla">
     <div class="col-8 col-sm-6 col-md-6 col-lg-4">
-
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
-
     </div>
     <div class="col-4 col-sm-6 col-md-6 col-lg-8 text-right">
-
         <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-button>Agregar</button>
-
     </div>
 </div>
 <div class="row">
@@ -38,7 +34,7 @@
                 <!-- COLUMNA HORAINICIO -->
                 <ng-container matColumnDef="horaInicio">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Inicio</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horaInicio">{{row.fechaDesde | date: 'HH:mm'}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="horaInicio">{{row.horaDesde | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA FECHAFIN -->
@@ -50,7 +46,7 @@
                 <!-- COLUMNA HORAFIN -->
                 <ng-container matColumnDef="horaFin">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Fin</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horaFin">{{row.fechaHasta | date: 'HH:mm'}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="horaFin">{{row.horaHasta | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ESTADO -->

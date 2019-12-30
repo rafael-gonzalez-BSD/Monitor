@@ -6,8 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ModalGuardarProcesoComponent } from '../modal-guardar-proceso/modal-guardar-proceso.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { SistemaService } from '../../../../services/inventario/sistema.service';
-import { Sistema } from 'src/app/models/inventario/sistema';
 import { RespuestaModel } from '../../../../models/base/respuesta';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
@@ -31,7 +29,6 @@ export class GrillaProcesoComponent implements OnInit {
 
   constructor(
     private procesoService: ProcesoService,
-    private sistemaService: SistemaService,
     private generalesService: GeneralesService,
     private modal: MatDialog) { }
 

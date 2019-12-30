@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
+import { Sistema } from '../../../../models/inventario/sistema';
 
 @Component({
   selector: 'app-cintilla-mantenimientos',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cintilla-mantenimientos.component.scss']
 })
 export class CintillaMantenimientosComponent implements OnInit {
-
-  constructor() { }
+  filtroSistema = 'N/A';
+  filtroFechaDesde = 'N/A';
+  filtroFechaHasta = 'N/A';
+  constructor(private mantenimientoService: MantenimientoService) { }
 
   ngOnInit() {
+    this.mantenimientoService.setFiltros.subscribe((m: any) => {
+      this.filtroSistema = m.sistemaDescripcion || 'N/A';
+      this.filtroFechaDesde = m.sistemaDescripcion || 'N/A';
+      this.filtroFechaHasta = m.sistemaDescripcion || 'N/A';
+    });
   }
 
 }

@@ -3,6 +3,7 @@
     <mat-dialog-content class="mat-typography">
         <div class="row">
             <div class="col-9 form-group">
+                <input formControlName="ventanaMantenimientoId" type="hidden" [ngModel]="datosEditar.ventanaMantenimientoId">
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
@@ -21,34 +22,57 @@
             </div>
             <div class="col-3 form-group">
                 <label for="">Estado</label> <br>
-                <mat-slide-toggle checked="toggleBaja" (change)="changeMatToggle($event)">
+                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeMatToggle($event)">
                 </mat-slide-toggle>
 
             </div>
         </div>
-       
+
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Desde</label>
-                <input  class="form-control date-time-disabled" [matDatepicker]="fechaDesde" (click) ="fechaDesde.open()" readonly formControlName="fechaDesde">
+                <input class="form-control date-time-disabled" [matDatepicker]="fechaDesde" (click)="fechaDesde.open()" readonly formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde">
                 <mat-datepicker #fechaDesde></mat-datepicker>
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
-                <input class="form-control date-time-disabled"  [ngxTimepicker]="horaDesde"  [format]="24"  formControlName="horaDesde">
-                <ngx-material-timepicker   #horaDesde></ngx-material-timepicker>               
+                <input class="form-control" [ngxTimepicker]="hD" type="text" readonly [format]="24" formControlName="horaDesde" [ngModel]="datosEditar.horaDesde">
+                <ngx-material-timepicker (timeSet)="updateForm()" #hD></ngx-material-timepicker>
+                <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
+                    <div class="container-error" *ngIf="horaDesde.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="horaDesde.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+                    <div class="container-error" *ngIf="horaDesde.errors.moreThan">
+                        <span class="tc-ff3300">HoraDesde no debe ser mayor a HoraHasta</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Hasta</label>
-                <input  class="form-control date-time-disabled" [matDatepicker]="fechaHasta" (click) ="fechaHasta.open()" readonly formControlName="fechaHasta">
+                <input class="form-control date-time-disabled" [matDatepicker]="fechaHasta" (click)="fechaHasta.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta">
                 <mat-datepicker #fechaHasta></mat-datepicker>
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Hasta</label>
-                <input class="form-control date-time-disabled" [ngxTimepicker]="horaHasta" readonly [format]="24" (change)="changeHoraDesde($event)" formControlName="horaHasta">
-                <ngx-material-timepicker  #horaHasta></ngx-material-timepicker>           
+                <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                <ngx-material-timepicker (timeSet)="updateForm()" #hH></ngx-material-timepicker>
+                <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
+                    <div class="container-error" *ngIf="horaHasta.errors.required">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="horaHasta.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+
+                    <div class="container-error" *ngIf="horaHasta.errors.lessThan">
+                        <span class="tc-ff3300">HoraHasta no debe ser menor a HoraDesde</span>
+                    </div>
+                </div>
             </div>
         </div>
     </mat-dialog-content>

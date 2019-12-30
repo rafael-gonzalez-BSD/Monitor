@@ -1,19 +1,17 @@
 export class Mantenimiento {
-    ventanaMantenimientoId: number;
-    fechaDesde: any;
-    fechaHasta: any;
-    usuarioCreacionId: number;
-    fechaCreacion: any;
-    usuarioModificacionId: number;
-    fechaModificacion: any;
-    usuarioBajaId: number;
-    fechaBaja: any;
-    baja: boolean;
-    sistemaId: any;
-    sistemaDescripcion: string;
-    opcion: number;
-
-    constructor(opcion?: number) {
-        this.opcion = opcion || 0;
-    }
+  ventanaMantenimientoId: number;
+  fechaDesde: Date;
+  horaDesde: string;
+  fechaHasta: Date;
+  horaHasta: string;
+  usuarioCreacionId: number;
+  fechaCreacion: string;
+  usuarioModificacionId: number;
+  fechaModificacion: string;
+  usuarioBajaId: number | null;
+  fechaBaja: string | null;
+  baja: boolean;
+  sistemaId: number;
+  sistemaDescripcion: string;
+  opcion: number;
 }

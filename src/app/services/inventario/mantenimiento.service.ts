@@ -43,7 +43,7 @@ export class MantenimientoService {
   }
 
   actualizarEstado(m: Mantenimiento) {
-    const url = `${environment.urlApi}proceso/estado`;
+    const url = `${environment.urlApi}ventanaMantenimiento`;
     return this.http.patch<Mantenimiento>(url, m);
   }
 }
