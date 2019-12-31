@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Proceso } from 'src/app/models/inventario/proceso';
 
 @Injectable({
   providedIn: 'root'
