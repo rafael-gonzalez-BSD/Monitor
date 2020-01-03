@@ -12,6 +12,13 @@ import { startWith, map } from 'rxjs/operators';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import * as moment from 'moment';
+import {
+  toTimeRequiredValidator,
+  fromTimeRequiredValidator,
+  dateTimeRangeValidator,
+  fromDateRequiredValidator,
+  toDateRequiredValidator
+} from '../../../../extensions/picker/validate-date';
 
 @Component({
   selector: 'app-modal-guardar-mantenimiento',
@@ -60,10 +67,10 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
 
     if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
 
-    this.grupoFormulario.valueChanges.subscribe(changes => {
-      this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
-      this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
-    });
+    // this.grupoFormulario.valueChanges.subscribe(changes => {
+    //   this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
+    //   this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
+    // });
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -85,21 +92,21 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       ventanaMantenimientoId: new FormControl(),
-      fechaDesde: new FormControl('', [Validators.required]),
-      horaDesde: new FormControl('', [Validators.required, Validators.pattern(this.regExp)]),
-      fechaHasta: new FormControl('', [Validators.required]),
-      horaHasta: new FormControl('', [Validators.required, Validators.pattern(this.regExp)]),
+      fechaDesde: new FormControl('', [fromDateRequiredValidator]),
+      horaDesde: new FormControl('', [fromTimeRequiredValidator, Validators.pattern(this.regExp)]),
+      fechaHasta: new FormControl('', [toDateRequiredValidator]),
+      horaHasta: new FormControl('', [toTimeRequiredValidator, Validators.pattern(this.regExp)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl()
-    });
+    }, dateTimeRangeValidator);
   }
 
-  updateForm() {
-    setTimeout(() => {
-      this.grupoFormulario.get('horaDesde').updateValueAndValidity();
-      this.grupoFormulario.get('horaHasta').updateValueAndValidity();
-    }, 1);
-  }
+  // updateForm() {
+  //   setTimeout(() => {
+  //     this.grupoFormulario.get('horaDesde').updateValueAndValidity();
+  //     this.grupoFormulario.get('horaHasta').updateValueAndValidity();
+  //   }, 1);
+  // }
 
   consultarSistemaCombo() {
     const m = new Sistema();
@@ -222,25 +229,25 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 }
 
-export function moreThanTo(to: string): ValidatorFn {
+// export function moreThanTo(to: string): ValidatorFn {
 
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
+//   return (control: AbstractControl): { [key: string]: any } => {
+//     if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
 
-    const totalMinutesFrom = moment.duration(control.value).asMinutes();
-    const totalMinutesTo = moment.duration(to).asMinutes();
+//     const totalMinutesFrom = moment.duration(control.value).asMinutes();
+//     const totalMinutesTo = moment.duration(to).asMinutes();
 
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-  }
-}
+//     return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
+//   }
+// }
 
-export function lessThanFrom(from: string): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
+// export function lessThanFrom(from: string): ValidatorFn {
+//   return (control: AbstractControl): { [key: string]: any } => {
+//     if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
 
-    const totalMinutesFrom = moment.duration(from).asMinutes();
-    const totalMinutesTo = moment.duration(control.value).asMinutes();
+//     const totalMinutesFrom = moment.duration(from).asMinutes();
+//     const totalMinutesTo = moment.duration(control.value).asMinutes();
 
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-  }
-}
+//     return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
+//   }
+// }
