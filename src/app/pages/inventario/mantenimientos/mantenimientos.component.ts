@@ -12,9 +12,9 @@ import { ModalFiltrosMantenimientoComponent } from 'src/app/components/inventari
 })
 export class MantenimientosComponent implements OnInit {
 
-  constructor( private modal: MatDialog, private generalesService: GeneralesService,
+  constructor(private modal: MatDialog, private generalesService: GeneralesService,
     private breakpointObserver: BreakpointObserver,
-    private router: Router) { 
+    private router: Router) {
     // seteamos el  título del navbar movil
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
@@ -24,7 +24,7 @@ export class MantenimientosComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   setearTitulo(titulo) {
@@ -43,6 +43,8 @@ export class MantenimientosComponent implements OnInit {
       tituloModal: 'Filtros',
       opcion: 4
     };
+    dialogConfig.data.fechaDesde = '';
+    dialogConfig.data.fechaHasta = '';
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';

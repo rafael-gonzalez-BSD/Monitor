@@ -16,8 +16,8 @@ export class CintillaMantenimientosComponent implements OnInit {
   ngOnInit() {
     this.mantenimientoService.setFiltros.subscribe((m: any) => {
       this.filtroSistema = m.sistemaDescripcion || 'N/A';
-      this.filtroFechaDesde = m.sistemaDescripcion || 'N/A';
-      this.filtroFechaHasta = m.sistemaDescripcion || 'N/A';
+      this.filtroFechaDesde = m.fechaDesde || 'N/A';
+      this.filtroFechaHasta = m.fechaHasta || 'N/A';
     });
   }
 

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +30,7 @@ import { ProcesosComponent } from './pages/inventario/procesos/procesos.componen
 import { MantenimientosComponent } from './pages/inventario/mantenimientos/mantenimientos.component';
 import { ModalGuardarSistemaComponent } from './components/inventario/sistemas/modal-guardar-sistema/modal-guardar-sistema.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { GrillaProcesoComponent } from './components/inventario/procesos/grilla-proceso/grilla-proceso.component';
 import { CintillaProcesoComponent } from './components/inventario/procesos/cintilla-proceso/cintilla-proceso.component';
 import { ModalFiltrosSistemaComponent } from './components/inventario/sistemas/modal-filtros-sistema/modal-filtros-sistema.component';
@@ -41,9 +41,6 @@ import { MenuMovilComponent } from './components/menu-movil/menu-movil.component
 import { LayoutBaseComponent } from './layouts/layout-base/layout-base.component';
 import { ContenedorPrincipalComponent } from './components/contenedor-principal/contenedor-principal.component';
 import { LayoutModule } from '@angular/cdk/layout';
-
-// import { FontAwesomeModule } from '../../node_modules/@fortawesome/fontawesome-free';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepciones/config-excepciones.component';
 import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
 import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
@@ -59,17 +56,9 @@ import { CintillaConfigExcepcionesComponent } from './components/configuracion/c
 import { GrillaConfigExcepcionesComponent } from './components/configuracion/config-excepciones/grilla-config-excepciones/grilla-config-excepciones.component';
 import { ModalFiltrosConfigExcepcionesComponent } from './components/configuracion/config-excepciones/modal-filtros-config-excepciones/modal-filtros-config-excepciones.component';
 import { ModalGuardarConfigExcepcionesComponent } from './components/configuracion/config-excepciones/modal-guardar-config-excepciones/modal-guardar-config-excepciones.component';
-
-import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
-import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
-
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { options } from './NotifierOptions';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { HourFormatPipe } from './pipes/time/hour-format.pipe';
 import { CintillaConfigEjecucionesComponent } from './components/configuracion/config-ejecuciones/cintilla-config-ejecuciones/cintilla-config-ejecuciones.component';
@@ -171,20 +160,12 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     LayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
-    // ng-pick-datetime
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-
-    BsDatepickerModule.forRoot(),
-    NgbModule,
     NgxMaterialTimepickerModule.setLocale('es-ES')
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: OWL_DATE_TIME_LOCALE, useValue: 'es' },
     { provide: MAT_DATE_LOCALE, useValue: 'es' },
-    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
