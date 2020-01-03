@@ -28,25 +28,25 @@
                 <!-- COLUMNA FECHAINICIO -->
                 <ng-container matColumnDef="fechaInicio">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="fechaInicio">{{row.fechaDesde | date: 'dd/MM/yyyy'}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="fecha Inicio">{{row.fechaDesde | date: 'dd/MM/yyyy'}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA HORAINICIO -->
                 <ng-container matColumnDef="horaInicio">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Inicio</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horaInicio">{{row.horaDesde | hourFormat}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="hora Inicio">{{row.horaDesde | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA FECHAFIN -->
                 <ng-container matColumnDef="fechaFin">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Fin</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="fechaFin">{{row.fechaHasta | date: 'dd/MM/yyyy'}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="fecha Fin">{{row.fechaHasta | date: 'dd/MM/yyyy'}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA HORAFIN -->
                 <ng-container matColumnDef="horaFin">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hora Fin</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horaFin">{{row.horaHasta | hourFormat}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="hora Fin">{{row.horaHasta | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ESTADO -->
