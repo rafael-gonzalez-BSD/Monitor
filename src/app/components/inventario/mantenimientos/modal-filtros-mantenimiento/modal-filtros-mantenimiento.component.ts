@@ -3,13 +3,17 @@ import { Sistema } from 'src/app/models/inventario/sistema';
 import { SistemaService } from 'src/app/services/inventario/sistema.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Combo } from 'src/app/models/base/combo';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
 import { GeneralesService } from '../../../../services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { dateRangeValidator } from '../../../../extensions/picker/validate-date';
+
+
 
 @Component({
   selector: 'app-modal-filtros-mantenimiento',
@@ -17,27 +21,32 @@ import { GeneralesService } from '../../../../services/general/generales.service
   styleUrls: ['./modal-filtros-mantenimiento.component.scss']
 })
 export class ModalFiltrosMantenimientoComponent implements OnInit {
+  tituloModal: string;
+  opcion: number;
+  datosEditar: any;
   datosCombo: Combo[];
   grupoFormulario: FormGroup;
   sistemaCombo: Observable<Combo[]>;
   mantenimientoModel = new Mantenimiento();
-  opcion: number;
-  selected = '-1';
-  selectedText = '';
 
   // tslint:disable-next-line: max-line-length
-  constructor( 
-    @Inject(MAT_DIALOG_DATA) public data: any, 
-    private modal: MatDialog, 
-    private sistemaService: SistemaService, 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private modal: MatDialog,
+    private sistemaService: SistemaService,
     private mantenimientoService: MantenimientoService,
-    private generalesService: GeneralesService) { 
+    private generalesService: GeneralesService
+  ) {
+    this.tituloModal = data.tituloModal;
+    this.opcion = this.data.opcion;
+    this.datosEditar = data;
+    this.datosEditar.fechaDesde = this.datosEditar.fechaDesde === '' ? '' : new Date(this.datosEditar.fechaDesde);
+    this.datosEditar.fechaHasta = this.datosEditar.fechaHasta === '' ? '' : new Date(this.datosEditar.fechaHasta);
     this.opcion = data.opcion;
     this.consultarSistemaCombo();
   }
 
   ngOnInit() {
-    // this.consultarSistemaCombo();
     this.grupoFormulario = this.validarFormulario();
     this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
       startWith(''),
@@ -55,25 +64,29 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
+    m.baja = false;
     this.sistemaService.consultarSistemaCombo(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
           this.datosCombo = response.datos;
+
         } else {
-          alert('Error al consultar el combo de sistemas (dto)');
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de sistemas. ${response.mensaje}`));
         }
       },
       err => {
-        alert('Error al consultar el combo de sistemas (error interno)');
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrio un error.'));
       },
-      () => {}
+      () => { }
     );
   }
 
   validarFormulario() {
     return new FormGroup({
-      sistemaId: new FormControl('', [RequireMatch])
-    });
+      sistemaId: new FormControl('', [RequireMatch]),
+      fechaDesde: new FormControl(''),
+      fechaHasta: new FormControl('')
+    }, dateRangeValidator);
   }
 
   mostrarValor(obj: Combo) {
@@ -91,6 +104,11 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
         this.mantenimientoModel.sistemaId = 0;
         this.mantenimientoModel.sistemaDescripcion = '';
       }
+      debugger
+      this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
+      // ? this.grupoFormulario.value.fechaDesde.format('DD/MM/YYYY') : '';
+      this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+      // ? this.grupoFormulario.value.fechaHasta.format('DD/MM/YYYY') : '';
 
       localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
 
@@ -104,6 +122,14 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
 
   get sistemaId() {
     return this.grupoFormulario.get('sistemaId');
+  }
+
+  get fechaDesde() {
+    return this.grupoFormulario.get('fechaDesde');
+  }
+
+  get fechaHasta() {
+    return this.grupoFormulario.get('fechaHasta');
   }
 
   resetForm() {
