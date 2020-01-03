@@ -58,3 +58,10 @@
         }
     }
 }
+
+// Media query de los botones back
+@media (min-width: 813px) {
+    .btn-back-movil {
+        display: none !important;
+    }
+}
