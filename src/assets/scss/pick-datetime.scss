@@ -1,16 +1,3 @@
-owl-date-time-container {    
-    max-width: 85% !important;
-}
-
-.date-time-disabled{
-    background-color: white !important;
-}
-
-.cdk-overlay-container{
-z-index: 999 !important;
-}
-
-.ngx-timepicker{
-    margin-top: -20px !important;
-    border: none !important;
+.mat-calendar-body-selected{
+    background-color: #ff3300 !important;
 }
