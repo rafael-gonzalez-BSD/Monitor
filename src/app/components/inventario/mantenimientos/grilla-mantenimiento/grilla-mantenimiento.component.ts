@@ -98,6 +98,10 @@ export class GrillaMantenimientoComponent implements OnInit {
       edit: false,
       opcion: 1
     };
+    dialogConfig.data.fechaDesde = '';
+    dialogConfig.data.fechaHasta = '';
+    dialogConfig.data.horaDesde = '';
+    dialogConfig.data.horaHasta = '';
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
