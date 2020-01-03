@@ -30,7 +30,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
   procesoModel = new Proceso();
 
   toggleBaja = true;
-  toggleCritico = true;
+  toggleCritico = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
