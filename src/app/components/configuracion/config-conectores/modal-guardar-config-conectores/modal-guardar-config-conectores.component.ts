@@ -13,6 +13,7 @@ import { Sistema } from 'src/app/models/inventario/sistema';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import * as moment from 'moment';
+import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from 'src/app/extensions/picker/validate-date';
 
 @Component({
   selector: 'app-modal-guardar-config-conectores',
@@ -56,12 +57,8 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name))
     );
-    if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion)
-
-    this.grupoFormulario.valueChanges.subscribe(changes => {
-      this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
-      this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
-    });
+    if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
+    
   }
   setearValorAutocomplete(campo: string, id: number, desc: string) {
     this.grupoFormulario.get(campo).setValue({
@@ -100,25 +97,11 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(250)
       ]),
-      horaDesde: new FormControl('', [
-        Validators.required,
-        Validators.pattern(this.regExp)
-      ]),
-      horaHasta: new FormControl('', [
-        Validators.required,
-        Validators.pattern(this.regExp)
-      ]),
+      horaDesde: new FormControl('', [fromTimeRequiredValidator, Validators.pattern(this.regExp)]),
+      horaHasta: new FormControl('', [toTimeRequiredValidator, Validators.pattern(this.regExp)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl()
-    });
-  }
-
-  updateForm() {
-    setTimeout(() => {
-      this.grupoFormulario.get('horaDesde').updateValueAndValidity();
-      this.grupoFormulario.get('horaHasta').updateValueAndValidity();
-    }, 1);
-
+    }, timeRangeValidator);
   }
 
   consultarSistemaCombo() {
@@ -152,6 +135,9 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       this.configConectoresModel.horaHasta = this.grupoFormulario.value.horaHasta;
       this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
       this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+
+      console.log(configConectoresModel);
+      
 
       this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(
         (response: any) => {
@@ -214,7 +200,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     this.grupoFormulario.reset();
   }
   changeEstadoMatToggle(event) {
-    this.toggleBaja = event.checked;
+    this.toggleBaja = event.checked;    
   }
   cerrarModal() {
     this.modal.closeAll();

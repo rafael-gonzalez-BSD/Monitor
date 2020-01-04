@@ -36,6 +36,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
     });
     this.configConectoresService.obtenerFiltros();
     this.configConectoresService.setearFiltros();
+    this.abrirModalGuardar();
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {

@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 form-group">
+            <div class="col-lg-2 form-group">
                 <label for="">Frecuencia</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="frecuencia.invalid && ( frecuencia.touched )">
@@ -74,16 +74,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 form-group">
+            <div class="col-lg-6 form-group">
                 <div style="text-align: center;">
                     <label for="">Horario</label>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 form-group">
                         <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
-                        <ngx-material-timepicker (timeSet)="updateForm()" #hD></ngx-material-timepicker>
+                        <ngx-material-timepicker #hD></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
-                            <div class="container-error" *ngIf="horaDesde.errors.required">
+                            <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                                 <span class="tc-ff3300">Campo requerido</span>
                             </div>
                             <div class="container-error" *ngIf="horaDesde.errors.pattern">
@@ -93,20 +93,26 @@
                                 <span class="tc-ff3300">HoraDesde no debe ser mayor a HoraHasta</span>
                             </div>
                         </div>
+                        <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                            <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
+                                <span class="tc-ff3300">El rango de horas es inválido</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-6 form-group">
                         <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
                         <ngx-material-timepicker (timeSet)="updateForm()" #hH></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
-                            <div class="container-error" *ngIf="horaHasta.errors.required">
+                            <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                                 <span class="tc-ff3300">Campo requerido</span>
                             </div>
                             <div class="container-error" *ngIf="horaHasta.errors.pattern">
                                 <span class="tc-ff3300">Formato inválido</span>
                             </div>
-
-                            <div class="container-error" *ngIf="horaHasta.errors.lessThan">
-                                <span class="tc-ff3300">HoraHasta no debe ser menor a HoraDesde</span>
+                        </div>
+                        <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                            <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
+                                <span class="tc-ff3300">El rango de horas es inválido</span>
                             </div>
                         </div>
                     </div>

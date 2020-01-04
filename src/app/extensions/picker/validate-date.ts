@@ -75,3 +75,19 @@ export function dateTimeRangeValidator(formGroupValues: FormGroup) {
 
   return null;
 }
+
+export function timeRangeValidator(formGroupValues: FormGroup) {
+
+  const horaDesde = formGroupValues.get('horaDesde').value;
+  const horaHasta = formGroupValues.get('horaHasta').value;
+
+      if (horaDesde !== '' && horaHasta !== '') {
+        const totalMinutesFrom = moment.duration(horaDesde).asMinutes();
+        const totalMinutesTo = moment.duration(horaHasta).asMinutes();
+
+        if (totalMinutesFrom >= totalMinutesTo) {
+          return { invalidTimeRange: true };
+        }
+      }
+  return null;
+}
