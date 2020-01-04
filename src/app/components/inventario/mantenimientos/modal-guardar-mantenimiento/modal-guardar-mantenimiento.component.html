@@ -69,7 +69,7 @@
                 <label>Fecha Hasta</label>
                 <input class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta">
                 <div class="div-errors" *ngIf="fechaHasta.invalid && ( fechaHasta.touched )">
-                    <div class="container-error" *ngIf="fechaHasta.errors.requiredFromDate">
+                    <div class="container-error" *ngIf="fechaHasta.errors.requiredToDate">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
                 <ngx-material-timepicker #hH></ngx-material-timepicker>
                 <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
-                    <div class="container-error" *ngIf="horaHasta.errors.requiredFromTime">
+                    <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="horaHasta.errors.pattern">
