@@ -46,7 +46,7 @@ export class ConfigEjecucionesComponent implements OnInit {
   }
 
   regresar() {
-    localStorage.setItem('indexMenu', '2');
+    localStorage.setItem('indexMenu', '1');
     this.router.navigate(['site/menu']);
   }
 
