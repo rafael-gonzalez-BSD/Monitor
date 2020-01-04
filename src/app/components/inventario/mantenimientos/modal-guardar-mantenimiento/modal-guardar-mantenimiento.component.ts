@@ -129,7 +129,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 
   guardarMantenimiento(m: Mantenimiento) {
-    debugger
     if (this.grupoFormulario.valid) {
       this.generalesService.mostrarLoader();
       this.mantenimientoModel = m;
@@ -178,7 +177,7 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 
   get fechaDesde() {
-    return this.grupoFormulario.get('horaDesde');
+    return this.grupoFormulario.get('fechaDesde');
   }
 
   get horaDesde() {
