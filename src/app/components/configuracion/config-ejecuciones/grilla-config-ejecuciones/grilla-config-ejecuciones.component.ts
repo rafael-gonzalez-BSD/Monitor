@@ -95,7 +95,7 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
     dialogConfig.data.horaDesde = '';
     dialogConfig.data.horaHasta = '';
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
+    dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
   }

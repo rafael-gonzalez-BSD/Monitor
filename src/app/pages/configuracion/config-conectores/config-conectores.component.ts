@@ -40,8 +40,8 @@ export class ConfigConectoresComponent implements OnInit {
       opcion: 4
     };
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
-    dialogConfig.maxWidth = '768px';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalFiltrosConfigConectoresComponent, dialogConfig);
   }
 
