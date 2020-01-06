@@ -66,11 +66,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     );
 
     if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
-
-    // this.grupoFormulario.valueChanges.subscribe(changes => {
-    //   this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
-    //   this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
-    // });
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -101,13 +96,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     }, dateTimeRangeValidator);
   }
 
-  // updateForm() {
-  //   setTimeout(() => {
-  //     this.grupoFormulario.get('horaDesde').updateValueAndValidity();
-  //     this.grupoFormulario.get('horaHasta').updateValueAndValidity();
-  //   }, 1);
-  // }
-
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
@@ -131,15 +119,26 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   guardarMantenimiento(m: Mantenimiento) {
     if (this.grupoFormulario.valid) {
       this.generalesService.mostrarLoader();
+
       this.mantenimientoModel = m;
       this.mantenimientoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.ventanaMantenimientoId) {
         this.mantenimientoModel.ventanaMantenimientoId = this.grupoFormulario.value.ventanaMantenimientoId;
       }
+      debugger
+      const fechaDesde: any = moment(this.grupoFormulario.value.fechaDesde).utcOffset(0);
+      fechaDesde.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+      fechaDesde.toISOString();
+      fechaDesde.format();
 
-      this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
+      const fechaHasta: any = moment(this.grupoFormulario.value.fechaHasta).utcOffset(0);
+      fechaHasta.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+      fechaHasta.toISOString();
+      fechaHasta.format();
+
+      this.mantenimientoModel.fechaDesde = fechaDesde;
       this.mantenimientoModel.horaDesde = this.grupoFormulario.value.horaDesde;
-      this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+      this.mantenimientoModel.fechaHasta = fechaHasta;
       this.mantenimientoModel.horaHasta = this.grupoFormulario.value.horaHasta;
       this.mantenimientoModel.baja = !this.toggleBaja;
       this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
@@ -227,26 +226,3 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     return moment(date).format('DD/MM/YYYY');
   }
 }
-
-// export function moreThanTo(to: string): ValidatorFn {
-
-//   return (control: AbstractControl): { [key: string]: any } => {
-//     if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-//     const totalMinutesFrom = moment.duration(control.value).asMinutes();
-//     const totalMinutesTo = moment.duration(to).asMinutes();
-
-//     return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-//   }
-// }
-
-// export function lessThanFrom(from: string): ValidatorFn {
-//   return (control: AbstractControl): { [key: string]: any } => {
-//     if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-//     const totalMinutesFrom = moment.duration(from).asMinutes();
-//     const totalMinutesTo = moment.duration(control.value).asMinutes();
-
-//     return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-//   }
-// }
