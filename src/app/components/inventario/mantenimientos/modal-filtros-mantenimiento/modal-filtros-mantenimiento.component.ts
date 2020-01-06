@@ -104,11 +104,8 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
         this.mantenimientoModel.sistemaId = 0;
         this.mantenimientoModel.sistemaDescripcion = '';
       }
-      debugger
       this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
-      // ? this.grupoFormulario.value.fechaDesde.format('DD/MM/YYYY') : '';
       this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
-      // ? this.grupoFormulario.value.fechaHasta.format('DD/MM/YYYY') : '';
 
       localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
 

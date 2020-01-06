@@ -37,10 +37,17 @@ export function toTimeRequiredValidator(control: AbstractControl) {
 }
 
 export function dateRangeValidator(formGroupValues: FormGroup) {
-  const fechaDesde = formGroupValues.get('fechaDesde').value;
-  const fechaHasta = formGroupValues.get('fechaHasta').value;
+  let fechaDesde = formGroupValues.get('fechaDesde').value;
+  let fechaHasta = formGroupValues.get('fechaHasta').value;
 
   if ((fechaDesde !== '' || moment.isMoment(fechaDesde)) && (fechaHasta !== '' || moment.isMoment(fechaHasta))) {
+    if (!moment.isMoment(fechaDesde)) {
+      fechaDesde = moment(fechaDesde);
+    }
+
+    if (!moment.isMoment(fechaHasta)) {
+      fechaHasta = moment(fechaHasta);
+    }
     if (fechaDesde.isAfter(fechaHasta)) {
       return { invalidDateRange: true };
     }
@@ -51,12 +58,20 @@ export function dateRangeValidator(formGroupValues: FormGroup) {
 
 export function dateTimeRangeValidator(formGroupValues: FormGroup) {
 
-  const fechaDesde = formGroupValues.get('fechaDesde').value;
-  const fechaHasta = formGroupValues.get('fechaHasta').value;
+  let fechaDesde: any = formGroupValues.get('fechaDesde').value;
+  let fechaHasta: any = formGroupValues.get('fechaHasta').value;
   const horaDesde = formGroupValues.get('horaDesde').value;
   const horaHasta = formGroupValues.get('horaHasta').value;
 
   if ((fechaDesde !== '' || moment.isMoment(fechaDesde)) && (fechaHasta !== '' || moment.isMoment(fechaHasta))) {
+    if (!moment.isMoment(fechaDesde)) {
+      fechaDesde = moment(fechaDesde);
+    }
+
+    if (!moment.isMoment(fechaHasta)) {
+      fechaHasta = moment(fechaHasta);
+    }
+
     if (fechaDesde.isAfter(fechaHasta)) {
       return { invalidDateRange: true };
     }
@@ -81,13 +96,13 @@ export function timeRangeValidator(formGroupValues: FormGroup) {
   const horaDesde = formGroupValues.get('horaDesde').value;
   const horaHasta = formGroupValues.get('horaHasta').value;
 
-      if (horaDesde !== '' && horaHasta !== '') {
-        const totalMinutesFrom = moment.duration(horaDesde).asMinutes();
-        const totalMinutesTo = moment.duration(horaHasta).asMinutes();
+  if (horaDesde !== '' && horaHasta !== '') {
+    const totalMinutesFrom = moment.duration(horaDesde).asMinutes();
+    const totalMinutesTo = moment.duration(horaHasta).asMinutes();
 
-        if (totalMinutesFrom >= totalMinutesTo) {
-          return { invalidTimeRange: true };
-        }
-      }
+    if (totalMinutesFrom >= totalMinutesTo) {
+      return { invalidTimeRange: true };
+    }
+  }
   return null;
 }

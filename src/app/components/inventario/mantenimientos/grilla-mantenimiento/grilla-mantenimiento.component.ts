@@ -109,7 +109,6 @@ export class GrillaMantenimientoComponent implements OnInit {
   }
 
   actualizarEstado(e: Event, row) {
-    debugger
     this.mantenimientoModel.opcion = 3;
     this.mantenimientoModel.ventanaMantenimientoId = row.ventanaMantenimientoId;
     this.mantenimientoModel.baja = !e['checked'];

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { SistemaService } from 'src/app/services/inventario/sistema.service';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Combo } from 'src/app/models/base/combo';
 import { Observable } from 'rxjs';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
@@ -125,7 +125,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
       if (this.grupoFormulario.value.ventanaMantenimientoId) {
         this.mantenimientoModel.ventanaMantenimientoId = this.grupoFormulario.value.ventanaMantenimientoId;
       }
-      debugger
       const fechaDesde: any = moment(this.grupoFormulario.value.fechaDesde).utcOffset(0);
       fechaDesde.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
       fechaDesde.toISOString();

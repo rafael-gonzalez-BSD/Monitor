@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatAutocompleteTrigger, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Combo } from 'src/app/models/base/combo';
 import { Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConfigEjecuciones } from '../../../../models/configuracion/config-ejecuciones';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { SistemaService } from 'src/app/services/inventario/sistema.service';
@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import { ConfigEjecucionesService } from 'src/app/services/configuracion/config-ejecuciones.service';
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ProcesoService } from '../../../../services/inventario/proceso.service';
+import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -24,8 +25,6 @@ import { ProcesoService } from '../../../../services/inventario/proceso.service'
   styleUrls: ['./modal-guardar-config-ejecuciones.component.scss']
 })
 export class ModalGuardarConfigEjecucionesComponent implements OnInit {
-  @ViewChild(MatAutocompleteTrigger, null) autoSistema: MatAutocompleteTrigger;
-  @ViewChild(MatAutocompleteTrigger, null) autoProceso: MatAutocompleteTrigger;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -74,11 +73,6 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion)
       this.setearValorAutocomplete('procesoId', this.data.procesoId, this.data.procesoDescripcion)
     }
-
-    this.grupoFormulario.valueChanges.subscribe(changes => {
-      this.grupoFormulario.get('horaDesde').setValidators(moreThanTo(this.grupoFormulario.value.horaHasta));
-      this.grupoFormulario.get('horaHasta').setValidators(lessThanFrom(this.grupoFormulario.value.horaDesde));
-    });
   }
   setearValorAutocomplete(campo: string, id: number, desc: string) {
     this.grupoFormulario.get(campo).setValue({
@@ -113,26 +107,19 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
         Validators.maxLength(250)
       ]),
       horaDesde: new FormControl('', [
-        Validators.required,
+        fromTimeRequiredValidator,
         Validators.pattern(this.regExp)
       ]),
-      horaHasta: new FormControl('', [Validators.required,
-      Validators.pattern(this.regExp)
+      horaHasta: new FormControl('', [
+        toTimeRequiredValidator,
+        Validators.pattern(this.regExp)
       ]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       procesoId: new FormControl('', [Validators.required, RequireMatch]),
       tiempoEstimadoEjecucion: new FormControl('', [Validators.required]),
       tiempoOptimoEjecucion: new FormControl('', [Validators.required]),
       baja: new FormControl()
-    });
-  }
-
-  updateForm() {
-    setTimeout(() => {
-      this.grupoFormulario.get('horaDesde').updateValueAndValidity();
-      this.grupoFormulario.get('horaHasta').updateValueAndValidity();
-    }, 1);
-
+    }, timeRangeValidator);
   }
 
   consultarSistemaCombo() {
@@ -266,35 +253,11 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     let hours = 0;
     let minutes = 0;
 
-    const dayRem = totalMinutes % 450;
-    if (dayRem) {
-      hours = Math.floor(dayRem / 60);
-      minutes = Math.floor(dayRem % 60);
+    if (totalMinutes) {
+      hours = Math.floor(totalMinutes / 60);
+      minutes = Math.floor(totalMinutes % 60);
     }
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-  }
-}
-
-export function moreThanTo(to: string): ValidatorFn {
-
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-    const totalMinutesFrom = moment.duration(control.value).asMinutes();
-    const totalMinutesTo = moment.duration(to).asMinutes();
-
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-  }
-}
-
-export function lessThanFrom(from: string): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-    const totalMinutesFrom = moment.duration(from).asMinutes();
-    const totalMinutesTo = moment.duration(control.value).asMinutes();
-
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
   }
 }
