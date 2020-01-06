@@ -19,12 +19,6 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- COLUMNA SISTEMA -->
-                <ng-container matColumnDef="sistema">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
-                </ng-container>
-
                 <!-- COLUMNA IDENTIFICADOR -->
                 <ng-container matColumnDef="identificador">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
@@ -36,6 +30,13 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="proceso">{{row.procesoDescripcion}}</mat-cell>
                 </ng-container>
+
+                <!-- COLUMNA SISTEMA -->
+                <ng-container matColumnDef="sistema">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
+                </ng-container>
+
 
                 <!-- COLUMNA ESTADO -->
                 <ng-container matColumnDef="estado">

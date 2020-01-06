@@ -16,7 +16,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
   styleUrls: ['./grilla-proceso.component.scss']
 })
 export class GrillaProcesoComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'sistema', 'identificador', 'proceso', 'estado', 'critico'];
+  tableColumns: string[] = ['accion', 'identificador', 'proceso', 'sistema', 'estado', 'critico'];
   dataSource: MatTableDataSource<Proceso>;
   procesoModel = new Proceso();
   pageSizeOptions = [10, 25, 100];

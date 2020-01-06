@@ -37,7 +37,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
-    this.datosEditar.baja = data.insercion ? this.toggleBaja : !data.baja;
+    this.datosEditar.baja = data.insercion ? true : !data.baja;
     this.gerenciaId = data.gerenciaId;
     this.insercion = data.insercion;
   }
@@ -69,8 +69,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
     );
   }
 
-  
-  
+
+
   get SistemaId() {
     return this.grupoFormulario.get('SistemaId');
   }
