@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatSelect } from '@angular/material';
 import { GerenciaService } from '../../../../services/general/gerencia.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Sistema } from 'src/app/models/inventario/sistema';
@@ -25,7 +25,8 @@ export class ModalGuardarSistemaComponent implements OnInit {
   sistemaModel = new Sistema();
 
   toggleBaja = true;
-  gerenciaId: number;
+  gerenciaId = '-1';
+  selectedText = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -37,7 +38,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
-    this.datosEditar.baja = data.insercion ? true : !data.baja;
+    this.datosEditar.baja = data.insercion ? this.toggleBaja : !data.baja;
     this.gerenciaId = data.gerenciaId;
     this.insercion = data.insercion;
   }
@@ -69,8 +70,20 @@ export class ModalGuardarSistemaComponent implements OnInit {
     );
   }
 
-
-
+  selectedEstado(e: Event) {
+    const source: MatSelect = e['source'];
+    this.gerenciaId =  source['_value'];
+    
+    const id = source.selected['_element'];
+    this.selectedText = id.nativeElement.outerText;
+    
+    console.log(this.gerenciaId);
+    console.log(this.selectedText);
+    
+    
+  }
+  
+  
   get SistemaId() {
     return this.grupoFormulario.get('SistemaId');
   }
@@ -107,24 +120,27 @@ export class ModalGuardarSistemaComponent implements OnInit {
       this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
 
-      this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.sistemaService.obtenerFiltros();
-            this.sistemaService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+      console.log(sistemaModel);
+      
+
+      // this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
+      //   (response: any) => {
+      //     if (response.satisfactorio) {
+      //       this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+      //       this.sistemaService.obtenerFiltros();
+      //       this.sistemaService.setearFiltros();
+      //       this.cerrarModal();
+      //     } else {
+      //       this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+      //     }
+      //   },
+      //   err => {
+      //     this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
+      //   },
+      //   () => {
+      //     this.generalesService.quitarLoader();
+      //   }
+      // );
     }
   }
 
