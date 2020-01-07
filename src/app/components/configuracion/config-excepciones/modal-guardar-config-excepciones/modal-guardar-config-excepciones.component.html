@@ -65,7 +65,7 @@
                                 <span class="tc-ff3300">El rango de horas es inválido</span>
                             </div>
                         </div>
-                        <ngx-material-timepicker #hD></ngx-material-timepicker>
+                        <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]="this.terniumTheme"></ngx-material-timepicker>
 
                     </div>
                     <div class="col-lg-6 form-group">
@@ -83,7 +83,7 @@
                                 <span class="tc-ff3300">El rango de horas es inválido</span>
                             </div>
                         </div>
-                        <ngx-material-timepicker #hH></ngx-material-timepicker>
+                        <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
 
                     </div>
                 </div>
@@ -125,4 +125,12 @@
         <button mat-button mat-dialog-close>Cancelar</button>
         <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
+
+
+    <ng-template #cancelBtn>
+        <button mat-button>Cancelar</button>
+    </ng-template>
+    <ng-template #confirmBtn>
+        <button class="btn-ternium-primary" mat-button>Aceptar</button>
+    </ng-template>
 </form>

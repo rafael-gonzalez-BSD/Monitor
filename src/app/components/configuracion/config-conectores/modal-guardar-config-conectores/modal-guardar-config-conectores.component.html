@@ -81,7 +81,7 @@
                 <div class="row">
                     <div class="col-lg-6 form-group">
                         <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
-                        <ngx-material-timepicker #hD></ngx-material-timepicker>
+                        <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                             <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                                 <span class="tc-ff3300">Campo requerido</span>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-lg-6 form-group">
                         <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
-                        <ngx-material-timepicker #hH></ngx-material-timepicker>
+                        <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                                 <span class="tc-ff3300">Campo requerido</span>
@@ -136,4 +136,10 @@
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
         <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
+    <ng-template #cancelBtn>
+        <button mat-button>Cancelar</button>
+    </ng-template>
+    <ng-template #confirmBtn>
+        <button class="btn-ternium-primary" mat-button>Aceptar</button>
+    </ng-template>
 </form>

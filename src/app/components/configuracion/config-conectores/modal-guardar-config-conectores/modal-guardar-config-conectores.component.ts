@@ -14,6 +14,7 @@ import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import * as moment from 'moment';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from 'src/app/extensions/picker/validate-date';
+import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
 
 @Component({
   selector: 'app-modal-guardar-config-conectores',
@@ -30,6 +31,8 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
   configConectoresModel = new ConfigConectores();
+  timePickerTemplate = new TimePickerTemplate();
+  terniumTheme: any;
   regExp = '^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$';
 
   toggleBaja = true;
@@ -47,6 +50,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;
     this.esEdicion = data.edit;
+    this.terniumTheme = this.timePickerTemplate.terniumTheme;
     this.consultarSistemaCombo();
   }
 

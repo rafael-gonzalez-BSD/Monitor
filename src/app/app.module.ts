@@ -160,7 +160,7 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     LayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
-    NgxMaterialTimepickerModule.setLocale('es-ES')
+    NgxMaterialTimepickerModule.setLocale('es-MX')
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

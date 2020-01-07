@@ -18,6 +18,7 @@ import { ConfigEjecucionesService } from 'src/app/services/configuracion/config-
 import { Proceso } from 'src/app/models/inventario/proceso';
 import { ProcesoService } from '../../../../services/inventario/proceso.service';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
+import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -35,6 +36,8 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   procesoCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
   configEjecucionesModel = new ConfigEjecuciones();
+  timePickerTemplate = new TimePickerTemplate();
+  terniumTheme: any;
   regExp = '^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$';
 
   toggleBaja = true;
@@ -53,6 +56,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;
     this.esEdicion = data.edit;
+    this.terniumTheme = this.timePickerTemplate.terniumTheme;
     this.consultarSistemaCombo();
     this.consultarProcesoCombo();
   }

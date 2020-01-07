@@ -60,7 +60,7 @@
                         <span class="tc-ff3300">El rango de horas es inválido</span>
                     </div>
                 </div>
-                <ngx-material-timepicker #hD></ngx-material-timepicker>
+                <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
 
             </div>
         </div>
@@ -83,7 +83,6 @@
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Hasta</label>
                 <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
-                <ngx-material-timepicker #hH></ngx-material-timepicker>
                 <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                     <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -97,6 +96,7 @@
                         <span class="tc-ff3300">El rango de horas es inválido</span>
                     </div>
                 </div>
+                <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
             </div>
         </div>
     </mat-dialog-content>
@@ -104,4 +104,10 @@
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
         <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
+    <ng-template #cancelBtn>
+        <button mat-button>Cancelar</button>
+    </ng-template>
+    <ng-template #confirmBtn>
+        <button class="btn-ternium-primary" mat-button>Aceptar</button>
+    </ng-template>
 </form>
