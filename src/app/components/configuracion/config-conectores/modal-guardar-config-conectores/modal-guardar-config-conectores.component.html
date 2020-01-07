@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-lg-6 form-group">
                         <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
-                        <ngx-material-timepicker (timeSet)="updateForm()" #hH></ngx-material-timepicker>
+                        <ngx-material-timepicker #hH></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                                 <span class="tc-ff3300">Campo requerido</span>

@@ -221,26 +221,3 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
 }
-
-export function moreThanTo(to: string): ValidatorFn {
-
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((to === '' || to === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-    const totalMinutesFrom = moment.duration(control.value).asMinutes();
-    const totalMinutesTo = moment.duration(to).asMinutes();
-
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-  }
-}
-
-export function lessThanFrom(from: string): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
-    if ((from === '' || from === undefined) || (control.value === '' || control.value === undefined)) return null;
-
-    const totalMinutesFrom = moment.duration(from).asMinutes();
-    const totalMinutesTo = moment.duration(control.value).asMinutes();
-
-    return totalMinutesFrom > totalMinutesTo ? { moreThan: true, lessThan: true } : null;
-  }
-}
