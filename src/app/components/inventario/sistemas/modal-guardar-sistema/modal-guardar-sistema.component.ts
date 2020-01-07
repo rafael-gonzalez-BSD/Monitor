@@ -119,28 +119,26 @@ export class ModalGuardarSistemaComponent implements OnInit {
       this.sistemaModel.alias = this.grupoFormulario.value.Alias;
       this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
-
-      console.log(sistemaModel);
       
 
-      // this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
-      //   (response: any) => {
-      //     if (response.satisfactorio) {
-      //       this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-      //       this.sistemaService.obtenerFiltros();
-      //       this.sistemaService.setearFiltros();
-      //       this.cerrarModal();
-      //     } else {
-      //       this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-      //     }
-      //   },
-      //   err => {
-      //     this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
-      //   },
-      //   () => {
-      //     this.generalesService.quitarLoader();
-      //   }
-      // );
+      this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
+        (response: any) => {
+          if (response.satisfactorio) {
+            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+            this.sistemaService.obtenerFiltros();
+            this.sistemaService.setearFiltros();
+            this.cerrarModal();
+          } else {
+            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+          }
+        },
+        err => {
+          this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
+        },
+        () => {
+          this.generalesService.quitarLoader();
+        }
+      );
     }
   }
 
