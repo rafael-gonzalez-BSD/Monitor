@@ -58,7 +58,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       map(name => this.filter(name))
     );
     if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
-    
+
   }
   setearValorAutocomplete(campo: string, id: number, desc: string) {
     this.grupoFormulario.get(campo).setValue({
@@ -137,7 +137,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
       console.log(configConectoresModel);
-      
+
 
       this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(
         (response: any) => {
@@ -200,7 +200,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     this.grupoFormulario.reset();
   }
   changeEstadoMatToggle(event) {
-    this.toggleBaja = event.checked;    
+    this.toggleBaja = event.checked;
   }
   cerrarModal() {
     this.modal.closeAll();
@@ -212,10 +212,10 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     let hours = 0;
     let minutes = 0;
 
-    const dayRem = totalMinutes % 450;
-    if (dayRem) {
-      hours = Math.floor(dayRem / 60);
-      minutes = Math.floor(dayRem % 60);
+
+    if (totalMinutes) {
+      hours = Math.floor(totalMinutes / 60);
+      minutes = Math.floor(totalMinutes % 60);
     }
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
