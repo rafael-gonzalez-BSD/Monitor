@@ -8,16 +8,16 @@ import * as moment from 'moment';
   styleUrls: ['./cintilla-mantenimientos.component.scss']
 })
 export class CintillaMantenimientosComponent implements OnInit {
-  filtroSistema = 'N/A';
-  filtroFechaDesde = 'N/A';
-  filtroFechaHasta = 'N/A';
+  filtroSistema = 'Sin Filtro';
+  filtroFechaDesde = 'Sin Filtro';
+  filtroFechaHasta = 'Sin Filtro';
   constructor(private mantenimientoService: MantenimientoService) { }
 
   ngOnInit() {
     this.mantenimientoService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
-      this.filtroFechaDesde = m.fechaDesde ? moment(m.fechaDesde).format('DD/MM/YYYY') : 'N/A';
-      this.filtroFechaHasta = m.fechaHasta ? moment(m.fechaHasta).format('DD/MM/YYYY') : 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
+      this.filtroFechaDesde = m.fechaDesde ? moment(m.fechaDesde).format('DD/MM/YYYY') : 'Sin Filtro';
+      this.filtroFechaHasta = m.fechaHasta ? moment(m.fechaHasta).format('DD/MM/YYYY') : 'Sin Filtro';
     });
   }
 

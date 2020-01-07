@@ -7,12 +7,12 @@ import { ConfigExcepcionesService } from '../../../../services/configuracion/con
   styleUrls: ['./cintilla-config-excepciones.component.scss']
 })
 export class CintillaConfigExcepcionesComponent implements OnInit {
-  filtroSistema = 'N/A';
+  filtroSistema = 'Sin Filtro';
   constructor(private configExcepcionesService: ConfigExcepcionesService) { }
 
   ngOnInit() {
     this.configExcepcionesService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
     });
   }
 

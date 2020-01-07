@@ -7,14 +7,14 @@ import { ConfigEjecucionesService } from '../../../../services/configuracion/con
   styleUrls: ['./cintilla-config-ejecuciones.component.scss']
 })
 export class CintillaConfigEjecucionesComponent implements OnInit {
-  filtroSistema = 'N/A';
-  filtroProceso = 'N/A';
+  filtroSistema = 'Sin Filtro';
+  filtroProceso = 'Sin Filtro';
   constructor(private configEjecucionesService: ConfigEjecucionesService) { }
 
   ngOnInit() {
     this.configEjecucionesService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
-      this.filtroProceso = m.procesoDescripcion || 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
+      this.filtroProceso = m.procesoDescripcion || 'Sin Filtro';
     });
   }
 

@@ -80,7 +80,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
+                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
                         <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                             <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
                         <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">

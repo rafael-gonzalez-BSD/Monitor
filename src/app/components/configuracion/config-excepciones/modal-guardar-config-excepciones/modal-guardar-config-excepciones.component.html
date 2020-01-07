@@ -51,7 +51,7 @@
 
                 <div class="row">
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde">
+                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                             <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                                 <span class="tc-ff3300">Campo requerido</span>
@@ -69,7 +69,7 @@
 
                     </div>
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                                 <span class="tc-ff3300">Campo requerido</span>

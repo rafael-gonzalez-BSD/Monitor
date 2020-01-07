@@ -7,15 +7,15 @@ import { SistemaService } from '../../../../services/inventario/sistema.service'
   styleUrls: ['./cintilla-sistema.component.scss']
 })
 export class CintillaSistemaComponent implements OnInit {
-  filtroSistema = 'N/A';
-  filtroEstado = 'N/A';
+  filtroSistema = 'Sin Filtro';
+  filtroEstado = 'Sin Filtro';
 
   constructor(private sistemaService: SistemaService) {}
 
   ngOnInit() {
     // Recuperamos los filtros del evenEmitter
     this.sistemaService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
       if (m.baja === null) this.filtroEstado = 'Ambos';
       if (m.baja === true || m.baja === 'true') this.filtroEstado = 'Apagado';
       if (m.baja === false || m.baja === 'false') this.filtroEstado = 'Encendido';

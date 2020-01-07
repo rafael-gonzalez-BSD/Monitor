@@ -86,7 +86,7 @@ export class GrillaSistemaComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       insercion: true,
-      tituloModal: 'Agregar Sistema',
+      tituloModal: 'Nuevo Sistema',
       gerenciaId: '-1'
     };
     dialogConfig.height = 'auto';

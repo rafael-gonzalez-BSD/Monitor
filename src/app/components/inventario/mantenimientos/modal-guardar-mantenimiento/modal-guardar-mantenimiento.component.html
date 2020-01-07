@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Desde</label>
-                <input class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" readonly formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde">
+                <input class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" readonly formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="DD/MM/YYYY">
                 <div class="div-errors" *ngIf="fechaDesde.invalid && ( fechaDesde.touched )">
                     <div class="container-error" *ngIf="fechaDesde.errors.requiredFromDate">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -46,7 +46,7 @@
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
-                <input class="form-control" [ngxTimepicker]="hD" type="text" readonly [format]="24" formControlName="horaDesde" [ngModel]="datosEditar.horaDesde">
+                <input class="form-control" [ngxTimepicker]="hD" type="text" readonly [format]="24" formControlName="horaDesde" [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                     <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -67,7 +67,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Hasta</label>
-                <input class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta">
+                <input class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="DD/MM/YYYY">
                 <div class="div-errors" *ngIf="fechaHasta.invalid && ( fechaHasta.touched )">
                     <div class="container-error" *ngIf="fechaHasta.errors.requiredToDate">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Hasta</label>
-                <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta">
+                <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                     <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                         <span class="tc-ff3300">Campo requerido</span>

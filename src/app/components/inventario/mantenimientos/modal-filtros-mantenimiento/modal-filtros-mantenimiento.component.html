@@ -18,7 +18,7 @@
             </div>
             <div class="col-lg-4 form-group">
                 <label>Fecha Desde</label>
-                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde">
+                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="DD/MM/YYYY">
                 <mat-datepicker #fD></mat-datepicker>
                 <div class="div-errors" *ngIf="fechaDesde.invalid && ( fechaDesde.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['fechaDesde'].hasError('requiredFromDate')">
@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-4 form-group">
                 <label>Fecha Hasta</label>
-                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta">
+                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="DD/MM/YYYY">
                 <mat-datepicker #fH></mat-datepicker>
                 <div class="div-errors" *ngIf="fechaHasta.invalid && ( fechaHasta.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['fechaHasta'].hasError('requiredToDate')">

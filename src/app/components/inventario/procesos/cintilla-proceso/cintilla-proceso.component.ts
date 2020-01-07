@@ -8,14 +8,14 @@ import { Proceso } from '../../../../models/inventario/proceso';
   styleUrls: ['./cintilla-proceso.component.scss']
 })
 export class CintillaProcesoComponent implements OnInit {
-  filtroSistema = 'N/A';
-  filtroProceso = 'N/A';
+  filtroSistema = 'Sin Filtro';
+  filtroProceso = 'Sin Filtro';
   constructor(private procesoService: ProcesoService) {}
 
   ngOnInit() {
     this.procesoService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
-      this.filtroProceso = m.procesoDescripcion || 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
+      this.filtroProceso = m.procesoDescripcion || 'Sin Filtro';
     });
   }
 }

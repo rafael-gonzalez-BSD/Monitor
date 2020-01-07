@@ -7,14 +7,14 @@ import { ConfigConectoresService } from '../../../../services/configuracion/conf
   styleUrls: ['./cintilla-config-conectores.component.scss']
 })
 export class CintillaConfigConectoresComponent implements OnInit {
-  filtroSistema = 'N/A';
-  filtroConector = 'N/A';
+  filtroSistema = 'Sin Filtro';
+  filtroConector = 'Sin Filtro';
   constructor(private configConectoresService: ConfigConectoresService) { }
 
   ngOnInit() {
     this.configConectoresService.setFiltros.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion || 'N/A';
-      this.filtroConector = m.conectorConfiguracionDescripcion || 'N/A';
+      this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
+      this.filtroConector = m.conectorConfiguracionDescripcion || 'Sin Filtro';
     });
   }
 
