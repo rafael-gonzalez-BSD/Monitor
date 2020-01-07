@@ -35,16 +35,18 @@ export class ModalGuardarSistemaComponent implements OnInit {
     private generalesService: GeneralesService,
     private modal: MatDialog
   ) {
+    this.consultarGerenciaCombo();
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
     this.datosEditar.baja = data.insercion ? this.toggleBaja : !data.baja;
-    this.gerenciaId = data.gerenciaId;
+    this.gerenciaId = (data.gerenciaId).toString();
     this.insercion = data.insercion;
+    
   }
   ngOnInit() {
     this.grupoFormulario = this.validarFormulario();
-    this.consultarGerenciaCombo();
+    
   }
 
   validarFormulario() {
@@ -75,11 +77,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.gerenciaId =  source['_value'];
     
     const id = source.selected['_element'];
-    this.selectedText = id.nativeElement.outerText;
-    
-    console.log(this.gerenciaId);
-    console.log(this.selectedText);
-    
+    this.selectedText = id.nativeElement.outerText;    
     
   }
   

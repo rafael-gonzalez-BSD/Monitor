@@ -46,7 +46,7 @@
             </div>
             <div class="col-lg-6 form-group">
                 <label for="">Área Propietaria</label>
-                <mat-select formControlName="GerenciaId" [(value)]="selected" (selectionChange)="selectedEstado($event)" [ngModel]="gerenciaId">
+                <mat-select formControlName="GerenciaId" [(value)]="gerenciaId" (selectionChange)="selectedEstado($event)" [ngModel]="gerenciaId">
                     <mat-option value="-1">Seleccionar...</mat-option>
                     <mat-option *ngFor="let item of datosCombo" value={{item.identificador}}>{{item.descripcion}}</mat-option>
                 </mat-select>
