@@ -26,11 +26,7 @@ export class TimePickerTemplate {
       dialActiveColor: '#fff'
     },
     clockFace: {
-      clockFaceBackgroundColor: '#ff3300',
-      clockHandColor: '#f6f6f6',
-      clockFaceTimeInactiveColor: '#fff',
-      clockFaceTimeActiveColor: '#000',
-      clockFaceInnerTimeInactiveColor: '#fff',
+      clockHandColor: '#ff3300',
     }
   };
 
