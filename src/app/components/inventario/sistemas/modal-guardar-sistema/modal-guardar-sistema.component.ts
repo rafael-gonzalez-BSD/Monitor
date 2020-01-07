@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatSelect } from '@angular/material';
 import { GerenciaService } from '../../../../services/general/gerencia.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Sistema } from 'src/app/models/inventario/sistema';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { RespuestaModel } from '../../../../models/base/respuesta';
@@ -52,7 +52,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
       SistemaId: new FormControl(),
       SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      GerenciaId: new FormControl('-1', [Validators.required]),
+      GerenciaId: new FormControl('-1', [validarCombo]),
       Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       Baja: new FormControl()
     });
@@ -155,4 +155,17 @@ export class ModalGuardarSistemaComponent implements OnInit {
   cerrarModal() {
     this.modal.closeAll();
   }
+
+
+}
+
+
+// ]Validar combo
+
+export function validarCombo (control: AbstractControl) {
+  const valor: any = control.value;
+  if (valor === null || valor === '-1' || valor === undefined) {
+    return { requiredCombo: true }
+  }
+  return null;
 }

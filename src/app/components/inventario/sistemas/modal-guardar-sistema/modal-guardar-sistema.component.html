@@ -51,7 +51,7 @@
                     <mat-option *ngFor="let item of datosCombo" value={{item.identificador}}>{{item.descripcion}}</mat-option>
                 </mat-select>
                 <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
-                    <div class="container-error" *ngIf="GerenciaId.errors.required">
+                    <div class="container-error" *ngIf="GerenciaId.errors.requiredCombo">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                 </div>
