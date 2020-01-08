@@ -23,7 +23,7 @@ import { dateRangeValidator } from '../../../../extensions/picker/validate-date'
 export class ModalFiltrosMantenimientoComponent implements OnInit {
   tituloModal: string;
   opcion: number;
-  datosEditar: any;
+  datosFiltros: any;
   datosCombo: Combo[];
   grupoFormulario: FormGroup;
   sistemaCombo: Observable<Combo[]>;
@@ -39,10 +39,10 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = this.data.opcion;
-    this.datosEditar = data;
-    this.datosEditar.fechaDesde = this.datosEditar.fechaDesde === '' ? '' : new Date(this.datosEditar.fechaDesde);
-    this.datosEditar.fechaHasta = this.datosEditar.fechaHasta === '' ? '' : new Date(this.datosEditar.fechaHasta);
-    this.opcion = data.opcion;
+    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosMantenimientos'));
+    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
+    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+
     this.consultarSistemaCombo();
   }
 
@@ -53,6 +53,17 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosCombo))
     );
+
+    if (this.datosFiltros.sistemaId > 0) {
+      this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
+    }
+  }
+
+  setearValorAutocomplete(campo: string, id: number, desc: string) {
+    this.grupoFormulario.get(campo).setValue({
+      identificador: id,
+      descripcion: desc
+    });
   }
 
   filter(valor: string, datosCombo: Combo[]) {

@@ -32,6 +32,8 @@ export class GrillaMantenimientoComponent implements OnInit {
   ngOnInit() {
     this.mantenimientoService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
+      if (m.fechaDesde === null) delete m.fechaDesde;
+      if (m.fechaHasta === null) delete m.fechaHasta;
       this.obtenerMantenimientos(m);
     });
     this.mantenimientoService.obtenerFiltros();

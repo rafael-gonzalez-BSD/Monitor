@@ -35,7 +35,7 @@ export class GeneralesService {
     for (const key in m) {
       parametros = parametros.set(key, m[key]);
     }
-    const url = `${environment.urlApi}general/test`;
+    const url = `${environment.urlApi}general/testRutaApi`;
     return this.http.get(url, { params: parametros });
   }
 }

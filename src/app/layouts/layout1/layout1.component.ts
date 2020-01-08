@@ -62,6 +62,9 @@ export class Layout1Component implements OnInit {
     mantenimientoModel.opcion = 4;
     mantenimientoModel.baja = null;
     mantenimientoModel.sistemaId = 0;
+    mantenimientoModel.sistemaDescripcion = '';
+    mantenimientoModel.fechaDesde = null;
+    mantenimientoModel.fechaHasta = null;
     localStorage.removeItem('filtrosMantenimientos');
     localStorage.setItem('filtrosMantenimientos', JSON.stringify(mantenimientoModel));
   }
