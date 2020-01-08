@@ -20,7 +20,7 @@ export function TrimValidation(control: AbstractControl) {
   return null;
 }
 
-export function inputText(required: boolean, minLength: number, maxLength): ValidatorFn {
+export function inputText(required: boolean, minLength: number, maxLength: number): ValidatorFn {
  
     return (control: AbstractControl): ValidationErrors | null => {
         const VALOR: string = control.value;

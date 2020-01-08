@@ -2,29 +2,20 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarSistema(this.sistemaModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-3 form-group" *ngIf="!insercion">
+            <div class="col-lg-2 form-group" *ngIf="!insercion">
                 <label for="">Identificador</label>
                 <input formControlName="SistemaId" class="form-control" type="text" readonly [ngModel]="datosEditar.sistemaId">
             </div>
-            <div class="col-lg-6 form-group">
+            <div class="col-lg-8 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="SistemaDescripcion" class="form-control" type="text" [ngModel]="datosEditar.sistemaDescripcion">
                 <div class="div-errors" *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
-                    <!-- <div class="container-error" *ngIf="SistemaDescripcion.errors.requiredTrim">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="SistemaDescripcion.errors.minLengthTrim">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="SistemaDescripcion.errors.maxLengthTrim">
-                        <span class="tc-ff3300">Máximo 100 caracteres</span>
-                    </div> -->
                     <div class="container-error" *ngIf="SistemaDescripcion.errors.inputText">
                         <span class="tc-ff3300">{{SistemaDescripcion.errors.message}}</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 form-group">
+            <div class="col-lg-2 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle (change)="changeMatToggle($event)" formControlName="Baja" [ngModel]="datosEditar.baja">
                 </mat-slide-toggle>
@@ -36,16 +27,6 @@
                 <label for="">Alias</label>
                 <input formControlName="Alias" class="form-control" type="text" [ngModel]="datosEditar.alias">
                 <div class="div-errors" *ngIf="Alias.invalid && ( Alias.touched )">
-                    <!-- <div class="container-error" *ngIf="Alias.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="Alias.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="Alias.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 100 caracteres</span>
-                    </div> -->
-
                     <div class="container-error" *ngIf="Alias.errors.inputText">
                         <span class="tc-ff3300">{{Alias.errors.message}}</span>
                     </div>
@@ -69,15 +50,6 @@
                 <label for="">Descripción</label>
                 <textarea formControlName="Descripcion" rows="3" class="form-control" [ngModel]="datosEditar.descripcion"></textarea>
                 <div class="div-errors" *ngIf="Descripcion.invalid && ( Descripcion.touched )">
-                    <!-- <div class="container-error" *ngIf="Descripcion.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="Descripcion.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="Descripcion.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 100 caracteres</span>
-                    </div> -->
                     <div class="container-error" *ngIf="Descripcion.errors.inputText">
                         <span class="tc-ff3300">{{Descripcion.errors.message}}</span>
                     </div>
