@@ -10,7 +10,7 @@
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
-                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarProcesoCombo($event.option.value)">
                     <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
                         <span>{{sistema.descripcion}}</span>
                     </mat-option>

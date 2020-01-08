@@ -58,7 +58,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     this.esEdicion = data.edit;
     this.terniumTheme = this.timePickerTemplate.terniumTheme;
     this.consultarSistemaCombo();
-    this.consultarProcesoCombo();
+    // this.consultarProcesoCombo();
   }
 
   ngOnInit() {
@@ -142,9 +142,10 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     );
   }
 
-  consultarProcesoCombo() {
+  consultarProcesoCombo(value: Combo) {
     const m = new Proceso();
     m.opcion = 3;
+    m.sistemaId = value.identificador;
     m.baja = false;
 
     this.procesoService.consultarProcesoCombo(m).subscribe(

@@ -42,7 +42,7 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosProcesos'));
     this.consultarSistemaCombo();
-    this.consultarProcesoCombo();
+    // this.consultarProcesoCombo();
   }
 
   ngOnInit() {
@@ -140,9 +140,10 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     );
   }
 
-  consultarProcesoCombo() {
+  consultarProcesoCombo(value: Combo) {
     const m = new Proceso();
     m.opcion = 3;
+    m.sistemaId = value.identificador;
     this.procesoService.consultarProcesoCombo(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {

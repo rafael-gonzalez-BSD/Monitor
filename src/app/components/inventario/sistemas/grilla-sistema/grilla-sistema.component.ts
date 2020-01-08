@@ -24,7 +24,7 @@ export class GrillaSistemaComponent implements OnInit {
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  // @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
@@ -48,10 +48,12 @@ export class GrillaSistemaComponent implements OnInit {
         if (response.satisfactorio) {
           this.dataSource = new MatTableDataSource(response.datos);
           this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          // this.dataSource.sort = this.sort;
           this.length = response.datos.length;
         } else {
-          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de sistemas. ' + response.mensaje));
+          this.generalesService.notificar(
+            new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
+          );
         }
       },
       err => {
@@ -105,7 +107,7 @@ export class GrillaSistemaComponent implements OnInit {
         this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error' + err));
+        this.generalesService.notificar(new NotificacionModel('error', `Ocurrió un error.  ${err}`));
       },
       () => { }
     );

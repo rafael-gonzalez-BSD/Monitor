@@ -13,39 +13,39 @@
             <mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="accion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Acción">
                         <button mat-icon-button (click)="consultarSistemaId(row)"><mat-icon>edit</mat-icon></button>
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="identificador">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Identificador</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Identificador">{{row.sistemaId}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="alias">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Alias</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Alias</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Alias">{{row.alias}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="nombre">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Nombre">{{row.sistemaDescripcion}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="areaPropietaria">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Área Propietaria</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Área Propietaria</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Area Propietaria">{{row.gerenciaDescripcion}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="descripcion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Descripción">{{row.descripcion}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Estado">
                         <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
                     </mat-cell>

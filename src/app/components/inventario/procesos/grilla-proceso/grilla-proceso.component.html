@@ -13,7 +13,7 @@
 
                 <!-- COLUMNA ACCION -->
                 <ng-container matColumnDef="accion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="accion">
                         <button mat-icon-button (click)="consultarProcesoId(row)"><mat-icon>edit</mat-icon></button>
                     </mat-cell>
@@ -21,26 +21,26 @@
 
                 <!-- COLUMNA IDENTIFICADOR -->
                 <ng-container matColumnDef="identificador">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Identificador</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="identificador">{{row.procesoId}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA PROCESO -->
                 <ng-container matColumnDef="proceso">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Proceso</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="proceso">{{row.procesoDescripcion}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA SISTEMA -->
                 <ng-container matColumnDef="sistema">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
                 </ng-container>
 
 
                 <!-- COLUMNA ESTADO -->
                 <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="estado">
                         <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
                     </mat-cell>
@@ -48,7 +48,7 @@
 
                 <!-- COLUMNA CRITICO -->
                 <ng-container matColumnDef="critico">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Crítico</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="critico">
                         <mat-slide-toggle [checked]="row.critico" (change)="actualizarCritico($event,row)"></mat-slide-toggle>
                     </mat-cell>

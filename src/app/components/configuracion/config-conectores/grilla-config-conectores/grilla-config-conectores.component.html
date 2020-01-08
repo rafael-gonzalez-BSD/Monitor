@@ -13,7 +13,7 @@
 
                 <!-- COLUMNA ACCION -->
                 <ng-container matColumnDef="accion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acción</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="accion">
                         <button mat-icon-button (click)="consultarConfigConectoresId(row)"><mat-icon>edit</mat-icon></button>
                     </mat-cell>
@@ -21,31 +21,31 @@
 
                 <!-- COLUMNA SISTEMA -->
                 <ng-container matColumnDef="sistema">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ID CONECTOR -->
                 <ng-container matColumnDef="conectorConfiguracionId">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id Conector</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Id Conector</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Id Conector">{{row.conectorConfiguracionId}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA NOMBRE CONECTOR -->
                 <ng-container matColumnDef="conectorConfiguracionDescripcion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Conector</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Nombre Conector</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="Nombre Conector">{{row.conectorConfiguracionDescripcion}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA RUTA LOG -->
                 <ng-container matColumnDef="urlApi">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>URL</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>URL</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="URL">{{row.urlApi}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ESTADO -->
                 <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="estado">
                         <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
                     </mat-cell>

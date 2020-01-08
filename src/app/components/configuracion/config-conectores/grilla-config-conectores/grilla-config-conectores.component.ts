@@ -22,7 +22,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  // @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private generalesService: GeneralesService,
@@ -49,7 +49,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
         if (res.satisfactorio) {
           this.dataSource = new MatTableDataSource(res.datos);
           this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          // this.dataSource.sort = this.sort;
           this.length = res.datos.length;
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de configuraciones de conectores. ${res.mensaje}`));
