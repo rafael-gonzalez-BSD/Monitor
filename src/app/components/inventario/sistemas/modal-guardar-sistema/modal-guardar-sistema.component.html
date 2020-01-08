@@ -36,7 +36,7 @@
                 <label for="">Alias</label>
                 <input formControlName="Alias" class="form-control" type="text" [ngModel]="datosEditar.alias">
                 <div class="div-errors" *ngIf="Alias.invalid && ( Alias.touched )">
-                    <div class="container-error" *ngIf="Alias.errors.required">
+                    <!-- <div class="container-error" *ngIf="Alias.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="Alias.errors.minlength">
@@ -44,6 +44,10 @@
                     </div>
                     <div class="container-error" *ngIf="Alias.errors.maxlength">
                         <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div> -->
+
+                    <div class="container-error" *ngIf="Alias.errors.inputText">
+                        <span class="tc-ff3300">{{Alias.errors.message}}</span>
                     </div>
                 </div>
             </div>
@@ -65,7 +69,7 @@
                 <label for="">Descripción</label>
                 <textarea formControlName="Descripcion" rows="3" class="form-control" [ngModel]="datosEditar.descripcion"></textarea>
                 <div class="div-errors" *ngIf="Descripcion.invalid && ( Descripcion.touched )">
-                    <div class="container-error" *ngIf="Descripcion.errors.required">
+                    <!-- <div class="container-error" *ngIf="Descripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="Descripcion.errors.minlength">
@@ -73,6 +77,9 @@
                     </div>
                     <div class="container-error" *ngIf="Descripcion.errors.maxlength">
                         <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div> -->
+                    <div class="container-error" *ngIf="Descripcion.errors.inputText">
+                        <span class="tc-ff3300">{{Descripcion.errors.message}}</span>
                     </div>
                 </div>
             </div>
