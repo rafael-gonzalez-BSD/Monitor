@@ -19,7 +19,7 @@ export class GrillaSistemaComponent implements OnInit {
   dataSource: MatTableDataSource<Sistema>;
   sistemaModel = new Sistema();
   pageSizeOptions = [10, 25, 100];
-  pageSize = 11;
+  pageSize = 10;
   length: number;
   pageEvent: PageEvent;
 
