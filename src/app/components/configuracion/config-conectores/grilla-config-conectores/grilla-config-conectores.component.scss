@@ -9,10 +9,18 @@
     min-width: 70px !important;
 }
 
+.mat-column-conectorConfiguracionId {
+    flex: 0 0 90px !important;
+    min-width: 90px !important;
+}
+
 @media screen and (min-width: 569px) {
     .mat-table {
         .mat-cell {
             &.mat-column-estado {
+                justify-content: center;
+            }
+            &.mat-column-conectorConfiguracionId {
                 justify-content: center;
             }
         }
