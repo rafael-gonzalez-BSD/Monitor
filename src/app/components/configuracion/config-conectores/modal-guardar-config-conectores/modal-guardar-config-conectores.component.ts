@@ -140,9 +140,6 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
       this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
-      console.log(configConectoresModel);
-
-
       this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {

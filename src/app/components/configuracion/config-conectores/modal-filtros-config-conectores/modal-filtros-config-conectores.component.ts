@@ -56,12 +56,11 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosComboConector))
     );
-
     if (this.datosFiltros.sistemaId > 0) {
       this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
     }
 
-    if (this.datosFiltros.procesoId > 0) {
+    if (this.datosFiltros.conectorConfiguracionId > 0) {
       this.setearValorAutocomplete(
         'conectorConfiguracionId',
         this.datosFiltros.conectorConfiguracionId,
