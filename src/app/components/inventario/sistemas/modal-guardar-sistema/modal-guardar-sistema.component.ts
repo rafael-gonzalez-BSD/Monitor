@@ -7,7 +7,7 @@ import { SistemaService } from '../../../../services/inventario/sistema.service'
 import { RespuestaModel } from '../../../../models/base/respuesta';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from '../../../../models/base/notificacion';
-import { Combo } from 'src/app/models/base/combo';
+import { inputText } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-guardar-sistema',
@@ -52,7 +52,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       SistemaId: new FormControl(),
-      SistemaDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      SistemaDescripcion: new FormControl('', [inputText(false, 3, 100)]),
       Alias: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       GerenciaId: new FormControl('-1', [validarCombo]),
       Descripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),

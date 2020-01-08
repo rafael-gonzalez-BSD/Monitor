@@ -10,14 +10,17 @@
                 <label for="">Nombre</label>
                 <input formControlName="SistemaDescripcion" class="form-control" type="text" [ngModel]="datosEditar.sistemaDescripcion">
                 <div class="div-errors" *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
-                    <div class="container-error" *ngIf="SistemaDescripcion.errors.required">
+                    <!-- <div class="container-error" *ngIf="SistemaDescripcion.errors.requiredTrim">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
-                    <div class="container-error" *ngIf="SistemaDescripcion.errors.minlength">
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.minLengthTrim">
                         <span class="tc-ff3300">Mínimo 3 caracteres</span>
                     </div>
-                    <div class="container-error" *ngIf="SistemaDescripcion.errors.maxlength">
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.maxLengthTrim">
                         <span class="tc-ff3300">Máximo 100 caracteres</span>
+                    </div> -->
+                    <div class="container-error" *ngIf="SistemaDescripcion.errors.inputText">
+                        <span class="tc-ff3300">{{SistemaDescripcion.errors.message}}</span>
                     </div>
                 </div>
             </div>
