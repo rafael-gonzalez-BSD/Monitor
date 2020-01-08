@@ -2,7 +2,7 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="buscar(this.mantenimientoModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-4 form-group">
+            <div class="col-lg-12 form-group">
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
@@ -16,12 +16,17 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <div class="col-lg-4 form-group">
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 form-group">
                 <label>Fecha Desde</label>
-                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="DD/MM/YYYY">
+                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()"
+                    formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="DD/MM/YYYY">
                 <mat-datepicker #fD></mat-datepicker>
                 <div class="div-errors" *ngIf="fechaDesde.invalid && ( fechaDesde.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['fechaDesde'].hasError('requiredFromDate')">
+                    <div class="container-error"
+                        *ngIf="grupoFormulario.controls['fechaDesde'].hasError('requiredFromDate')">
                         <span class="tc-ff3300">Campo Requerido</span>
                     </div>
                 </div>
@@ -31,12 +36,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 form-group">
+            <div class="col-lg-6 form-group">
                 <label>Fecha Hasta</label>
-                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="DD/MM/YYYY">
+                <input type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()"
+                    formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="DD/MM/YYYY">
                 <mat-datepicker #fH></mat-datepicker>
                 <div class="div-errors" *ngIf="fechaHasta.invalid && ( fechaHasta.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['fechaHasta'].hasError('requiredToDate')">
+                    <div class="container-error"
+                        *ngIf="grupoFormulario.controls['fechaHasta'].hasError('requiredToDate')">
                         <span class="tc-ff3300">Campo Requerido</span>
                     </div>
                 </div>
