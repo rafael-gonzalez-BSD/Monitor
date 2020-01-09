@@ -162,14 +162,31 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   }
 
   testearRuta() {
-    this.configConectoresModel = this.grupoFormulario.value;
-    this.generalesService.testearRuta(this.configConectoresModel).subscribe((res: any) => {
-      const not = new NotificacionModel();
-      not.tipo = res.satisfactorio ? 'success' : 'warning';
-      not.mensaje = res.mensaje;
+    const M = new ConfigConectores();
+    const VALOR = this.grupoFormulario.value.urlApi;
+    if (VALOR === null || VALOR === undefined || VALOR ==='') {
+      this.generalesService.notificar(new NotificacionModel('warning', 'Capture el campo urlApi'));      
+    }
+    else{
+      M.urlApi = VALOR
+      console.log(`url a validar ${VALOR}` );
+      
+    }
+    // M.urlApi = 'asda';
+    // console.log(this.grupoFormulario.value.urlApi);
+    
+    // console.log(M);
+    
+    // this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
+    // console.log(configConectoresModel);
+    
+    // this.generalesService.testearRuta(this.configConectoresModel).subscribe((res: any) => {
+    //   const not = new NotificacionModel();
+    //   not.tipo = res.satisfactorio ? 'success' : 'warning';
+    //   not.mensaje = res.mensaje;
 
-      this.generalesService.notificar(not);
-    });
+    //   this.generalesService.notificar(not);
+    // });
   }
 
   get conectorConfiguracionId() {
@@ -196,6 +213,11 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   get sistemaId() {
     return this.grupoFormulario.get('sistemaId');
   }
+
+  get urlHidden() {
+    return this.grupoFormulario.get('urlHidden');
+  }
+
 
   resetForm() {
     this.grupoFormulario.reset();

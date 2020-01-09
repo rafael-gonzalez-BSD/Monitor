@@ -3,14 +3,16 @@
     <mat-dialog-content class="mat-typography">
         <div class="row">
             <div class="col-lg-4 form-group">
-                <input formControlName="conectorConfiguracionId" type="hidden" [ngModel]="datosEditar.conectorConfiguracionId">
+                <input formControlName="conectorConfiguracionId" type="hidden"
+                    [ngModel]="datosEditar.conectorConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
-                    <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                    <div class="container-error"
+                        *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
@@ -22,8 +24,10 @@
             </div>
             <div class="col-lg-4 form-group">
                 <label for="">Nombre</label>
-                <input formControlName="conectorConfiguracionDescripcion" class="form-control" type="text" [ngModel]="datosEditar.conectorConfiguracionDescripcion">
-                <div class="div-errors" *ngIf="conectorConfiguracionDescripcion.invalid && ( conectorConfiguracionDescripcion.touched )">
+                <input formControlName="conectorConfiguracionDescripcion" class="form-control" type="text"
+                    [ngModel]="datosEditar.conectorConfiguracionDescripcion">
+                <div class="div-errors"
+                    *ngIf="conectorConfiguracionDescripcion.invalid && ( conectorConfiguracionDescripcion.touched )">
                     <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -80,8 +84,10 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
-                        <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
+                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text"
+                            [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
+                        <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"
+                            [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
                             <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                                 <span class="tc-ff3300">Campo requerido</span>
@@ -100,8 +106,10 @@
                         </div>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
-                        <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
+                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24"
+                            type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
+                        <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"
+                            [theme]=" this.terniumTheme"></ngx-material-timepicker>
                         <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
                             <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                                 <span class="tc-ff3300">Campo requerido</span>
@@ -122,12 +130,16 @@
 
             <div class="col-lg-2 form-group">
                 <label for="">Estado</label> <br>
-                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
+                <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja"
+                    (change)="changeEstadoMatToggle($event)">
                 </mat-slide-toggle>
             </div>
             <div class="col-lg-2 form-group">
                 <label for="">Test Ruta</label> <br>
-                <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>edit</mat-icon></button>
+                <button type="button" mat-icon-button class="btn-testRuta" (click)="testearRuta()">
+                    <mat-icon>loop</mat-icon>
+                </button>
+                <input formControlName="urlHidden" class="form-control" type="text" value="0">
 
             </div>
         </div>
