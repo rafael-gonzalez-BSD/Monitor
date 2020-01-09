@@ -6,6 +6,8 @@ import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
 import { GeneralesService } from 'src/app/services/general/generales.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
@@ -20,6 +22,7 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -59,6 +62,7 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
         this.generalesService.quitarLoader();
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );

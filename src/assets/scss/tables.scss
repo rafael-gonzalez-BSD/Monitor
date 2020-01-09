@@ -40,6 +40,14 @@
     width: 180px;
 }
 
-.mat-cell{
+.mat-cell {
     align-items: normal !important;
+}
+
+.no-records {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
 }

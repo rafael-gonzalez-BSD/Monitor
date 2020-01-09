@@ -6,6 +6,8 @@ import { MantenimientoService } from '../../../../services/inventario/mantenimie
 import { ModalGuardarMantenimientoComponent } from '../modal-guardar-mantenimiento/modal-guardar-mantenimiento.component';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
@@ -20,6 +22,7 @@ export class GrillaMantenimientoComponent implements OnInit {
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -67,6 +70,7 @@ export class GrillaMantenimientoComponent implements OnInit {
         alert('Ocurrió un error al consultar el listado de mantenimientos');
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );

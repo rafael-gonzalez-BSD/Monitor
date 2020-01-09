@@ -6,6 +6,8 @@ import { ConfigExcepcionesService } from '../../../../services/configuracion/con
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ModalGuardarConfigExcepcionesComponent } from '../modal-guardar-config-excepciones/modal-guardar-config-excepciones.component';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-config-excepciones',
@@ -14,12 +16,13 @@ import { ModalGuardarConfigExcepcionesComponent } from '../modal-guardar-config-
 })
 export class GrillaConfigExcepcionesComponent implements OnInit {
   tableColumns: string[] = ['accion', 'sistema', 'rutaLog', 'frecuencia', 'horario', 'ventanaMantenimiento', 'estado'];
-  dataSource: MatTableDataSource<ConfigExcepciones>;
+  dataSource = new MatTableDataSource<ConfigExcepciones>();
   configExcepcionesModel = new ConfigExcepciones();
   pageSizeOptions = [10, 25, 100];
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -61,11 +64,11 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
         this.generalesService.quitarLoader();
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
   }
-
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

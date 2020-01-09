@@ -9,6 +9,8 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { RespuestaModel } from '../../../../models/base/respuesta';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -23,6 +25,7 @@ export class GrillaProcesoComponent implements OnInit {
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -60,6 +63,7 @@ export class GrillaProcesoComponent implements OnInit {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de procesos'));
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );

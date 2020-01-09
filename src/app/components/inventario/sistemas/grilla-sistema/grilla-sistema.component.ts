@@ -8,6 +8,8 @@ import { ModalGuardarSistemaComponent } from '../modal-guardar-sistema/modal-gua
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -22,6 +24,7 @@ export class GrillaSistemaComponent implements OnInit {
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -60,6 +63,7 @@ export class GrillaSistemaComponent implements OnInit {
         this.generalesService.notificar(new NotificacionModel('warning', 'Ocurrió un error al consultar el listado de sistemas'));
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );

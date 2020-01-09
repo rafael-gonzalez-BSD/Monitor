@@ -6,6 +6,8 @@ import { ConfigConectoresService } from '../../../../services/configuracion/conf
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ModalGuardarConfigConectoresComponent } from '../modal-guardar-config-conectores/modal-guardar-config-conectores.component';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-config-conectores',
@@ -20,6 +22,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
   pageSize = 10;
   length: number;
   pageEvent: PageEvent;
+  noData: Observable<boolean>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -60,6 +63,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
         this.generalesService.quitarLoader();
       },
       () => {
+        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
