@@ -28,14 +28,8 @@
                     [ngModel]="datosEditar.conectorConfiguracionDescripcion">
                 <div class="div-errors"
                     *ngIf="conectorConfiguracionDescripcion.invalid && ( conectorConfiguracionDescripcion.touched )">
-                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    <div class="container-error" *ngIf="conectorConfiguracionDescripcion.errors.inputText">
+                        <span class="tc-ff3300">{{conectorConfiguracionDescripcion.errors.message}}</span>
                     </div>
                 </div>
             </div>
@@ -43,14 +37,8 @@
                 <label for="">URL</label>
                 <input formControlName="urlApi" class="form-control" type="text" [ngModel]="datosEditar.urlApi">
                 <div class="div-errors" *ngIf="urlApi.invalid && ( urlApi.touched )">
-                    <div class="container-error" *ngIf="urlApi.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="urlApi.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="urlApi.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    <div class="container-error" *ngIf="urlApi.errors.inputText">
+                        <span class="tc-ff3300">{{urlApi.errors.message}}</span>
                     </div>
                 </div>
             </div>
@@ -136,7 +124,7 @@
             </div>
             <div class="col-lg-2 form-group">
                 <label for="">Test Ruta</label> <br>
-                <button type="button" mat-icon-button class="btn-testRuta" (click)="testearRuta()">
+                <button type="button" mat-icon-button class="btn-testRuta">
                     <mat-icon>loop</mat-icon>
                 </button>
                 <input formControlName="urlHidden" class="form-control" type="text" value="0">

@@ -15,6 +15,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import * as moment from 'moment';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from 'src/app/extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
+import { inputText } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-guardar-config-conectores',
@@ -91,16 +92,8 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
         Validators.min(1),
         Validators.max(32767),
         Validators.pattern('[(0-9)]*')]),
-      conectorConfiguracionDescripcion: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(250)
-      ]),
-      urlApi: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(250)
-      ]),
+      conectorConfiguracionDescripcion: new FormControl('', [inputText(true, 3, 100)]),
+      urlApi: new FormControl('', [inputText(true, 3, 250)]),
       horaDesde: new FormControl('', [fromTimeRequiredValidator, Validators.pattern(this.regExp)]),
       horaHasta: new FormControl('', [toTimeRequiredValidator, Validators.pattern(this.regExp)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
@@ -163,15 +156,22 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
 
   testearRuta() {
     const M = new ConfigConectores();
+    const not = new NotificacionModel();
     const VALOR = this.grupoFormulario.value.urlApi;
-    if (VALOR === null || VALOR === undefined || VALOR ==='') {
-      this.generalesService.notificar(new NotificacionModel('warning', 'Capture el campo urlApi'));      
-    }
-    else{
+    
       M.urlApi = VALOR
       console.log(`url a validar ${VALOR}` );
+      this.generalesService.testearRuta(M).subscribe((res: any) => {
       
-    }
+      console.log(res);
+      
+      not.tipo = res.satisfactorio ? 'success' : 'warning';
+      not.mensaje = res.satisfactorio ? 'URL Válida' : 'URL Inválida';
+
+      this.generalesService.notificar(not);
+    });
+      
+    
     // M.urlApi = 'asda';
     // console.log(this.grupoFormulario.value.urlApi);
     
