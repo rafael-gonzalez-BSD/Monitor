@@ -3,7 +3,22 @@
     .item-breadcrumb {
         font-size: 11px !important;
     }
+
+    .mat-header-cell{
+        font-size: 11px !important;
+    }
+
+
 }
+
+@media (max-width: 1024px) {
+    
+    .mat-header-cell{
+        font-size: 11px !important;
+    }
+
+}
+
 
 @media screen and (max-width: 568px) {
     .mat-table {
