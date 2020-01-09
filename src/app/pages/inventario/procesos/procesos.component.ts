@@ -26,9 +26,10 @@ export class ProcesosComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setearTitulo('CATÁLOGO DE PROCESOS');
+  }
   setearTitulo(titulo) {
-    this.generalesService.mostrarLoader();
     this.generalesService.setearTituloMovil(titulo);
   }
 

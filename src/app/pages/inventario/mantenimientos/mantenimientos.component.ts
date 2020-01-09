@@ -24,7 +24,7 @@ export class MantenimientosComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.setearTitulo('MANTENIMIENTOS');
   }
 
   setearTitulo(titulo) {

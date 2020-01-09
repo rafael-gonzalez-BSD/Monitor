@@ -28,7 +28,6 @@ export class SistemasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.generalesService.mostrarLoader();
     this.setearTitulo('CATÁLOGO DE SISTEMAS');
   }
   setearTitulo(titulo) {

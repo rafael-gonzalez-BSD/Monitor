@@ -26,6 +26,7 @@ export class ConfigExcepcionesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setearTitulo('CONFIGURAR EXCEPCIONES');
   }
 
   setearTitulo(titulo) {
