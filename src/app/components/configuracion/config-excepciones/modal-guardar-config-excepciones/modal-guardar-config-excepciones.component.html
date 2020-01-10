@@ -2,7 +2,7 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarConfiguracionExcepcion(this.configExcepcionesModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-3 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <input formControlName="excepcionConfiguracionId" type="hidden" [ngModel]="datosEditar.excepcionConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
@@ -20,7 +20,7 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <div class="col-lg-3 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Frecuencia</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="frecuencia.invalid && ( frecuencia.touched )">
@@ -44,52 +44,45 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 form-group">
-                <div style="text-align: center;">
-                    <label for="">Horario</label>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6 form-group">
-                        <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
-                        <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
-                            <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
-                                <span class="tc-ff3300">Campo requerido</span>
-                            </div>
-                            <div class="container-error" *ngIf="horaDesde.errors.pattern">
-                                <span class="tc-ff3300">Formato inválido</span>
-                            </div>
-                        </div>
-                        <div class="div-errors" *ngIf="grupoFormulario.invalid">
-                            <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                                <span class="tc-ff3300">El rango de horas es inválido</span>
-                            </div>
-                        </div>
-                        <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]="this.terniumTheme"></ngx-material-timepicker>
-
+            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+                <label for="">Hora Desde</label>
+                <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
+                <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
+                    <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
+                        <span class="tc-ff3300">Campo requerido</span>
                     </div>
-                    <div class="col-lg-6 form-group">
-                        <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
-                        <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
-                            <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
-                                <span class="tc-ff3300">Campo requerido</span>
-                            </div>
-                            <div class="container-error" *ngIf="horaHasta.errors.pattern">
-                                <span class="tc-ff3300">Formato inválido</span>
-                            </div>
-                        </div>
-                        <div class="div-errors" *ngIf="grupoFormulario.invalid">
-                            <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                                <span class="tc-ff3300">El rango de horas es inválido</span>
-                            </div>
-                        </div>
-                        <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
-
+                    <div class="container-error" *ngIf="horaDesde.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
                     </div>
                 </div>
+                <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                    <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
+                        <span class="tc-ff3300">El rango de horas es inválido</span>
+                    </div>
+                </div>
+                <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]="this.terniumTheme"></ngx-material-timepicker>
 
             </div>
-            <div class="col-lg-4 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+                <label for="">Hora Hasta</label>
+                <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
+                <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
+                    <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
+                        <span class="tc-ff3300">Campo requerido</span>
+                    </div>
+                    <div class="container-error" *ngIf="horaHasta.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+                </div>
+                <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                    <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
+                        <span class="tc-ff3300">El rango de horas es inválido</span>
+                    </div>
+                </div>
+                <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
+
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 form-group">
                 <label for="">Ruta Log</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
                 <div class="div-errors" *ngIf="rutaLog.invalid && ( rutaLog.touched )">
@@ -104,24 +97,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 form-group">
+            <div class="col-12 col-md-3 col-lg-3 form-group">
                 <label for="">Ventana Mantenimiento</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
             </div>
 
-            <div class="col-lg-2 form-group">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle formControlName="baja" [ngModel]="datosEditar.baja" (change)="changeEstadoMatToggle($event)">
                 </mat-slide-toggle>
             </div>
-            <div class="col-lg-2 form-group">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Test Ruta</label> <br>
-                <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>loop</mat-icon></button>
 
             </div>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions align=" end ">
+    <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
         <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>

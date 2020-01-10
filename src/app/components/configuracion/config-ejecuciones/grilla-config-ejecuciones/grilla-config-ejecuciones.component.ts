@@ -83,7 +83,7 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
     CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Ejecución';
     CONFIG_MODAL.height = 'auto';
-    CONFIG_MODAL.width = '70%';
+    CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }

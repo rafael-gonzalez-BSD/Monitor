@@ -84,8 +84,8 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
     CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Excepción';
     CONFIG_MODAL.height = 'auto';
-    CONFIG_MODAL.width = '70%';
-    CONFIG_MODAL.maxWidth = '768px';
+    CONFIG_MODAL.width = '90%';
+    CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalGuardarConfigExcepcionesComponent, CONFIG_MODAL);
   }
 
@@ -100,8 +100,8 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
     dialogConfig.data.horaDesde = '';
     dialogConfig.data.horaHasta = '';
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
-    dialogConfig.maxWidth = '768px';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalGuardarConfigExcepcionesComponent, dialogConfig);
   }
 
