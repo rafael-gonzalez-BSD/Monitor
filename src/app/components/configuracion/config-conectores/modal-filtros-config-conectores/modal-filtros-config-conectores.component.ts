@@ -41,7 +41,7 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosConfigConectores'));
     this.consultarSistemaCombo();
-    this.consultarConectorCombo();
+    // this.consultarConectorCombo();
   }
 
   ngOnInit() {
@@ -142,10 +142,11 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
     );
   }
 
-  consultarConectorCombo() {
+  consultarConectorCombo(value: Combo) {
     const m = new ConfigConectores();
     m.opcion = 3;
-    m.baja = false;
+    m.sistemaId = value.identificador;
+
     this.configConectoresService.consultarConectorCombo(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
