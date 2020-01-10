@@ -19,6 +19,16 @@
     min-width: 130px !important;
 }
 
+.mat-column-tiempoEstimadoEjecucion {
+    flex: 0 0 70px !important;
+    min-width: 70px !important;
+}
+
+.mat-column-tiempoOptimoEjecucion {
+    flex: 0 0 70px !important;
+    min-width: 70px !important;
+}
+
 @media screen and (min-width: 569px) {
     .mat-table {
         .mat-header-cell {
@@ -29,6 +39,12 @@
                 justify-content: center;
             }
             &.mat-column-ventanaMantenimiento {
+                justify-content: center;
+            }
+            &.mat-column-tiempoEstimadoEjecucion {
+                justify-content: center;
+            }
+            &.mat-column-tiempoOptimoEjecucion {
                 justify-content: center;
             }
         }
@@ -43,6 +59,12 @@
                 justify-content: center;
             }
             &.mat-column-ventanaMantenimiento {
+                justify-content: center;
+            }
+            &.mat-column-tiempoEstimadoEjecucion {
+                justify-content: center;
+            }
+            &.mat-column-tiempoOptimoEjecucion {
                 justify-content: center;
             }
         }
