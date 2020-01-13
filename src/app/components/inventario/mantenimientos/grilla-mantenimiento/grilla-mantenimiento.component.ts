@@ -90,6 +90,7 @@ export class GrillaMantenimientoComponent implements OnInit {
     CONFIG_MODAL.data.edit = true;
     CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Ventana de Mantenimientos';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(datosEditar));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
@@ -108,6 +109,7 @@ export class GrillaMantenimientoComponent implements OnInit {
     dialogConfig.data.fechaHasta = '';
     dialogConfig.data.horaDesde = '';
     dialogConfig.data.horaHasta = '';
+    dialogConfig.data = JSON.parse(JSON.stringify(dialogConfig.data));
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';

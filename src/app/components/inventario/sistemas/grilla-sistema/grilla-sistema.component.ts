@@ -78,10 +78,12 @@ export class GrillaSistemaComponent implements OnInit {
   }
 
   consultarSistemaId(datosEditar: any) {
+
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.insercion = false;
     CONFIG_MODAL.data.tituloModal = 'Editar Sistema';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
@@ -95,6 +97,7 @@ export class GrillaSistemaComponent implements OnInit {
       tituloModal: 'Nuevo Sistema',
       gerenciaId: '-1'
     };
+    dialogConfig.data = JSON.parse(JSON.stringify(dialogConfig.data));
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';

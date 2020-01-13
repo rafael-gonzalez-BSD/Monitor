@@ -83,6 +83,7 @@ export class GrillaProcesoComponent implements OnInit {
     CONFIG_MODAL.data.edit = true;
     CONFIG_MODAL.data.opcion = 3;
     CONFIG_MODAL.data.tituloModal = 'Editar Proceso';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(datosEditar));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
@@ -97,6 +98,7 @@ export class GrillaProcesoComponent implements OnInit {
       edit: false,
       opcion: 1
     };
+    dialogConfig.data = JSON.parse(JSON.stringify(dialogConfig.data));
     dialogConfig.height = 'auto';
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';

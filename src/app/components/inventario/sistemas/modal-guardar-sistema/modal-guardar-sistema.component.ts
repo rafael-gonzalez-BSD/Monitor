@@ -42,11 +42,11 @@ export class ModalGuardarSistemaComponent implements OnInit {
     this.datosEditar.baja = data.insercion ? this.toggleBaja : !data.baja;
     this.gerenciaId = (data.gerenciaId).toString();
     this.insercion = data.insercion;
-    
+
   }
   ngOnInit() {
     this.grupoFormulario = this.validarFormulario();
-    
+
   }
 
   validarFormulario() {
@@ -74,14 +74,14 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
   selectedEstado(e: Event) {
     const source: MatSelect = e['source'];
-    this.gerenciaId =  source['_value'];
-    
+    this.gerenciaId = source['_value'];
+
     const id = source.selected['_element'];
-    this.selectedText = id.nativeElement.outerText;    
-    
+    this.selectedText = id.nativeElement.outerText;
+
   }
-  
-  
+
+
   get SistemaId() {
     return this.grupoFormulario.get('SistemaId');
   }
@@ -117,7 +117,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
       this.sistemaModel.alias = this.grupoFormulario.value.Alias;
       this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
       this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
-      
+
 
       this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
         (response: any) => {
@@ -158,7 +158,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
 
 // ]Validar combo
 
-export function validarCombo (control: AbstractControl) {
+export function validarCombo(control: AbstractControl) {
   const valor: any = control.value;
   if (valor === null || valor === '-1' || valor === undefined) {
     return { requiredCombo: true }

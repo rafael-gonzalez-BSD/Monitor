@@ -83,6 +83,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
     CONFIG_MODAL.data.edit = true;
     CONFIG_MODAL.data.opcion = 1;
     CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Conector';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '70%';
     CONFIG_MODAL.maxWidth = '1024px';
@@ -99,6 +100,7 @@ export class GrillaConfigConectoresComponent implements OnInit {
     };
     dialogConfig.data.horaDesde = '';
     dialogConfig.data.horaHasta = '';
+    dialogConfig.data = JSON.parse(JSON.stringify(dialogConfig.data));
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
