@@ -46,14 +46,6 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- COLUMNA CRITICO -->
-                <ng-container matColumnDef="critico">
-                    <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="critico">
-                        <mat-slide-toggle [checked]="row.critico" (change)="actualizarCritico($event,row)"></mat-slide-toggle>
-                    </mat-cell>
-                </ng-container>
-
                 <!-- CONFIGURACION DE COLUMNAS Y FILAS -->
                 <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>

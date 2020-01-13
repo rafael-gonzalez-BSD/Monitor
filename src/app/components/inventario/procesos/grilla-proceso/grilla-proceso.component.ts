@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./grilla-proceso.component.scss']
 })
 export class GrillaProcesoComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'identificador', 'proceso', 'sistema', 'estado', 'critico'];
+  tableColumns: string[] = ['accion', 'identificador', 'proceso', 'sistema', 'estado'];
   dataSource: MatTableDataSource<Proceso>;
   procesoModel = new Proceso();
   pageSizeOptions = [10, 25, 100];
@@ -118,26 +118,6 @@ export class GrillaProcesoComponent implements OnInit {
           this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
         }
 
-      },
-      err => {
-        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
-      },
-      () => { }
-    );
-  }
-
-  actualizarCritico(e: Event, row) {
-    this.procesoModel.opcion = 5;
-    this.procesoModel.procesoId = row.procesoId;
-    this.procesoModel.critico = e['checked'];
-
-    this.procesoService.actualizarCritico(this.procesoModel).subscribe(
-      (response: any) => {
-        if (response.satisfactorio) {
-          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-        } else {
-          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-        }
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
