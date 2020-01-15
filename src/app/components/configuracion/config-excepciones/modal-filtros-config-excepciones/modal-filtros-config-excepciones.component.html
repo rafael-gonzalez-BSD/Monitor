@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
-                <input class="form-control" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId">
+                <input class="form-control input-ternium" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('incorrect')">
                         <span class="tc-ff3300">Campo Inválido</span>

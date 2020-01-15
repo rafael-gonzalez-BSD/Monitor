@@ -5,7 +5,7 @@
             <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <input formControlName="conectorConfiguracionId" type="hidden" [ngModel]="datosEditar.conectorConfiguracionId">
                 <label for="">Sistema</label>
-                <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
+                <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
