@@ -36,7 +36,7 @@ export class ConfigConectoresComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Filtros',
+      tituloModal: 'Filtro',
       opcion: 4
     };
     dialogConfig.height = 'auto';

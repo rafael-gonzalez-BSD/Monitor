@@ -60,7 +60,7 @@ export class GrillaSistemaComponent implements OnInit {
         }
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('warning', 'Ocurrió un error al consultar el listado de sistemas'));
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de sistemas. ${err.statusText} ${err.message}`));
       },
       () => {
         this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
