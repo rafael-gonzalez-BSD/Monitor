@@ -98,13 +98,22 @@
                     <div class="container-error" *ngIf="urlApi.errors.inputText">
                         <span class="tc-ff3300">{{urlApi.errors.message}}</span>
                     </div>
+                    <div class="container-error" *ngIf="urlApi.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+                </div>
+                <input formControlName="rutaExiste" class="form-control" type="hidden" [ngModel]="datosEditar.rutaExiste">
+                <div class="div-errors" *ngIf="rutaExiste.invalid">
+                    <div class="container-error" *ngIf="rutaExiste.errors.notExist">
+                        <span class="tc-ff3300">La URL no existe</span>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 form-group">
                 <div class="row">
                     <div class="col-6 text-center">
                         <label for="">Test Ruta</label> <br>
-                        <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>loop</mat-icon></button>
+                        <button mat-icon-button type="button" (click)="testearRuta()" [disabled]="urlApi.invalid"><mat-icon>loop</mat-icon></button>
                     </div>
                     <div class="col-6 text-right">
                         <label for="">Estado</label> <br>

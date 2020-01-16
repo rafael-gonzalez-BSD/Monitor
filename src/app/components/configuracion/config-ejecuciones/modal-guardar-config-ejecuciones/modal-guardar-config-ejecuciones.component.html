@@ -113,6 +113,16 @@
                     <div class="container-error" *ngIf="rutaLog.errors.maxlength">
                         <span class="tc-ff3300">Máximo 250 caracteres</span>
                     </div>
+                    <div class="container-error" *ngIf="rutaLog.errors.pattern">
+                        <span class="tc-ff3300">Formato inválido</span>
+                    </div>
+                </div>
+                <input formControlName="rutaExiste" type="hidden" [ngModel]="datosEditar.rutaExiste">
+                <div class="div-errors" *ngIf="rutaExiste.invalid">
+                    <div class="container-error" *ngIf="rutaExiste.errors.notExist">
+                        <span class="tc-ff3300">La ruta no existe</span>
+                    </div>
+
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 form-group">
@@ -172,7 +182,7 @@
                 <div class="row">
                     <div class="col-6 text-center">
                         <label for="">Test Ruta</label> <br>
-                        <button mat-icon-button (click)="testearRuta()" [disabled]="!grupoFormulario.value.rutaLog"><mat-icon>loop</mat-icon></button>
+                        <button mat-icon-button type="button" (click)="testearRuta()" [disabled]="rutaLog.invalid"><mat-icon>loop</mat-icon></button>
                     </div>
                     <div class="col-6 text-right">
                         <label for="">Estado</label> <br>

@@ -30,12 +30,16 @@ export class GeneralesService {
     this.loader.emit(false);
   }
 
-  testearRuta(m: any): Observable<any> {
+  testearRutaApi(m: any): Observable<any> {
+    return this.http.get(m.urlApi);
+  }
+
+  testearRutaArchivos(m: any): Observable<any> {
     let parametros = new HttpParams();
     for (const key in m) {
       parametros = parametros.set(key, m[key]);
     }
-    const url = `${environment.urlApi}general/testRutaApi`;
+    const url = `${environment.urlApi}general/testRutaArchivos`;
     return this.http.get(url, { params: parametros });
   }
 }

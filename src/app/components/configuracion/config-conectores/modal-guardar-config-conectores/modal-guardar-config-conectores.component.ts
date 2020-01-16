@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatAutocompleteTrigger, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Combo } from 'src/app/models/base/combo';
 import { Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConfigConectores } from 'src/app/models/configuracion/config-conectores';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { SistemaService } from 'src/app/services/inventario/sistema.service';
@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from 'src/app/extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
 import { inputText } from 'src/app/extensions/custom-validator/validations';
+import { checkIfUrlExists } from '../../../../extensions/url-validator/url-validator';
 
 @Component({
   selector: 'app-modal-guardar-config-conectores',
@@ -93,7 +94,11 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
         Validators.max(32767),
         Validators.pattern('[(0-9)]*')]),
       conectorConfiguracionDescripcion: new FormControl('', [inputText(true, 3, 100)]),
-      urlApi: new FormControl('', [inputText(true, 3, 250)]),
+      urlApi: new FormControl('', [
+        inputText(true, 3, 250),
+        // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+      ]),
+      rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [fromTimeRequiredValidator, Validators.pattern(this.regExp)]),
       horaHasta: new FormControl('', [toTimeRequiredValidator, Validators.pattern(this.regExp)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
@@ -155,38 +160,46 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   }
 
   testearRuta() {
-    const M = new ConfigConectores();
     const not = new NotificacionModel();
-    const VALOR = this.grupoFormulario.value.urlApi;
-    
-      M.urlApi = VALOR
-      console.log(`url a validar ${VALOR}` );
-      this.generalesService.testearRuta(M).subscribe((res: any) => {
-      
-      console.log(res);
-      
-      not.tipo = res.satisfactorio ? 'success' : 'warning';
-      not.mensaje = res.satisfactorio ? 'URL Válida' : 'URL Inválida';
+    const m = new ConfigConectores();
+    m.urlApi = this.grupoFormulario.value.urlApi;
+    this.generalesService.testearRutaApi(m).subscribe((res: any) => {
+      switch (res.clave) {
+        case 1:
+          this.datosEditar.rutaExiste = true;
+          not.tipo = 'success';
+          not.mensaje = 'URL Exitosa';
+          break;
+        case 2:
+          this.datosEditar.rutaExiste = false;
+          not.tipo = 'error'
+          not.mensaje = res.descripcion;
+          break;
+        case 3:
+          this.datosEditar.rutaExiste = false;
+          not.tipo = 'warning'
+          not.mensaje = res.descripcion;
+          break;
+      }
 
       this.generalesService.notificar(not);
-    });
-      
-    
-    // M.urlApi = 'asda';
-    // console.log(this.grupoFormulario.value.urlApi);
-    
-    // console.log(M);
-    
-    // this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
-    // console.log(configConectoresModel);
-    
-    // this.generalesService.testearRuta(this.configConectoresModel).subscribe((res: any) => {
-    //   const not = new NotificacionModel();
-    //   not.tipo = res.satisfactorio ? 'success' : 'warning';
-    //   not.mensaje = res.mensaje;
+    },
+      err => {
+        this.datosEditar.rutaExiste = false;
+        switch (err.status) {
+          case 404:
+            not.tipo = 'warning'
+            not.mensaje = `URL inválida. La URL no existe`;
+            break;
 
-    //   this.generalesService.notificar(not);
-    // });
+          default:
+            not.tipo = 'error'
+            not.mensaje = `URL inválida. ${err.message}`;
+            break;
+        }
+
+        this.generalesService.notificar(not);
+      });
   }
 
   get conectorConfiguracionId() {
@@ -197,6 +210,9 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   }
   get urlApi() {
     return this.grupoFormulario.get('urlApi');
+  }
+  get rutaExiste() {
+    return this.grupoFormulario.get('rutaExiste');
   }
   get horaDesde() {
     return this.grupoFormulario.get('horaDesde');

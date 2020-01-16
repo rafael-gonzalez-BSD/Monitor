@@ -19,6 +19,7 @@ import { Proceso } from 'src/app/models/inventario/proceso';
 import { ProcesoService } from '../../../../services/inventario/proceso.service';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
+import { checkIfUrlExists } from 'src/app/extensions/url-validator/url-validator';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -108,8 +109,10 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       rutaLog: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(250)
+        Validators.maxLength(250),
+        Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
       ]),
+      rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [
         fromTimeRequiredValidator,
         Validators.pattern(this.regExp)
@@ -200,8 +203,10 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
 
   testearRuta() {
-    this.configEjecucionesModel = this.grupoFormulario.value;
-    this.generalesService.testearRuta(this.configEjecucionesModel).subscribe((res: any) => {
+    const m = new ConfigEjecuciones();
+    m.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.generalesService.testearRutaArchivos(m).subscribe((res: any) => {
+      this.datosEditar.rutaExiste = res.satisfactorio;
       const not = new NotificacionModel();
       not.tipo = res.satisfactorio ? 'success' : 'warning';
       not.mensaje = res.mensaje;
@@ -224,6 +229,9 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
   get baja() {
     return this.grupoFormulario.get('baja');
+  }
+  get rutaExiste() {
+    return this.grupoFormulario.get('rutaExiste');
   }
   get frecuencia() {
     return this.grupoFormulario.get('frecuencia');

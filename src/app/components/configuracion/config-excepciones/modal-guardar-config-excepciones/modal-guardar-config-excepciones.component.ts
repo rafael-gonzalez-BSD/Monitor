@@ -15,6 +15,7 @@ import { RespuestaModel } from 'src/app/models/base/respuesta';
 import * as moment from 'moment';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
+import { checkIfUrlExists } from '../../../../extensions/url-validator/url-validator';
 
 @Component({
   selector: 'app-modal-guardar-config-excepciones',
@@ -94,8 +95,10 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       rutaLog: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(250)
+        Validators.maxLength(250),
+        Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
       ]),
+      rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [
         fromTimeRequiredValidator,
         Validators.pattern(this.regExp)
@@ -163,8 +166,10 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
 
   testearRuta() {
-    this.configExcepcionesModel = this.grupoFormulario.value;
-    this.generalesService.testearRuta(this.configExcepcionesModel).subscribe((res: any) => {
+    const m = new ConfigExcepciones();
+    m.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.generalesService.testearRutaArchivos(m).subscribe((res: any) => {
+      this.datosEditar.rutaExiste = res.satisfactorio;
       const not = new NotificacionModel();
       not.tipo = res.satisfactorio ? 'success' : 'warning';
       not.mensaje = res.mensaje;
@@ -187,6 +192,9 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
   get baja() {
     return this.grupoFormulario.get('baja');
+  }
+  get rutaExiste() {
+    return this.grupoFormulario.get('rutaExiste');
   }
   get frecuencia() {
     return this.grupoFormulario.get('frecuencia');
