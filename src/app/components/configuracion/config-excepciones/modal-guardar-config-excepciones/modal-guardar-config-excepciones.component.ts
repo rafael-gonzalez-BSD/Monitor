@@ -16,6 +16,8 @@ import * as moment from 'moment';
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
 import { checkIfUrlExists } from '../../../../extensions/url-validator/url-validator';
+import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
+import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
 
 @Component({
   selector: 'app-modal-guardar-config-excepciones',
@@ -26,6 +28,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   tituloModal: string;
   opcion: number;
   datosEditar: any;
+  datosMantenimiento: Mantenimiento;
   esEdicion: boolean;
   datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
@@ -40,6 +43,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private generalesService: GeneralesService,
     private sistemaService: SistemaService,
+    private mantenimientoService: MantenimientoService,
     private configExcepcionesService: ConfigExcepcionesService,
     private modal: MatDialog
   ) {
@@ -49,7 +53,15 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     this.datosEditar.horaDesde = this.datosEditar.horaDesde === '' ? '' : this.getTimeValue(this.datosEditar.horaDesde);
     this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;
+    this.datosEditar.ventanaMantenimiento = '';
     this.esEdicion = data.edit;
+    if (this.esEdicion) {
+      this.datosEditar.rutaExiste = this.esEdicion
+      const m = new Combo();
+      m.identificador = this.datosEditar.sistemaId;
+      m.descripcion = this.datosEditar.sistemaDescripcion;
+      this.consultarVentanaMantenimientoId(m);
+    }
     this.terniumTheme = this.timePickerTemplate.terniumTheme;
     this.consultarSistemaCombo();
   }
@@ -85,6 +97,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       excepcionConfiguracionId: new FormControl(),
+      ventanaMantenimiento: new FormControl(),
       frecuencia: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
@@ -126,6 +139,26 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       },
       () => { }
     );
+  }
+
+  consultarVentanaMantenimientoId(value: Combo) {
+    const m = new Mantenimiento();
+    m.sistemaId = value.identificador;
+    m.opcion = 2;
+
+    this.mantenimientoService.obtenerMantenimiento(m).subscribe((res: RespuestaModel) => {
+      if (res.satisfactorio) {
+        this.datosMantenimiento = res.datos;
+        const fechaInicio = `Fecha Inicio: ${moment(this.datosMantenimiento.fechaDesde).format('DD/MM/YYYY')} - Hora: ${this.getTimeValue(this.datosMantenimiento.horaDesde)} hrs`
+        const fechaFin = `Fecha Fin: ${moment(this.datosMantenimiento.fechaHasta).format('DD/MM/YYYY')} - Hora ${this.getTimeValue(this.datosMantenimiento.horaHasta)} hrs`
+        this.datosEditar.ventanaMantenimiento = `${fechaInicio}. ${fechaFin}`;
+
+      }
+      else {
+        this.datosMantenimiento = new Mantenimiento();
+        this.datosEditar.ventanaMantenimiento = '';
+      }
+    });
   }
 
   guardarConfiguracionExcepcion(configExcepcionesModel: ConfigExcepciones) {
@@ -180,6 +213,9 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
 
   get excepcionConfiguracionId() {
     return this.grupoFormulario.get('excepcionConfiguracionId');
+  }
+  get ventanaMantenimiento() {
+    return this.grupoFormulario.get('ventanaMantenimiento');
   }
   get rutaLog() {
     return this.grupoFormulario.get('rutaLog');

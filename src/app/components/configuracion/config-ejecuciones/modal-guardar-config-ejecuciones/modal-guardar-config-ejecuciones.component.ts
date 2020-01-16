@@ -20,6 +20,8 @@ import { ProcesoService } from '../../../../services/inventario/proceso.service'
 import { fromTimeRequiredValidator, toTimeRequiredValidator, timeRangeValidator } from '../../../../extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
 import { checkIfUrlExists } from 'src/app/extensions/url-validator/url-validator';
+import { MantenimientoService } from 'src/app/services/inventario/mantenimiento.service';
+import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -30,6 +32,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   tituloModal: string;
   opcion: number;
   datosEditar: any;
+  datosMantenimiento: Mantenimiento;
   esEdicion: boolean;
   datosSistemaCombo: Combo[];
   datosProcesoCombo: Combo[];
@@ -47,6 +50,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     private generalesService: GeneralesService,
     private sistemaService: SistemaService,
     private procesoService: ProcesoService,
+    private mantenimientoService: MantenimientoService,
     private configEjecucionesService: ConfigEjecucionesService,
     private modal: MatDialog
   ) {
@@ -56,9 +60,19 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     this.datosEditar.horaDesde = this.datosEditar.horaDesde === '' ? '' : this.getTimeValue(this.datosEditar.horaDesde);
     this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;
+    this.datosEditar.ventanaMantenimiento = '';
     this.esEdicion = data.edit;
     this.terniumTheme = this.timePickerTemplate.terniumTheme;
     this.consultarSistemaCombo();
+    if (this.esEdicion) {
+      this.datosEditar.rutaExiste = this.esEdicion;
+      const m = new Combo();
+      m.identificador = this.datosEditar.sistemaId;
+      m.descripcion = this.datosEditar.sistemaDescripcion;
+      this.consultarVentanaMantenimientoId(m);
+      this.consultarProcesoCombo(m);
+    }
+
     // this.consultarProcesoCombo();
   }
 
@@ -99,6 +113,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       ejecucionConfiguracionId: new FormControl(),
+      ventanaMantenimiento: new FormControl(),
       frecuencia: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
@@ -162,6 +177,26 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     );
   }
 
+  consultarVentanaMantenimientoId(value: Combo) {
+    const m = new Mantenimiento();
+    m.sistemaId = value.identificador;
+    m.opcion = 2;
+
+    this.mantenimientoService.obtenerMantenimiento(m).subscribe((res: RespuestaModel) => {
+      if (res.satisfactorio) {
+        this.datosMantenimiento = res.datos;
+        const fechaInicio = `Fecha Inicio: ${moment(this.datosMantenimiento.fechaDesde).format('DD/MM/YYYY')} - Hora: ${this.getTimeValue(this.datosMantenimiento.horaDesde)} hrs`
+        const fechaFin = `Fecha Fin: ${moment(this.datosMantenimiento.fechaHasta).format('DD/MM/YYYY')} - Hora ${this.getTimeValue(this.datosMantenimiento.horaHasta)} hrs`
+        this.datosEditar.ventanaMantenimiento = `${fechaInicio}. ${fechaFin}`;
+
+      }
+      else {
+        this.datosMantenimiento = new Mantenimiento();
+        this.datosEditar.ventanaMantenimiento = '';
+      }
+    });
+  }
+
   guardarConfiguracionEjecucion(configEjecucionesModel: ConfigEjecuciones) {
     this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
@@ -220,6 +255,9 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
   get rutaLog() {
     return this.grupoFormulario.get('rutaLog');
+  }
+  get ventanaMantenimiento() {
+    return this.grupoFormulario.get('ventanaMantenimiento');
   }
   get horaDesde() {
     return this.grupoFormulario.get('horaDesde');

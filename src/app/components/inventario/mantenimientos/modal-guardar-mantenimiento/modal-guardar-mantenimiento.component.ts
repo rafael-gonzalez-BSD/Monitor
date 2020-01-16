@@ -146,8 +146,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
       this.mantenimientoModel.baja = !this.toggleBaja;
       this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
-      console.log(this.mantenimientoModel);
-
       this.mantenimientoService.guardarMantenimiento(this.mantenimientoModel, this.esEdicion).subscribe(
         (response: any) => {
           if (response.satisfactorio) {

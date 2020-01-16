@@ -15,7 +15,7 @@
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
-                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarProcesoCombo($event.option.value)">
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarProcesoCombo($event.option.value);consultarVentanaMantenimientoId($event.option.value);">
                     <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
                         <span>{{sistema.descripcion}}</span>
                     </mat-option>
@@ -175,7 +175,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 form-group">
                 <label for="">Ventana Mantenimiento</label>
-                <input formControlName="rutaLog" class="form-control" type="text" readonly [ngModel]="datosEditar.rutaLog">
+                <input formControlName="ventanaMantenimiento" class="form-control" type="text" readonly [ngModel]="datosEditar.ventanaMantenimiento">
             </div>
             <div class="col-12 col-md-6 col-lg-6"></div>
             <div class="col-12 col-md-6 col-lg-6 form-group">

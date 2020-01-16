@@ -35,7 +35,6 @@ export class ModalGuardarSistemaComponent implements OnInit {
     private generalesService: GeneralesService,
     private modal: MatDialog
   ) {
-    debugger
     this.consultarGerenciaCombo();
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;

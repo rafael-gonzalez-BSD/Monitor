@@ -41,6 +41,17 @@ export class MantenimientoService {
     return this.http.get(url, { params: parametros });
   }
 
+  obtenerMantenimiento(m: Mantenimiento) {
+    let parametros = new HttpParams();
+    // tslint:disable-next-line: forin
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+
+    const url = `${environment.urlApi}ventanaMantenimiento/by`;
+    return this.http.get(url, { params: parametros });
+  }
+
   actualizarEstado(m: Mantenimiento) {
     const url = `${environment.urlApi}ventanaMantenimiento`;
     return this.http.patch<Mantenimiento>(url, m);
