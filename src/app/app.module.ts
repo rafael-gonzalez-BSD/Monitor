@@ -69,6 +69,8 @@ import { ModalGuardarConfigConectoresComponent } from './components/configuracio
 import { ModalFiltrosConfigConectoresComponent } from './components/configuracion/config-conectores/modal-filtros-config-conectores/modal-filtros-config-conectores.component';
 import { CintillaConfigConectoresComponent } from './components/configuracion/config-conectores/cintilla-config-conectores/cintilla-config-conectores.component';
 import { GrillaConfigConectoresComponent } from './components/configuracion/config-conectores/grilla-config-conectores/grilla-config-conectores.component';
+import { ModalFiltrosDashboardComponent } from './components/dashboard-monitor/dashboard/modal-filtros-dashboard/modal-filtros-dashboard.component';
+import { CintillaDashboardComponent } from './components/dashboard-monitor/dashboard/cintilla-dashboard/cintilla-dashboard.component';
 
 /**
  * Custom angular notifier options
@@ -147,7 +149,9 @@ export const MY_FORMATS = {
     ModalGuardarConfigConectoresComponent,
     ModalFiltrosConfigConectoresComponent,
     CintillaConfigConectoresComponent,
-    GrillaConfigConectoresComponent
+    GrillaConfigConectoresComponent,
+    ModalFiltrosDashboardComponent,
+    CintillaDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -182,7 +186,8 @@ export const MY_FORMATS = {
     ModalFiltrosConfigEjecucionesComponent,
     ModalGuardarConfigEjecucionesComponent,
     ModalFiltrosConfigConectoresComponent,
-    ModalGuardarConfigConectoresComponent
+    ModalGuardarConfigConectoresComponent,
+    ModalFiltrosDashboardComponent
   ]
 })
 export class AppModule { }
