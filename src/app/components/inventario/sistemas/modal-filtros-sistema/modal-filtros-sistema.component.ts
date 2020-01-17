@@ -125,7 +125,7 @@ export class ModalFiltrosSistemaComponent implements OnInit {
         if (response.satisfactorio) {
           this.datosCombo = response.datos;
         } else {
-          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el combo de sistemas.' + response.mensaje));
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de sistemas. ${response.mensaje}`));
         }
       },
       err => {
