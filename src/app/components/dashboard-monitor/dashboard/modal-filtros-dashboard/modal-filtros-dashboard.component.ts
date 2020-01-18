@@ -97,6 +97,30 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     if (obj) return obj.descripcion;
   }
 
+  buscar(mantenimientoModel: Mantenimiento) {
+    // if (this.grupoFormulario.valid) {
+    //   this.generalesService.mostrarLoader();
+    //   this.mantenimientoModel.opcion = this.opcion;
+    //   if (this.grupoFormulario.value.sistemaId) {
+    //     this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+    //     this.mantenimientoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    //   } else {
+    //     this.mantenimientoModel.sistemaId = 0;
+    //     this.mantenimientoModel.sistemaDescripcion = '';
+    //   }
+    //   this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
+    //   this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+
+    //   localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
+
+    //   this.mantenimientoService.setearFiltros();
+
+    //   this.mantenimientoService.obtenerFiltros();
+
+    //   this.cerrarModal();
+    // }
+  }
+
   consultarSistemaCombo() {
     const m = new Sistema();
     m.opcion = 3;
