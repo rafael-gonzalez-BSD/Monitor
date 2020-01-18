@@ -90,7 +90,7 @@ export const MY_FORMATS = {
     dateInput: 'DD/MM/YYYY',
   },
   display: {
-    dateInput: 'DD/MM/YYYY',
+    dateInput: 'DD/MMM/YYYY',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'YYYY-MM-DD',
     monthYearA11yLabel: 'MMMM YYYY',
