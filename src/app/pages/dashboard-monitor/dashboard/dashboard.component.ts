@@ -3,6 +3,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalFiltrosDashboardComponent } from '../../../components/dashboard-monitor/dashboard/modal-filtros-dashboard/modal-filtros-dashboard.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +11,12 @@ import { ModalFiltrosDashboardComponent } from '../../../components/dashboard-mo
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  loader = true;
 
   constructor(
     private generalesService: GeneralesService,
     private breakpointObserver: BreakpointObserver,
+    private router: Router,
     private modal: MatDialog) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
@@ -25,7 +28,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     /// TODO: Quitar esta linea de codigo una vez haya integrado los indicadores del dashboard.
     this.generalesService.quitarLoader();
-    //this.abrirModalFiltros();
+    // this.abrirModalFiltros();
   }
 
   setearTitulo(titulo) {
@@ -43,6 +46,11 @@ export class DashboardComponent implements OnInit {
     dialogConfig.width = '70%';
     dialogConfig.maxWidth = '768px';
     this.modal.open(ModalFiltrosDashboardComponent, dialogConfig);
+  }
+
+  regresar() {
+    localStorage.setItem('indexMenu', '0');
+    this.router.navigate(['site/menu']);
   }
 
 }
