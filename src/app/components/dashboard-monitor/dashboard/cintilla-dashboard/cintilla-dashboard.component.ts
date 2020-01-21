@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../../services/dashboard-monitor/dashboard.service';
 import moment from 'moment';
-import { debug } from 'util';
+import { debug, log } from 'util';
 
 @Component({
   selector: 'app-cintilla-dashboard',
@@ -12,15 +12,21 @@ export class CintillaDashboardComponent implements OnInit {
 
   filtroSistema = 'Sin Filtro';
   filtroFecha = 'Sin Filtro';
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService) {
+    
+   }
 
   ngOnInit() {
-    this.dashboardService.setFiltros.subscribe((m: any) => {
-      console.log();
-      
+    this.dashboardService.filterevent.subscribe((m: any) => {
+      console.log(m);
       this.filtroSistema = m.sistemaDescripcion === ''? 'Sin Filtro' : m.sistemaDescripcion;
       this.filtroFecha = m.fecha ? moment(m.fecha).format('MM/YYYY') : 'Sin Filtro';
+    }, err =>  {
+      console.log(err)
+
     });
+
+    this.dashboardService.setearFiltros();
   }
 
 }

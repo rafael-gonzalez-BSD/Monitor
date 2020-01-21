@@ -5,12 +5,18 @@ import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashbo
   providedIn: 'root'
 })
 export class DashboardService {
-  setFiltros = new EventEmitter();
+  filterevent = new EventEmitter();
+  filtros = new EventEmitter();
 
   constructor() { }
 
+  obtenerFiltros() {
+    const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.filtros.emit(m);
+  }
+
   setearFiltros() {
     const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    this.setFiltros.emit(m);
+    this.filterevent.emit(m);
   }
 }
