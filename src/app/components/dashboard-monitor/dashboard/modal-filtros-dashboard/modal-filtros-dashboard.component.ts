@@ -18,6 +18,8 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { FiltrosDashboard } from '../../../../models/dashboard-monitor/filtrosDashboard';
+import { DashboardService } from '../../../../services/dashboard-monitor/dashboard.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -58,13 +60,18 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   datosCombo: Combo[];
   sistemaCombo: Observable<Combo[]>;
   grupoFormulario: FormGroup;
+  filtrosDashboardModel = new FiltrosDashboard();
+  opcion: number;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private modal: MatDialog,
     private sistemaService: SistemaService,
-    private generalesService: GeneralesService
+    private generalesService: GeneralesService,
+    private dashboardService: DashboardService
   ) { 
-    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosSistemas'));
+    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.datosFiltros.fecha = this.datosFiltros.fecha === null ? '' : new Date(this.datosFiltros.fecha);
     this.consultarSistemaCombo();
   }
 
@@ -75,8 +82,17 @@ export class ModalFiltrosDashboardComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosCombo))
     );
-
     
+    if (this.datosFiltros.sistemaId > 0) {
+      this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
+    }
+  }
+
+  setearValorAutocomplete(campo: string, id: number, desc: string) {
+    this.grupoFormulario.get(campo).setValue({
+      identificador: id,
+      descripcion: desc
+    });
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -92,33 +108,36 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     });
   }
 
-  // Mostrar la descripción en el input
+  // Mostrar la descripción en el input autocomplete
   mostrarValor(obj: Combo) {
     if (obj) return obj.descripcion;
   }
 
-  buscar(mantenimientoModel: Mantenimiento) {
-    // if (this.grupoFormulario.valid) {
-    //   this.generalesService.mostrarLoader();
-    //   this.mantenimientoModel.opcion = this.opcion;
-    //   if (this.grupoFormulario.value.sistemaId) {
-    //     this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-    //     this.mantenimientoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-    //   } else {
-    //     this.mantenimientoModel.sistemaId = 0;
-    //     this.mantenimientoModel.sistemaDescripcion = '';
-    //   }
-    //   this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
-    //   this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+  buscar(filtrosDashboardModel: FiltrosDashboard) {
+    if (this.grupoFormulario.valid) {
+      
+      this.opcion=4;
+      // this.generalesService.mostrarLoader();
+      this.filtrosDashboardModel.opcion = this.opcion;
+      if (this.grupoFormulario.value.sistemaId) {
+        this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.filtrosDashboardModel.sistemaId = 0;
+        this.filtrosDashboardModel.sistemaDescripcion = '';
+      }
+      
+      this.filtrosDashboardModel.fecha = this.date.value;
+      // this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
 
-    //   localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
+      localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
-    //   this.mantenimientoService.setearFiltros();
+      this.dashboardService.setearFiltros();
 
-    //   this.mantenimientoService.obtenerFiltros();
+      // this.mantenimientoService.obtenerFiltros();
 
-    //   this.cerrarModal();
-    // }
+      this.cerrarModal();
+    }
   }
 
   consultarSistemaCombo() {

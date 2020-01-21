@@ -8,6 +8,8 @@ import { Mantenimiento } from '../../models/inventario/mantenimiento';
 import { ConfigExcepciones } from '../../models/configuracion/config-excepciones';
 import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
 import { ConfigConectores } from '../../models/configuracion/config-conectores';
+import { FiltrosDashboard } from '../../models/dashboard-monitor/filtrosDashboard';
+import moment from 'moment';
 
 @Component({
   selector: 'app-layout1',
@@ -29,6 +31,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosConfigExcepciones();
     this.resetearFiltrosConfigEjecuciones();
     this.resetearFiltrosConfigConectores();
+    this.resetearFiltrosDashboard();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;
@@ -98,6 +101,19 @@ export class Layout1Component implements OnInit {
     configConectoresModel.sistemaDescripcion = '';
     localStorage.removeItem('filtrosConfigConectores');
     localStorage.setItem('filtrosConfigConectores', JSON.stringify(configConectoresModel));
+  }
+
+  resetearFiltrosDashboard() {
+    const filtrosDashboardModel = new FiltrosDashboard();
+    filtrosDashboardModel.opcion = 4;
+    filtrosDashboardModel.sistemaId = 0;
+    filtrosDashboardModel.sistemaDescripcion = '';
+    
+    const fecha: Date = new Date();    
+    filtrosDashboardModel.fecha = fecha;
+    
+    localStorage.removeItem('filtrosDashboard');
+    localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
   }
 
 }
