@@ -71,6 +71,7 @@ import { CintillaConfigConectoresComponent } from './components/configuracion/co
 import { GrillaConfigConectoresComponent } from './components/configuracion/config-conectores/grilla-config-conectores/grilla-config-conectores.component';
 import { ModalFiltrosDashboardComponent } from './components/dashboard-monitor/dashboard/modal-filtros-dashboard/modal-filtros-dashboard.component';
 import { CintillaDashboardComponent } from './components/dashboard-monitor/dashboard/cintilla-dashboard/cintilla-dashboard.component';
+import { GraficoExcepcionesComponent } from './components/dashboard-monitor/dashboard/grafico-excepciones/grafico-excepciones.component';
 
 /**
  * Custom angular notifier options
@@ -151,7 +152,8 @@ export const MY_FORMATS = {
     CintillaConfigConectoresComponent,
     GrillaConfigConectoresComponent,
     ModalFiltrosDashboardComponent,
-    CintillaDashboardComponent
+    CintillaDashboardComponent,
+    GraficoExcepcionesComponent,
   ],
   imports: [
     BrowserModule,

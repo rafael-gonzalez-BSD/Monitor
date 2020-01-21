@@ -17,26 +17,7 @@
 <div class="wrapper">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <mat-card>
-                <div class="header-grafico">
-                    <div class="titulo-grafico">
-                        BITÁCORA DE EXCEPCIONES
-                    </div>
-
-
-                    <div class="icono-grafico">
-                        <button mat-icon-button class="more-button">
-                            <i class="fas fa-link"></i>
-                          </button>
-                    </div>
-
-                </div>
-                <mat-card-content class="dashboard-card-content">
-                    <div *ngIf="loader">
-                        <img class="loader-graficos" src="./../../../../assets/img/loader.gif" alt="">
-                    </div>
-                </mat-card-content>
-            </mat-card>
+            <app-grafico-excepciones></app-grafico-excepciones>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
             grafica
