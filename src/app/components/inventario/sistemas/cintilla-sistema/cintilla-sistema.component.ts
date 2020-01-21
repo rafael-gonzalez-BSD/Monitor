@@ -16,7 +16,6 @@ export class CintillaSistemaComponent implements OnInit {
   ngOnInit() {
     // Recuperamos los filtros del evenEmitter
     this.sistemaService.setFiltros.subscribe((m: any) => {
-      console.log(m)
       this.filtroSistema = m.sistemaDescripcion || 'Sin Filtro';
       if (m.baja === null) this.filtroEstado = 'Ambos';
       if (m.baja === true || m.baja === 'true') this.filtroEstado = 'Apagado';

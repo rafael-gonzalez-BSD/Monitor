@@ -12,7 +12,6 @@ export class LayoutBaseComponent implements OnInit {
 
   ngOnInit() {
     if (this.breakpointObserver.isMatched('(min-height: 40rem)')) {
-      console.log('Enough room!');
     }
   }
 
@@ -21,9 +20,7 @@ export class LayoutBaseComponent implements OnInit {
       .observe(['(min-width: 500px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          console.log('Viewport is 500px or over!');
         } else {
-          console.log('Viewport is getting smaller!');
         }
       });
   }    

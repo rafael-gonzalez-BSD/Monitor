@@ -20,6 +20,7 @@ import {default as _rollupMoment, Moment} from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { FiltrosDashboard } from '../../../../models/dashboard-monitor/filtrosDashboard';
 import { DashboardService } from '../../../../services/dashboard-monitor/dashboard.service';
+import { log } from 'util';
 
 const moment = _rollupMoment || _moment;
 
@@ -54,7 +55,7 @@ export const MY_FORMATS = {
 })
 export class ModalFiltrosDashboardComponent implements OnInit {
   // datepicker
-  date = new FormControl(moment());
+  date: any;
   tituloModal: string;
   datosFiltros: any;
   datosCombo: Combo[];
@@ -71,7 +72,9 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     private dashboardService: DashboardService
   ) { 
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    this.datosFiltros.fecha = this.datosFiltros.fecha === null ? '' : new Date(this.datosFiltros.fecha);
+    const cadena  = this.datosFiltros.fechaString.split('/');
+    const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
+    this.date =  new FormControl(moment(fecha));
     this.consultarSistemaCombo();
   }
 
@@ -86,6 +89,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     if (this.datosFiltros.sistemaId > 0) {
       this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
     }
+
   }
 
   setearValorAutocomplete(campo: string, id: number, desc: string) {
@@ -127,15 +131,11 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
       
-      this.filtrosDashboardModel.fecha = this.date.value;
-      // this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
-
+      this.filtrosDashboardModel.fecha = this.date.value;      
+      this.filtrosDashboardModel.fechaString = moment(this.date.value).format('MM/YYYY');
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
       this.dashboardService.setearFiltros();
-
-      // this.mantenimientoService.obtenerFiltros();
-
       this.cerrarModal();
     }
   }

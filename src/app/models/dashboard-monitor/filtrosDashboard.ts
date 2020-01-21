@@ -3,4 +3,5 @@ export class FiltrosDashboard {
     sistemaId: number;
     sistemaDescripcion: string;
     fecha: Date;
+    fechaString: string;
 }

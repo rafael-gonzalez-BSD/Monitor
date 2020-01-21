@@ -10,6 +10,7 @@ import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecucion
 import { ConfigConectores } from '../../models/configuracion/config-conectores';
 import { FiltrosDashboard } from '../../models/dashboard-monitor/filtrosDashboard';
 import moment from 'moment';
+import { log } from 'util';
 
 @Component({
   selector: 'app-layout1',
@@ -108,10 +109,8 @@ export class Layout1Component implements OnInit {
     filtrosDashboardModel.opcion = 4;
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
-    
-    const fecha: Date = new Date();    
-    filtrosDashboardModel.fecha = fecha;
-    
+    filtrosDashboardModel.fechaString = moment( new Date()).format('MM/YYYY'); 
+
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
   }
