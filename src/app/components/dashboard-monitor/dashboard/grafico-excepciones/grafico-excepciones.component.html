@@ -12,9 +12,13 @@
         </div>
 
     </div>
-    <mat-card-content class="dashboard-card-content">
+    <mat-card-content>
         <div *ngIf="loader">
             <img class="loader-graficos" src="./../../../../assets/img/loader.gif" alt="">
+
+        </div>
+        <div>
+            <canvas id="bar"></canvas>
         </div>
     </mat-card-content>
 </mat-card>
