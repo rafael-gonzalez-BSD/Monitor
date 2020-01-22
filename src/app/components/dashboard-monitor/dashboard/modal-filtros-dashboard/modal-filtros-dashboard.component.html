@@ -19,7 +19,7 @@
 
             <div class="col-lg-6 form-group">
                 <label>Fecha</label>
-                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fecha" placeholder="MM/YYYY">
+                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fechaOcurrencia" placeholder="MM/YYYY">
                 <mat-datepicker #fD startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, fD)" panelClass="example-month-picker">
                 </mat-datepicker>
             </div>

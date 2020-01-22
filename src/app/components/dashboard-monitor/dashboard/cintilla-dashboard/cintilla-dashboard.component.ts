@@ -19,7 +19,7 @@ export class CintillaDashboardComponent implements OnInit {
   ngOnInit() {
     this.dashboardService.filterevent.subscribe((m: any) => {
       this.filtroSistema = m.sistemaDescripcion === ''? 'Sin Filtro' : m.sistemaDescripcion;
-      this.filtroFecha = m.fechaString === '' ?  'Sin Filtro' : m.fechaString;
+      this.filtroFecha = m.fechaOcurrenciaCorta === '' ?  'Sin Filtro' : m.fechaOcurrenciaCorta;
     }, err =>  {
       console.log(err)
 
