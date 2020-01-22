@@ -109,6 +109,7 @@ export class Layout1Component implements OnInit {
     filtrosDashboardModel.opcion = 5;
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
+
     filtrosDashboardModel.fechaOcurrenciaCorta = moment( new Date()).format('MM/YYYY'); 
     filtrosDashboardModel.fechaOcurrencia = moment( new Date()).format('YYYY/MM/DD'); 
 

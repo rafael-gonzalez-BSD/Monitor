@@ -136,6 +136,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
       this.dashboardService.setearFiltros();
+      this.dashboardService.obtenerFiltros();
       this.cerrarModal();
     }
   }
