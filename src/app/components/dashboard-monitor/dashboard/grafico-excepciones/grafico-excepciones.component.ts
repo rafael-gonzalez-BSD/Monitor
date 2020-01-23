@@ -27,24 +27,15 @@ export class GraficoExcepcionesComponent implements OnInit {
     private generalesService: GeneralesService) { }
 
   ngOnInit() {
-
     this.dashboardService.filtros.subscribe((m: any) => {
 
       const ARRAY = m.fechaOcurrenciaCorta.split('/');
       m.fechaOcurrencia = `${ARRAY[1]}/${ARRAY[0]}/01`;
-
-
-      delete m.sistemaDescripcion;
-      delete m.sistemaId;
-      delete m.fechaOcurrenciaCorta;
-
-      console.log(m);
-
       this.consultarGraficoExcepciones(m);
+
     });
 
     this.dashboardService.obtenerFiltros();
-    this.dashboardService.setearFiltros();
 
   }
 
@@ -52,11 +43,12 @@ export class GraficoExcepcionesComponent implements OnInit {
 
     this.dashboardService.consultarGraficoExcepciones(m).subscribe(
       (response: any) => {
+        console.log(response);
         if (response.satisfactorio) {
           this.registrosExcepciones = response.datos.length;
           this.dataExcepciones = [];
           this.labelsExcepciones = [];
-          if (this.registrosExcepciones > 0) {
+          // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
               const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataExcepciones.push(response.datos[I].cantidad);
@@ -88,9 +80,9 @@ export class GraficoExcepcionesComponent implements OnInit {
               }
             });
 
-          } else {
+          // } else {
 
-          }
+          // }
 
         } else {
           this.generalesService.notificar(

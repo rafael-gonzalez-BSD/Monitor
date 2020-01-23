@@ -32,5 +32,7 @@ export class DashboardService {
     const url = `${environment.urlApi}Excepcion/grafico`;
     const resultado = this.http.get(url, { params: parametros });
     return resultado;
+
+    
   }
 }

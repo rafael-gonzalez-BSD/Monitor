@@ -120,7 +120,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     if (this.grupoFormulario.valid) {
       
-      this.opcion=4;
+      this.opcion = 5;
       // this.generalesService.mostrarLoader();
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
