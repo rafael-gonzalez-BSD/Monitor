@@ -38,3 +38,26 @@ export function labelToGraphics(cadena: string) {
 
     return label;
 }
+
+export function getStepSize(arreglo: any) {
+    let max: number;
+    let stepSize: number;
+    max = Math.max(...arreglo);
+
+    if (max > 0 && max <= 10) {
+        stepSize = 1
+    }else if(max>10 && max <= 100){
+        stepSize = 10
+    }
+    else if(max>100 && max <= 500){
+        stepSize = 50
+    }
+    else if(max>500){
+        stepSize = 100
+    }else{
+        stepSize = 1;
+    }
+    
+
+    return stepSize;
+}

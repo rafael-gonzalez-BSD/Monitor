@@ -8,7 +8,7 @@ import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashbo
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import moment from 'moment';
-import { labelToGraphics } from 'src/app/extensions/utils/utils';
+import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
 
 @Component({
   selector: 'app-grafico-excepciones',
@@ -17,6 +17,8 @@ import { labelToGraphics } from 'src/app/extensions/utils/utils';
 })
 export class GraficoExcepcionesComponent implements OnInit {
   chart;
+
+  stepSize = 1;
 
   // Excepciones
   registrosExcepciones: number;
@@ -43,9 +45,9 @@ export class GraficoExcepcionesComponent implements OnInit {
 
     this.dashboardService.consultarGraficoExcepciones(m).subscribe(
       (response: any) => {
-        console.log(response);
         if (response.satisfactorio) {
           this.registrosExcepciones = response.datos.length;
+          
           this.dataExcepciones = [];
           this.labelsExcepciones = [];
           // if (this.registrosExcepciones > 0) {
@@ -55,6 +57,8 @@ export class GraficoExcepcionesComponent implements OnInit {
               this.labelsExcepciones.push(label);
             }
 
+            this.stepSize = getStepSize(this.dataExcepciones);
+
             this.chart = new Chart('graficoExcepciones', {
               type: 'bar',
               options: {
@@ -63,6 +67,13 @@ export class GraficoExcepcionesComponent implements OnInit {
                   display: false,
                   text: 'BITÁCORA DE EXCEPCIONES'
                 },
+                scales: {
+                  yAxes: [{
+                     ticks: {
+                        stepSize: this.stepSize
+                     }
+                  }]
+               }                
               },
               data: {
                 labels: this.labelsExcepciones,
