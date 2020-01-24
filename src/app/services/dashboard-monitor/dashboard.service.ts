@@ -43,4 +43,14 @@ export class DashboardService {
     const resultado = this.http.get(url, { params: parametros });
     return resultado;
   }
+
+  consultarGraficoEjecuciones(m: FiltrosDashboard){
+    let parametros = new HttpParams();
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+    const url = `${environment.urlApi}Conector/grafico`;
+    const resultado = this.http.get(url, { params: parametros });
+    return resultado;
+  }
 }
