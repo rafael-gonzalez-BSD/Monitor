@@ -54,15 +54,19 @@ export class GraficoEjecucionesComponent implements OnInit {
               this.labelEjecuciones.push(label);
             }
 
+            // teste
+            // this.dataEjecuciones = [12, 69, 45, 150, 23, 87, 56, 200, 167];
+            // this.labelEjecuciones = ['Sep 3', 'Sep 4', 'Sep 5', 'Sep 7', 'Sep 8', 'Sep 23', 'Sep 25', 'Sep 29', 'Sep 30'];
+
             this.stepSize = getStepSize(this.dataEjecuciones);
 
             this.chart = new Chart('graficoEjecuciones', {
-              type: 'bar',
+              type: 'line',
               options: {
                 responsive: true,
                 title: {
                   display: false,
-                  text: 'BITÁCORA DE EXCEPCIONES'
+                  text: 'BITÁCORA DE EJECUCIONES'
                 },
                 scales: {
                   yAxes: [{

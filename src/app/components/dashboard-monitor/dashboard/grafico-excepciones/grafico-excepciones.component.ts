@@ -60,7 +60,7 @@ export class GraficoExcepcionesComponent implements OnInit {
             this.stepSize = getStepSize(this.dataExcepciones);
 
             this.chart = new Chart('graficoExcepciones', {
-              type: 'bar',
+              type: 'line',
               options: {
                 responsive: true,
                 title: {
