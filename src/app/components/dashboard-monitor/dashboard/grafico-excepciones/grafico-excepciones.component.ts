@@ -97,12 +97,12 @@ export class GraficoExcepcionesComponent implements OnInit {
 
         } else {
           this.generalesService.notificar(
-            new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
+            new NotificacionModel('warning', `Error al consultar el listado de excepciones ${response.mensaje}`)
           );
         }
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de sistemas. ${err.statusText} ${err.message}`));
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de excepciones ${err.statusText} ${err.message}`));
       },
       () => {
       }

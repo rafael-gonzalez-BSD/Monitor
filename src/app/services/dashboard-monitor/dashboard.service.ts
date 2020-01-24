@@ -44,7 +44,7 @@ export class DashboardService {
     return resultado;
   }
 
-  consultarGraficoEjecuciones(m: FiltrosDashboard){
+  consultarGraficoConectores(m: FiltrosDashboard){
     let parametros = new HttpParams();
     for (const key in m) {
       parametros = parametros.set(key, m[key]);
