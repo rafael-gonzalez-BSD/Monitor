@@ -211,7 +211,8 @@ export const MY_FORMATS = {
     ModalGuardarConfigEjecucionesComponent,
     ModalFiltrosConfigConectoresComponent,
     ModalGuardarConfigConectoresComponent,
-    ModalFiltrosDashboardComponent
+    ModalFiltrosDashboardComponent,
+    ModalFiltroBitacoraExcepcionesComponent
   ]
 })
 export class AppModule { }
