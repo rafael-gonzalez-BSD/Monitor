@@ -32,7 +32,15 @@ export class DashboardService {
     const url = `${environment.urlApi}Excepcion/grafico`;
     const resultado = this.http.get(url, { params: parametros });
     return resultado;
+  }
 
-    
+  consultarGraficoEjecuciones(m: FiltrosDashboard){
+    let parametros = new HttpParams();
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+    const url = `${environment.urlApi}Ejecucion/grafico`;
+    const resultado = this.http.get(url, { params: parametros });
+    return resultado;
   }
 }
