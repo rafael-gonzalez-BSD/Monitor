@@ -61,7 +61,7 @@ export class GraficoEjecucionesComponent implements OnInit {
             this.stepSize = getStepSize(this.dataEjecuciones);
 
             this.chart = new Chart('graficoEjecuciones', {
-              type: 'line',
+              type: 'bar',
               options: {
                 responsive: true,
                 title: {

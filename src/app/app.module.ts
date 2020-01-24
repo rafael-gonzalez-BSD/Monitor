@@ -74,6 +74,15 @@ import { CintillaDashboardComponent } from './components/dashboard-monitor/dashb
 import { GraficoExcepcionesComponent } from './components/dashboard-monitor/dashboard/grafico-excepciones/grafico-excepciones.component';
 import { GraficoEjecucionesComponent } from './components/dashboard-monitor/dashboard/grafico-ejecuciones/grafico-ejecuciones.component';
 import { GraficoConectoresComponent } from './components/dashboard-monitor/dashboard/grafico-conectores/grafico-conectores.component';
+import { ModalFiltroBitacoraExcepcionesComponent } from './components/dashboard-monitor/bitacora-excepciones/modal-filtro-bitacora-excepciones/modal-filtro-bitacora-excepciones.component';
+import { CintillaBitacoraExcepcionesComponent } from './components/dashboard-monitor/bitacora-excepciones/cintilla-bitacora-excepciones/cintilla-bitacora-excepciones.component';
+import { GrillaBitacoraExcepcionesComponent } from './components/dashboard-monitor/bitacora-excepciones/grilla-bitacora-excepciones/grilla-bitacora-excepciones.component';
+import { GrillaBitacoraEjecucionesComponent } from './components/dashboard-monitor/bitacora-ejecuciones/grilla-bitacora-ejecuciones/grilla-bitacora-ejecuciones.component';
+import { ModalFiltroBitacoraEjecucionesComponent } from './components/dashboard-monitor/bitacora-ejecuciones/modal-filtro-bitacora-ejecuciones/modal-filtro-bitacora-ejecuciones.component';
+import { CintillaBitacoraEjecucionesComponent } from './components/dashboard-monitor/bitacora-ejecuciones/cintilla-bitacora-ejecuciones/cintilla-bitacora-ejecuciones.component';
+import { CintillaBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/cintilla-bitacora-conectores/cintilla-bitacora-conectores.component';
+import { ModalFiltroBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/modal-filtro-bitacora-conectores/modal-filtro-bitacora-conectores.component';
+import { GrillaBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/grilla-bitacora-conectores/grilla-bitacora-conectores.component';
 
 /**
  * Custom angular notifier options
@@ -158,6 +167,15 @@ export const MY_FORMATS = {
     GraficoExcepcionesComponent,
     GraficoEjecucionesComponent,
     GraficoConectoresComponent,
+    ModalFiltroBitacoraExcepcionesComponent,
+    CintillaBitacoraExcepcionesComponent,
+    GrillaBitacoraExcepcionesComponent,
+    GrillaBitacoraEjecucionesComponent,
+    ModalFiltroBitacoraEjecucionesComponent,
+    CintillaBitacoraEjecucionesComponent,
+    CintillaBitacoraConectoresComponent,
+    ModalFiltroBitacoraConectoresComponent,
+    GrillaBitacoraConectoresComponent,
   ],
   imports: [
     BrowserModule,
