@@ -10,10 +10,7 @@ import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
-// Depending on whether rollup is used, moment needs to be imported differently.
-// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
-// syntax. However, rollup creates a synthetic default module and we thus need to import it using
-// the `default as` syntax.
+
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
@@ -71,8 +68,9 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     private generalesService: GeneralesService,
     private dashboardService: DashboardService
   ) { 
+    this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    const cadena  = this.datosFiltros.fechaString.split('/');
+    const cadena  = this.datosFiltros.fechaOcurrenciaCorta.split('/');
     const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
     this.date =  new FormControl(moment(fecha));
     this.consultarSistemaCombo();
@@ -108,7 +106,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       sistemaId: new FormControl('', [RequireMatch]),
-      fecha: new FormControl()
+      fechaOcurrencia: new FormControl()
     });
   }
 
@@ -120,7 +118,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     if (this.grupoFormulario.valid) {
       
-      this.opcion=4;
+      this.opcion = 5;
       // this.generalesService.mostrarLoader();
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
@@ -131,11 +129,12 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
       
-      this.filtrosDashboardModel.fecha = this.date.value;      
-      this.filtrosDashboardModel.fechaString = moment(this.date.value).format('MM/YYYY');
+      this.filtrosDashboardModel.fechaOcurrencia = this.date.value;      
+      this.filtrosDashboardModel.fechaOcurrenciaCorta = moment(this.date.value).format('MM/YYYY');
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
       this.dashboardService.setearFiltros();
+      this.dashboardService.obtenerFiltros();
       this.cerrarModal();
     }
   }

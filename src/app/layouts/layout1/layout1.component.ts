@@ -106,10 +106,12 @@ export class Layout1Component implements OnInit {
 
   resetearFiltrosDashboard() {
     const filtrosDashboardModel = new FiltrosDashboard();
-    filtrosDashboardModel.opcion = 4;
+    filtrosDashboardModel.opcion = 5;
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
-    filtrosDashboardModel.fechaString = moment( new Date()).format('MM/YYYY'); 
+
+    filtrosDashboardModel.fechaOcurrenciaCorta = moment( new Date()).format('MM/YYYY'); 
+    filtrosDashboardModel.fechaOcurrencia = moment( new Date()).format('YYYY/MM/DD'); 
 
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));

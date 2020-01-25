@@ -14,13 +14,13 @@ export class CintillaDashboardComponent implements OnInit {
   filtroFecha = 'Todos';
   constructor(private dashboardService: DashboardService) {
 
-   }
+  }
 
   ngOnInit() {
     this.dashboardService.filterevent.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion === ''? 'Todos' : m.sistemaDescripcion;
-      this.filtroFecha = m.fechaString === '' ?  'Todos' : m.fechaString;
-    }, err =>  {
+      this.filtroSistema = m.sistemaDescripcion === '' ? 'Todos' : m.sistemaDescripcion;
+      this.filtroFecha = m.fechaOcurrenciaCorta === '' ? 'mm/aaaa' : m.fechaOcurrenciaCorta;
+    }, err => {
       console.log(err)
 
     });

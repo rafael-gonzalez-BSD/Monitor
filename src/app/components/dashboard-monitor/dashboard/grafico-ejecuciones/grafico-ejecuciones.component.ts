@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartjsModule } from '@ctrl/ngx-chartjs';
-import { Chart } from 'chart.js';
-import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
-import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
-import { log } from 'util';
-import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashboard';
-import { GeneralesService } from 'src/app/services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
-import moment from 'moment';
+import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
+import { GeneralesService } from 'src/app/services/general/generales.service';
+import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashboard';
 import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
+import Chart from 'chart.js';
 
 @Component({
-  selector: 'app-grafico-excepciones',
-  templateUrl: './grafico-excepciones.component.html',
-  styleUrls: ['./grafico-excepciones.component.scss']
+  selector: 'app-grafico-ejecuciones',
+  templateUrl: './grafico-ejecuciones.component.html',
+  styleUrls: ['./grafico-ejecuciones.component.scss']
 })
-export class GraficoExcepcionesComponent implements OnInit {
+export class GraficoEjecucionesComponent implements OnInit {
+
   chart;
 
   stepSize = 1;
 
   // Excepciones
   registrosExcepciones: number;
-  dataExcepciones: number[] = [];
-  labelsExcepciones: string[] = [];
+  dataEjecuciones: number[] = [];
+  labelEjecuciones: string[] = [];
 
   constructor(private dashboardService: DashboardService,
     private generalesService: GeneralesService) { }
@@ -43,29 +40,33 @@ export class GraficoExcepcionesComponent implements OnInit {
 
   consultarGraficoExcepciones(m: FiltrosDashboard) {
 
-    this.dashboardService.consultarGraficoExcepciones(m).subscribe(
+    this.dashboardService.consultarGraficoEjecuciones(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
           this.registrosExcepciones = response.datos.length;
           
-          this.dataExcepciones = [];
-          this.labelsExcepciones = [];
+          this.dataEjecuciones = [];
+          this.labelEjecuciones = [];
           // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
               const label = labelToGraphics(response.datos[I].fechaOcurrencia);
-              this.dataExcepciones.push(response.datos[I].cantidad);
-              this.labelsExcepciones.push(label);
+              this.dataEjecuciones.push(response.datos[I].cantidad);
+              this.labelEjecuciones.push(label);
             }
 
-            this.stepSize = getStepSize(this.dataExcepciones);
+            // teste
+            // this.dataEjecuciones = [12, 69, 45, 150, 23, 87, 56, 200, 167];
+            // this.labelEjecuciones = ['Sep 3', 'Sep 4', 'Sep 5', 'Sep 7', 'Sep 8', 'Sep 23', 'Sep 25', 'Sep 29', 'Sep 30'];
 
-            this.chart = new Chart('graficoExcepciones', {
+            this.stepSize = getStepSize(this.dataEjecuciones);
+
+            this.chart = new Chart('graficoEjecuciones', {
               type: 'bar',
               options: {
                 responsive: true,
                 title: {
                   display: false,
-                  text: 'BITÁCORA DE EXCEPCIONES'
+                  text: 'BITÁCORA DE EJECUCIONES'
                 },
                 scales: {
                   yAxes: [{
@@ -76,12 +77,12 @@ export class GraficoExcepcionesComponent implements OnInit {
                }                
               },
               data: {
-                labels: this.labelsExcepciones,
+                labels: this.labelEjecuciones,
                 datasets: [
                   {
                     type: 'line',
-                    label: 'Excepciones',
-                    data: this.dataExcepciones,
+                    label: 'Ejecuciones',
+                    data: this.dataEjecuciones,
                     backgroundColor: '#ff3300',
                     borderColor: '#ff3300',
                     borderWidth: 1,
@@ -97,12 +98,12 @@ export class GraficoExcepcionesComponent implements OnInit {
 
         } else {
           this.generalesService.notificar(
-            new NotificacionModel('warning', `Error al consultar el listado de excepciones ${response.mensaje}`)
+            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones ${response.mensaje}`)
           );
         }
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de excepciones ${err.statusText} ${err.message}`));
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones ${err.statusText} ${err.message}`));
       },
       () => {
       }
