@@ -42,7 +42,7 @@
                         <span class="tc-ff3300">El rango de fechas es inválido</span>
                     </div>
                 </div>
-                <mat-datepicker #fD></mat-datepicker>
+                <mat-datepicker [touchUi]="isMobile" #fD></mat-datepicker>
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Desde</label>
@@ -78,7 +78,7 @@
                         <span class="tc-ff3300">El rango de fechas es inválido</span>
                     </div>
                 </div>
-                <mat-datepicker #fH></mat-datepicker>
+                <mat-datepicker [touchUi]="isMobile" #fH></mat-datepicker>
             </div>
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Hora Hasta</label>

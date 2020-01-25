@@ -20,6 +20,7 @@ import {
   toDateRequiredValidator
 } from '../../../../extensions/picker/validate-date';
 import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-template';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-modal-guardar-mantenimiento',
@@ -46,6 +47,7 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
     private sistemaService: SistemaService,
     private mantenimientoService: MantenimientoService,
     private modal: MatDialog,
+    private breakpointObserver: BreakpointObserver,
     private generalesService: GeneralesService
   ) {
     this.tituloModal = data.tituloModal;
@@ -62,14 +64,18 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.grupoFormulario = this.validarFormulario();
     this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.descripcion)),
       map(name => this.filter(name, this.datosCombo))
     );
-
     if (this.esEdicion) this.setearValorAutocomplete('sistemaId', this.data.sistemaId, this.data.sistemaDescripcion);
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 823px)');
   }
 
   filter(valor: string, datosCombo: Combo[]) {

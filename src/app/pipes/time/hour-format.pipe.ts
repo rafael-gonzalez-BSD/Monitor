@@ -16,7 +16,7 @@ export class HourFormatPipe implements PipeTransform {
       minutes = Math.floor(totalMinutes % 60);
     }
 
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
 
 }

@@ -1,7 +1,13 @@
+.mat-header-cell {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
 // Medidas de las columnas
 .mat-column-accion {
     flex: 0 0 80px !important;
     min-width: 80px !important;
+    padding-bottom: 0px;
 }
 
 .mat-column-estado {

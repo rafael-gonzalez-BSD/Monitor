@@ -57,15 +57,15 @@ export class MenuMovilComponent implements OnInit {
       ruta: '../procesos',
       tituloMovil: 'CATÁLOGO DE PROCESOS'
     },
+    // {
+    //   titulo: 'Catálogo de Perfiles',
+    //   ruta: '',
+    //   tituloMovil: 'CATÁLOGO DE PERFILES'
+    // },
     {
-      titulo: 'Catálogo de Perfiles',
-      ruta: '',
-      tituloMovil: 'CATÁLOGO DE PERFILES'
-    },
-    {
-      titulo: 'Administrar Mantenimientos',
+      titulo: 'Programación de Mantenimientos',
       ruta: '../mantenimientos',
-      tituloMovil: 'ADMINISTRAR DE MANTENIMIENTOS'
+      tituloMovil: 'PROGRAMACIÓN DE MANTENIMIENTOS'
     }
   ];
 

@@ -10,16 +10,16 @@ import { debug, log } from 'util';
 })
 export class CintillaDashboardComponent implements OnInit {
 
-  filtroSistema = 'Sin Filtro';
-  filtroFecha = 'Sin Filtro';
+  filtroSistema = 'Todos';
+  filtroFecha = 'Todos';
   constructor(private dashboardService: DashboardService) {
-    
+
    }
 
   ngOnInit() {
     this.dashboardService.filterevent.subscribe((m: any) => {
-      this.filtroSistema = m.sistemaDescripcion === ''? 'Sin Filtro' : m.sistemaDescripcion;
-      this.filtroFecha = m.fechaString === '' ?  'Sin Filtro' : m.fechaString;
+      this.filtroSistema = m.sistemaDescripcion === ''? 'Todos' : m.sistemaDescripcion;
+      this.filtroFecha = m.fechaString === '' ?  'Todos' : m.fechaString;
     }, err =>  {
       console.log(err)
 

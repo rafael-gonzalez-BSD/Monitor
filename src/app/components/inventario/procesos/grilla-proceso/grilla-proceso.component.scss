@@ -3,13 +3,15 @@
 .mat-header-cell {
     background-color: #a9aFB0;
     color: white;
-    padding: 15px 0 !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
 }
 
 // Medidas de las columnas
 .mat-column-accion {
     flex: 0 0 80px !important;
     min-width: 80px !important;
+    padding-bottom: 0px;
 }
 
 .mat-column-identificador {

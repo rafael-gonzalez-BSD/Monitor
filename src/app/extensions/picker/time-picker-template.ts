@@ -21,13 +21,6 @@ export class TimePickerTemplate {
       bodyBackgroundColor: '#fff',
       buttonColor: '#000'
     },
-    dial: {
-      dialBackgroundColor: '#7b7b7b',
-      dialActiveColor: '#fff'
-    },
-    clockFace: {
-      clockHandColor: '#ff3300',
-    }
   };
 
 }

@@ -12,6 +12,7 @@ import { MantenimientoService } from '../../../../services/inventario/mantenimie
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { dateRangeValidator } from '../../../../extensions/picker/validate-date';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 
@@ -33,6 +34,7 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private modal: MatDialog,
+    private breakpointObserver: BreakpointObserver,
     private sistemaService: SistemaService,
     private mantenimientoService: MantenimientoService,
     private generalesService: GeneralesService
@@ -57,6 +59,10 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
     if (this.datosFiltros.sistemaId > 0) {
       this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
     }
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 823px)');
   }
 
   setearValorAutocomplete(campo: string, id: number, desc: string) {
@@ -115,8 +121,19 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
         this.mantenimientoModel.sistemaId = 0;
         this.mantenimientoModel.sistemaDescripcion = '';
       }
-      this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
-      this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+
+      if ((this.grupoFormulario.value.fechaDesde != '' || this.grupoFormulario.value.fechaDesde != null) &&
+        (this.grupoFormulario.value.fechaHasta == '' || this.grupoFormulario.value.fechaHasta == null)) {
+        this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
+      }
+
+      if ((this.grupoFormulario.value.fechaDesde == '' || this.grupoFormulario.value.fechaDesde == null) &&
+        (this.grupoFormulario.value.fechaHasta != '' || this.grupoFormulario.value.fechaHasta != null)) {
+        this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
+      }
+
+      this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde || null;
+      this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta || null;
 
       localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
 

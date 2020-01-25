@@ -4,6 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
+        "ie": "ng serve -c es5",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -40,6 +41,7 @@
         "primeng": "^8.1.1",
         "rxjs": "~6.4.0",
         "tslib": "^1.10.0",
+        "web-animations-js": "^2.3.2",
         "zone.js": "~0.9.1"
     },
     "devDependencies": {
