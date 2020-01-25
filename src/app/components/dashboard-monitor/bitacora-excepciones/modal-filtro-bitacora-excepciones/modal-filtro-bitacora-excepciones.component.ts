@@ -9,7 +9,7 @@ import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashbo
 import { Combo } from 'src/app/models/base/combo';
 import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
 
-import * as _moment from 'moment';
+import moment, * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
