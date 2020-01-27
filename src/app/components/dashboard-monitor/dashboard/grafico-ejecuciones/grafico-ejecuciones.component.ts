@@ -28,8 +28,8 @@ export class GraficoEjecucionesComponent implements OnInit {
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
 
-      const ARRAY = m.fechaOcurrenciaCorta.split('/');
-      m.fechaOcurrencia = `${ARRAY[1]}/${ARRAY[0]}/01`;
+      const ARRAY = m.fechaDesdeCorta.split('/');
+      m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
       this.consultarGraficoExcepciones(m);
 
     });
@@ -49,7 +49,7 @@ export class GraficoEjecucionesComponent implements OnInit {
           this.labelEjecuciones = [];
           // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
-              const label = labelToGraphics(response.datos[I].fechaOcurrencia);
+              const label = labelToGraphics(response.datos[I].fechaDesde);
               this.dataEjecuciones.push(response.datos[I].cantidad);
               this.labelEjecuciones.push(label);
             }

@@ -36,7 +36,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    const cadena  = this.datosFiltros.fechaOcurrenciaCorta.split('/');
+    const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
     const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
     this.date =  new FormControl(moment(fecha));
     this.consultarSistemaCombo();

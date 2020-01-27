@@ -110,8 +110,8 @@ export class Layout1Component implements OnInit {
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
 
-    filtrosDashboardModel.fechaOcurrenciaCorta = moment( new Date()).format('MM/YYYY'); 
-    filtrosDashboardModel.fechaOcurrencia = moment( new Date()).format('YYYY/MM/DD'); 
+    filtrosDashboardModel.fechaDesdeCorta = moment( new Date()).format('MM/YYYY'); 
+    filtrosDashboardModel.fechaDesde = moment( new Date()).format('YYYY/MM/DD'); 
 
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));

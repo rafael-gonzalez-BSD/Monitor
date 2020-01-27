@@ -28,8 +28,8 @@ export class GraficoConectoresComponent implements OnInit {
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
 
-      const ARRAY = m.fechaOcurrenciaCorta.split('/');
-      m.fechaOcurrencia = `${ARRAY[1]}/${ARRAY[0]}/01`;
+      const ARRAY = m.fechaDesdeCorta.split('/');
+      m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
       this.consultarGraficoExcepciones(m);
 
     });
@@ -49,7 +49,7 @@ export class GraficoConectoresComponent implements OnInit {
           this.labelsConectores = [];
           // if (this.registrosConectores > 0) {
             for (const I in response.datos) {
-              const label = labelToGraphics(response.datos[I].fechaOcurrencia);
+              const label = labelToGraphics(response.datos[I].fechaDesde);
               this.dataConectores.push(response.datos[I].cantidad);
               this.labelsConectores.push(label);
             }

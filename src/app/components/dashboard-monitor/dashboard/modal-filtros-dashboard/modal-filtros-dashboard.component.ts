@@ -70,7 +70,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   ) { 
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    const cadena  = this.datosFiltros.fechaOcurrenciaCorta.split('/');
+    const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
     const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
     this.date =  new FormControl(moment(fecha));
     this.consultarSistemaCombo();
@@ -106,7 +106,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       sistemaId: new FormControl('', [RequireMatch]),
-      fechaOcurrencia: new FormControl()
+      fechaDesde: new FormControl()
     });
   }
 
@@ -129,8 +129,8 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
       
-      this.filtrosDashboardModel.fechaOcurrencia = this.date.value;      
-      this.filtrosDashboardModel.fechaOcurrenciaCorta = moment(this.date.value).format('MM/YYYY');
+      this.filtrosDashboardModel.fechaDesde = this.date.value;      
+      this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
       this.dashboardService.setearFiltros();
