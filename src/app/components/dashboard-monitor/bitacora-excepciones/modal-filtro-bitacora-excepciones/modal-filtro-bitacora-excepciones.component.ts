@@ -13,6 +13,9 @@ import moment, * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { Observable } from 'rxjs';
+import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -24,8 +27,10 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   tituloModal: string;
   grupoFormulario: FormGroup;
   datosFiltros: any;
+  sistemaCombo: Observable<Combo[]>;
   datosCombo: Combo[];
   filtrosDashboardModel = new FiltrosDashboard();
+  opcion: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -43,6 +48,36 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.grupoFormulario = this.validarFormulario();
+    this.sistemaCombo = this.grupoFormulario.get('sistemaId').valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.descripcion)),
+      map(name => this.filter(name, this.datosCombo))
+    );
+    
+    if (this.datosFiltros.sistemaId > 0) {
+      this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
+    }
+  }
+
+  setearValorAutocomplete(campo: string, id: number, desc: string) {
+    this.grupoFormulario.get(campo).setValue({
+      identificador: id,
+      descripcion: desc
+    });
+  }
+
+  filter(valor: string, datosCombo: Combo[]) {
+    if (valor.length < 4) return [];
+    const filterName = valor.toLowerCase();
+    return datosCombo.filter(option => option.descripcion.toLowerCase().includes(filterName));
+  }
+
+  validarFormulario() {
+    return new FormGroup({
+      sistemaId: new FormControl('', [RequireMatch]),
+      fechaDesde: new FormControl()
+    });
   }
 
   consultarSistemaCombo() {
@@ -80,6 +115,35 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   cerrarModal() {
     this.modal.closeAll();
+  }
+
+  // Mostrar la descripción en el input autocomplete
+  mostrarValor(obj: Combo) {
+    if (obj) return obj.descripcion;
+  }
+
+  buscar(filtrosDashboardModel: FiltrosDashboard) {
+    if (this.grupoFormulario.valid) {
+      
+      this.opcion = 5;
+      // this.generalesService.mostrarLoader();
+      this.filtrosDashboardModel.opcion = this.opcion;
+      if (this.grupoFormulario.value.sistemaId) {
+        this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.filtrosDashboardModel.sistemaId = 0;
+        this.filtrosDashboardModel.sistemaDescripcion = '';
+      }
+      
+      this.filtrosDashboardModel.fechaDesde = this.date.value;      
+      this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
+      localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
+
+      this.dashboardService.setearFiltros();
+      this.dashboardService.obtenerFiltros();
+      this.cerrarModal();
+    }
   }
 
   // Funciones para el manejo en el calendario de solo mes y año

@@ -52,7 +52,7 @@ export class GraficoExcepcionesComponent implements OnInit {
           this.labelsExcepciones = [];
           // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
-              const label = labelToGraphics(response.datos[I].fechaDesde);
+              const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataExcepciones.push(response.datos[I].cantidad);
               this.labelsExcepciones.push(label);
             }
