@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 import { GeneralesService } from './services/general/generales.service';
 import { NotificacionModel } from './models/base/notificacion';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +9,8 @@ import { NotificacionModel } from './models/base/notificacion';
 })
 export class AppComponent implements OnInit {
   title = 'Monitor';
+
+  @ViewChild('personalizado', { static: true }) personalidadoTmpl;
 
   private notifier: NotifierService;
   private generalesService: GeneralesService;
@@ -21,7 +22,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.generalesService.notificacion.subscribe((n: NotificacionModel) => {
-      this.notifier.notify(n.tipo, n.mensaje);
+      this.notifier.show({
+        type: n.tipo,
+        message: n.mensaje,
+        template: this.personalidadoTmpl
+      });
     });
   }
 }
