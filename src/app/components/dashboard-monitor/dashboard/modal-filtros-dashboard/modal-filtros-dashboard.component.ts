@@ -18,6 +18,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { FiltrosDashboard } from '../../../../models/dashboard-monitor/filtrosDashboard';
 import { DashboardService } from '../../../../services/dashboard-monitor/dashboard.service';
 import { log } from 'util';
+import { getLastDayMonth, getFirstDayMonth } from 'src/app/extensions/utils/utils';
 
 const moment = _rollupMoment || _moment;
 
@@ -129,9 +130,8 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
       
-      this.filtrosDashboardModel.fechaDesde = moment(this.date.value).format('YYYY/MM/DD'); 
-      const lastDate = new Date(this.date.value);
-      const ultimoDia = new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 0);  
+      this.filtrosDashboardModel.fechaDesde = getFirstDayMonth(new Date(this.date.value)); 
+      const ultimoDia = getLastDayMonth(new Date(this.date.value));
       this.filtrosDashboardModel.fechaHasta = moment(ultimoDia).format('YYYY/MM/DD');    
       this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));

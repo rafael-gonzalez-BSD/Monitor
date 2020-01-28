@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function labelToGraphics(cadena: string) {
     let label = '';
     // tslint:disable-next-line: radix
@@ -137,4 +139,19 @@ export function getStepSize(arreglo: any) {
 // Recibe una fecha del tipo yyyy/mm/dd y retorna una fecha del tipo dd/mm/yyyy
 export function yyyymmddToddmmyyyy(cadena:string) {
     return `${cadena.substring(8, 10)}/${cadena.substring(5, 7)}/${cadena.substring(0, 4)}`;  
+}
+
+export function getFirstDayMonth(fecha: Date) {   
+    
+    let fechaString: string;
+    const primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
+    fechaString = moment( new Date(primerDia)).format('YYYY/MM/DD');
+    return fechaString;
+}
+
+export function getLastDayMonth(fecha: Date, ) {
+    let fechaString: string;
+    const ultimoDia = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0);
+    fechaString = moment( new Date(ultimoDia)).format('YYYY/MM/DD');
+    return fechaString;
 }

@@ -18,7 +18,7 @@ export class CintillaBitacoraExcepcionesComponent implements OnInit {
 
   ngOnInit() {
     this.excepcionesService.setFiltros.subscribe((m: any) => {
-      
+      console.log(m)
       this.filtroFolio =  m.excepcionId === 0 ? 'Todos' : m.excepcionId;
       this.filtroSistema = m.sistemaDescripcion === '' ? 'Todos' : m.sistemaDescripcion;
       this.filtroEstatus = m.excepcionEstatusDescripcion;

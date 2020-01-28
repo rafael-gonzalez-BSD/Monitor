@@ -16,12 +16,14 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   setearFiltros() {
+    
     const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
     localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
     localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
     localStorage.setItem('fechaDesdeBitacoras', m.fechaDesde );
     localStorage.setItem('fechaHastaBitacoras', m.fechaHasta );
     this.filterevent.emit(m);
+
   }
 
   obtenerFiltros() {

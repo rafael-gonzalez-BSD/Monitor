@@ -12,6 +12,7 @@ import { FiltrosDashboard } from '../../models/dashboard-monitor/filtrosDashboar
 import moment from 'moment';
 import { log } from 'util';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { getFirstDayMonth, getLastDayMonth } from 'src/app/extensions/utils/utils';
 
 @Component({
   selector: 'app-layout1',
@@ -112,11 +113,12 @@ export class Layout1Component implements OnInit {
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
 
-    const date = new Date();
-    const primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    const primerDia = getFirstDayMonth(new Date());
+    const ultimoDia = getLastDayMonth(new Date());
 
     filtrosDashboardModel.fechaDesdeCorta = moment( new Date(primerDia)).format('MM/YYYY'); 
     filtrosDashboardModel.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
+    filtrosDashboardModel.fechaHasta = moment( new Date(ultimoDia)).format('YYYY/MM/DD'); 
 
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
@@ -131,10 +133,8 @@ export class Layout1Component implements OnInit {
     filtrosExcepcion.sistemaId = 0;
     filtrosExcepcion.sistemaDescripcion = '';
 
-    const date = new Date();
-    const primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
-    const ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    
+    const primerDia = getFirstDayMonth(new Date());
+    const ultimoDia = getLastDayMonth(new Date());    
 
     filtrosExcepcion.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
     filtrosExcepcion.fechaHasta = moment( new Date(ultimoDia)).format('YYYY/MM/DD'); 
