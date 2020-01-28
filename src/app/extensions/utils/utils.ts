@@ -39,6 +39,78 @@ export function labelToGraphics(cadena: string) {
     return label;
 }
 
+export function convertFechaCintilla(cadena: string, tipoEntrada: string) {
+    // YYYY/MM/DD
+    let mesString = '';
+    let label = '';
+    let dia: string;
+    let mes: number;
+    let anio: string;
+
+    if (tipoEntrada === 'MMYYYY') {
+        // tslint:disable-next-line: radix
+        mes = parseInt(cadena.substring(0, 3));
+        anio = cadena.substring(3, 8);
+    }else if(tipoEntrada === 'DDMMYYYY'){
+        // tslint:disable-next-line: radix
+        mes = parseInt(cadena.substring(3, 5));
+        anio = cadena.substring(6, 11);
+        dia = cadena.substring(0, 2);
+    }else if(tipoEntrada === 'YYYYMMDD'){
+        // tslint:disable-next-line: radix
+        mes = parseInt(cadena.substring(5, 7));
+        anio = cadena.substring(0, 4);
+        dia = cadena.substring(8, 10);
+    }
+    
+    // tslint:disable-next-line: radix
+     
+
+    switch (mes) {
+        case 1: mesString = 'Ene';
+            break;
+        case 2: mesString = 'Feb';
+            break;
+        case 3: mesString = 'Mar';
+            break;
+        case 4: mesString = 'Abr';
+            break;
+        case 5: mesString = 'May';
+            break;
+        case 6: mesString = 'Jun';
+            break;
+        case 7: mesString = 'Jul';
+            break;
+        case 8: mesString = 'Ago';
+        break
+        case 9: mesString = 'Sep';
+            break;
+        case 10: mesString = 'Oct';
+            break;
+        case 11: mesString = 'Nov';
+            break;
+        case 12: mesString = 'Dic';
+        break
+
+        default: mesString = '';
+            break;
+    }
+
+    if (tipoEntrada === 'MMYYYY') {
+        label = `${mesString}/${anio}`;
+        
+    }else if(tipoEntrada === 'DDMMYYYY'){
+        label = `${dia}/${mesString}/${anio}`;
+    }
+    else if(tipoEntrada === 'YYYYMMDD'){
+        label = `${dia}/${mesString}/${anio}`;
+    }
+
+    
+
+    return label;
+}
+
 export function getStepSize(arreglo: any) {
     let max: number;
     let stepSize: number;
@@ -60,4 +132,9 @@ export function getStepSize(arreglo: any) {
     
 
     return stepSize;
+}
+
+// Recibe una fecha del tipo yyyy/mm/dd y retorna una fecha del tipo dd/mm/yyyy
+export function yyyymmddToddmmyyyy(cadena:string) {
+    return `${cadena.substring(8, 10)}/${cadena.substring(5, 7)}/${cadena.substring(0, 4)}`;  
 }

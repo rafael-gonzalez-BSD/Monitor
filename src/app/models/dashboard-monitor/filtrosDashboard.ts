@@ -3,5 +3,6 @@ export class FiltrosDashboard {
     sistemaId: number;
     sistemaDescripcion: string;
     fechaDesde: string;
+    fechaHasta: string;
     fechaDesdeCorta: string;
 }

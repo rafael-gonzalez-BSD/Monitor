@@ -129,7 +129,10 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
       
-      this.filtrosDashboardModel.fechaDesde = this.date.value;      
+      this.filtrosDashboardModel.fechaDesde = moment(this.date.value).format('YYYY/MM/DD'); 
+      const lastDate = new Date(this.date.value);
+      const ultimoDia = new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 0);  
+      this.filtrosDashboardModel.fechaHasta = moment(ultimoDia).format('YYYY/MM/DD');    
       this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 

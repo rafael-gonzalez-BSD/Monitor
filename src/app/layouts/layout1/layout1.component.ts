@@ -11,6 +11,7 @@ import { ConfigConectores } from '../../models/configuracion/config-conectores';
 import { FiltrosDashboard } from '../../models/dashboard-monitor/filtrosDashboard';
 import moment from 'moment';
 import { log } from 'util';
+import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 
 @Component({
   selector: 'app-layout1',
@@ -33,6 +34,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosConfigEjecuciones();
     this.resetearFiltrosConfigConectores();
     this.resetearFiltrosDashboard();
+    this.resetearFiltrosExcepcion();
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;
@@ -110,11 +112,40 @@ export class Layout1Component implements OnInit {
     filtrosDashboardModel.sistemaId = 0;
     filtrosDashboardModel.sistemaDescripcion = '';
 
-    filtrosDashboardModel.fechaDesdeCorta = moment( new Date()).format('MM/YYYY'); 
-    filtrosDashboardModel.fechaDesde = moment( new Date()).format('YYYY/MM/DD'); 
+    const date = new Date();
+    const primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+
+    filtrosDashboardModel.fechaDesdeCorta = moment( new Date(primerDia)).format('MM/YYYY'); 
+    filtrosDashboardModel.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
 
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
+  }
+
+  resetearFiltrosExcepcion() {
+    const filtrosExcepcion = new FiltrosExcepcion();
+    filtrosExcepcion.opcion = 5;
+    filtrosExcepcion.excepcionId = 0;
+    filtrosExcepcion.excepcionEstatusId = 1;
+    filtrosExcepcion.excepcionEstatusDescripcion = 'Abierta';
+    filtrosExcepcion.sistemaId = 0;
+    filtrosExcepcion.sistemaDescripcion = '';
+
+    const date = new Date();
+    const primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    const ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    
+
+    filtrosExcepcion.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
+    filtrosExcepcion.fechaHasta = moment( new Date(ultimoDia)).format('YYYY/MM/DD'); 
+
+    localStorage.setItem('fechaDesdeBitacoras', moment( new Date(primerDia)).format('YYYY/MM/DD'));
+    localStorage.setItem('fechaHastaBitacoras', moment( new Date(ultimoDia)).format('YYYY/MM/DD'));
+    localStorage.setItem('sistemaIdBitacoras', filtrosExcepcion.sistemaId.toString());
+    localStorage.setItem('sistemaDescripcionBitacoras', filtrosExcepcion.sistemaDescripcion);
+
+    localStorage.removeItem('filtrosExcepcion');
+    localStorage.setItem('filtrosExcepcion', JSON.stringify(filtrosExcepcion));
   }
 
 }
