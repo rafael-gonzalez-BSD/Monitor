@@ -120,7 +120,6 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     if (this.grupoFormulario.valid) {
       
       this.opcion = 5;
-      // this.generalesService.mostrarLoader();
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
@@ -129,7 +128,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
         this.filtrosDashboardModel.sistemaId = 0;
         this.filtrosDashboardModel.sistemaDescripcion = '';
       }
-      
+
       this.filtrosDashboardModel.fechaDesde = getFirstDayMonth(new Date(this.date.value)); 
       const ultimoDia = getLastDayMonth(new Date(this.date.value));
       this.filtrosDashboardModel.fechaHasta = moment(ultimoDia).format('YYYY/MM/DD');    
