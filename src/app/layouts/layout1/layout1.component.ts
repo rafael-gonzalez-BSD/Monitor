@@ -37,7 +37,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosDashboard();
     this.resetearFiltrosExcepcion();
 
-    localStorage.setItem('tamanioPaginar', '10');
+    localStorage.setItem('tamanioPaginar', '2');
 
     this.sidebarService.change.subscribe(open => {
       this.open = open;

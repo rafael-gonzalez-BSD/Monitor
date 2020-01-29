@@ -9,6 +9,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { getLanguageSpanish } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
@@ -50,7 +51,8 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
       pageLength: 10,
       lengthChange: false,
       responsive: true,
-      paging: this.paginar
+      paging: this.paginar,
+      language: getLanguageSpanish()
     }; 
 
     this.configEjecucionesService.filtros.subscribe((m: any) => {
