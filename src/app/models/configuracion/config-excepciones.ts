@@ -13,5 +13,6 @@ export class ConfigExcepciones {
   baja: boolean;
   sistemaId: number;
   sistemaDescripcion: string;
+  ventanaMantenimiento: string | null;
   opcion: number;
 }

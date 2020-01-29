@@ -17,5 +17,6 @@ export class ConfigEjecuciones {
   sistemaDescripcion: string;
   procesoId: number;
   procesoDescripcion: string;
+  ventanaMantenimiento: string | null;
   opcion: number;
 }
