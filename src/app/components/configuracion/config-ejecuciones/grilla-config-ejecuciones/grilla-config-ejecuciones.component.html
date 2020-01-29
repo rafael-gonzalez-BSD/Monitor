@@ -1,4 +1,49 @@
 <div class="row controles-tabla">
+
+    <div class="col-12 text-right">
+        <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Crear</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="mat-elevation-z5 container-table">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <thead>
+                    <tr>
+                        <th>Acción</th>
+                        <th>Sistema</th>
+                        <th>Proceso</th>
+                        <th>Frecuencia</th>
+                        <th>Ruta Log</th>
+                        <th>Horario</th>
+                        <th>Ventana Mantenimiento</th>
+                        <th>Tiempo Estimado</th>
+                        <th>Tiempo Óptimo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of config">
+                        <td>{{ item.ejecucionConfiguracionId }}</td>
+                        <td>{{ item.sistemaDescripcion }}</td>
+                        <td>{{ item.procesoDescripcion }}</td>
+                        <td>{{ item.frecuencia }}</td>
+                        <td>{{ item.rutaLog }}</td>
+                        <td>{{ item.horaDesde }} - {{ item.horaHasta }}</td>
+                        <td>Mantenimientdo (dummie)</td>
+                        <td>{{ item.tiempoEstimadoEjecucion }}</td>
+                        <td>{{ item.tiempoOptimoEjecucion }}</td>
+                        <td>{{ item.baja }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row controles-tabla">
     <div class="col-8">
         <input class="input-ternium" id="filtroGrilla" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
     </div>
@@ -15,7 +60,9 @@
                 <ng-container matColumnDef="accion">
                     <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="accion">
-                        <button mat-icon-button (click)="consultarConfigEjecucionesId(row)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button (click)="consultarConfigEjecucionesId(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </mat-cell>
                 </ng-container>
 
@@ -52,13 +99,15 @@
                 <!-- COLUMNA VENTANA MANTENIMIENTO -->
                 <ng-container matColumnDef="ventanaMantenimiento">
                     <mat-header-cell *matHeaderCellDef>Ventana Mantenimiento</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="ventana Mantenimiento">{{row.ventanaMantenimiento}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="ventana Mantenimiento">{{row.ventanaMantenimiento}}
+                    </mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA TIEMPO ESTIMADO EJECUCION -->
                 <ng-container matColumnDef="tiempoEstimadoEjecucion">
                     <mat-header-cell *matHeaderCellDef>Tiempo Estimado</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="Tiempo Estimado">{{row.tiempoEstimadoEjecucion}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Tiempo Estimado">{{row.tiempoEstimadoEjecucion}}
+                    </mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA TIEMPO ESTIMADO EJECUCION -->
@@ -71,7 +120,8 @@
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let row" data-label="estado">
-                        <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
+                        <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)">
+                        </mat-slide-toggle>
                     </mat-cell>
                 </ng-container>
 
@@ -82,7 +132,8 @@
             <div *ngIf="noData | async" class="no-records">
                 Ningún dato disponible en esta tabla
             </div>
-            <mat-paginator id="paginadorGrilla" [pageSize]="pageSize" [length]="length" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event" [hidden]="length < pageSize"></mat-paginator>
+            <mat-paginator id="paginadorGrilla" [pageSize]="pageSize" [length]="length" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event" [hidden]="length < pageSize">
+            </mat-paginator>
         </div>
     </div>
 </div>

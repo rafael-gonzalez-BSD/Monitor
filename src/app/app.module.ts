@@ -84,6 +84,8 @@ import { CintillaBitacoraConectoresComponent } from './components/dashboard-moni
 import { ModalFiltroBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/modal-filtro-bitacora-conectores/modal-filtro-bitacora-conectores.component';
 import { GrillaBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/grilla-bitacora-conectores/grilla-bitacora-conectores.component';
 
+// Angular DataTable
+import { DataTablesModule } from 'angular-datatables';
 /**
  * Custom angular notifier options
  */
@@ -188,7 +190,8 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     LayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    DataTablesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

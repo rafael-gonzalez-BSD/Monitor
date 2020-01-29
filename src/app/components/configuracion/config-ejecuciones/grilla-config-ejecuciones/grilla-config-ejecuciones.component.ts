@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ConfigEjecucionesService } from '../../../../services/configuracion/config-ejecuciones.service';
 import { ModalGuardarConfigEjecucionesComponent } from '../modal-guardar-config-ejecuciones/modal-guardar-config-ejecuciones.component';
 import { MatDialogConfig, MatTableDataSource, PageEvent, MatPaginator, MatSort, MatDialog } from '@angular/material';
@@ -7,14 +7,21 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
   templateUrl: './grilla-config-ejecuciones.component.html',
   styleUrls: ['./grilla-config-ejecuciones.component.scss']
 })
-export class GrillaConfigEjecucionesComponent implements OnInit {
+export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
+  // DataTable
+  dtOptions: any = {};
+  config: ConfigEjecuciones[] = [];
+  dtTrigger: Subject<ConfigEjecuciones> = new Subject<ConfigEjecuciones>();
+  paginar = false;
+
+
   tableColumns: string[] = ['accion', 'sistema', 'proceso', 'frecuencia', 'rutaLog', 'horario', 'ventanaMantenimiento', 'tiempoEstimadoEjecucion', 'tiempoOptimoEjecucion', 'estado'];
   dataSource: MatTableDataSource<ConfigEjecuciones>;
   configEjecucionesModel = new ConfigEjecuciones();
@@ -33,11 +40,26 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      lengthChange: false,
+      responsive: true,
+      paging: this.paginar
+    };
+
+    
+
     this.configEjecucionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigEjecuciones(m);
     });
     this.configEjecucionesService.obtenerFiltros();
     this.configEjecucionesService.setearFiltros();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -49,10 +71,27 @@ export class GrillaConfigEjecucionesComponent implements OnInit {
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
+
+          this.config = res.datos;
+          
+
           this.dataSource = new MatTableDataSource(res.datos);
           this.dataSource.paginator = this.paginator;
           // this.dataSource.sort = this.sort;
           this.length = res.datos.length;
+
+          // Validamos si debemos paginar o no
+          // tslint:disable-next-line: radix
+          const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
+          if(this.length > tamanioPaginar) 
+          {
+            this.dtOptions.paging = true;
+          }
+          
+          
+
+          this.dtTrigger.next();
+
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de configuraciones de ejecuciones. ${res.mensaje}`));
         }
