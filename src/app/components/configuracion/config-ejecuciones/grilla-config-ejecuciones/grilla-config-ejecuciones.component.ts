@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { ConfigEjecucionesService } from '../../../../services/configuracion/config-ejecuciones.service';
 import { ModalGuardarConfigEjecucionesComponent } from '../modal-guardar-config-ejecuciones/modal-guardar-config-ejecuciones.component';
 import { MatDialogConfig, MatTableDataSource, PageEvent, MatPaginator, MatSort, MatDialog } from '@angular/material';
@@ -8,18 +8,22 @@ import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecucion
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
   templateUrl: './grilla-config-ejecuciones.component.html',
   styleUrls: ['./grilla-config-ejecuciones.component.scss']
 })
-export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
+export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestroy, OnInit {
   // DataTable
   dtOptions: any = {};
   config: ConfigEjecuciones[] = [];
-  dtTrigger: Subject<ConfigEjecuciones> = new Subject<ConfigEjecuciones>();
+  dtTrigger: Subject<ConfigEjecuciones> = new Subject();
   paginar = false;
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
 
   tableColumns: string[] = ['accion', 'sistema', 'proceso', 'frecuencia', 'rutaLog', 'horario', 'ventanaMantenimiento', 'tiempoEstimadoEjecucion', 'tiempoOptimoEjecucion', 'estado'];
@@ -40,15 +44,14 @@ export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnInit() {
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthChange: false,
       responsive: true,
       paging: this.paginar
-    };
-
-    
+    }; 
 
     this.configEjecucionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigEjecuciones(m);
@@ -57,9 +60,25 @@ export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
     this.configEjecucionesService.setearFiltros();
   }
 
+  ngAfterViewInit(){
+
+    
+      this.dtTrigger.next();
+  }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -71,6 +90,7 @@ export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
+          
 
           this.config = res.datos;
           
@@ -86,11 +106,8 @@ export class GrillaConfigEjecucionesComponent implements OnDestroy, OnInit {
           if(this.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
-          }
-          
-          
-
-          this.dtTrigger.next();
+          }          
+          this.rerender();
 
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de configuraciones de ejecuciones. ${res.mensaje}`));
