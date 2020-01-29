@@ -198,13 +198,13 @@
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-        <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+        <button class="btn-ternium-secondary" type="button" mat-button mat-dialog-close>Cancelar</button>
+        <button class="btn-ternium-primary " type="button" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
     </mat-dialog-actions>
     <ng-template #cancelBtn>
-        <button class="btn-ternium-secondary" mat-button style="margin-right:5px">Cancelar</button>
+        <button class="btn-ternium-secondary" type="button" mat-button style="margin-right:5px">Cancelar</button>
     </ng-template>
     <ng-template #confirmBtn>
-        <button class="btn-ternium-primary" mat-button>Aceptar</button>
+        <button class="btn-ternium-primary" type="button" mat-button>Aceptar</button>
     </ng-template>
 </form>

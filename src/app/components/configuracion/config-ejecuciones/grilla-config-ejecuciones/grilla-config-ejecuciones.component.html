@@ -1,10 +1,10 @@
-<div class="row controles-tabla">
+<div class="row controles-tabla" *ngIf="false">
 
     <div class="col-12 text-right">
         <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Crear</button>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="false">
     <div class="col-12">
         <div class="mat-elevation-z5 container-table">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
