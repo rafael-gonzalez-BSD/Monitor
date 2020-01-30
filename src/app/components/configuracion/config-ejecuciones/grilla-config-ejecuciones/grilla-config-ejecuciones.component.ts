@@ -47,9 +47,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   ngOnInit() {
 
     this.dtOptions = getConfigDataTable();
-
-    console.log(this.dtOptions)
-
     this.configEjecucionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigEjecuciones(m);
     });
@@ -87,7 +84,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
-          console.log(res.datos);         
 
           this.config = res.datos;
           
@@ -179,7 +175,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-    console.log(CONFIG_MODAL);
      this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }
 
@@ -197,8 +192,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
-    console.log(dialogConfig);
-    // this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
+    this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
   }
 
   
