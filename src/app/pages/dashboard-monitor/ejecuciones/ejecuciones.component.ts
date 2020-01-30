@@ -9,9 +9,9 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 })
 export class EjecucionesComponent implements OnInit {
 
-  constructor( private generalesService: GeneralesService,
-    private breakpointObserver: BreakpointObserver) { 
-      this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+  constructor(private generalesService: GeneralesService,
+    private breakpointObserver: BreakpointObserver) {
+    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
         this.setearTitulo('BITÁCORA DE EJECUCIONES');
       }

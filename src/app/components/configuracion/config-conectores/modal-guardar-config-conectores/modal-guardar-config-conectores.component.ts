@@ -189,16 +189,21 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       this.generalesService.notificar(not);
     },
       err => {
+        debugger
         this.datosEditar.rutaExiste = false;
         switch (err.status) {
           case 404:
             not.tipo = 'warning'
-            not.mensaje = `URL inválida. La URL no existe`;
+            not.mensaje = `URL inválida, la URL no existe`;
+            break;
+          case 0:
+            not.tipo = 'warning'
+            not.mensaje = `URL inválida, error desconocido`;
             break;
 
           default:
-            not.tipo = 'error'
-            not.mensaje = `URL inválida. ${err.message}`;
+            not.tipo = 'warning'
+            not.mensaje = `URL inválida, ${err.message}`;
             break;
         }
 

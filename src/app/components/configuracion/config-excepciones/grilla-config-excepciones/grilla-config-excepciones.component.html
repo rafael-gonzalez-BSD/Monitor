@@ -14,7 +14,7 @@
                 <!-- COLUMNA ACCION -->
                 <ng-container matColumnDef="accion">
                     <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="accion">
+                    <mat-cell *matCellDef="let row" data-label="Acción">
                         <button mat-icon-button (click)="consultarConfigExcepcionesId(row)"><mat-icon>edit</mat-icon></button>
                     </mat-cell>
                 </ng-container>
@@ -22,37 +22,37 @@
                 <!-- COLUMNA SISTEMA -->
                 <ng-container matColumnDef="sistema">
                     <mat-header-cell *matHeaderCellDef>Sistema</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="sistema">{{row.sistemaDescripcion}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Sistema">{{row.sistemaDescripcion}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA RUTA LOG -->
                 <ng-container matColumnDef="rutaLog">
                     <mat-header-cell *matHeaderCellDef>Ruta Log</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="ruta Log">{{row.rutaLog}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Ruta Log">{{row.rutaLog}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA FRECUENCIA -->
                 <ng-container matColumnDef="frecuencia">
                     <mat-header-cell *matHeaderCellDef>Frecuencia</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="frecuencia">{{row.frecuencia}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Frecuencia">{{row.frecuencia}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA HORARIO -->
                 <ng-container matColumnDef="horario">
                     <mat-header-cell *matHeaderCellDef>Horario</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="horario">{{row.horaDesde | hourFormat}} - {{row.horaHasta | hourFormat}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Horario">{{row.horaDesde | hourFormat}} - {{row.horaHasta | hourFormat}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA VENTANA MANTENIMIENTO -->
                 <ng-container matColumnDef="ventanaMantenimiento">
                     <mat-header-cell *matHeaderCellDef>Ventana Mantenimiento</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="ventana Mantenimiento">{{row.ventanaMantenimiento}}</mat-cell>
+                    <mat-cell *matCellDef="let row" data-label="Ventana Mantenimiento">{{row.ventanaMantenimiento}}</mat-cell>
                 </ng-container>
 
                 <!-- COLUMNA ESTADO -->
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-                    <mat-cell *matCellDef="let row" data-label="estado">
+                    <mat-cell *matCellDef="let row" data-label="Estado">
                         <mat-slide-toggle [checked]="!row.baja" (change)="actualizarEstado($event, row)"></mat-slide-toggle>
                     </mat-cell>
                 </ng-container>

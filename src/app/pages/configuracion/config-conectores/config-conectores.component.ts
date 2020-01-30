@@ -20,12 +20,13 @@ export class ConfigConectoresComponent implements OnInit {
   ) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
-        this.setearTitulo('CONFIGURAR MONITOREO');
+        this.setearTitulo('BITÁCORA DE MONITOREO');
       }
     });
   }
 
   ngOnInit() {
+    this.setearTitulo('BITÁCORA DE MONITOREO');
   }
 
   setearTitulo(titulo) {

@@ -33,11 +33,11 @@ export class MenuMovilComponent implements OnInit {
 
   tarjetasConfiguracion = [
     {
-      titulo: 'Bitácora de Excepciones',
+      titulo: 'Bitácora de Excepción',
       ruta: '../config-excepciones'
     },
     {
-      titulo: 'Bitácora de Ejecuciones',
+      titulo: 'Bitácora de Ejecución',
       ruta: '../config-ejecuciones'
     },
     {
