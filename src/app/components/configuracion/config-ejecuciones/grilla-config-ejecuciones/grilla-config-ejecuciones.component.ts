@@ -7,7 +7,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
 
@@ -27,14 +27,10 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   dtElement: DataTableDirective;
 
 
-  tableColumns: string[] = ['accion', 'sistema', 'proceso', 'frecuencia', 'rutaLog', 'horario', 'ventanaMantenimiento', 'tiempoEstimadoEjecucion', 'tiempoOptimoEjecucion', 'estado'];
-  dataSource: MatTableDataSource<ConfigEjecuciones>;
   configEjecucionesModel = new ConfigEjecuciones();
-  pageSizeOptions = [10, 25, 100];
-  pageSize = 10;
   length: number;
-  pageEvent: PageEvent;
-  noData: Observable<boolean>;
+
+  configEjecucionesSubs: Subscription;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -47,7 +43,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   ngOnInit() {
 
     this.dtOptions = getConfigDataTable();
-    this.configEjecucionesService.filtros.subscribe((m: any) => {
+    this.configEjecucionesSubs = this.configEjecucionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigEjecuciones(m);
     });
     this.configEjecucionesService.obtenerFiltros();
@@ -63,6 +59,11 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+    if (this.configEjecucionesSubs) {
+      this.configEjecucionesSubs.unsubscribe();      
+    }
+
+    
   }
 
   rerender(): void {
@@ -75,9 +76,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     });
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-  }
 
   obtenerConfigEjecuciones(m: ConfigEjecuciones) {
     this.generalesService.mostrarLoader();
@@ -86,11 +84,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
         if (res.satisfactorio) {
 
           this.config = res.datos;
-          
-
-          this.dataSource = new MatTableDataSource(res.datos);
-          this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
           this.length = res.datos.length;
 
           // Validamos si debemos paginar o no
@@ -112,31 +105,9 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
         this.generalesService.quitarLoader();
       },
       () => {
-        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  consultarConfigEjecucionesId(datosEditar: any) {
-    const CONFIG_MODAL = new MatDialogConfig();
-    CONFIG_MODAL.data = datosEditar;
-    CONFIG_MODAL.data.edit = true;
-    CONFIG_MODAL.data.opcion = 1;
-    CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Ejecución';
-    CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
-    CONFIG_MODAL.height = 'auto';
-    CONFIG_MODAL.width = '90%';
-    CONFIG_MODAL.maxWidth = '1024px';
-    this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }
 
   consultarConfiguEjecucionesId(id: number) {
