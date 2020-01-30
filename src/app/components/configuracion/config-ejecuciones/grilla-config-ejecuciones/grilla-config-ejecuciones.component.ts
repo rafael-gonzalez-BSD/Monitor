@@ -31,6 +31,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   length: number;
 
   configEjecucionesSubs: Subscription;
+  loader = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -44,7 +45,8 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
     this.dtOptions = getConfigDataTable();
     this.configEjecucionesSubs = this.configEjecucionesService.filtros.subscribe((m: any) => {
-      this.obtenerConfigEjecuciones(m);
+       this.obtenerConfigEjecuciones(m);       
+     
     });
     this.configEjecucionesService.obtenerFiltros();
     this.configEjecucionesService.setearFiltros();
@@ -78,7 +80,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
 
   obtenerConfigEjecuciones(m: ConfigEjecuciones) {
-    this.generalesService.mostrarLoader();
+    // this.generalesService.mostrarLoader();
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
