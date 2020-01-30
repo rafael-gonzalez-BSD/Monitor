@@ -62,3 +62,9 @@ td.verMasDt::before {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25) !important;
     }
 }
+
+table.dataTable thead th,
+table.dataTable thead td {
+    padding-right: 10px;
+    padding-left: 10px;
+}
