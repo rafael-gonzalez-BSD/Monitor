@@ -36,7 +36,6 @@ export class ConfigEjecucionesService {
   }
 
   obtenerConfigEjecuciones(m: ConfigEjecuciones) {
-    debugger;
     let parametros = new HttpParams();
     // tslint:disable-next-line: forin
     for (const key in m) {

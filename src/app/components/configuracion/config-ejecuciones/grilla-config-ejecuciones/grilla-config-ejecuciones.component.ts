@@ -152,7 +152,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
           if (res.datos.length > 0) {
-            this.abrirModalEditar(res.datos);        
+            this.abrirModalEditar(res.datos[0]);        
           }else{
             this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
           }
@@ -180,7 +180,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     console.log(CONFIG_MODAL);
-    // this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
+     this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }
 
   abrirModalGuardar() {
