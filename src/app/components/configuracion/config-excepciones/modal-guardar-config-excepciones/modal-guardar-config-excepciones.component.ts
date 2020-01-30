@@ -25,6 +25,7 @@ import { MantenimientoService } from '../../../../services/inventario/mantenimie
   styleUrls: ['./modal-guardar-config-excepciones.component.scss']
 })
 export class ModalGuardarConfigExcepcionesComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -162,40 +163,43 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
 
   guardarConfiguracionExcepcion(configExcepcionesModel: ConfigExcepciones) {
-    this.generalesService.mostrarLoader();
-    if (this.grupoFormulario.valid) {
-      this.configExcepcionesModel = configExcepcionesModel;
-      this.configExcepcionesModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.excepcionConfiguracionId) {
-        this.configExcepcionesModel.excepcionConfiguracionId = this.grupoFormulario.value.excepcionConfiguracionId;
-      }
+    this.submitted = true;
 
-      this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
-      this.configExcepcionesModel.baja = !this.toggleBaja;
-      this.configExcepcionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
-      this.configExcepcionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
-      this.configExcepcionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
-      this.configExcepcionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-
-      this.configExcepcionesService.guardarConfigExcepcion(configExcepcionesModel, this.esEdicion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.configExcepcionesService.obtenerFiltros();
-            this.configExcepcionesService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+    this.generalesService.mostrarLoader();
+    this.configExcepcionesModel = configExcepcionesModel;
+    this.configExcepcionesModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.excepcionConfiguracionId) {
+      this.configExcepcionesModel.excepcionConfiguracionId = this.grupoFormulario.value.excepcionConfiguracionId;
+    }
+
+    this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configExcepcionesModel.baja = !this.toggleBaja;
+    this.configExcepcionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
+    this.configExcepcionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
+    this.configExcepcionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.configExcepcionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+
+    this.configExcepcionesService.guardarConfigExcepcion(configExcepcionesModel, this.esEdicion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.configExcepcionesService.obtenerFiltros();
+          this.configExcepcionesService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
 
   testearRuta() {

@@ -15,6 +15,7 @@ import { inputText } from 'src/app/extensions/custom-validator/validations';
   styleUrls: ['./modal-guardar-sistema.component.scss']
 })
 export class ModalGuardarSistemaComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -102,42 +103,45 @@ export class ModalGuardarSistemaComponent implements OnInit {
   }
 
   guardarSistema(sistemaModel: Sistema) {
-    this.generalesService.mostrarLoader();
-    if (this.grupoFormulario.valid) {
-      this.insercion ? (this.opcion = 1) : (this.opcion = 3);
+    this.submitted = true;
 
-      this.sistemaModel = sistemaModel;
-      if (this.grupoFormulario.value.SistemaId) {
-        this.sistemaModel.sistemaId = this.grupoFormulario.value.SistemaId;
-      }
-      this.sistemaModel.opcion = this.opcion;
-
-      this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
-      this.sistemaModel.baja = !this.toggleBaja;
-      this.sistemaModel.alias = this.grupoFormulario.value.Alias;
-      this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
-      this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
-
-
-      this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.sistemaService.obtenerFiltros();
-            this.sistemaService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+    this.generalesService.mostrarLoader();
+    this.insercion ? (this.opcion = 1) : (this.opcion = 3);
+
+    this.sistemaModel = sistemaModel;
+    if (this.grupoFormulario.value.SistemaId) {
+      this.sistemaModel.sistemaId = this.grupoFormulario.value.SistemaId;
+    }
+    this.sistemaModel.opcion = this.opcion;
+
+    this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
+    this.sistemaModel.baja = !this.toggleBaja;
+    this.sistemaModel.alias = this.grupoFormulario.value.Alias;
+    this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
+    this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
+
+
+    this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.sistemaService.obtenerFiltros();
+          this.sistemaService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
 
   resetForm() {

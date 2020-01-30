@@ -28,6 +28,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./modal-guardar-mantenimiento.component.scss']
 })
 export class ModalGuardarMantenimientoComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -127,51 +128,53 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
   }
 
   guardarMantenimiento(m: Mantenimiento) {
-    if (this.grupoFormulario.valid) {
-      this.generalesService.mostrarLoader();
-
-      this.mantenimientoModel = m;
-      this.mantenimientoModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.ventanaMantenimientoId) {
-        this.mantenimientoModel.ventanaMantenimientoId = this.grupoFormulario.value.ventanaMantenimientoId;
-      }
-      const fechaDesde: any = moment(this.grupoFormulario.value.fechaDesde).utcOffset(0);
-      fechaDesde.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
-      fechaDesde.toISOString();
-      fechaDesde.format();
-
-      const fechaHasta: any = moment(this.grupoFormulario.value.fechaHasta).utcOffset(0);
-      fechaHasta.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
-      fechaHasta.toISOString();
-      fechaHasta.format();
-
-      this.mantenimientoModel.fechaDesde = fechaDesde;
-      this.mantenimientoModel.horaDesde = this.grupoFormulario.value.horaDesde;
-      this.mantenimientoModel.fechaHasta = fechaHasta;
-      this.mantenimientoModel.horaHasta = this.grupoFormulario.value.horaHasta;
-      this.mantenimientoModel.baja = !this.toggleBaja;
-      this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-
-      this.mantenimientoService.guardarMantenimiento(this.mantenimientoModel, this.esEdicion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.mantenimientoService.obtenerFiltros();
-            this.mantenimientoService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
-
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+
+    this.generalesService.mostrarLoader();
+
+    this.mantenimientoModel = m;
+    this.mantenimientoModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.ventanaMantenimientoId) {
+      this.mantenimientoModel.ventanaMantenimientoId = this.grupoFormulario.value.ventanaMantenimientoId;
+    }
+    const fechaDesde: any = moment(this.grupoFormulario.value.fechaDesde).utcOffset(0);
+    fechaDesde.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+    fechaDesde.toISOString();
+    fechaDesde.format();
+
+    const fechaHasta: any = moment(this.grupoFormulario.value.fechaHasta).utcOffset(0);
+    fechaHasta.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+    fechaHasta.toISOString();
+    fechaHasta.format();
+
+    this.mantenimientoModel.fechaDesde = fechaDesde;
+    this.mantenimientoModel.horaDesde = this.grupoFormulario.value.horaDesde;
+    this.mantenimientoModel.fechaHasta = fechaHasta;
+    this.mantenimientoModel.horaHasta = this.grupoFormulario.value.horaHasta;
+    this.mantenimientoModel.baja = !this.toggleBaja;
+    this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+
+    this.mantenimientoService.guardarMantenimiento(this.mantenimientoModel, this.esEdicion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.mantenimientoService.obtenerFiltros();
+          this.mantenimientoService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('success', 'Ocurrió un error'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
 
   get ventanaMantenimientoId() {

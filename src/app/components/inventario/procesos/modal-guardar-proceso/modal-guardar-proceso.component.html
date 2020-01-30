@@ -9,7 +9,7 @@
             <div class="col-12 col-md-6 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="procesoDescripcion" class="form-control" type="text" [ngModel]="datosEditar.procesoDescripcion">
-                <div class="div-errors" *ngIf="procesoDescripcion.invalid && ( procesoDescripcion.touched )">
+                <div class="div-errors" *ngIf="submitted && procesoDescripcion.errors">
                     <div class="container-error" *ngIf="procesoDescripcion.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -25,7 +25,7 @@
 
                 <label for="">Sistema</label>
                 <input class="form-control" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
-                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                <div class="div-errors" *ngIf="submitted && sistemaId.errors">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -55,6 +55,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+        <button class="btn-ternium-primary" mat-button>Guardar</button>
     </mat-dialog-actions>
 </form>
