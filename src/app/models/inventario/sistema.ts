@@ -5,6 +5,7 @@ export class Sistema {
   baja?: boolean;
   alias: string;
   gerenciaId: number;
+  gerenciaDescripcion: string;
   bajaDescripcion: string;
   descripcion: string;
   opcion: number;

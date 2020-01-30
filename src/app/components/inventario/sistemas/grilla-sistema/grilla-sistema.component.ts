@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -9,30 +9,38 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+import { RespuestaModel } from 'src/app/models/base/respuesta';
+import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-sistema',
   templateUrl: './grilla-sistema.component.html',
   styleUrls: ['./grilla-sistema.component.scss']
 })
-export class GrillaSistemaComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'identificador', 'alias', 'nombre', 'areaPropietaria', 'descripcion', 'estado'];
-  dataSource: MatTableDataSource<Sistema>;
-  sistemaModel = new Sistema();
-  pageSizeOptions = [10, 25, 100];
-  pageSize = 10;
-  length: number;
-  pageEvent: PageEvent;
-  noData: Observable<boolean>;
+export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit {
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+  // DataTable
+  dtOptions: any = {};
+  listadoSistemas: Sistema[] = [];
+  dtTrigger: Subject<Sistema> = new Subject();
+  paginar = false;
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+
+  sistemasSubs: Subscription;
+
+
+  sistemaModel = new Sistema();
+  length: number;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
-    this.sistemaService.filtros.subscribe((m: any) => {
+    this.dtOptions = getConfigDataTable();
+    this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
@@ -40,8 +48,26 @@ export class GrillaSistemaComponent implements OnInit {
     this.sistemaService.setearFiltros();
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  ngAfterViewInit(){
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+    if (this.sistemasSubs) {
+      this.sistemasSubs.unsubscribe();      
+    }    
+  }
+
+  rerender(): void {
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   consultarSistemaAll(m: Sistema) {
@@ -49,10 +75,19 @@ export class GrillaSistemaComponent implements OnInit {
     this.sistemaService.consultarSistemaAll(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
-          this.dataSource = new MatTableDataSource(response.datos);
-          this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
+          console.log(response.datos);
+          this.listadoSistemas = response.datos;
           this.length = response.datos.length;
+
+          // Validamos si debemos paginar o no
+          // tslint:disable-next-line: radix
+          const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
+          if(this.length > tamanioPaginar) 
+          {
+            this.dtOptions.paging = true;
+            this.dtOptions.info = true;
+          }          
+          this.rerender();
         } else {
           this.generalesService.notificar(
             new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
@@ -63,22 +98,38 @@ export class GrillaSistemaComponent implements OnInit {
         this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de sistemas. ${err.statusText} ${err.message}`));
       },
       () => {
-        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  consultarSistemaId(id: number) {
+    const m = new Sistema();
+    m.opcion = 4;
+    m.sistemaId = id;
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.sistemaService.consultarSistemaAll(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          if (res.datos.length > 0) {
+            this.abrirModalEditar(res.datos[0]);        
+          }else{
+            this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
+          }
+
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar sistemas por Id ${res.mensaje}`));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Error al consultar sistemas por Id'));
+      },
+      () => {
+      }
+    );
   }
 
-  consultarSistemaId(datosEditar: any) {
-
+  abrirModalEditar(datosEditar: any){
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.insercion = false;
@@ -88,6 +139,7 @@ export class GrillaSistemaComponent implements OnInit {
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalGuardarSistemaComponent, CONFIG_MODAL);
+
   }
 
   abrirModalGuardar() {

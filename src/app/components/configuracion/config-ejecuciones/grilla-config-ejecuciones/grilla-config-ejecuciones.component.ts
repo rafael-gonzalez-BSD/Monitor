@@ -53,9 +53,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   }
 
   ngAfterViewInit(){
-
-    
-      this.dtTrigger.next();
+    this.dtTrigger.next();
   }
 
   ngOnDestroy(): void {
@@ -63,9 +61,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.dtTrigger.unsubscribe();
     if (this.configEjecucionesSubs) {
       this.configEjecucionesSubs.unsubscribe();      
-    }
-
-    
+    }    
   }
 
   rerender(): void {
