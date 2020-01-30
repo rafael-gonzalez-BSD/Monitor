@@ -20,13 +20,13 @@ export class ConfigExcepcionesComponent implements OnInit {
   ) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
-        this.setearTitulo('CONFIGURAR EXCEPCIONES');
+        this.setearTitulo('BITÁCORA DE EXCEPCIÓN');
       }
     });
   }
 
   ngOnInit() {
-    this.setearTitulo('CONFIGURAR EXCEPCIONES');
+    this.setearTitulo('BITÁCORA DE EXCEPCIÓN');
   }
 
   setearTitulo(titulo) {

@@ -3,22 +3,16 @@
     .item-breadcrumb {
         font-size: 11px !important;
     }
-
-    .mat-header-cell{
+    .mat-header-cell {
         font-size: 11px !important;
     }
-
-
 }
 
 @media (max-width: 1024px) {
-    
-    .mat-header-cell{
+    .mat-header-cell {
         font-size: 11px !important;
     }
-
 }
-
 
 @media screen and (max-width: 568px) {
     .mat-table {
@@ -63,7 +57,6 @@
                 content: attr(data-label);
                 display: block;
                 float: left;
-                text-transform: uppercase;
                 font-weight: 600;
                 font-size: 12px;
             }

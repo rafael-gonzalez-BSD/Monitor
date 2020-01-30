@@ -20,12 +20,13 @@ export class ConfigEjecucionesComponent implements OnInit {
   ) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
-        this.setearTitulo('CONFIGURAR EJECUCIONES');
+        this.setearTitulo('BITACORA DE EJECUCIÓN');
       }
     });
   }
 
   ngOnInit() {
+    this.setearTitulo('BITACORA DE EJECUCIÓN');
   }
 
   setearTitulo(titulo) {
