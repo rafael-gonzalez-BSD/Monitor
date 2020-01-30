@@ -9,7 +9,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { getLanguageSpanish } from 'src/app/extensions/dataTable/dataTable';
+import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
@@ -46,14 +46,9 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
   ngOnInit() {
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      lengthChange: false,
-      responsive: true,
-      paging: this.paginar,
-      language: getLanguageSpanish()
-    }; 
+    this.dtOptions = getConfigDataTable();
+
+    console.log(this.dtOptions)
 
     this.configEjecucionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigEjecuciones(m);
@@ -92,7 +87,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
-          
+          console.log(res.datos);         
 
           this.config = res.datos;
           
@@ -108,6 +103,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
           if(this.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
+            this.dtOptions.info = true;
           }          
           this.rerender();
 
@@ -147,6 +143,46 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }
 
+  consultarConfiguEjecucionesId(id: number) {
+    const m = new ConfigEjecuciones();
+    m.opcion = 4;
+    m.ejecucionConfiguracionId = id;
+
+    this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          if (res.datos.length > 0) {
+            this.abrirModalEditar(res.datos);        
+          }else{
+            this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
+          }
+
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar configuraciones de ejecuciones por Id ${res.mensaje}`));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Error al consultar configuraciones de ejecuciones por Id'));
+      },
+      () => {
+      }
+    );
+  }
+
+  abrirModalEditar(datosEditar: any) {
+    const CONFIG_MODAL = new MatDialogConfig();
+    CONFIG_MODAL.data = datosEditar;
+    CONFIG_MODAL.data.edit = true;
+    CONFIG_MODAL.data.opcion = 1;
+    CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Ejecución';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
+    CONFIG_MODAL.height = 'auto';
+    CONFIG_MODAL.width = '90%';
+    CONFIG_MODAL.maxWidth = '1024px';
+    console.log(CONFIG_MODAL);
+    // this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
+  }
+
   abrirModalGuardar() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
@@ -161,8 +197,11 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     dialogConfig.height = 'auto';
     dialogConfig.width = '90%';
     dialogConfig.maxWidth = '1024px';
-    this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
+    console.log(dialogConfig);
+    // this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
   }
+
+  
 
   actualizarEstado(e: Event, row) {
     this.configEjecucionesModel.opcion = 3;

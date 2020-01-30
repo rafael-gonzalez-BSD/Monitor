@@ -10,7 +10,8 @@
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                 <thead>
                     <tr>
-                        <th>Acción</th>
+                        <th class="verMasDt"></th>
+                        <th class="editarDt">Acción</th>
                         <th>Sistema</th>
                         <th>Proceso</th>
                         <th>Frecuencia</th>
@@ -24,13 +25,18 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of config">
-                        <td>{{ item.ejecucionConfiguracionId }}</td>
+                        <td class="verMasDt"></td>
+                        <td class="editarDt">
+                            <button mat-icon-button (click)="consultarConfiguEjecucionesId(item.ejecucionConfiguracionId)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
                         <td>{{ item.sistemaDescripcion }}</td>
                         <td>{{ item.procesoDescripcion }}</td>
                         <td>{{ item.frecuencia }}</td>
                         <td>{{ item.rutaLog }}</td>
                         <td>{{ item.horaDesde }} - {{ item.horaHasta }}</td>
-                        <td>Mantenimientdo (dummie)</td>
+                        <td>{{item.ventanaMantenimiento}}</td>
                         <td>{{ item.tiempoEstimadoEjecucion }}</td>
                         <td>{{ item.tiempoOptimoEjecucion }}</td>
                         <td>{{ item.baja }}</td>

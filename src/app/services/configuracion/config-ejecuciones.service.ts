@@ -36,6 +36,7 @@ export class ConfigEjecucionesService {
   }
 
   obtenerConfigEjecuciones(m: ConfigEjecuciones) {
+    debugger;
     let parametros = new HttpParams();
     // tslint:disable-next-line: forin
     for (const key in m) {
@@ -43,6 +44,18 @@ export class ConfigEjecucionesService {
     }
 
     const url = `${environment.urlApi}ejecucionConfiguracion/all`;
+    return this.http.get(url, { params: parametros });
+  }
+
+  obtenerConfigEjecucionesId(m: ConfigEjecuciones) {
+    
+    let parametros = new HttpParams();
+    // tslint:disable-next-line: forin
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+
+    const url = `${environment.urlApi}ejecucionConfiguracion/by`;
     return this.http.get(url, { params: parametros });
   }
 }
