@@ -7,6 +7,7 @@ export function getConfigDataTable() {
     paging: false,
     ordering: false,
     info: false,
+    processing: true,
     language: {
       info: ' _START_ a _END_ de _TOTAL_ registros',
       decimal: '',

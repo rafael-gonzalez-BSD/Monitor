@@ -58,7 +58,6 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosEditar = data;
-    console.log(this.datosEditar);
     this.datosEditar.horaDesde = this.datosEditar.horaDesde === '' ? '' : this.getTimeValue(this.datosEditar.horaDesde);
     this.datosEditar.horaHasta = this.datosEditar.horaHasta === '' ? '' : this.getTimeValue(this.datosEditar.horaHasta);
     this.datosEditar.baja = data.edit ? !data.baja : true;

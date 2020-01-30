@@ -1,7 +1,7 @@
 <div class="row controles-tabla">
 
     <div class="col-12 text-right">
-        <button class="btn-ternium-primary" (click)="rerender()" mat-raised-button>Crear</button>
+        <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Crear</button>
     </div>
 </div>
 <div class="row">
@@ -20,7 +20,7 @@
                         <th>Ventana Mantenimiento</th>
                         <th>Tiempo Estimado</th>
                         <th>Tiempo Óptimo</th>
-                        <th>Estado</th>
+                        <th data-priority="1">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,11 +35,13 @@
                         <td>{{ item.procesoDescripcion }}</td>
                         <td>{{ item.frecuencia }}</td>
                         <td>{{ item.rutaLog }}</td>
-                        <td>{{ item.horaDesde }} - {{ item.horaHasta }}</td>
+                        <td>{{ item.horaDesde | hourFormat }} - {{ item.horaHasta | hourFormat }}</td>
                         <td>{{item.ventanaMantenimiento}}</td>
                         <td>{{ item.tiempoEstimadoEjecucion }}</td>
                         <td>{{ item.tiempoOptimoEjecucion }}</td>
-                        <td>{{ item.baja }}</td>
+                        <td>
+                            <mat-slide-toggle [checked]="!item.baja" (change)="actualizarEstado($event, item)"></mat-slide-toggle>
+                        </td>
                     </tr>
                 </tbody>
             </table>
