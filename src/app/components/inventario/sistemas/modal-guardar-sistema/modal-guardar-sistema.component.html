@@ -9,7 +9,7 @@
             <div class="col-lg-8 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="SistemaDescripcion" class="form-control" type="text" [ngModel]="datosEditar.sistemaDescripcion">
-                <div class="div-errors" *ngIf="SistemaDescripcion.invalid && ( SistemaDescripcion.touched )">
+                <div class="div-errors" *ngIf="submitted && SistemaDescripcion.errors">
                     <div class="container-error" *ngIf="SistemaDescripcion.errors.inputText">
                         <span class="tc-ff3300">{{SistemaDescripcion.errors.message}}</span>
                     </div>
@@ -26,7 +26,7 @@
             <div class="col-lg-6 form-group">
                 <label for="">Alias</label>
                 <input formControlName="Alias" class="form-control" type="text" [ngModel]="datosEditar.alias">
-                <div class="div-errors" *ngIf="Alias.invalid && ( Alias.touched )">
+                <div class="div-errors" *ngIf="submitted && Alias.errors">
                     <div class="container-error" *ngIf="Alias.errors.inputText">
                         <span class="tc-ff3300">{{Alias.errors.message}}</span>
                     </div>
@@ -38,7 +38,7 @@
                     <mat-option value="-1">Seleccionar...</mat-option>
                     <mat-option *ngFor="let item of datosCombo" value={{item.identificador}}>{{item.descripcion}}</mat-option>
                 </mat-select>
-                <div class="div-errors" *ngIf="GerenciaId.invalid && ( GerenciaId.touched )">
+                <div class="div-errors" *ngIf="submitted && GerenciaId.errors">
                     <div class="container-error" *ngIf="GerenciaId.errors.requiredCombo">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -49,7 +49,7 @@
             <div class="col-lg-12 form-group">
                 <label for="">Descripción</label>
                 <textarea formControlName="Descripcion" rows="3" class="form-control" [ngModel]="datosEditar.descripcion"></textarea>
-                <div class="div-errors" *ngIf="Descripcion.invalid && ( Descripcion.touched )">
+                <div class="div-errors" *ngIf="submitted && Descripcion.errors">
                     <div class="container-error" *ngIf="Descripcion.errors.inputText">
                         <span class="tc-ff3300">{{Descripcion.errors.message}}</span>
                     </div>
@@ -59,6 +59,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+        <button class="btn-ternium-primary" mat-button>Guardar</button>
     </mat-dialog-actions>
 </form>

@@ -20,6 +20,7 @@ import { RespuestaModel } from '../../../../models/base/respuesta';
 })
 export class ModalGuardarProcesoComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) auto: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -102,38 +103,41 @@ export class ModalGuardarProcesoComponent implements OnInit {
   }
 
   guardarProceso(procesoModel: Proceso) {
-    this.generalesService.mostrarLoader();
-    if (this.grupoFormulario.valid) {
-      this.procesoModel = procesoModel;
-      this.procesoModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.procesoId) {
-        this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
-      }
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
 
-      this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
-      this.procesoModel.baja = !this.toggleBaja;
-      this.procesoModel.critico = this.toggleCritico;
-      this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-
-      this.procesoService.guardarProceso(procesoModel, this.esEdicion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.procesoService.obtenerFiltros();
-            this.procesoService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+      return;
     }
+    this.generalesService.mostrarLoader();
+    this.procesoModel = procesoModel;
+    this.procesoModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.procesoId) {
+      this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
+    }
+
+    this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
+    this.procesoModel.baja = !this.toggleBaja;
+    this.procesoModel.critico = this.toggleCritico;
+    this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+
+    this.procesoService.guardarProceso(procesoModel, this.esEdicion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.procesoService.obtenerFiltros();
+          this.procesoService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
   get procesoId() {
     return this.grupoFormulario.get('procesoId');

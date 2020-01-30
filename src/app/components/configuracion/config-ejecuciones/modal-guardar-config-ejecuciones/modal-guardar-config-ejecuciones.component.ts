@@ -29,6 +29,7 @@ import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
   styleUrls: ['./modal-guardar-config-ejecuciones.component.scss']
 })
 export class ModalGuardarConfigEjecucionesComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -142,7 +143,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       tiempoEstimadoEjecucion: new FormControl('', [Validators.required]),
       tiempoOptimoEjecucion: new FormControl('', [Validators.required]),
       baja: new FormControl()
-    }, timeRangeValidator);
+    }, [timeRangeValidator, ejecucionTiempoValidate]);
   }
 
   consultarSistemaCombo() {
@@ -199,43 +200,45 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
 
   guardarConfiguracionEjecucion(configEjecucionesModel: ConfigEjecuciones) {
-    this.generalesService.mostrarLoader();
-    if (this.grupoFormulario.valid) {
-      this.configEjecucionesModel = configEjecucionesModel;
-      this.configEjecucionesModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.ejecucionConfiguracionId) {
-        this.configEjecucionesModel.ejecucionConfiguracionId = this.grupoFormulario.value.ejecucionConfiguracionId;
-      }
-
-      this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
-      this.configEjecucionesModel.baja = !this.toggleBaja;
-      this.configEjecucionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
-      this.configEjecucionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
-      this.configEjecucionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
-      this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-      this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
-      this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion
-      this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion
-
-      this.configEjecucionesService.guardarConfigEjecucion(configEjecucionesModel, this.esEdicion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.configEjecucionesService.obtenerFiltros();
-            this.configEjecucionesService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+    this.generalesService.mostrarLoader();
+    this.configEjecucionesModel = configEjecucionesModel;
+    this.configEjecucionesModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.ejecucionConfiguracionId) {
+      this.configEjecucionesModel.ejecucionConfiguracionId = this.grupoFormulario.value.ejecucionConfiguracionId;
+    }
+
+    this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configEjecucionesModel.baja = !this.toggleBaja;
+    this.configEjecucionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
+    this.configEjecucionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
+    this.configEjecucionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+    this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
+    this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion
+    this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion
+
+    this.configEjecucionesService.guardarConfigEjecucion(configEjecucionesModel, this.esEdicion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.configEjecucionesService.obtenerFiltros();
+          this.configEjecucionesService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
 
   testearRuta() {
@@ -312,4 +315,20 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
+}
+
+
+export function ejecucionTiempoValidate(formGroupValues: FormGroup) {
+  let tiempoEstimadoEjecucion = formGroupValues.get('tiempoEstimadoEjecucion').value;
+  let tiempoOptimoEjecucion = formGroupValues.get('tiempoOptimoEjecucion').value;
+
+  if ((tiempoEstimadoEjecucion !== '' || parseInt(tiempoEstimadoEjecucion) > 0) && (tiempoOptimoEjecucion !== '' || parseInt(tiempoOptimoEjecucion) > 0)) {
+
+
+    if (parseInt(tiempoEstimadoEjecucion) < parseInt(tiempoOptimoEjecucion)) {
+      return { invalidMoreThan: true };
+    }
+  }
+
+  return null;
 }

@@ -6,7 +6,7 @@
                 <input formControlName="excepcionConfiguracionId" type="hidden" [ngModel]="datosEditar.excepcionConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
-                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
+                <div class="div-errors" *ngIf="submitted && sistemaId.errors">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -23,7 +23,7 @@
             <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Frecuencia</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
-                <div class="div-errors" *ngIf="frecuencia.invalid && ( frecuencia.touched )">
+                <div class="div-errors" *ngIf="submitted && frecuencia.errors">
                     <div class="container-error" *ngIf="frecuencia.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -47,7 +47,7 @@
             <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Hora Desde</label>
                 <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
-                <div class="div-errors" *ngIf="horaDesde.invalid && ( horaDesde.touched )">
+                <div class="div-errors" *ngIf="submitted && horaDesde.errors">
                     <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -55,18 +55,16 @@
                         <span class="tc-ff3300">Formato inválido</span>
                     </div>
                 </div>
-                <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">El rango de horas es inválido</span>
+                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
                     </div>
                 </div>
-                <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]="this.terniumTheme"></ngx-material-timepicker>
-
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 form-group">
                 <label for="">Hora Hasta</label>
                 <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
-                <div class="div-errors" *ngIf="horaHasta.invalid && ( horaHasta.touched )">
+                <div class="div-errors" *ngIf="submitted && horaHasta.errors">
                     <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -74,18 +72,16 @@
                         <span class="tc-ff3300">Formato inválido</span>
                     </div>
                 </div>
-                <div class="div-errors" *ngIf="grupoFormulario.invalid">
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">El rango de horas es inválido</span>
+                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
                     </div>
                 </div>
-                <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
-
             </div>
             <div class="col-12 col-md-3 col-lg-3 form-group">
                 <label for="">Ruta Log</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
-                <div class="div-errors" *ngIf="rutaLog.invalid && ( rutaLog.touched )">
+                <div class="div-errors" *ngIf="submitted && rutaLog.errors">
                     <div class="container-error" *ngIf="rutaLog.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
@@ -101,10 +97,12 @@
                 </div>
                 <input formControlName="rutaExiste" type="hidden" [ngModel]="datosEditar.rutaExiste">
                 <div class="div-errors" *ngIf="rutaExiste.invalid">
-                    <div class="container-error" *ngIf="rutaExiste.errors.notExist">
+                    <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.required">
+                        <span class="tc-ff3300">Haga clic en el boton Testear Ruta Para comprobar</span>
+                    </div>
+                    <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.notExist">
                         <span class="tc-ff3300">La ruta no existe</span>
                     </div>
-
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 form-group">
@@ -128,14 +126,14 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary " mat-button [disabled]=!grupoFormulario.valid>Guardar</button>
+        <button class="btn-ternium-primary " mat-button>Guardar</button>
     </mat-dialog-actions>
-
-
+    <ngx-material-timepicker #hD [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]="this.terniumTheme"></ngx-material-timepicker>
+    <ngx-material-timepicker #hH [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" [theme]=" this.terniumTheme"></ngx-material-timepicker>
     <ng-template #cancelBtn>
-        <button class="btn-ternium-secondary" mat-button style="margin-right:5px">Cancelar</button>
+        <button class="btn-ternium-secondary" type="button" mat-button style="margin-right:5px">Cancelar</button>
     </ng-template>
     <ng-template #confirmBtn>
-        <button class="btn-ternium-primary" mat-button>Aceptar</button>
+        <button class="btn-ternium-primary" type="button" mat-button>Aceptar</button>
     </ng-template>
 </form>

@@ -25,6 +25,7 @@ import { checkIfUrlExists } from '../../../../extensions/url-validator/url-valid
 })
 export class ModalGuardarConfigConectoresComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) auto: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosEditar: any;
@@ -123,40 +124,43 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   }
 
   guardarConfiguracionConector(configConectoresModel: ConfigConectores) {
-    this.generalesService.mostrarLoader();
-    if (this.grupoFormulario.valid) {
-      this.configConectoresModel = configConectoresModel;
-      this.configConectoresModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.conectorConfiguracionId) {
-        this.configConectoresModel.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId;
-      }
-      this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionDescripcion;
-      this.configConectoresModel.frecuencia = this.grupoFormulario.value.frecuencia;
-      this.configConectoresModel.baja = !this.toggleBaja;
-      this.configConectoresModel.horaDesde = this.grupoFormulario.value.horaDesde;
-      this.configConectoresModel.horaHasta = this.grupoFormulario.value.horaHasta;
-      this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
-      this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-
-      this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(
-        (response: any) => {
-          if (response.satisfactorio) {
-            this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
-            this.configConectoresService.obtenerFiltros();
-            this.configConectoresService.setearFiltros();
-            this.cerrarModal();
-          } else {
-            this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
-          }
-        },
-        err => {
-          this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
-        },
-        () => {
-          this.generalesService.quitarLoader();
-        }
-      );
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      this.generalesService.mostrarLoader();
+      return;
     }
+
+    this.configConectoresModel = configConectoresModel;
+    this.configConectoresModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.conectorConfiguracionId) {
+      this.configConectoresModel.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId;
+    }
+    this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionDescripcion;
+    this.configConectoresModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configConectoresModel.baja = !this.toggleBaja;
+    this.configConectoresModel.horaDesde = this.grupoFormulario.value.horaDesde;
+    this.configConectoresModel.horaHasta = this.grupoFormulario.value.horaHasta;
+    this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
+    this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+
+    this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.generalesService.notificar(new NotificacionModel('success', response.mensaje));
+          this.configConectoresService.obtenerFiltros();
+          this.configConectoresService.setearFiltros();
+          this.cerrarModal();
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', response.mensaje));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
+      },
+      () => {
+        this.generalesService.quitarLoader();
+      }
+    );
   }
 
   testearRuta() {
