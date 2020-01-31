@@ -2,7 +2,7 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarConfiguracionExcepcion(this.configExcepcionesModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-6 col-md-6 col-lg-6 form-group">
                 <input formControlName="excepcionConfiguracionId" type="hidden" [ngModel]="datosEditar.excepcionConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
@@ -20,7 +20,7 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-2 form-group">
                 <label for="">Frecuencia</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-2 form-group">
                 <label for="">Hora Desde</label>
                 <input formControlName="horaDesde" class="form-control input-date-time" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="submitted && horaDesde.errors">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-6 col-md-3 col-lg-2 form-group">
                 <label for="">Hora Hasta</label>
                 <input formControlName="horaHasta" class="form-control input-date-time" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="submitted && horaHasta.errors">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 form-group">
+            <div class="col-12 col-md-9 col-lg-3 form-group">
                 <label for="">Ruta Log</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
                 <div class="div-errors" *ngIf="submitted && rutaLog.errors">
@@ -105,11 +105,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 form-group">
-                <label for="">Ventana Mantenimiento</label>
-                <input formControlName="ventanaMantenimiento" class="form-control" type="text" [ngModel]="datosEditar.ventanaMantenimiento" readonly>
-            </div>
-            <div class="col-6 col-sm-6 col-md-3 col-lg-3 form-group">
+
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 form-group">
                 <div class="row">
                     <div class="col-6 text-center">
                         <label for="">Test Ruta</label> <br>
@@ -121,6 +118,10 @@
                         </mat-slide-toggle>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 form-group">
+                <label for="">Ventana Mantenimiento</label>
+                <p> {{datosEditar.ventanaMantenimiento}} </p>
             </div>
         </div>
     </mat-dialog-content>

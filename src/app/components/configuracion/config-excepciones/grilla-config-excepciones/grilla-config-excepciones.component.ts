@@ -137,7 +137,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Nueva Configuración de Excepción',
+      tituloModal: 'Nueva Bitácora de Excepción',
       edit: false,
       opcion: 1
     };

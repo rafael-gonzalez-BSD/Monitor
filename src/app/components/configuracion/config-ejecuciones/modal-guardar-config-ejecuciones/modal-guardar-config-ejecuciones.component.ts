@@ -114,7 +114,6 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       ejecucionConfiguracionId: new FormControl(),
-      ventanaMantenimiento: new FormControl(),
       frecuencia: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
@@ -257,9 +256,6 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
   get rutaLog() {
     return this.grupoFormulario.get('rutaLog');
-  }
-  get ventanaMantenimiento() {
-    return this.grupoFormulario.get('ventanaMantenimiento');
   }
   get horaDesde() {
     return this.grupoFormulario.get('horaDesde');

@@ -98,7 +98,6 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       excepcionConfiguracionId: new FormControl(),
-      ventanaMantenimiento: new FormControl(),
       frecuencia: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
@@ -217,9 +216,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   get excepcionConfiguracionId() {
     return this.grupoFormulario.get('excepcionConfiguracionId');
   }
-  get ventanaMantenimiento() {
-    return this.grupoFormulario.get('ventanaMantenimiento');
-  }
+  
   get rutaLog() {
     return this.grupoFormulario.get('rutaLog');
   }
