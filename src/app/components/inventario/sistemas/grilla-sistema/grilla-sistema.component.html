@@ -5,7 +5,12 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="mat-elevation-z5 container-table">
+        <div [className]="!verTabla ? 'mostrarDt mat-elevation-z5 container-table text-center' : 'ocultarDt'">
+            <br>
+            <br>
+            <p>Cargando...</p>
+        </div>
+        <div [className]="verTabla ? 'mostrarDt mat-elevation-z5 container-table' : 'ocultarDt'">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover dt">
                 <thead class="dtHead">
                     <tr>

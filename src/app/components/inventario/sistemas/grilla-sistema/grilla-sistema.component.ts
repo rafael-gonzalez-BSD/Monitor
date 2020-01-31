@@ -27,12 +27,17 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   sistemasSubs: Subscription;
   sistemaModel = new Sistema();
   length: number;
+  verTabla =  false;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
+
+    
+    
     this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
+      this.verTabla = false;
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
@@ -59,14 +64,15 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
+      this.verTabla =  true;
     });
   }
 
   consultarSistemaAll(m: Sistema) {
-    this.generalesService.mostrarLoader();
     this.sistemaService.consultarSistemaAll(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
+          this.length = 0;
           this.listadoSistemas = response.datos;
           this.length = response.datos.length;
 
@@ -77,8 +83,9 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }          
-          this.rerender();
+          }   
+            this.rerender();
+          
         } else {
           this.generalesService.notificar(
             new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
@@ -107,7 +114,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
           }else{
             this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
           }
-
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar sistemas por Id ${res.mensaje}`));
         }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { Chart } from 'chart.js';
 import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
@@ -9,13 +9,15 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import moment from 'moment';
 import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grafico-excepciones',
   templateUrl: './grafico-excepciones.component.html',
   styleUrls: ['./grafico-excepciones.component.scss']
 })
-export class GraficoExcepcionesComponent implements OnInit {
+export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
+  
   chart;
 
   stepSize = 1;
@@ -25,11 +27,13 @@ export class GraficoExcepcionesComponent implements OnInit {
   dataExcepciones: number[] = [];
   labelsExcepciones: string[] = [];
 
+  subs: Subscription;
+
   constructor(private dashboardService: DashboardService,
     private generalesService: GeneralesService) { }
 
   ngOnInit() {
-    this.dashboardService.filtros.subscribe((m: any) => {
+    this.subs = this.dashboardService.filtros.subscribe((m: any) => {
 
       const ARRAY = m.fechaDesdeCorta.split('/');
       m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
@@ -39,6 +43,12 @@ export class GraficoExcepcionesComponent implements OnInit {
 
     this.dashboardService.obtenerFiltros();
 
+  }
+
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();      
+    } 
   }
 
   consultarGraficoExcepciones(m: FiltrosDashboard) {
