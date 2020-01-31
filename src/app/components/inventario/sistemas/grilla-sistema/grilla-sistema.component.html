@@ -1,4 +1,3 @@
-<app-loader></app-loader>
 <div class="row controles-tabla">
     <div class="col-12 text-right">
         <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Crear</button>
@@ -6,12 +5,12 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div [className]="!verTabla ? 'mostrarDt mat-elevation-z5 container-table text-center' : 'ocultarDt'">
+        <!-- <div [className]="!verTabla ? 'mostrarDt mat-elevation-z5 container-table text-center' : 'ocultarDt'">
             <br>
             <br>
             <p>Cargando...</p>
-        </div>
-        <div [className]="verTabla ? 'mostrarDt mat-elevation-z5 container-table' : 'ocultarDt'">
+        </div> -->
+        <div class="mat-elevation-z5 container-table" [className]="verTabla ? 'mostrarDt mat-elevation-z5 container-table' : 'ocultarDt'">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover dt">
                 <thead class="dtHead">
                     <tr>

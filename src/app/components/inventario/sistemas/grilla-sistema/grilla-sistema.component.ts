@@ -65,6 +65,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
       this.verTabla =  true;
+      // this.generalesService.quitarLoader();
     });
   }
 
@@ -96,7 +97,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
         this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de sistemas. ${err.statusText} ${err.message}`));
       },
       () => {
-        this.generalesService.quitarLoader();
+        
       }
     );
   }

@@ -96,7 +96,6 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error al consultar el listado de procesos'));
       },
       () => {
-        this.generalesService.quitarLoader();
       }
     );
   }
