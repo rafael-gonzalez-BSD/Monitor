@@ -8,7 +8,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
-import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -31,7 +31,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
-    this.dtOptions = getConfigDataTable();
+    this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);

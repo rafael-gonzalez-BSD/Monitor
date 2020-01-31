@@ -9,7 +9,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
@@ -43,7 +43,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
   ngOnInit() {
 
-    this.dtOptions = getConfigDataTable();
+    this.dtOptions = CONFIGURACION;
     this.configEjecucionesSubs = this.configEjecucionesService.filtros.subscribe((m: any) => {
        this.obtenerConfigEjecuciones(m);       
      

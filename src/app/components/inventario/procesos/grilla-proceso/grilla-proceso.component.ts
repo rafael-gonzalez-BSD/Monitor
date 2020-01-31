@@ -12,7 +12,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -42,7 +42,7 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
     private modal: MatDialog) { }
 
   ngOnInit() {
-    this.dtOptions = getConfigDataTable();
+    this.dtOptions = CONFIGURACION
     this.procesosSubs = this.procesoService.filtros.subscribe((m: any) => {
       this.obtenerProcesos(m);
     });

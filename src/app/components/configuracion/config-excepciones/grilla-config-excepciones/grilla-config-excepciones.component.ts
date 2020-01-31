@@ -9,7 +9,7 @@ import { ModalGuardarConfigExcepcionesComponent } from '../modal-guardar-config-
 import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-config-excepciones',
@@ -35,7 +35,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   ) { }
 
   ngOnInit() {
-    this.dtOptions = getConfigDataTable();
+    this.dtOptions = CONFIGURACION;
     this.configExcepcionesSubs = this.configExcepcionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigExcepciones(m);
     });
@@ -59,9 +59,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   rerender() {
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }

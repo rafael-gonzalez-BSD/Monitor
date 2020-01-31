@@ -9,7 +9,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { map } from 'rxjs/operators';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
@@ -34,7 +34,7 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
     private modal: MatDialog) { }
 
   ngOnInit() {
-    this.dtOptions = getConfigDataTable();
+    this.dtOptions = CONFIGURACION;
     this.mantenimientosSubs = this.mantenimientoService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       if (m.fechaDesde === null) delete m.fechaDesde;
