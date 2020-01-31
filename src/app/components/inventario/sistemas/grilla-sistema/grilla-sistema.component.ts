@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SistemaService } from '../../../../services/inventario/sistema.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Sistema } from '../../../../models/inventario/sistema';
 import { ModalGuardarSistemaComponent } from '../modal-guardar-sistema/modal-guardar-sistema.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
-import { map } from 'rxjs/operators';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
