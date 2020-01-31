@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { ConfigExcepciones } from '../../../../models/configuracion/config-excepciones';
 import { MatTableDataSource, PageEvent, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 import { GeneralesService } from '../../../../services/general/generales.service';
@@ -7,25 +7,26 @@ import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { ModalGuardarConfigExcepcionesComponent } from '../modal-guardar-config-excepciones/modal-guardar-config-excepciones.component';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-config-excepciones',
   templateUrl: './grilla-config-excepciones.component.html',
   styleUrls: ['./grilla-config-excepciones.component.scss']
 })
-export class GrillaConfigExcepcionesComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'sistema', 'rutaLog', 'frecuencia', 'horario', 'ventanaMantenimiento', 'estado'];
-  dataSource = new MatTableDataSource<ConfigExcepciones>();
+export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestroy, OnInit {
+  // DataTable
+  dtOptions: any = {};
+  listadoConfiguExcepciones: ConfigExcepciones[] = [];
+  dtTrigger: Subject<ConfigExcepciones> = new Subject();
+  paginar = false;
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+  configExcepcionesSubs: Subscription;
   configExcepcionesModel = new ConfigExcepciones();
-  pageSizeOptions = [10, 25, 100];
-  pageSize = 10;
   length: number;
-  pageEvent: PageEvent;
-  noData: Observable<boolean>;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private generalesService: GeneralesService,
@@ -34,7 +35,8 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.configExcepcionesService.filtros.subscribe((m: any) => {
+    this.dtOptions = getConfigDataTable();
+    this.configExcepcionesSubs = this.configExcepcionesService.filtros.subscribe((m: any) => {
       this.obtenerConfigExcepciones(m);
     });
     this.configExcepcionesService.obtenerFiltros();
@@ -42,21 +44,47 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
 
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  ngAfterViewInit(){
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+    if (this.configExcepcionesSubs) {
+      this.configExcepcionesSubs.unsubscribe();      
+    }    
+  }
+
+  rerender() {
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   obtenerConfigExcepciones(m: ConfigExcepciones) {
     this.generalesService.mostrarLoader();
     this.configExcepcionesService.obtenerConfigExcepciones(m).subscribe(
-      (res: RespuestaModel) => {
-        if (res.satisfactorio) {
-          this.dataSource = new MatTableDataSource(res.datos);
-          this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          this.length = res.datos.length;
+      (response: RespuestaModel) => {
+        if (response.satisfactorio) {
+          this.listadoConfiguExcepciones = response.datos;
+          this.length = response.datos.length;
+
+          // Validamos si debemos paginar o no
+          // tslint:disable-next-line: radix
+          const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
+          if(this.length > tamanioPaginar) 
+          {
+            this.dtOptions.paging = true;
+            this.dtOptions.info = true;
+          }          
+          this.rerender();
         } else {
-          this.generalesService.notificar(new NotificacionModel('warning', 'Error al consultar el listado de configuraciones de excepciones. ' + res.mensaje));
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de configuraciones de excepciones: ${response.mensaje}`));
         }
       },
       err => {
@@ -64,20 +92,38 @@ export class GrillaConfigExcepcionesComponent implements OnInit {
         this.generalesService.quitarLoader();
       },
       () => {
-        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
   }
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  consultarConfigExcepcionesId(id: number) {
+    const m = new ConfigExcepciones();
+    m.opcion = 4;
+    m.excepcionConfiguracionId = id;
+
+    this.configExcepcionesService.obtenerConfigExcepciones(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          if (res.datos.length > 0) {
+            this.abrirModalEditar(res.datos[0]);        
+          }else{
+            this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
+          }
+
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar configuracion de excepciones por Id ${res.mensaje}`));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Error al consultar configuracion de excepciones por Id'));
+      },
+      () => {
+      }
+    );    
   }
 
-  consultarConfigExcepcionesId(datosEditar: any) {
+  abrirModalEditar(datosEditar: any) {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;

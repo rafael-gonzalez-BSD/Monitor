@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig, PageEvent } from '@angular/material';
 import { Mantenimiento } from '../../../../models/inventario/mantenimiento';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
@@ -7,25 +7,26 @@ import { ModalGuardarMantenimientoComponent } from '../modal-guardar-mantenimien
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+import { getConfigDataTable } from 'src/app/extensions/dataTable/dataTable';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
   templateUrl: './grilla-mantenimiento.component.html',
   styleUrls: ['./grilla-mantenimiento.component.scss']
 })
-export class GrillaMantenimientoComponent implements OnInit {
-  tableColumns: string[] = ['accion', 'sistema', 'fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'estado'];
-  dataSource: MatTableDataSource<Mantenimiento>;
-  mantenimientoModel = new Mantenimiento;
-  pageSizeOptions = [10, 25, 100];
-  pageSize = 10;
+export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, OnInit {
+  // DataTable
+  dtOptions: any = {};
+  listadoMantenimientos: Mantenimiento[] = [];
+  dtTrigger: Subject<Mantenimiento> = new Subject();
+  paginar = false;
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+  mantenimientosSubs: Subscription;
+  mantenimientoModel = new Mantenimiento();
   length: number;
-  pageEvent: PageEvent;
-  noData: Observable<boolean>;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private mantenimientoService: MantenimientoService,
@@ -33,7 +34,8 @@ export class GrillaMantenimientoComponent implements OnInit {
     private modal: MatDialog) { }
 
   ngOnInit() {
-    this.mantenimientoService.filtros.subscribe((m: any) => {
+    this.dtOptions = getConfigDataTable();
+    this.mantenimientosSubs = this.mantenimientoService.filtros.subscribe((m: any) => {
       if (m.baja === null) delete m.baja;
       if (m.fechaDesde === null) delete m.fechaDesde;
       if (m.fechaHasta === null) delete m.fechaHasta;
@@ -43,26 +45,47 @@ export class GrillaMantenimientoComponent implements OnInit {
     this.mantenimientoService.setearFiltros();
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  ngAfterViewInit(){
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+    if (this.mantenimientosSubs) {
+      this.mantenimientosSubs.unsubscribe();      
+    }    
+  }
+
+  rerender() {
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   obtenerMantenimientos(m: Mantenimiento) {
-    this.generalesService.mostrarLoader();
     this.mantenimientoService.obtenerMantenimientos(m).subscribe(
-      (res: RespuestaModel) => {
-        if (res.satisfactorio) {
-          this.dataSource = new MatTableDataSource(res.datos);
-          this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          this.length = res.datos.length;
+      (response: RespuestaModel) => {
+        if (response.satisfactorio) {
+          this.listadoMantenimientos = response.datos;
+          this.length = response.datos.length;
+
+          // Validamos si debemos paginar o no
+          // tslint:disable-next-line: radix
+          const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
+          if(this.length > tamanioPaginar) 
+          {
+            this.dtOptions.paging = true;
+            this.dtOptions.info = true;
+          }          
+          this.rerender();
+          
         } else {
-          this.generalesService.notificar(
-            new NotificacionModel(
-              'warning',
-              `Error al consultar el listado de mantenimientos. ${res.mensaje}`
-            )
-          );
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de mantenimientos. ${response.mensaje}`));
         }
       },
       err => {
@@ -70,21 +93,39 @@ export class GrillaMantenimientoComponent implements OnInit {
         alert('Ocurrió un error al consultar el listado de mantenimientos');
       },
       () => {
-        this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
         this.generalesService.quitarLoader();
       }
     );
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  consultarMantenimientoId(id: number) {
+    const m = new Mantenimiento();
+    m.opcion = 4;
+    m.sistemaId = id;
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.mantenimientoService.obtenerMantenimientos(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          if (res.datos.length > 0) {
+            this.abrirModalEditar(res.datos[0]);        
+          }else{
+            this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
+          }
+
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar mantenimientos por Id ${res.mensaje}`));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Error al consultar mantenimientos por Id'));
+      },
+      () => {
+        
+      }
+    );
   }
 
-  consultarMantenimientoId(datosEditar: any) {
+  abrirModalEditar(datosEditar: any) {
     const CONFIG_MODAL = new MatDialogConfig();
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;

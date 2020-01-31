@@ -1,5 +1,4 @@
 <div class="row controles-tabla">
-
     <div class="col-12 text-right">
         <button class="btn-ternium-primary" (click)="abrirModalGuardar()" mat-raised-button>Crear</button>
     </div>
@@ -7,8 +6,8 @@
 <div class="row">
     <div class="col-12">
         <div class="mat-elevation-z5 container-table">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                <thead>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover dt">
+                <thead class="dtHead">
                     <tr>
                         <th class="verMasDt" data-priority="1"></th>
                         <th class="editarDt" data-priority="2">Acción</th>
@@ -20,7 +19,7 @@
                         <th data-priority="3">Estado</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="dtBody">
                     <tr *ngFor="let item of listadoSistemas">
                         <td class="verMasDt"></td>
                         <td class="editarDt">

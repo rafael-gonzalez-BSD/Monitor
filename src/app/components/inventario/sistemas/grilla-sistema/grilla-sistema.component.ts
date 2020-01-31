@@ -22,13 +22,9 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   listadoSistemas: Sistema[] = [];
   dtTrigger: Subject<Sistema> = new Subject();
   paginar = false;
-
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
-
   sistemasSubs: Subscription;
-
-
   sistemaModel = new Sistema();
   length: number;
 
@@ -56,7 +52,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
     }    
   }
 
-  rerender(): void {
+  rerender() {
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
