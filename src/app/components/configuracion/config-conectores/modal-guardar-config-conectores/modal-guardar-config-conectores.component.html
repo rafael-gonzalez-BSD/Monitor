@@ -2,7 +2,7 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarConfiguracionConector(this.configConectoresModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <input formControlName="conectorConfiguracionId" type="hidden" [ngModel]="datosEditar.conectorConfiguracionId">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
@@ -20,7 +20,7 @@
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="conectorConfiguracionDescripcion" class="form-control" type="text" [ngModel]="datosEditar.conectorConfiguracionDescripcion">
                 <div class="div-errors" *ngIf="submitted && conectorConfiguracionDescripcion.errors">
@@ -29,9 +29,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-4 col-md-4 col-lg-4 form-group">
                 <label for="">Hora Desde</label>
-                <input formControlName="horaDesde" class="form-control" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
+                <input formControlName="horaDesde" class="form-control input-date-time" [ngxTimepicker]="hD" type="text" [format]="24" readonly [ngModel]="datosEditar.horaDesde" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="submitted && horaDesde.errors">
                     <div class="container-error" *ngIf="horaDesde.errors.requiredFromTime">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -46,9 +46,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-4 col-md-4 col-lg-4 form-group">
                 <label for="">Hora Hasta</label>
-                <input formControlName="horaHasta" class="form-control" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
+                <input formControlName="horaHasta" class="form-control input-date-time" [ngxTimepicker]="hH" [format]="24" type="text" readonly [ngModel]="datosEditar.horaHasta" placeholder="00:00 (24 Hrs)">
                 <div class="div-errors" *ngIf="submitted && horaHasta.errors">
                     <div class="container-error" *ngIf="horaHasta.errors.requiredToTime">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-4 col-md-4 col-lg-4 form-group">
                 <label for="">Frecuencia</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 form-group">
+            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                 <label for="">URL</label>
                 <input formControlName="urlApi" class="form-control" type="text" [ngModel]="datosEditar.urlApi">
                 <div class="div-errors" *ngIf="submitted && urlApi.errors">

@@ -126,7 +126,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   guardarConfiguracionConector(configConectoresModel: ConfigConectores) {
     this.submitted = true;
     if (this.grupoFormulario.invalid) {
-      this.generalesService.mostrarLoader();
+      // this.generalesService.mostrarLoader();
       return;
     }
 
@@ -189,7 +189,6 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
       this.generalesService.notificar(not);
     },
       err => {
-        debugger
         this.datosEditar.rutaExiste = false;
         switch (err.status) {
           case 404:
