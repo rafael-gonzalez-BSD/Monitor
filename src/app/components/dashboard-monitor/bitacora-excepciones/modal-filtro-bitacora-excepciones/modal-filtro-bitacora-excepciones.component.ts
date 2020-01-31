@@ -91,9 +91,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de sistemas. ${response.mensaje}`));
         }
       },
-      err => {
-        console.log(err);
-        
+      err => {        
         this.generalesService.notificar(new NotificacionModel('error', `Ocurrió un error:`));
       },
       () => { }

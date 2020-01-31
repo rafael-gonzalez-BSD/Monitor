@@ -71,7 +71,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
     this.sistemaService.consultarSistemaAll(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
-          console.log(response.datos);
           this.listadoSistemas = response.datos;
           this.length = response.datos.length;
 

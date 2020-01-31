@@ -3,6 +3,8 @@ import { DashboardService } from '../../../../services/dashboard-monitor/dashboa
 import moment from 'moment';
 import { debug, log } from 'util';
 import { convertFechaCintilla } from 'src/app/extensions/utils/utils';
+import { GeneralesService } from 'src/app/services/general/generales.service';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
 
 @Component({
   selector: 'app-cintilla-dashboard',
@@ -13,7 +15,7 @@ export class CintillaDashboardComponent implements OnInit {
 
   filtroSistema = 'Todos';
   filtroFecha = 'Todos';
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private generalesService: GeneralesService) {
 
   }
 
@@ -22,7 +24,7 @@ export class CintillaDashboardComponent implements OnInit {
       this.filtroSistema = m.sistemaDescripcion === '' ? 'Todos' : m.sistemaDescripcion;
       this.filtroFecha = m.fechaDesdeCorta === '' ? 'Todos' : convertFechaCintilla( m.fechaDesdeCorta, 'MMYYYY' );
     }, err => {
-      console.log(err)
+      this.generalesService.notificar(new NotificacionModel('error', `Ocurrió un error`));
 
     });
 

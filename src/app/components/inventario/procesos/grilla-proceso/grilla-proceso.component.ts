@@ -77,7 +77,6 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
     this.procesoService.obtenerProcesos(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
-          console.log(response.datos);
           this.listadoProcesos = response.datos;
           this.length = response.datos.length;
 
