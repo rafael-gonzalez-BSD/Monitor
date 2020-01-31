@@ -86,7 +86,6 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
   }
 
   buscar(configConectoresModel: ConfigConectores) {
-    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.configConectoresModel.opcion = this.opcion;
       if (this.grupoFormulario.value.conectorConfiguracionId) {

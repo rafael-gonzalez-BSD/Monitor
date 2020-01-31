@@ -203,7 +203,6 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     if (this.grupoFormulario.invalid) {
       return;
     }
-    this.generalesService.mostrarLoader();
     this.configEjecucionesModel = configEjecucionesModel;
     this.configEjecucionesModel.opcion = this.opcion;
     if (this.grupoFormulario.value.ejecucionConfiguracionId) {

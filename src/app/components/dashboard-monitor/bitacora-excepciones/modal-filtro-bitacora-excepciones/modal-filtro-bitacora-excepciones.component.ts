@@ -124,7 +124,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     if (this.grupoFormulario.valid) {
       
       this.opcion = 5;
-      // this.generalesService.mostrarLoader();
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;

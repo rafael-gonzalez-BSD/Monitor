@@ -108,7 +108,6 @@ export class ModalGuardarSistemaComponent implements OnInit {
     if (this.grupoFormulario.invalid) {
       return;
     }
-    this.generalesService.mostrarLoader();
     this.insercion ? (this.opcion = 1) : (this.opcion = 3);
 
     this.sistemaModel = sistemaModel;

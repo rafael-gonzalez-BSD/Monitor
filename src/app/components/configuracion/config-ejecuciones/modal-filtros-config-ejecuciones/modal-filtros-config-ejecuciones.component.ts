@@ -92,7 +92,6 @@ export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
   }
 
   buscar(configEjecucionesModel: ConfigEjecuciones) {
-    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.configEjecucionesModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {

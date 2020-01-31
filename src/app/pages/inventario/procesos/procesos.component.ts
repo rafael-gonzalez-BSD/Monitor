@@ -47,7 +47,6 @@ export class ProcesosComponent implements OnInit {
   }
 
   regresar() {
-    this.generalesService.mostrarLoader();
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
   }

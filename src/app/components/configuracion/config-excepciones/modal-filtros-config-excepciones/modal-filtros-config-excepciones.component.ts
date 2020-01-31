@@ -78,7 +78,6 @@ export class ModalFiltrosConfigExcepcionesComponent implements OnInit {
   }
 
   buscar(configExcepcionesModel: ConfigExcepciones) {
-    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.configExcepcionesModel.opcion = this.opcion;
 

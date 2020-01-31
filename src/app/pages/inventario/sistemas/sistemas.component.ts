@@ -20,11 +20,12 @@ export class SistemasComponent implements OnInit {
     private breakpointObserver: BreakpointObserver
   ) {
     // seteamos el  título del navbar movil
-    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
-      if (!state.matches) {
-        this.setearTitulo('CATÁLOGO DE SISTEMAS');
-      }
-    });
+    // this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+    //   if (!state.matches) {
+    //     this.setearTitulo('CATÁLOGO DE SISTEMAS');
+    //   }
+    // });
+    this.setearTitulo('CATÁLOGO DE SISTEMAS');
   }
 
   ngOnInit() {
@@ -48,7 +49,6 @@ export class SistemasComponent implements OnInit {
   }
 
   regresar() {
-    this.generalesService.mostrarLoader();
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
   }

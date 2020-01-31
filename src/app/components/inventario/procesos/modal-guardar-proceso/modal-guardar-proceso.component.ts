@@ -108,7 +108,6 @@ export class ModalGuardarProcesoComponent implements OnInit {
 
       return;
     }
-    this.generalesService.mostrarLoader();
     this.procesoModel = procesoModel;
     this.procesoModel.opcion = this.opcion;
     if (this.grupoFormulario.value.procesoId) {

@@ -112,7 +112,6 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
 
   buscar(mantenimientoModel: Mantenimiento) {
     if (this.grupoFormulario.valid) {
-      this.generalesService.mostrarLoader();
       this.mantenimientoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;

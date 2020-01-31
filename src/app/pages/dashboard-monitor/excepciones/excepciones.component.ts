@@ -46,7 +46,6 @@ export class ExcepcionesComponent implements OnInit {
   }
 
   regresar() {
-    this.generalesService.mostrarLoader();
     localStorage.setItem('indexMenu', '0');
     this.router.navigate(['site/menu']);
   }

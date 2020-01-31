@@ -76,7 +76,6 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
 
   obtenerConfigEjecuciones(m: ConfigEjecuciones) {
-    // this.generalesService.mostrarLoader();
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {

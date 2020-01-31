@@ -168,7 +168,6 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     if (this.grupoFormulario.invalid) {
       return;
     }
-    this.generalesService.mostrarLoader();
     this.configExcepcionesModel = configExcepcionesModel;
     this.configExcepcionesModel.opcion = this.opcion;
     if (this.grupoFormulario.value.excepcionConfiguracionId) {

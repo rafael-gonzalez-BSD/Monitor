@@ -64,7 +64,6 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
   }
 
   obtenerConfigConectores(m: ConfigConectores) {
-    this.generalesService.mostrarLoader();
     this.configConectoresService.obtenerConfigConectores(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {

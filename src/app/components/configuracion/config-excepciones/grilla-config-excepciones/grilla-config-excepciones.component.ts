@@ -65,7 +65,6 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   }
 
   obtenerConfigExcepciones(m: ConfigExcepciones) {
-    this.generalesService.mostrarLoader();
     this.configExcepcionesService.obtenerConfigExcepciones(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {

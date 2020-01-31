@@ -133,8 +133,6 @@ export class ModalGuardarMantenimientoComponent implements OnInit {
       return;
     }
 
-    this.generalesService.mostrarLoader();
-
     this.mantenimientoModel = m;
     this.mantenimientoModel.opcion = this.opcion;
     if (this.grupoFormulario.value.ventanaMantenimientoId) {

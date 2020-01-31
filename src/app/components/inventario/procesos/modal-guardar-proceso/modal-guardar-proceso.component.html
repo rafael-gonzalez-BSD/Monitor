@@ -2,11 +2,11 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarProceso(this.procesoModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6 form-group" *ngIf="esEdicion">
+            <div class="col-12 col-md-3 col-lg-2 form-group" *ngIf="esEdicion">
                 <label for="">Identificador</label>
                 <input class="form-control form-autocompletado" formControlName="procesoId" type="text" readonly [ngModel]="datosEditar.procesoId">
             </div>
-            <div class="col-12 col-md-6 form-group">
+            <div class="col-12 col-md-9 col-lg-10 form-group">
                 <label for="">Nombre</label>
                 <input formControlName="procesoDescripcion" class="form-control" type="text" [ngModel]="datosEditar.procesoDescripcion">
                 <div class="div-errors" *ngIf="submitted && procesoDescripcion.errors">

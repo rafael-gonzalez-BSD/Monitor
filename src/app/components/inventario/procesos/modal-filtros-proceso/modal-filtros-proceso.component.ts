@@ -84,7 +84,6 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   }
 
   buscar(procesoModel: Proceso) {
-    this.generalesService.mostrarLoader();
     if (this.grupoFormulario.valid) {
       this.procesoModel.opcion = this.opcion;
       if (this.grupoFormulario.value.procesoId) {
