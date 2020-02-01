@@ -2,11 +2,11 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="guardarSistema(this.sistemaModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-2 form-group" *ngIf="!insercion">
+            <div class="col-lg-2 col-sm-3 col-md-2 form-group" *ngIf="!insercion">
                 <label for="">Identificador</label>
                 <input formControlName="SistemaId" class="form-control" type="text" readonly [ngModel]="datosEditar.sistemaId">
             </div>
-            <div class="col-lg-8 form-group">
+            <div class="col-sm-7 col-md-8 col-lg-8  form-group">
                 <label for="">Nombre</label>
                 <input formControlName="SistemaDescripcion" class="form-control" type="text" [ngModel]="datosEditar.sistemaDescripcion">
                 <div class="div-errors" *ngIf="submitted && SistemaDescripcion.errors">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 form-group">
+            <div class="col-sm-2 col-md-2 col-lg-2 form-group">
                 <label for="">Estado</label> <br>
                 <mat-slide-toggle (change)="changeMatToggle($event)" formControlName="Baja" [ngModel]="datosEditar.baja">
                 </mat-slide-toggle>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 form-group">
+            <div class="col-md-6 col-lg-6 form-group">
                 <label for="">Alias</label>
                 <input formControlName="Alias" class="form-control" type="text" [ngModel]="datosEditar.alias">
                 <div class="div-errors" *ngIf="submitted && Alias.errors">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 form-group">
+            <div class="col-md-6 col-lg-6 form-group">
                 <label for="">Área Propietaria</label>
                 <mat-select formControlName="GerenciaId" [(value)]="gerenciaId" (selectionChange)="selectedEstado($event)" [ngModel]="gerenciaId">
                     <mat-option value="-1">Seleccionar...</mat-option>
