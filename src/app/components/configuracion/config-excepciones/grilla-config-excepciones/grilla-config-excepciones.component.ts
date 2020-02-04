@@ -49,15 +49,13 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   }
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     if (this.configExcepcionesSubs) {
       this.configExcepcionesSubs.unsubscribe();      
     }    
   }
 
-  rerender() {
-    
+  rerender() {    
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();

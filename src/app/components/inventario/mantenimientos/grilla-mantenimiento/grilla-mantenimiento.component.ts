@@ -50,7 +50,6 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   }
 
   ngOnDestroy() {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     if (this.mantenimientosSubs) {
       this.mantenimientosSubs.unsubscribe();      
@@ -60,9 +59,7 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   rerender() {
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }

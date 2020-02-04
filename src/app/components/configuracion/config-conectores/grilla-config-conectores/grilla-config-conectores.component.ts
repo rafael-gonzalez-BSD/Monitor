@@ -48,15 +48,13 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
   }
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     if (this.configConectoresSubs) {
       this.configConectoresSubs.unsubscribe();      
     }    
   }
 
-  rerender() {
-    
+  rerender() {    
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();

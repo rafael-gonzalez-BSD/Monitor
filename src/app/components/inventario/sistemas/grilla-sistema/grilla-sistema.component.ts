@@ -32,9 +32,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
-
-    
-    
     this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
       this.verTabla = false;
@@ -47,25 +44,25 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
 
   ngAfterViewInit(){
     this.dtTrigger.next();
+    setTimeout(() => {
+      this.verTabla = true;
+    }, 0);
   }
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     if (this.sistemasSubs) {
       this.sistemasSubs.unsubscribe();      
     }    
   }
 
-  rerender() {
-    
+  rerender() {    
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
-      this.verTabla =  true;
-      // this.generalesService.quitarLoader();
+      setTimeout(() => {
+        this.verTabla = true;
+      }, 0);
     });
   }
 
@@ -73,6 +70,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
     this.sistemaService.consultarSistemaAll(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
+          this.verTabla = false;
           this.length = 0;
           this.listadoSistemas = response.datos;
           this.length = response.datos.length;

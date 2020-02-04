@@ -55,7 +55,6 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     if (this.procesosSubs) {
       this.procesosSubs.unsubscribe();      
@@ -65,9 +64,7 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
   rerender(): void {
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }

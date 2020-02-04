@@ -5,30 +5,30 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <!-- <div [className]="!verTabla ? 'mostrarDt mat-elevation-z5 container-table text-center' : 'ocultarDt'">
+        <div [ngClass]="{'mostrarDt': !verTabla, 'ocultarDt': verTabla}">
             <br>
             <br>
             <p>Cargando...</p>
-        </div> -->
-        <div class="mat-elevation-z5 container-table" [className]="verTabla ? 'mostrarDt mat-elevation-z5 container-table' : 'ocultarDt'">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover dt">
-                <thead class="dtHead">
+        </div>
+        <div class="mat-elevation-z5 container-table" [ngClass]="{'mostrarDt': verTabla, 'ocultarDt': !verTabla}">
+            <table datatable [dtOptions]=" dtOptions " [dtTrigger]="dtTrigger " class="row-border hover dt ">
+                <thead class="dtHead ">
                     <tr>
-                        <th class="verMasDt" data-priority="1"></th>
-                        <th class="editarDt" data-priority="2">Acción</th>
+                        <th class="verMasDt " data-priority="1 "></th>
+                        <th class="editarDt " data-priority="2 ">Acción</th>
                         <th>Identificador</th>
                         <th>Alias</th>
-                        <th data-priority="4">Nombre</th>
+                        <th data-priority="4 ">Nombre</th>
                         <th>Área Propietaria</th>
                         <th>Descripción</th>
-                        <th data-priority="3">Estado</th>
+                        <th data-priority="3 ">Estado</th>
                     </tr>
                 </thead>
-                <tbody class="dtBody">
-                    <tr *ngFor="let item of listadoSistemas">
-                        <td class="verMasDt"></td>
-                        <td class="editarDt">
-                            <button mat-icon-button (click)="consultarSistemaId(item.sistemaId)">
+                <tbody class="dtBody ">
+                    <tr *ngFor="let item of listadoSistemas ">
+                        <td class="verMasDt "></td>
+                        <td class="editarDt ">
+                            <button mat-icon-button (click)="consultarSistemaId(item.sistemaId) ">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </td>
@@ -38,7 +38,7 @@
                         <td>{{ item.gerenciaDescripcion }}</td>
                         <td>{{ item.descripcion }}</td>
                         <td>
-                            <mat-slide-toggle [checked]="!item.baja" (change)="actualizarEstado($event, item)"></mat-slide-toggle>
+                            <mat-slide-toggle [checked]="!item.baja " (change)="actualizarEstado($event, item) "></mat-slide-toggle>
                         </td>
                     </tr>
                 </tbody>
