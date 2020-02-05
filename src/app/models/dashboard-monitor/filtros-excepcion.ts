@@ -3,6 +3,7 @@ export class FiltrosExcepcion {
     excepcionId: number;
     sistemaId: number;
     sistemaDescripcion: string;
+    sistemaBaja: boolean;
     fechaDesde: string;
     fechaHasta: string;
     excepcionEstatusId: number;

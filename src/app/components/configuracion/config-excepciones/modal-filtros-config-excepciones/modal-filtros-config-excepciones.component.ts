@@ -20,6 +20,7 @@ import { ConfigExcepcionesService } from '../../../../services/configuracion/con
 })
 export class ModalFiltrosConfigExcepcionesComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) auto: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosFiltros: any;
@@ -78,25 +79,29 @@ export class ModalFiltrosConfigExcepcionesComponent implements OnInit {
   }
 
   buscar(configExcepcionesModel: ConfigExcepciones) {
-    if (this.grupoFormulario.valid) {
-      this.configExcepcionesModel.opcion = this.opcion;
-
-      if (this.grupoFormulario.value.sistemaId) {
-        this.configExcepcionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.configExcepcionesModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.configExcepcionesModel.sistemaId = 0;
-        this.configExcepcionesModel.sistemaDescripcion = '';
-      }
-
-      localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(this.configExcepcionesModel));
-
-      this.configExcepcionesService.setearFiltros();
-
-      this.configExcepcionesService.obtenerFiltros();
-
-      this.cerrarModal();
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+    this.configExcepcionesModel.opcion = this.opcion;
+
+    if (this.grupoFormulario.value.sistemaId) {
+      this.configExcepcionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.configExcepcionesModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.configExcepcionesModel.sistemaId = 0;
+      this.configExcepcionesModel.sistemaDescripcion = '';
+    }
+
+    this.configExcepcionesModel.sistemaBaja = false;
+
+    localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(this.configExcepcionesModel));
+
+    this.configExcepcionesService.setearFiltros();
+
+    this.configExcepcionesService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   consultarSistemaCombo() {

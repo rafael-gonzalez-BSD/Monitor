@@ -17,6 +17,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
   styleUrls: ['./modal-filtros-sistema.component.scss']
 })
 export class ModalFiltrosSistemaComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   datosFiltros: any;
   datosCombo: Combo[];
@@ -76,37 +77,40 @@ export class ModalFiltrosSistemaComponent implements OnInit {
   }
 
   buscar(sistemaModel: Sistema) {
-    if (this.grupoFormulario.valid) {
-      this.sistemaModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.sistemaId) {
-        this.sistemaModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.sistemaModel.sistemaId = 0;
-        this.sistemaModel.sistemaDescripcion = '';
-      }
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
+    }
 
-      if (this.grupoFormulario.value.baja) {
-        if (this.grupoFormulario.value.baja !== '-1') {
-          this.sistemaModel.baja = this.grupoFormulario.value.baja;
-          this.sistemaModel.bajaDescripcion = this.selectedText;
-        } else {
-          this.sistemaModel.baja = null;
-          this.sistemaModel.bajaDescripcion = 'Ambos';
-        }
+    this.sistemaModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.sistemaId) {
+      this.sistemaModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.sistemaModel.sistemaId = 0;
+      this.sistemaModel.sistemaDescripcion = '';
+    }
+
+    if (this.grupoFormulario.value.baja) {
+      if (this.grupoFormulario.value.baja !== '-1') {
+        this.sistemaModel.baja = this.grupoFormulario.value.baja;
+        this.sistemaModel.bajaDescripcion = this.selectedText;
       } else {
         this.sistemaModel.baja = null;
         this.sistemaModel.bajaDescripcion = 'Ambos';
       }
-
-      localStorage.setItem('filtrosSistemas', JSON.stringify(this.sistemaModel));
-
-      this.sistemaService.setearFiltros();
-
-      this.sistemaService.obtenerFiltros();
-
-      this.cerrarModal();
+    } else {
+      this.sistemaModel.baja = null;
+      this.sistemaModel.bajaDescripcion = 'Ambos';
     }
+
+    localStorage.setItem('filtrosSistemas', JSON.stringify(this.sistemaModel));
+
+    this.sistemaService.setearFiltros();
+
+    this.sistemaService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   setearValorAutocomplete(campo: string, id: number, desc: string) {

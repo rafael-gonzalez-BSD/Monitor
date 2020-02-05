@@ -13,5 +13,6 @@ export class Mantenimiento {
   baja: boolean;
   sistemaId: number;
   sistemaDescripcion: string;
+  sistemaBaja: boolean;
   opcion: number;
 }

@@ -22,6 +22,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./modal-filtros-mantenimiento.component.scss']
 })
 export class ModalFiltrosMantenimientoComponent implements OnInit {
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosFiltros: any;
@@ -111,37 +112,42 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   }
 
   buscar(mantenimientoModel: Mantenimiento) {
-    if (this.grupoFormulario.valid) {
-      this.mantenimientoModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.sistemaId) {
-        this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.mantenimientoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.mantenimientoModel.sistemaId = 0;
-        this.mantenimientoModel.sistemaDescripcion = '';
-      }
-
-      if ((this.grupoFormulario.value.fechaDesde != '' || this.grupoFormulario.value.fechaDesde != null) &&
-        (this.grupoFormulario.value.fechaHasta == '' || this.grupoFormulario.value.fechaHasta == null)) {
-        this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
-      }
-
-      if ((this.grupoFormulario.value.fechaDesde == '' || this.grupoFormulario.value.fechaDesde == null) &&
-        (this.grupoFormulario.value.fechaHasta != '' || this.grupoFormulario.value.fechaHasta != null)) {
-        this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
-      }
-
-      this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde || null;
-      this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta || null;
-
-      localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
-
-      this.mantenimientoService.setearFiltros();
-
-      this.mantenimientoService.obtenerFiltros();
-
-      this.cerrarModal();
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+
+    this.mantenimientoModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.sistemaId) {
+      this.mantenimientoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.mantenimientoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.mantenimientoModel.sistemaId = 0;
+      this.mantenimientoModel.sistemaDescripcion = '';
+    }
+
+    if ((this.grupoFormulario.value.fechaDesde != '' || this.grupoFormulario.value.fechaDesde != null) &&
+      (this.grupoFormulario.value.fechaHasta == '' || this.grupoFormulario.value.fechaHasta == null)) {
+      this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
+    }
+
+    if ((this.grupoFormulario.value.fechaDesde == '' || this.grupoFormulario.value.fechaDesde == null) &&
+      (this.grupoFormulario.value.fechaHasta != '' || this.grupoFormulario.value.fechaHasta != null)) {
+      this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
+    }
+
+    this.mantenimientoModel.fechaDesde = this.grupoFormulario.value.fechaDesde || null;
+    this.mantenimientoModel.fechaHasta = this.grupoFormulario.value.fechaHasta || null;
+
+    this.mantenimientoModel.sistemaBaja = false;
+
+    localStorage.setItem('filtrosMantenimientos', JSON.stringify(this.mantenimientoModel));
+
+    this.mantenimientoService.setearFiltros();
+
+    this.mantenimientoService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   get sistemaId() {

@@ -15,8 +15,10 @@ export class ConfigEjecuciones {
   baja: boolean;
   sistemaId: number;
   sistemaDescripcion: string;
+  sistemaBaja: boolean;
   procesoId: number;
   procesoDescripcion: string;
+  procesoBaja: boolean;
   ventanaMantenimiento: string | null;
   opcion: number;
 }

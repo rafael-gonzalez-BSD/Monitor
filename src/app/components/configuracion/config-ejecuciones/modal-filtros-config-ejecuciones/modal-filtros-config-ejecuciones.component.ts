@@ -23,6 +23,7 @@ import { ConfigEjecucionesService } from '../../../../services/configuracion/con
 export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) autoSistema: MatAutocompleteTrigger;
   @ViewChild(MatAutocompleteTrigger, null) autoProceso: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosFiltros: any;
@@ -92,32 +93,38 @@ export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
   }
 
   buscar(configEjecucionesModel: ConfigEjecuciones) {
-    if (this.grupoFormulario.valid) {
-      this.configEjecucionesModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.procesoId) {
-        this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
-        this.configEjecucionesModel.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
-      } else {
-        this.configEjecucionesModel.procesoId = 0;
-        this.configEjecucionesModel.procesoDescripcion = '';
-      }
-
-      if (this.grupoFormulario.value.sistemaId) {
-        this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.configEjecucionesModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.configEjecucionesModel.sistemaId = 0;
-        this.configEjecucionesModel.sistemaDescripcion = '';
-      }
-
-      localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(this.configEjecucionesModel));
-
-      this.configEjecucionesService.setearFiltros();
-
-      this.configEjecucionesService.obtenerFiltros();
-
-      this.cerrarModal();
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+
+    this.configEjecucionesModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.procesoId) {
+      this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
+      this.configEjecucionesModel.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
+    } else {
+      this.configEjecucionesModel.procesoId = 0;
+      this.configEjecucionesModel.procesoDescripcion = '';
+    }
+
+    if (this.grupoFormulario.value.sistemaId) {
+      this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.configEjecucionesModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.configEjecucionesModel.sistemaId = 0;
+      this.configEjecucionesModel.sistemaDescripcion = '';
+    }
+
+    this.configEjecucionesModel.sistemaBaja = false;
+    this.configEjecucionesModel.procesoBaja = false;
+
+    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(this.configEjecucionesModel));
+
+    this.configEjecucionesService.setearFiltros();
+
+    this.configEjecucionesService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   validaFormulario() {

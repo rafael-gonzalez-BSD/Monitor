@@ -5,8 +5,8 @@
             <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId">
-                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                <div class="div-errors" *ngIf="submitted && sistemaId.errors">
+                    <div class="container-error" *ngIf="sistemaId.errors.incorrect">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
@@ -20,6 +20,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Buscar</button>
+        <button class="btn-ternium-primary" mat-button>Buscar</button>
     </mat-dialog-actions>
 </form>

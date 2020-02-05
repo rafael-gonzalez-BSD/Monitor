@@ -14,5 +14,6 @@ export class ConfigConectores {
   baja: boolean;
   sistemaId: number;
   sistemaDescripcion: string;
+  sistemaBaja: boolean;
   opcion: number;
 }

@@ -52,7 +52,7 @@ export function dateRangeValidator(formGroupValues: FormGroup) {
     if (fechaDesde.isAfter(fechaHasta)) {
       return { invalidDateRange: true };
     }
-    debugger
+
     let permitedDays = parseInt(localStorage.getItem('diasPermitidos'));
     let days = fechaHasta.diff(fechaDesde, 'days');
 
