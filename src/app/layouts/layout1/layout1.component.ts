@@ -13,6 +13,9 @@ import moment from 'moment';
 import { log } from 'util';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 import { getFirstDayMonth, getLastDayMonth } from 'src/app/extensions/utils/utils';
+import { GeneralesService } from '../../services/general/generales.service';
+import { MonitorConfiguracion } from '../../models/base/monitor-configuracion';
+import { RespuestaModel } from '../../models/base/respuesta';
 
 @Component({
   selector: 'app-layout1',
@@ -24,7 +27,7 @@ export class Layout1Component implements OnInit {
   mostrarMenu1 = false;
   mostrarMenu2 = false;
   mostrarMenu3 = false;
-  constructor(private sidebarService: SidebarService, private router: Router, private breakpointObserver: BreakpointObserver) {
+  constructor(private sidebarService: SidebarService, private router: Router, private breakpointObserver: BreakpointObserver, private generalesService: GeneralesService) {
   }
 
   ngOnInit() {
@@ -36,6 +39,15 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosConfigConectores();
     this.resetearFiltrosDashboard();
     this.resetearFiltrosExcepcion();
+
+    let m = new MonitorConfiguracion();
+    m.identificador = 10;
+    this.generalesService.obtenerConfiguracion(m).subscribe((res: RespuestaModel) => {
+      if (res.satisfactorio) {
+        localStorage.removeItem('diasPermitidos');
+        localStorage.setItem('diasPermitidos', res.datos.valor.toString());
+      }
+    });
 
     localStorage.setItem('tamanioPaginar', '10');
 
@@ -118,9 +130,9 @@ export class Layout1Component implements OnInit {
     const primerDia = getFirstDayMonth(new Date());
     const ultimoDia = getLastDayMonth(new Date());
 
-    filtrosDashboardModel.fechaDesdeCorta = moment( new Date(primerDia)).format('MM/YYYY'); 
-    filtrosDashboardModel.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
-    filtrosDashboardModel.fechaHasta = moment( new Date(ultimoDia)).format('YYYY/MM/DD'); 
+    filtrosDashboardModel.fechaDesdeCorta = moment(new Date(primerDia)).format('MM/YYYY');
+    filtrosDashboardModel.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    filtrosDashboardModel.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
     localStorage.removeItem('filtrosDashboard');
     localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
@@ -136,13 +148,13 @@ export class Layout1Component implements OnInit {
     filtrosExcepcion.sistemaDescripcion = '';
 
     const primerDia = getFirstDayMonth(new Date());
-    const ultimoDia = getLastDayMonth(new Date());    
+    const ultimoDia = getLastDayMonth(new Date());
 
-    filtrosExcepcion.fechaDesde = moment( new Date(primerDia)).format('YYYY/MM/DD'); 
-    filtrosExcepcion.fechaHasta = moment( new Date(ultimoDia)).format('YYYY/MM/DD'); 
+    filtrosExcepcion.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    filtrosExcepcion.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
-    localStorage.setItem('fechaDesdeBitacoras', moment( new Date(primerDia)).format('YYYY/MM/DD'));
-    localStorage.setItem('fechaHastaBitacoras', moment( new Date(ultimoDia)).format('YYYY/MM/DD'));
+    localStorage.setItem('fechaDesdeBitacoras', moment(new Date(primerDia)).format('YYYY/MM/DD'));
+    localStorage.setItem('fechaHastaBitacoras', moment(new Date(ultimoDia)).format('YYYY/MM/DD'));
     localStorage.setItem('sistemaIdBitacoras', filtrosExcepcion.sistemaId.toString());
     localStorage.setItem('sistemaDescripcionBitacoras', filtrosExcepcion.sistemaDescripcion);
 

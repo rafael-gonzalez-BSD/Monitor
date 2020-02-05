@@ -108,8 +108,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       rutaLog: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(250),
-        Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        Validators.maxLength(250)
+
       ]),
       rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [
@@ -216,7 +216,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   get excepcionConfiguracionId() {
     return this.grupoFormulario.get('excepcionConfiguracionId');
   }
-  
+
   get rutaLog() {
     return this.grupoFormulario.get('rutaLog');
   }

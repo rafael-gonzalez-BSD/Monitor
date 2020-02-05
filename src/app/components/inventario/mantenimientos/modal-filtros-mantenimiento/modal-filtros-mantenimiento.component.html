@@ -30,7 +30,10 @@
                 </div>
                 <div class="div-errors" *ngIf="grupoFormulario.invalid">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidDateRange')">
-                        <span class="tc-ff3300">El rango de fechas es inválido</span>
+                        <span class="tc-ff3300">FechaDesde debe ser menor o igual que FechaHasta</span>
+                    </div>
+                    <div class="container-error" *ngIf="grupoFormulario.hasError('moreThanRangeDays')">
+                        <span class="tc-ff3300">El rango de fechas no debe de superar a los 30 días</span>
                     </div>
                 </div>
             </div>
@@ -45,7 +48,10 @@
                 </div>
                 <div class="div-errors" *ngIf="grupoFormulario.invalid">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidDateRange')">
-                        <span class="tc-ff3300">El rango de fechas es inválido</span>
+                        <span class="tc-ff3300">FechaDesde debe ser menor o igual que FechaHasta</span>
+                    </div>
+                    <div class="container-error" *ngIf="grupoFormulario.hasError('moreThanRangeDays')">
+                        <span class="tc-ff3300">El rango de fechas no debe de superar a los 30 días</span>
                     </div>
                 </div>
             </div>

@@ -124,8 +124,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       rutaLog: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(250),
-        Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        Validators.maxLength(250)
       ]),
       rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [

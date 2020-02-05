@@ -42,4 +42,13 @@ export class GeneralesService {
     const url = `${environment.urlApi}general/testRutaArchivos`;
     return this.http.get(url, { params: parametros });
   }
+
+  obtenerConfiguracion(m: any): Observable<any> {
+    let parametros = new HttpParams();
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+    const url = `${environment.urlApi}general/obtenerConfiguracion`;
+    return this.http.get(url, { params: parametros });
+  }
 }
