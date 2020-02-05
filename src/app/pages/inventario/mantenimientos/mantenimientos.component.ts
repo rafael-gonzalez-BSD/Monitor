@@ -46,7 +46,7 @@ export class MantenimientosComponent implements OnInit {
     dialogConfig.data.fechaDesde = '';
     dialogConfig.data.fechaHasta = '';
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
+    dialogConfig.width = '90%';
     dialogConfig.maxWidth = '768px';
     this.modal.open(ModalFiltrosMantenimientoComponent, dialogConfig);
   }
