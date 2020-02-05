@@ -9,6 +9,7 @@ import { Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -21,20 +22,22 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   dtOptions: any = {};
   listadoSistemas: Sistema[] = [];
   dtTrigger: Subject<Sistema> = new Subject();
-  paginar = false;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   sistemasSubs: Subscription;
   sistemaModel = new Sistema();
-  length: number;
-  verTabla =  false;
+
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+
+  verTabla = false;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
     this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
-      this.verTabla = false;
+      this.verTabla =  false;
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
@@ -45,7 +48,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   ngAfterViewInit(){
     this.dtTrigger.next();
     setTimeout(() => {
-      this.verTabla = true;
     }, 0);
   }
 
@@ -71,19 +73,20 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
       (response: any) => {
         if (response.satisfactorio) {
           this.verTabla = false;
-          this.length = 0;
           this.listadoSistemas = response.datos;
-          this.length = response.datos.length;
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(this.length > tamanioPaginar) 
+          if(response.datos.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }   
-            this.rerender();
+          }else{
+            this.dtOptions.paging = false;
+            this.dtOptions.info = false;            
+          }
+          this.rerender();
           
         } else {
           this.generalesService.notificar(

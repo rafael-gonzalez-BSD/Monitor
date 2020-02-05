@@ -11,6 +11,7 @@ tbody.dtBody {
 
 .container-table {
     padding: 10px !important;
+    position: relative !important;
 }
 
 thead.dtHead {
@@ -69,10 +70,10 @@ table.dataTable thead td {
     padding-left: 5px;
 }
 
-.mostratDt {
+.mostrar {
     display: block !important;
 }
 
-.ocultarDt {
+.ocultar {
     display: none !important;
 }

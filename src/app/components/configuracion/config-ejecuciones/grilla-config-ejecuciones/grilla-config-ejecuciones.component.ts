@@ -26,10 +26,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 
-
   configEjecucionesModel = new ConfigEjecuciones();
-  length: number;
-
   configEjecucionesSubs: Subscription;
   loader = false;
 
@@ -76,18 +73,19 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
-
           this.config = res.datos;
-          this.length = res.datos.length;
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(this.length > tamanioPaginar) 
+          if(res.datos.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }          
+          }else{
+            this.dtOptions.paging = false;
+            this.dtOptions.info = false;            
+          }        
           this.rerender();
 
         } else {

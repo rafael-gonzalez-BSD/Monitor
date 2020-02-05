@@ -26,7 +26,6 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   dtElement: DataTableDirective;
   mantenimientosSubs: Subscription;
   mantenimientoModel = new Mantenimiento();
-  length: number;
 
   constructor(
     private mantenimientoService: MantenimientoService,
@@ -69,15 +68,17 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
           this.listadoMantenimientos = response.datos;
-          this.length = response.datos.length;
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(this.length > tamanioPaginar) 
+          if(response.datos.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
+          }else{
+            this.dtOptions.paging = false;
+            this.dtOptions.info = false;            
           }          
           this.rerender();
           

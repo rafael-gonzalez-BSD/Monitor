@@ -41,7 +41,7 @@ export class ConfigEjecucionesComponent implements OnInit {
       opcion: 4
     };
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
+    dialogConfig.width = '90%';
     dialogConfig.maxWidth = '768px';
     this.modal.open(ModalFiltrosConfigEjecucionesComponent, dialogConfig);
   }
