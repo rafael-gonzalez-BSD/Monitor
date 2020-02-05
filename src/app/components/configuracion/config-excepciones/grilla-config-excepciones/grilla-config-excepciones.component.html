@@ -5,7 +5,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 div-loading" [ngClass]="{'mostrar mat-elevation-z5': !verTabla, 'ocultar': verTabla}">
+        <ngx-loading [show]="loadingTrue" [config]='loadingConfig'></ngx-loading>
+    </div>
+    <div class="col-12 " [ngClass]="{'mostrar': verTabla, 'ocultar': !verTabla}">
         <div class="mat-elevation-z5 container-table">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover dt">
                 <thead class="dtHead">

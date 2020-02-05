@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-config-excepciones',
@@ -28,6 +29,10 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
 
   configExcepcionesSubs: Subscription;
   configExcepcionesModel = new ConfigExcepciones();
+
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+  verTabla = false;
 
   constructor(
     private generalesService: GeneralesService,
@@ -60,6 +65,10 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
+
+      setTimeout(() => {
+        this.verTabla = true;
+      }, 0);
     });
   }
 
@@ -67,6 +76,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
     this.configExcepcionesService.obtenerConfigExcepciones(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
+          this.verTabla = false;
           this.listadoConfiguExcepciones = response.datos;
 
           // Validamos si debemos paginar o no

@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-config-ejecuciones',
@@ -28,7 +29,10 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
   configEjecucionesModel = new ConfigEjecuciones();
   configEjecucionesSubs: Subscription;
-  loader = false;
+  
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+  verTabla = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -66,6 +70,9 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
       dtInstance.destroy();
       this.dtTrigger.next();
     });
+    setTimeout(() => {
+      this.verTabla = true;
+    }, 0);
   }
 
 
@@ -73,6 +80,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
+          this.verTabla = false;
           this.config = res.datos;
 
           // Validamos si debemos paginar o no

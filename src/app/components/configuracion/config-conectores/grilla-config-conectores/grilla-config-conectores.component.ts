@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-config-conectores',
@@ -28,6 +29,10 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
 
   configConectoresSubs: Subscription;
   configConectoresModel = new ConfigConectores();
+
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+  verTabla = false;
 
   constructor(
     private generalesService: GeneralesService,
@@ -59,6 +64,9 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
+      setTimeout(() => {
+        this.verTabla = true;
+      }, 0);
     });
   }
 
@@ -66,6 +74,7 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
     this.configConectoresService.obtenerConfigConectores(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
+          this.verTabla = false;
           this.listadoConfiguConectores = response.datos;
 
           // Validamos si debemos paginar o no
