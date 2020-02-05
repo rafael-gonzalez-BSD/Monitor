@@ -9,6 +9,7 @@ import { Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-sistema',
@@ -25,14 +26,18 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   dtElement: DataTableDirective;
   sistemasSubs: Subscription;
   sistemaModel = new Sistema();
-  verTabla =  false;
+
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+
+  verTabla = false;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
 
   ngOnInit() {
     this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
-      this.verTabla = false;
+      this.verTabla =  false;
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
@@ -43,7 +48,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   ngAfterViewInit(){
     this.dtTrigger.next();
     setTimeout(() => {
-      this.verTabla = true;
     }, 0);
   }
 

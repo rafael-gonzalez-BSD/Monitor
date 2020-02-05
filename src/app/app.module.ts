@@ -84,6 +84,8 @@ import { CintillaBitacoraConectoresComponent } from './components/dashboard-moni
 import { ModalFiltroBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/modal-filtro-bitacora-conectores/modal-filtro-bitacora-conectores.component';
 import { GrillaBitacoraConectoresComponent } from './components/dashboard-monitor/bitacora-conectores/grilla-bitacora-conectores/grilla-bitacora-conectores.component';
 
+import { NgxLoadingModule } from 'ngx-loading';
+
 // Angular DataTable
 import { DataTablesModule } from 'angular-datatables';
 /**
@@ -191,7 +193,8 @@ export const MY_FORMATS = {
     LayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
     NgxMaterialTimepickerModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxLoadingModule.forRoot({})
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
