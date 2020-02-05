@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-mantenimiento',
@@ -26,6 +27,10 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   dtElement: DataTableDirective;
   mantenimientosSubs: Subscription;
   mantenimientoModel = new Mantenimiento();
+
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+  verTabla = false;
 
   constructor(
     private mantenimientoService: MantenimientoService,
@@ -60,6 +65,9 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
+      setTimeout(() => {
+        this.verTabla = true;
+      }, 0);
     });
   }
 
@@ -67,6 +75,7 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
     this.mantenimientoService.obtenerMantenimientos(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
+          this.verTabla = false;
           this.listadoMantenimientos = response.datos;
 
           // Validamos si debemos paginar o no

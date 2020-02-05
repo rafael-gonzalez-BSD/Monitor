@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grilla-proceso',
@@ -31,6 +32,10 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
 
   procesosSubs: Subscription;
   procesoModel = new Proceso();
+  
+  loadingTrue = true;
+  loadingConfig = CONFIG_LOADING;
+  verTabla = false;
 
 
   constructor(
@@ -63,6 +68,9 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
+      setTimeout(() => {
+        this.verTabla = true;
+      }, 0);
     });
   }
 
@@ -70,6 +78,7 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
     this.procesoService.obtenerProcesos(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
+          this.verTabla = false;
           this.listadoProcesos = response.datos;
 
           // Validamos si debemos paginar o no
@@ -82,7 +91,8 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
           }else{
             this.dtOptions.paging = false;
             this.dtOptions.info = false;            
-          }          
+          }  
+          
           this.rerender();
         } else {
           new NotificacionModel('warning', `Error al consultar el listado de procesos ${response.mensaje}`)

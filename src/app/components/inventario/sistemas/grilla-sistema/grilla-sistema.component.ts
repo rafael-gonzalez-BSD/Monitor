@@ -29,7 +29,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
 
   loadingTrue = true;
   loadingConfig = CONFIG_LOADING;
-
   verTabla = false;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
@@ -37,7 +36,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   ngOnInit() {
     this.dtOptions = CONFIGURACION
     this.sistemasSubs = this.sistemaService.filtros.subscribe((m: any) => {
-      this.verTabla =  false;
       if (m.baja === null) delete m.baja;
       this.consultarSistemaAll(m);
     });
@@ -47,8 +45,6 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
 
   ngAfterViewInit(){
     this.dtTrigger.next();
-    setTimeout(() => {
-    }, 0);
   }
 
   ngOnDestroy(): void {
