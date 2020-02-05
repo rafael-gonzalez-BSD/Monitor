@@ -5,8 +5,8 @@
             <div class="col-lg-12 form-group">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId">
-                <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                <div class="div-errors" *ngIf="submitted && sistemaId.errors">
+                    <div class="container-error" *ngIf="sistemaId.errors.incorrect">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
@@ -23,16 +23,16 @@
                 <label>Fecha Desde</label>
                 <input type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [ngModel]="datosFiltros.fechaDesde" placeholder="dd/mmm/aaaa">
                 <mat-datepicker [touchUi]="isMobile" #fD></mat-datepicker>
-                <div class="div-errors" *ngIf="fechaDesde.invalid && ( fechaDesde.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['fechaDesde'].hasError('requiredFromDate')">
+                <div class="div-errors" *ngIf="submitted && fechaDesde.errors">
+                    <div class="container-error" *ngIf="fechaDesde.errors.requiredFromDate">
                         <span class="tc-ff3300">Campo Requerido</span>
                     </div>
                 </div>
-                <div class="div-errors" *ngIf="grupoFormulario.invalid">
-                    <div class="container-error" *ngIf="grupoFormulario.hasError('invalidDateRange')">
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.invalidDateRange">
                         <span class="tc-ff3300">FechaDesde debe ser menor o igual que FechaHasta</span>
                     </div>
-                    <div class="container-error" *ngIf="grupoFormulario.hasError('moreThanRangeDays')">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.moreThanRangeDays">
                         <span class="tc-ff3300">El rango de fechas no debe de superar a los 30 días</span>
                     </div>
                 </div>
@@ -41,16 +41,16 @@
                 <label>Fecha Hasta</label>
                 <input type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [ngModel]="datosFiltros.fechaHasta" placeholder="dd/mmm/aaaa">
                 <mat-datepicker [touchUi]="isMobile" #fH></mat-datepicker>
-                <div class="div-errors" *ngIf="fechaHasta.invalid && ( fechaHasta.touched )">
-                    <div class="container-error" *ngIf="grupoFormulario.controls['fechaHasta'].hasError('requiredToDate')">
+                <div class="div-errors" *ngIf="submitted && fechaHasta.errors">
+                    <div class="container-error" *ngIf="fechaHasta.errors.requiredToDate">
                         <span class="tc-ff3300">Campo Requerido</span>
                     </div>
                 </div>
-                <div class="div-errors" *ngIf="grupoFormulario.invalid">
-                    <div class="container-error" *ngIf="grupoFormulario.hasError('invalidDateRange')">
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.invalidDateRange">
                         <span class="tc-ff3300">FechaDesde debe ser menor o igual que FechaHasta</span>
                     </div>
-                    <div class="container-error" *ngIf="grupoFormulario.hasError('moreThanRangeDays')">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.moreThanRangeDays">
                         <span class="tc-ff3300">El rango de fechas no debe de superar a los 30 días</span>
                     </div>
                 </div>
@@ -59,6 +59,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Buscar</button>
+        <button class="btn-ternium-primary" mat-button>Buscar</button>
     </mat-dialog-actions>
 </form>

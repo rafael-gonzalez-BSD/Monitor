@@ -21,6 +21,7 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 export class ModalFiltrosProcesoComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) autoSistema: MatAutocompleteTrigger;
   @ViewChild(MatAutocompleteTrigger, null) autoProceso: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosFiltros: any;
@@ -84,32 +85,37 @@ export class ModalFiltrosProcesoComponent implements OnInit {
   }
 
   buscar(procesoModel: Proceso) {
-    if (this.grupoFormulario.valid) {
-      this.procesoModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.procesoId) {
-        this.procesoModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
-        this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
-      } else {
-        this.procesoModel.procesoId = 0;
-        this.procesoModel.procesoDescripcion = '';
-      }
-
-      if (this.grupoFormulario.value.sistemaId) {
-        this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.procesoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.procesoModel.sistemaId = 0;
-        this.procesoModel.sistemaDescripcion = '';
-      }
-
-      localStorage.setItem('filtrosProcesos', JSON.stringify(this.procesoModel));
-
-      this.procesoService.setearFiltros();
-
-      this.procesoService.obtenerFiltros();
-
-      this.cerrarModal();
+    this.submitted = true;
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+
+    this.procesoModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.procesoId) {
+      this.procesoModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
+      this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
+    } else {
+      this.procesoModel.procesoId = 0;
+      this.procesoModel.procesoDescripcion = '';
+    }
+
+    if (this.grupoFormulario.value.sistemaId) {
+      this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.procesoModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.procesoModel.sistemaId = 0;
+      this.procesoModel.sistemaDescripcion = '';
+    }
+
+    this.procesoModel.sistemaBaja = false;
+
+    localStorage.setItem('filtrosProcesos', JSON.stringify(this.procesoModel));
+
+    this.procesoService.setearFiltros();
+
+    this.procesoService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   validaFormulario() {

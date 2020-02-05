@@ -21,6 +21,7 @@ import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 export class ModalFiltrosConfigConectoresComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, null) autoSistema: MatAutocompleteTrigger;
   @ViewChild(MatAutocompleteTrigger, null) autoConector: MatAutocompleteTrigger;
+  submitted = false;
   tituloModal: string;
   opcion: number;
   datosFiltros: any;
@@ -86,32 +87,35 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
   }
 
   buscar(configConectoresModel: ConfigConectores) {
-    if (this.grupoFormulario.valid) {
-      this.configConectoresModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.conectorConfiguracionId) {
-        this.configConectoresModel.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId.identificador;
-        this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionId.descripcion;
-      } else {
-        this.configConectoresModel.conectorConfiguracionId = 0;
-        this.configConectoresModel.conectorConfiguracionDescripcion = '';
-      }
-
-      if (this.grupoFormulario.value.sistemaId) {
-        this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.configConectoresModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.configConectoresModel.sistemaId = 0;
-        this.configConectoresModel.sistemaDescripcion = '';
-      }
-
-      localStorage.setItem('filtrosConfigConectores', JSON.stringify(this.configConectoresModel));
-
-      this.configConectoresService.setearFiltros();
-
-      this.configConectoresService.obtenerFiltros();
-
-      this.cerrarModal();
+    if (this.grupoFormulario.invalid) {
+      return;
     }
+    this.configConectoresModel.opcion = this.opcion;
+    if (this.grupoFormulario.value.conectorConfiguracionId) {
+      this.configConectoresModel.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId.identificador;
+      this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionId.descripcion;
+    } else {
+      this.configConectoresModel.conectorConfiguracionId = 0;
+      this.configConectoresModel.conectorConfiguracionDescripcion = '';
+    }
+
+    if (this.grupoFormulario.value.sistemaId) {
+      this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+      this.configConectoresModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    } else {
+      this.configConectoresModel.sistemaId = 0;
+      this.configConectoresModel.sistemaDescripcion = '';
+    }
+
+    this.configConectoresModel.sistemaBaja = false;
+
+    localStorage.setItem('filtrosConfigConectores', JSON.stringify(this.configConectoresModel));
+
+    this.configConectoresService.setearFiltros();
+
+    this.configConectoresService.obtenerFiltros();
+
+    this.cerrarModal();
   }
 
   validaFormulario() {

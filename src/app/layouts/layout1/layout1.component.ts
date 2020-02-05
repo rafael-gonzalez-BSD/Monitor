@@ -57,109 +57,117 @@ export class Layout1Component implements OnInit {
   }
 
   resetearFiltrosProcesos() {
-    const procesoModel = new Proceso();
-    procesoModel.opcion = 4;
-    procesoModel.procesoId = 0;
-    procesoModel.procesoDescripcion = '';
-    procesoModel.sistemaId = 0;
-    procesoModel.sistemaDescripcion = '';
+    const m = new Proceso();
+    m.opcion = 4;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
     localStorage.removeItem('filtrosProcesos');
-    localStorage.setItem('filtrosProcesos', JSON.stringify(procesoModel));
+    localStorage.setItem('filtrosProcesos', JSON.stringify(m));
   }
 
   resetearFiltrosSistemas() {
-    const sistemaModel = new Sistema();
-    sistemaModel.opcion = 4;
-    sistemaModel.bajaDescripcion = 'Ambos';
-    sistemaModel.baja = null;
-    sistemaModel.sistemaId = 0;
-    sistemaModel.sistemaDescripcion = '';
+    const m = new Sistema();
+    m.opcion = 4;
+    m.bajaDescripcion = 'Ambos';
+    m.baja = null;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
     localStorage.removeItem('filtrosSistemas');
-    localStorage.setItem('filtrosSistemas', JSON.stringify(sistemaModel));
+    localStorage.setItem('filtrosSistemas', JSON.stringify(m));
   }
 
   resetearFiltrosMantenimientos() {
-    const mantenimientoModel = new Mantenimiento();
-    mantenimientoModel.opcion = 4;
-    mantenimientoModel.baja = null;
-    mantenimientoModel.sistemaId = 0;
-    mantenimientoModel.sistemaDescripcion = '';
-    mantenimientoModel.fechaDesde = null;
-    mantenimientoModel.fechaHasta = null;
+    const m = new Mantenimiento();
+    m.opcion = 4;
+    m.baja = null;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    m.fechaDesde = null;
+    m.fechaHasta = null;
     localStorage.removeItem('filtrosMantenimientos');
-    localStorage.setItem('filtrosMantenimientos', JSON.stringify(mantenimientoModel));
+    localStorage.setItem('filtrosMantenimientos', JSON.stringify(m));
   }
 
   resetearFiltrosConfigExcepciones() {
-    const configExcepcionesModel = new ConfigExcepciones();
-    configExcepcionesModel.opcion = 4;
-    configExcepcionesModel.sistemaId = 0;
-    configExcepcionesModel.sistemaDescripcion = '';
+    const m = new ConfigExcepciones();
+    m.opcion = 4;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
     localStorage.removeItem('filtrosConfigExcepciones');
-    localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(configExcepcionesModel));
+    localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(m));
   }
 
   resetearFiltrosConfigEjecuciones() {
-    const configEjecucionesModel = new ConfigEjecuciones();
-    configEjecucionesModel.opcion = 4;
-    configEjecucionesModel.procesoId = 0;
-    configEjecucionesModel.procesoDescripcion = '';
-    configEjecucionesModel.sistemaId = 0;
-    configEjecucionesModel.sistemaDescripcion = '';
+    const m = new ConfigEjecuciones();
+    m.opcion = 4;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    m.procesoBaja = false;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
     localStorage.removeItem('filtrosConfigEjecuciones');
-    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(configEjecucionesModel));
+    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(m));
   }
 
   resetearFiltrosConfigConectores() {
-    const configConectoresModel = new ConfigConectores();
-    configConectoresModel.opcion = 4;
-    configConectoresModel.conectorConfiguracionId = 0;
-    configConectoresModel.conectorConfiguracionDescripcion = '';
-    configConectoresModel.sistemaId = 0;
-    configConectoresModel.sistemaDescripcion = '';
+    const m = new ConfigConectores();
+    m.opcion = 4;
+    m.conectorConfiguracionId = 0;
+    m.conectorConfiguracionDescripcion = '';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
     localStorage.removeItem('filtrosConfigConectores');
-    localStorage.setItem('filtrosConfigConectores', JSON.stringify(configConectoresModel));
+    localStorage.setItem('filtrosConfigConectores', JSON.stringify(m));
   }
 
   resetearFiltrosDashboard() {
-    const filtrosDashboardModel = new FiltrosDashboard();
-    filtrosDashboardModel.opcion = 5;
-    filtrosDashboardModel.sistemaId = 0;
-    filtrosDashboardModel.sistemaDescripcion = '';
+    const m = new FiltrosDashboard();
+    m.opcion = 5;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
 
     const primerDia = getFirstDayMonth(new Date());
     const ultimoDia = getLastDayMonth(new Date());
 
-    filtrosDashboardModel.fechaDesdeCorta = moment(new Date(primerDia)).format('MM/YYYY');
-    filtrosDashboardModel.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
-    filtrosDashboardModel.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
+    m.fechaDesdeCorta = moment(new Date(primerDia)).format('MM/YYYY');
+    m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
     localStorage.removeItem('filtrosDashboard');
-    localStorage.setItem('filtrosDashboard', JSON.stringify(filtrosDashboardModel));
+    localStorage.setItem('filtrosDashboard', JSON.stringify(m));
   }
 
   resetearFiltrosExcepcion() {
-    const filtrosExcepcion = new FiltrosExcepcion();
-    filtrosExcepcion.opcion = 5;
-    filtrosExcepcion.excepcionId = 0;
-    filtrosExcepcion.excepcionEstatusId = 1;
-    filtrosExcepcion.excepcionEstatusDescripcion = 'Abierta';
-    filtrosExcepcion.sistemaId = 0;
-    filtrosExcepcion.sistemaDescripcion = '';
+    const m = new FiltrosExcepcion();
+    m.opcion = 5;
+    m.excepcionId = 0;
+    m.excepcionEstatusId = 1;
+    m.excepcionEstatusDescripcion = 'Abierta';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
 
     const primerDia = getFirstDayMonth(new Date());
     const ultimoDia = getLastDayMonth(new Date());
 
-    filtrosExcepcion.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
-    filtrosExcepcion.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
+    m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
     localStorage.setItem('fechaDesdeBitacoras', moment(new Date(primerDia)).format('YYYY/MM/DD'));
     localStorage.setItem('fechaHastaBitacoras', moment(new Date(ultimoDia)).format('YYYY/MM/DD'));
-    localStorage.setItem('sistemaIdBitacoras', filtrosExcepcion.sistemaId.toString());
-    localStorage.setItem('sistemaDescripcionBitacoras', filtrosExcepcion.sistemaDescripcion);
+    localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
+    localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
 
     localStorage.removeItem('filtrosExcepcion');
-    localStorage.setItem('filtrosExcepcion', JSON.stringify(filtrosExcepcion));
+    localStorage.setItem('filtrosExcepcion', JSON.stringify(m));
   }
 
 }
