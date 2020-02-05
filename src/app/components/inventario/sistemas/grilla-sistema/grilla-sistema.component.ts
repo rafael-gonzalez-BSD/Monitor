@@ -21,12 +21,10 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   dtOptions: any = {};
   listadoSistemas: Sistema[] = [];
   dtTrigger: Subject<Sistema> = new Subject();
-  paginar = false;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   sistemasSubs: Subscription;
   sistemaModel = new Sistema();
-  length: number;
   verTabla =  false;
 
   constructor(private sistemaService: SistemaService, private generalesService: GeneralesService, private modal: MatDialog) { }
@@ -71,19 +69,20 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
       (response: any) => {
         if (response.satisfactorio) {
           this.verTabla = false;
-          this.length = 0;
           this.listadoSistemas = response.datos;
-          this.length = response.datos.length;
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(this.length > tamanioPaginar) 
+          if(response.datos.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }   
-            this.rerender();
+          }else{
+            this.dtOptions.paging = false;
+            this.dtOptions.info = false;            
+          }
+          this.rerender();
           
         } else {
           this.generalesService.notificar(

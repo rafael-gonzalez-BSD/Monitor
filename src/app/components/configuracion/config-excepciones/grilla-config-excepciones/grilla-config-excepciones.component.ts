@@ -22,11 +22,12 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   listadoConfiguExcepciones: ConfigExcepciones[] = [];
   dtTrigger: Subject<ConfigExcepciones> = new Subject();
   paginar = false;
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
+
   configExcepcionesSubs: Subscription;
   configExcepcionesModel = new ConfigExcepciones();
-  length: number;
 
   constructor(
     private generalesService: GeneralesService,
@@ -67,16 +68,18 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
           this.listadoConfiguExcepciones = response.datos;
-          this.length = response.datos.length;
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(this.length > tamanioPaginar) 
+          if(response.datos.length > tamanioPaginar) 
           {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }          
+          }else{
+            this.dtOptions.paging = false;
+            this.dtOptions.info = false;            
+          }         
           this.rerender();
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el listado de configuraciones de excepciones: ${response.mensaje}`));
