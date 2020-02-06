@@ -36,8 +36,8 @@
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4 form-group">
                 <label>Fecha Hasta</label>
-                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fechaHasta" placeholder="MM/YYYY">
-                <mat-datepicker #fH startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, fD)" panelClass="example-month-picker">
+                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" [formControl]="date2" [value]="datosFiltros.fechaString" formControlName="fechaHasta" placeholder="MM/YYYY">
+                <mat-datepicker #fH startView="multi-year" (yearSelected)="chosenYearHandlerHasta($event)" (monthSelected)="chosenMonthHandlerHasta($event, fD)" panelClass="example-month-picker">
                 </mat-datepicker>
             </div>
         </div>

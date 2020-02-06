@@ -18,6 +18,7 @@ import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { startWith, map } from 'rxjs/operators';
 import { ExcepcionEstatus } from 'src/app/models/dashboard-monitor/excepcion-estatus';
 import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/excepcion-estatus.service';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -26,6 +27,7 @@ import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/exce
 })
 export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   date: any;
+  date2: any;
   tituloModal: string;
   grupoFormulario: FormGroup;
   datosFiltros: any;
@@ -47,9 +49,12 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
-    const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
-    this.date =  new FormControl(moment(fecha));
+    // const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
+    // const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
+    const fechaDesde = new Date(this.datosFiltros.fechaDesde);
+    const fechaHasta = new Date(this.datosFiltros.fechaHasta);
+    this.date =  new FormControl(moment(fechaDesde));
+    this.date2 =  new FormControl(moment(fechaHasta));
     this.consultarSistemaCombo();
     this.consultarExcepcionEstatusCombo();
   }
@@ -180,6 +185,19 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     datepicker.close();
   }
 
+  chosenYearHandlerHasta(normalizedYear: Moment) {
+    const ctrlValue = this.date2.value;
+    ctrlValue.year(normalizedYear.year());
+    this.date2.setValue(ctrlValue);
+  }
+
+  chosenMonthHandlerHasta(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date2.value;
+    ctrlValue.month(normalizedMonth.month());
+    this.date2.setValue(ctrlValue);
+    datepicker.close();
+  }
+
   // Función para consultar el listado de estatus para el combo estatus
   consultarExcepcionEstatusCombo() {
     const m = new ExcepcionEstatus();
@@ -195,7 +213,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
         }
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrio un error.'));
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrio un error al consultar el combo de excepcionEstatus'));
       },
       () => { }
     );
