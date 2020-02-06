@@ -24,12 +24,12 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   dtTrigger: Subject<ConfigEjecuciones> = new Subject();
   paginar = false;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   configEjecucionesModel = new ConfigEjecuciones();
   configEjecucionesSubs: Subscription;
-  
+
   loadingTrue = true;
   loadingConfig = CONFIG_LOADING;
   verTabla = false;
@@ -46,26 +46,26 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
 
     this.dtOptions = CONFIGURACION;
     this.configEjecucionesSubs = this.configEjecucionesService.filtros.subscribe((m: any) => {
-       this.obtenerConfigEjecuciones(m);       
-     
+      this.obtenerConfigEjecuciones(m);
+
     });
     this.configEjecucionesService.obtenerFiltros();
     this.configEjecucionesService.setearFiltros();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.dtTrigger.next();
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
     if (this.configEjecucionesSubs) {
-      this.configEjecucionesSubs.unsubscribe();      
-    }    
+      this.configEjecucionesSubs.unsubscribe();
+    }
   }
 
   rerender(): void {
-    
+
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
@@ -86,14 +86,13 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));
-          if(res.datos.length > tamanioPaginar) 
-          {
+          if (res.datos.length > tamanioPaginar) {
             this.dtOptions.paging = true;
             this.dtOptions.info = true;
-          }else{
+          } else {
             this.dtOptions.paging = false;
-            this.dtOptions.info = false;            
-          }        
+            this.dtOptions.info = false;
+          }
           this.rerender();
 
         } else {
@@ -119,8 +118,8 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
           if (res.datos.length > 0) {
-            this.abrirModalEditar(res.datos[0]);        
-          }else{
+            this.abrirModalEditar(res.datos[0]);
+          } else {
             this.generalesService.notificar(new NotificacionModel('warning', `No se encontró el registro`));
           }
 
@@ -141,19 +140,19 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;
     CONFIG_MODAL.data.opcion = 1;
-    CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Ejecución';
+    CONFIG_MODAL.data.tituloModal = 'Editar Bitácora de Ejecución';
     CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
-     this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
+    this.modal.open(ModalGuardarConfigEjecucionesComponent, CONFIG_MODAL);
   }
 
   abrirModalGuardar() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id: 1,
-      tituloModal: 'Nueva Configuración de Ejecución',
+      tituloModal: 'Nueva Bitácora de Ejecución',
       edit: false,
       opcion: 1
     };
@@ -166,7 +165,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     this.modal.open(ModalGuardarConfigEjecucionesComponent, dialogConfig);
   }
 
-  
+
 
   actualizarEstado(e: Event, row) {
     this.configEjecucionesModel.opcion = 3;
