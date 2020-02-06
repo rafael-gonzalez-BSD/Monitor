@@ -1,0 +1,18 @@
+@import './media-queries.scss';
+@import './form-field.scss';
+@import './tables.scss';
+@import './buttons.scss';
+@import './select.scss';
+@import './pick-datetime.scss';
+@import './custom-notifier.scss';
+@import './dataTable.scss';
+@import './loader.scss';
+.row {
+    &.controles-tabla {
+        margin: 15px 0 !important;
+    }
+}
+
+.cdk-overlay-pane {
+    z-index: 992 !important;
+}
