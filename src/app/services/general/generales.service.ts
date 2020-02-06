@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
 import { NotificacionModel } from '../../models/base/notificacion';
 import { Observable } from 'rxjs';

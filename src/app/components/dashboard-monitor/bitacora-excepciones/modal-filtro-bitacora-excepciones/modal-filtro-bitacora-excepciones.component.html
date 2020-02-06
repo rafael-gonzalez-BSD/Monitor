@@ -2,7 +2,11 @@
 <form [formGroup]="grupoFormulario" (ngSubmit)="buscar(this.filtrosDashboardModel)">
     <mat-dialog-content class="mat-typography">
         <div class="row">
-            <div class="col-lg-6 form-group">
+            <div class="col-sm-4 col-md-4 col-lg-4 form-group">
+                <label for="">Folio</label>
+                <input class="form-control input-ternium" type="text" matInput formControlName="excepcionId">
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8 form-group">
                 <label for="">Sistema</label>
                 <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
                 <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
@@ -16,11 +20,24 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-6 form-group">
+            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                <label>Estatus</label>
+                <mat-select formControlName="excepcionEstatusId" [(ngModel)]="selected" (selectionChange)="selectedEstado($event)">
+                    <mat-option *ngFor="let item of datosComboEstatus" [value]="item.identificador">
+                        {{item.descripcion}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 form-group">
                 <label>Fecha</label>
                 <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fechaDesde" placeholder="MM/YYYY">
                 <mat-datepicker #fD startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, fD)" panelClass="example-month-picker">
+                </mat-datepicker>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 form-group">
+                <label>Fecha Hasta</label>
+                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fechaHasta" placeholder="MM/YYYY">
+                <mat-datepicker #fH startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, fD)" panelClass="example-month-picker">
                 </mat-datepicker>
             </div>
         </div>

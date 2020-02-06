@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDatepicker } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDatepicker, MatSelect } from '@angular/material';
 import { SistemaService } from 'src/app/services/inventario/sistema.service';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -16,6 +16,8 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { Observable } from 'rxjs';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { startWith, map } from 'rxjs/operators';
+import { ExcepcionEstatus } from 'src/app/models/dashboard-monitor/excepcion-estatus';
+import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/excepcion-estatus.service';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -29,15 +31,19 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   datosFiltros: any;
   sistemaCombo: Observable<Combo[]>;
   datosCombo: Combo[];
+  datosComboEstatus: Combo[];
   filtrosDashboardModel = new FiltrosDashboard();
   opcion: number;
+  selected = 1;
+  selectedText = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private modal: MatDialog,
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private excepcionEstatusService: ExcepcionEstatusService
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
@@ -45,6 +51,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
     this.date =  new FormControl(moment(fecha));
     this.consultarSistemaCombo();
+    this.consultarExcepcionEstatusCombo();
   }
 
   ngOnInit() {
@@ -75,8 +82,11 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
+      excepcionId: new FormControl(),
       sistemaId: new FormControl('', [RequireMatch]),
-      fechaDesde: new FormControl()
+      excepcionEstatusId: new FormControl(),
+      fechaDesde: new FormControl(),
+      fechaHasta: new FormControl()
     });
   }
 
@@ -98,12 +108,25 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     );
   }
 
+  // Método para cachar el cambio de estado
+  selectedEstado(e: Event) {
+    const source: MatSelect = e['source'];
+    const seleccionado = source.selected['_element'];
+    this.selectedText = seleccionado.nativeElement.outerText;
+  }
+
   // Obtenemos los valores del formulario
   get sistemaId() {
     return this.grupoFormulario.get('sistemaId');
   }
-  get fecha() {
-    return this.grupoFormulario.get('fecha');
+  get fechaDesde() {
+    return this.grupoFormulario.get('fechaDesde');
+  }
+  get excepcionId() {
+    return this.grupoFormulario.get('excepcionId');
+  }
+  get excepcionEstatusId() {
+    return this.grupoFormulario.get('excepcionEstatusId');
   }
   
 
@@ -155,6 +178,27 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
+  }
+
+  // Función para consultar el listado de estatus para el combo estatus
+  consultarExcepcionEstatusCombo() {
+    const m = new ExcepcionEstatus();
+    m.opcion = 3;
+    this.excepcionEstatusService.consultarExcepcionEstatusCombo(m).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.datosComboEstatus = response.datos;
+          console.log(this.datosComboEstatus);
+          this.selected = 1;
+        } else {
+          this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de excepcionEstatus ${response.mensaje}`));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrio un error.'));
+      },
+      () => { }
+    );
   }
 
 }

@@ -18,15 +18,11 @@ export class ExcepcionesComponent implements OnInit {
     private generalesService: GeneralesService,
     private breakpointObserver: BreakpointObserver
   ) { 
-    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
-      if (!state.matches) {
-        this.setearTitulo('BITÁCORA DE EXCEPCIONES');
-      }
-    });
    }
 
   ngOnInit() {
-    this.generalesService.quitarLoader();
+    this.setearTitulo('BITÁCORA DE EXCEPCIONES');
+    this.abrirModalFiltros();
   }
 
   setearTitulo(titulo) {
