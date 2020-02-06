@@ -136,7 +136,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
     CONFIG_MODAL.data = datosEditar;
     CONFIG_MODAL.data.edit = true;
     CONFIG_MODAL.data.opcion = 1;
-    CONFIG_MODAL.data.tituloModal = 'Editar Configuración de Excepción';
+    CONFIG_MODAL.data.tituloModal = 'Editar Bitácora de Excepción';
     CONFIG_MODAL.data = JSON.parse(JSON.stringify(datosEditar));
     CONFIG_MODAL.height = 'auto';
     CONFIG_MODAL.width = '90%';

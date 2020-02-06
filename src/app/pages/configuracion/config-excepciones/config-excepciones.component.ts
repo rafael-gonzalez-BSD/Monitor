@@ -17,13 +17,7 @@ export class ConfigExcepcionesComponent implements OnInit {
     private router: Router,
     private modal: MatDialog,
     private breakpointObserver: BreakpointObserver
-  ) {
-    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
-      if (!state.matches) {
-        this.setearTitulo('BITÁCORA DE EXCEPCIÓN');
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.setearTitulo('BITÁCORA DE EXCEPCIÓN');

@@ -18,11 +18,11 @@ export class ConfigEjecucionesComponent implements OnInit {
     private modal: MatDialog,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
-      if (!state.matches) {
-        this.setearTitulo('BITACORA DE EJECUCIÓN');
-      }
-    });
+    // this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
+    //   if (!state.matches) {
+    //     this.setearTitulo('BITACORA DE EJECUCIÓN');
+    //   }
+    // });
   }
 
   ngOnInit() {
