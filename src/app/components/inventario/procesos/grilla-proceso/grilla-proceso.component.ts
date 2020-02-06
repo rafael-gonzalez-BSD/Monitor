@@ -155,8 +155,8 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
     };
     dialogConfig.data = JSON.parse(JSON.stringify(dialogConfig.data));
     dialogConfig.height = 'auto';
-    dialogConfig.width = '70%';
-    dialogConfig.maxWidth = '768px';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
     this.modal.open(ModalGuardarProcesoComponent, dialogConfig);
   }
 

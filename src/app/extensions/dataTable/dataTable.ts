@@ -9,6 +9,7 @@ export const CONFIGURACION = {
   processing: true,
   autoWidth: false,
   deferRender: true,
+  sort: false,
   language: {
     info: ' _START_ a _END_ de _TOTAL_ registros',
     decimal: '',
