@@ -120,24 +120,15 @@ export class ModalFiltrosDashboardComponent implements OnInit {
 
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     if (this.grupoFormulario.valid) {
-      const excepcion = new FiltrosExcepcion();
       
       this.opcion = 5;
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
         this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-
-        // Seteamos el valor que deberá tomar para excepciones
-        excepcion.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        excepcion.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
       } else {
         this.filtrosDashboardModel.sistemaId = 0;
         this.filtrosDashboardModel.sistemaDescripcion = '';
-
-        // Valores para excepciones
-        excepcion.sistemaId = 0;
-        excepcion.sistemaDescripcion = '';
       }
  
       const ultimoDia = getLastDayMonth(new Date(this.date.value));
@@ -146,22 +137,11 @@ export class ModalFiltrosDashboardComponent implements OnInit {
 
       this.filtrosDashboardModel.fechaDesde = FECHADESDE      
       this.filtrosDashboardModel.fechaHasta = FECHAHASTA; 
-      // this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
-      
-
-
-      // Valores para excepciones
-      excepcion.fechaDesde = FECHADESDE
-      excepcion.fechaHasta = FECHAHASTA;
 
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
-      localStorage.setItem('filtrosExcepcion', JSON.stringify(excepcion));
 
       this.dashboardService.setearFiltros();
       this.dashboardService.obtenerFiltros();
-      
-      this.excepcionesService.setearFiltros();
-      this.excepcionesService.obtenerFiltros();
       
       this.cerrarModal();
     }

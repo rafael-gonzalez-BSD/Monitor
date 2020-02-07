@@ -10,6 +10,9 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import moment from 'moment';
 import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
 
 @Component({
   selector: 'app-grafico-excepciones',
@@ -30,17 +33,15 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
   subs: Subscription;
 
   constructor(private dashboardService: DashboardService,
-    private generalesService: GeneralesService) { }
+    private router: Router,
+    private generalesService: GeneralesService,
+    private excepcionesService: ExcepcionesService) { }
 
   ngOnInit() {
     this.subs = this.dashboardService.filtros.subscribe((m: any) => {
-
-      // const ARRAY = m.fechaDesdeCorta.split('/');
-      // m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
       this.consultarGraficoExcepciones(m);
 
     });
-
     this.dashboardService.obtenerFiltros();
 
   }
@@ -120,4 +121,19 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
 
   }
 
+  irBitacora(){
+    const excepcion = new FiltrosExcepcion();
+    const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    excepcion.excepcionId = 0;
+    excepcion.sistemaId = fD.sistemaId;
+    excepcion.sistemaDescripcion = fD.sistemaDescripcion;
+    excepcion.excepcionEstatusId = 1;
+    excepcion.excepcionEstatusDescripcion = 'Abierta';
+    excepcion.fechaDesde = fD.fechaDesde;
+    excepcion.fechaHasta = fD.fechaHasta;
+    localStorage.setItem('filtrosExcepcion', JSON.stringify(excepcion));
+    this.excepcionesService.setearFiltros();
+    this.excepcionesService.obtenerFiltros();
+    this.router.navigate(['site/excepciones']);
+  }
 }
