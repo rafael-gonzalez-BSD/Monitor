@@ -5,6 +5,11 @@
             <div class="col-sm-4 col-md-4 col-lg-4 form-group">
                 <label for="">Folio</label>
                 <input class="form-control input-ternium" type="text" matInput formControlName="excepcionId">
+                <div class="div-errors" *ngIf="submitted && excepcionId.errors">
+                    <div class="container-error" *ngIf="excepcionId.errors.inputNumber">
+                        <span class="tc-ff3300">{{excepcionId.errors.message}}</span>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8 form-group">
                 <label for="">Sistema</label>
@@ -46,6 +51,6 @@
 
     <mat-dialog-actions align="end">
         <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cancelar</button>
-        <button class="btn-ternium-primary" mat-button [disabled]=!grupoFormulario.valid>Buscar</button>
+        <button class="btn-ternium-primary" mat-button>Buscar</button>
     </mat-dialog-actions>
 </form>

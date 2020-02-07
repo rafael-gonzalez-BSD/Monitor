@@ -19,6 +19,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ExcepcionEstatus } from 'src/app/models/dashboard-monitor/excepcion-estatus';
 import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/excepcion-estatus.service';
 import { debug } from 'util';
+import { inputNumber } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -38,6 +39,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   opcion: number;
   selected = 1;
   selectedText = '';
+  submitted = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -87,7 +89,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      excepcionId: new FormControl(),
+      excepcionId: new FormControl('',[inputNumber(true, 3, 100)]),
       sistemaId: new FormControl('', [RequireMatch]),
       excepcionEstatusId: new FormControl(),
       fechaDesde: new FormControl(),
@@ -127,6 +129,9 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   get fechaDesde() {
     return this.grupoFormulario.get('fechaDesde');
   }
+  get fechaHasta() {
+    return this.grupoFormulario.get('fechaHasta');
+  }
   get excepcionId() {
     return this.grupoFormulario.get('excepcionId');
   }
@@ -149,26 +154,27 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   }
 
   buscar(filtrosDashboardModel: FiltrosDashboard) {
-    if (this.grupoFormulario.valid) {
+    this.submitted = true;
+    // if (this.grupoFormulario.valid) {
       
-      this.opcion = 5;
-      this.filtrosDashboardModel.opcion = this.opcion;
-      if (this.grupoFormulario.value.sistemaId) {
-        this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-      } else {
-        this.filtrosDashboardModel.sistemaId = 0;
-        this.filtrosDashboardModel.sistemaDescripcion = '';
-      }
+    //   this.opcion = 5;
+    //   this.filtrosDashboardModel.opcion = this.opcion;
+    //   if (this.grupoFormulario.value.sistemaId) {
+    //     this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+    //     this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+    //   } else {
+    //     this.filtrosDashboardModel.sistemaId = 0;
+    //     this.filtrosDashboardModel.sistemaDescripcion = '';
+    //   }
       
-      this.filtrosDashboardModel.fechaDesde = this.date.value;      
-      this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
-      localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
+    //   this.filtrosDashboardModel.fechaDesde = this.date.value;      
+    //   this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
+    //   localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
-      this.dashboardService.setearFiltros();
-      this.dashboardService.obtenerFiltros();
-      this.cerrarModal();
-    }
+    //   this.dashboardService.setearFiltros();
+    //   this.dashboardService.obtenerFiltros();
+    //   this.cerrarModal();
+    // }
   }
 
   // Funciones para el manejo en el calendario de solo mes y año
