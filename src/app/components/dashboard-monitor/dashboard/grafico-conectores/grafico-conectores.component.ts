@@ -27,9 +27,6 @@ export class GraficoConectoresComponent implements OnInit {
 
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
-
-      const ARRAY = m.fechaDesdeCorta.split('/');
-      m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
       this.consultarGraficoExcepciones(m);
 
     });

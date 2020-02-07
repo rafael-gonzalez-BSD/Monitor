@@ -37,7 +37,7 @@
             <div class="col-sm-6 col-md-4 col-lg-4 form-group">
                 <label>Fecha Desde</label>
                 <input type="text" class="form-control input-date-time" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [(ngModel)]="datosFiltros.fechaDesde" placeholder="dd/mmm/aaaa" readonly>
-                <mat-datepicker #fD></mat-datepicker>
+                <mat-datepicker [touchUi]="isMobile" #fD></mat-datepicker>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.errors.invalidDateRange">
                         <span class="tc-ff3300">Fecha Desde debe ser menor o igual que Fecha Hasta</span>
@@ -50,7 +50,15 @@
             <div class="col-sm-6 col-md-4 col-lg-4 form-group">
                 <label>Fecha Hasta</label>
                 <input type="text" class="form-control input-date-time" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [(ngModel)]="datosFiltros.fechaHasta" placeholder="dd/mmm/aaaa" readonly>
-                <mat-datepicker #fH></mat-datepicker>
+                <mat-datepicker [touchUi]="isMobile" #fH></mat-datepicker>
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.invalidDateRange">
+                        <span class="tc-ff3300">Fecha Desde debe ser menor o igual que Fecha Hasta</span>
+                    </div>
+                    <div class="container-error" *ngIf="grupoFormulario.errors.moreThanRangeDays">
+                        <span class="tc-ff3300">{{grupoFormulario.errors.message}}</span>
+                    </div>
+                </div>
             </div>
         </div>
 

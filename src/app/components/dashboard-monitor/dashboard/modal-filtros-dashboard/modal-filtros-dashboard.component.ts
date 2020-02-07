@@ -19,6 +19,8 @@ import { FiltrosDashboard } from '../../../../models/dashboard-monitor/filtrosDa
 import { DashboardService } from '../../../../services/dashboard-monitor/dashboard.service';
 import { log } from 'util';
 import { getLastDayMonth, getFirstDayMonth } from 'src/app/extensions/utils/utils';
+import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
+import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
 
 const moment = _rollupMoment || _moment;
 
@@ -67,13 +69,12 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     private modal: MatDialog,
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private excepcionesService: ExcepcionesService
   ) { 
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
-    const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
-    this.date =  new FormControl(moment(fecha));
+    this.date =  new FormControl(moment(this.datosFiltros.fechaDesde));
     this.consultarSistemaCombo();
   }
 
@@ -118,25 +119,46 @@ export class ModalFiltrosDashboardComponent implements OnInit {
 
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     if (this.grupoFormulario.valid) {
+      const excepcion = new Excepcion();
       
       this.opcion = 5;
       this.filtrosDashboardModel.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
         this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+
+        // Seteamos el valor que deberá tomar para excepciones
+        excepcion.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        excepcion.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
       } else {
         this.filtrosDashboardModel.sistemaId = 0;
         this.filtrosDashboardModel.sistemaDescripcion = '';
-      }
 
-      this.filtrosDashboardModel.fechaDesde = getFirstDayMonth(new Date(this.date.value)); 
+        // Valores para excepciones
+        excepcion.sistemaId = 0;
+        excepcion.sistemaDescripcion = '';
+      }
+ 
       const ultimoDia = getLastDayMonth(new Date(this.date.value));
-      this.filtrosDashboardModel.fechaHasta = moment(ultimoDia).format('YYYY/MM/DD');    
-      this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
+      const FECHADESDE = getFirstDayMonth(new Date(this.date.value));
+      const FECHAHASTA = moment(ultimoDia).format('YYYY/MM/DD'); 
+
+      this.filtrosDashboardModel.fechaDesde = FECHADESDE      
+      this.filtrosDashboardModel.fechaHasta = FECHAHASTA; 
+      // this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
+      
+
+
+      // Valores para excepciones
+      excepcion.fechaDesde = FECHADESDE
+      excepcion.fechaHasta = FECHAHASTA;
+
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
+      localStorage.setItem('filtrosExcepciones', JSON.stringify(excepcion));
 
       this.dashboardService.setearFiltros();
       this.dashboardService.obtenerFiltros();
+      this.excepcionesService.obtenerFiltros();
       this.cerrarModal();
     }
   }

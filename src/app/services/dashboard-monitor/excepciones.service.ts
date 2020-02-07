@@ -12,9 +12,8 @@ export class ExcepcionesService {
   constructor(private http: HttpClient) {}
 
   obtenerFiltros() {
-    m: FiltrosExcepcion;
-    const filtrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    // this.filtros.emit(m);
+    const m: FiltrosExcepcion = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.filtros.emit(m);
   }
 
   setearFiltros() {

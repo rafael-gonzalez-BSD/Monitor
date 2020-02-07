@@ -21,6 +21,8 @@ import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/exce
 import { debug } from 'util';
 import { inputNumber } from 'src/app/extensions/custom-validator/validations';
 import { dateRangeValidator } from 'src/app/extensions/picker/validate-date';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -46,7 +48,8 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
     private dashboardService: DashboardService,
-    private excepcionEstatusService: ExcepcionEstatusService
+    private excepcionEstatusService: ExcepcionEstatusService,
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
@@ -68,6 +71,10 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     if (this.datosFiltros.sistemaId > 0) {
       this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
     }
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 823px)');
   }
 
   setearValorAutocomplete(campo: string, id: number, desc: string) {
@@ -149,29 +156,29 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     if (obj) return obj.descripcion;
   }
 
-  buscar(filtrosDashboardModel: FiltrosDashboard) {
+  buscar(m: FiltrosExcepcion) {
     this.submitted = true;
     console.log(this.grupoFormulario);
-    // if (this.grupoFormulario.valid) {
+    if (this.grupoFormulario.valid) {
       
-    //   this.opcion = 5;
-    //   this.filtrosDashboardModel.opcion = this.opcion;
-    //   if (this.grupoFormulario.value.sistemaId) {
-    //     this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-    //     this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-    //   } else {
-    //     this.filtrosDashboardModel.sistemaId = 0;
-    //     this.filtrosDashboardModel.sistemaDescripcion = '';
-    //   }
+      this.opcion = 5;
+      this.filtrosDashboardModel.opcion = this.opcion;
+      if (this.grupoFormulario.value.sistemaId) {
+        this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.filtrosDashboardModel.sistemaId = 0;
+        this.filtrosDashboardModel.sistemaDescripcion = '';
+      }
       
-    //   this.filtrosDashboardModel.fechaDesde = this.date.value;      
-    //   this.filtrosDashboardModel.fechaDesdeCorta = moment(this.date.value).format('MM/YYYY');
-    //   localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
+      this.filtrosDashboardModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
+      this.filtrosDashboardModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
+      localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
 
-    //   this.dashboardService.setearFiltros();
-    //   this.dashboardService.obtenerFiltros();
-    //   this.cerrarModal();
-    // }
+      this.dashboardService.setearFiltros();
+      this.dashboardService.obtenerFiltros();
+      this.cerrarModal();
+    }
   }
 
   // Función para consultar el listado de estatus para el combo estatus

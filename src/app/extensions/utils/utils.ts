@@ -41,7 +41,7 @@ export function labelToGraphics(cadena: string) {
     return label;
 }
 
-export function convertFechaCintilla(cadena: string, tipoEntrada: string) {
+export function convertFechaCintilla(cadena: string, tipoEntrada: string, tipoSalida: string) {
     // YYYY/MM/DD
     let mesString = '';
     let label = '';
@@ -104,8 +104,11 @@ export function convertFechaCintilla(cadena: string, tipoEntrada: string) {
     }else if(tipoEntrada === 'DDMMYYYY'){
         label = `${dia}/${mesString}/${anio}`;
     }
-    else if(tipoEntrada === 'YYYYMMDD'){
+    else if(tipoEntrada === 'YYYYMMDD' && tipoSalida === 'DDMMYYYY'){
         label = `${dia}/${mesString}/${anio}`;
+    }
+    else if(tipoEntrada === 'YYYYMMDD' && tipoSalida === 'MMMYYYY'){
+        label = `${mesString}/${anio}`;
     }
 
     

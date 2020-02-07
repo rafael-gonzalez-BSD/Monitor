@@ -35,8 +35,8 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.subs = this.dashboardService.filtros.subscribe((m: any) => {
 
-      const ARRAY = m.fechaDesdeCorta.split('/');
-      m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
+      // const ARRAY = m.fechaDesdeCorta.split('/');
+      // m.fechaDesde = `${ARRAY[1]}/${ARRAY[0]}/01`;
       this.consultarGraficoExcepciones(m);
 
     });
