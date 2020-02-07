@@ -147,7 +147,7 @@ export class Layout1Component implements OnInit {
 
   resetearFiltrosExcepcion() {
     const m = new FiltrosExcepcion();
-    m.opcion = 5;
+    m.opcion = 4;
     m.excepcionId = 0;
     m.excepcionEstatusId = 1;
     m.excepcionEstatusDescripcion = 'Abierta';
@@ -161,10 +161,11 @@ export class Layout1Component implements OnInit {
     m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
     m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
-    localStorage.setItem('fechaDesdeBitacoras', moment(new Date(primerDia)).format('YYYY/MM/DD'));
-    localStorage.setItem('fechaHastaBitacoras', moment(new Date(ultimoDia)).format('YYYY/MM/DD'));
-    localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
-    localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
+    // localStorage.setItem('fechaDesdeBitacoras', moment(new Date(primerDia)).format('YYYY/MM/DD'));
+    // localStorage.setItem('fechaHastaBitacoras', moment(new Date(ultimoDia)).format('YYYY/MM/DD'));
+    // localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
+    // localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
+    
 
     localStorage.removeItem('filtrosExcepcion');
     localStorage.setItem('filtrosExcepcion', JSON.stringify(m));

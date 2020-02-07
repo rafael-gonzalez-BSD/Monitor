@@ -21,6 +21,7 @@ import { log } from 'util';
 import { getLastDayMonth, getFirstDayMonth } from 'src/app/extensions/utils/utils';
 import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
 import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
+import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 
 const moment = _rollupMoment || _moment;
 
@@ -119,7 +120,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
 
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     if (this.grupoFormulario.valid) {
-      const excepcion = new Excepcion();
+      const excepcion = new FiltrosExcepcion();
       
       this.opcion = 5;
       this.filtrosDashboardModel.opcion = this.opcion;
@@ -154,11 +155,14 @@ export class ModalFiltrosDashboardComponent implements OnInit {
       excepcion.fechaHasta = FECHAHASTA;
 
       localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
-      localStorage.setItem('filtrosExcepciones', JSON.stringify(excepcion));
+      localStorage.setItem('filtrosExcepcion', JSON.stringify(excepcion));
 
       this.dashboardService.setearFiltros();
       this.dashboardService.obtenerFiltros();
+      
+      this.excepcionesService.setearFiltros();
       this.excepcionesService.obtenerFiltros();
+      
       this.cerrarModal();
     }
   }

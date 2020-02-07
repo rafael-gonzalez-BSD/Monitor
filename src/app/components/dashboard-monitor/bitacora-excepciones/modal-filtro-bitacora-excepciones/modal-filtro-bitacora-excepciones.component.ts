@@ -23,6 +23,7 @@ import { inputNumber } from 'src/app/extensions/custom-validator/validations';
 import { dateRangeValidator } from 'src/app/extensions/picker/validate-date';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -36,10 +37,10 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   sistemaCombo: Observable<Combo[]>;
   datosCombo: Combo[];
   datosComboEstatus: Combo[];
-  filtrosDashboardModel = new FiltrosDashboard();
+  filtrosExcepcion = new FiltrosExcepcion();
   opcion: number;
   selected = 1;
-  selectedText = '';
+  selectedText = 'Abierta';
   submitted = false;
 
   constructor(
@@ -48,11 +49,12 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
     private dashboardService: DashboardService,
+    private excepcionService: ExcepcionesService,
     private excepcionEstatusService: ExcepcionEstatusService,
     private breakpointObserver: BreakpointObserver,
   ) {
     this.tituloModal = data.tituloModal;
-    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.datosFiltros = JSON.parse(localStorage.getItem('filtrosExcepcion'));
     this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
     this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
     
@@ -123,6 +125,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     const source: MatSelect = e['source'];
     const seleccionado = source.selected['_element'];
     this.selectedText = seleccionado.nativeElement.outerText;
+    console.log(this.selectedText);
   }
 
   // Obtenemos los valores del formulario
@@ -160,23 +163,25 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     this.submitted = true;
     console.log(this.grupoFormulario);
     if (this.grupoFormulario.valid) {
-      
-      this.opcion = 5;
-      this.filtrosDashboardModel.opcion = this.opcion;
+      this.filtrosExcepcion.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
-        this.filtrosDashboardModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-        this.filtrosDashboardModel.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+        this.filtrosExcepcion.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosExcepcion.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
       } else {
-        this.filtrosDashboardModel.sistemaId = 0;
-        this.filtrosDashboardModel.sistemaDescripcion = '';
+        this.filtrosExcepcion.sistemaId = 0;
+        this.filtrosExcepcion.sistemaDescripcion = '';
       }
-      
-      this.filtrosDashboardModel.fechaDesde = this.grupoFormulario.value.fechaDesde;
-      this.filtrosDashboardModel.fechaHasta = this.grupoFormulario.value.fechaHasta;
-      localStorage.setItem('filtrosDashboard', JSON.stringify(this.filtrosDashboardModel));
+      this.filtrosExcepcion.excepcionId = this.grupoFormulario.value.excepcionId=== '' ? 0 :this.grupoFormulario.value.excepcionId;
+      this.filtrosExcepcion.excepcionEstatusId = this.grupoFormulario.value.excepcionEstatusId;
+      this.filtrosExcepcion.excepcionEstatusDescripcion = this.selectedText;
+      this.filtrosExcepcion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+      this.filtrosExcepcion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      localStorage.setItem('filtrosExcepcion', JSON.stringify(this.filtrosExcepcion));
+      debugger;
 
-      this.dashboardService.setearFiltros();
-      this.dashboardService.obtenerFiltros();
+      this.excepcionService.setearFiltros();
+      this.excepcionService.obtenerFiltros();
+
       this.cerrarModal();
     }
   }

@@ -16,8 +16,7 @@ export class ExcepcionesService {
     this.filtros.emit(m);
   }
 
-  setearFiltros() {
-    
+  setearFiltros() {    
     const m = new FiltrosExcepcion();
     // const filtrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
     const filtrosExcepcion = JSON.parse(localStorage.getItem('filtrosExcepcion'));
@@ -25,11 +24,16 @@ export class ExcepcionesService {
     m.excepcionEstatusId = filtrosExcepcion.excepcionEstatusId;
     m.fechaHasta = filtrosExcepcion.fechaHasta;
     // tslint:disable-next-line: radix
-    m.sistemaId = parseInt( localStorage.getItem('sistemaIdBitacoras'));
-    m.fechaDesde = localStorage.getItem('fechaDesdeBitacoras');
-    m.fechaHasta = localStorage.getItem('fechaHastaBitacoras');
+    // m.sistemaId = parseInt( localStorage.getItem('sistemaIdBitacoras'));
+    // m.fechaDesde = localStorage.getItem('fechaDesdeBitacoras');
+    // m.fechaHasta = localStorage.getItem('fechaHastaBitacoras');
     m.excepcionEstatusDescripcion = filtrosExcepcion.excepcionEstatusDescripcion;
-    m.sistemaDescripcion =  localStorage.getItem('sistemaDescripcionBitacoras');
+    // m.sistemaDescripcion =  localStorage.getItem('sistemaDescripcionBitacoras');
+
+    m.sistemaId = filtrosExcepcion.sistemaId;
+    m.sistemaDescripcion = filtrosExcepcion.sistemaDescripcion;
+    m.fechaDesde = filtrosExcepcion.fechaDesde;
+    m.fechaHasta = filtrosExcepcion.fechaHasta;
     this.setFiltros.emit(m);
   }
 }
