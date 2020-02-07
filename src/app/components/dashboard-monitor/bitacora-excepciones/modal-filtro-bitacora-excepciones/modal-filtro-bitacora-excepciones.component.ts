@@ -20,6 +20,7 @@ import { ExcepcionEstatus } from 'src/app/models/dashboard-monitor/excepcion-est
 import { ExcepcionEstatusService } from 'src/app/services/dashboard-monitor/excepcion-estatus.service';
 import { debug } from 'util';
 import { inputNumber } from 'src/app/extensions/custom-validator/validations';
+import { dateRangeValidator } from 'src/app/extensions/picker/validate-date';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-excepciones',
@@ -27,8 +28,6 @@ import { inputNumber } from 'src/app/extensions/custom-validator/validations';
   styleUrls: ['./modal-filtro-bitacora-excepciones.component.scss']
 })
 export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
-  date: any;
-  date2: any;
   tituloModal: string;
   grupoFormulario: FormGroup;
   datosFiltros: any;
@@ -51,12 +50,9 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    // const cadena  = this.datosFiltros.fechaDesdeCorta.split('/');
-    // const fecha = new Date(`${cadena[1]}/${cadena[0]}/01`);
-    const fechaDesde = new Date(this.datosFiltros.fechaDesde);
-    const fechaHasta = new Date(this.datosFiltros.fechaHasta);
-    this.date =  new FormControl(moment(fechaDesde));
-    this.date2 =  new FormControl(moment(fechaHasta));
+    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
+    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    
     this.consultarSistemaCombo();
     this.consultarExcepcionEstatusCombo();
   }
@@ -89,12 +85,12 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   validarFormulario() {
     return new FormGroup({
-      excepcionId: new FormControl('',[inputNumber(true, 3, 100)]),
+      excepcionId: new FormControl('',[inputNumber(false, 3, 100)]),
       sistemaId: new FormControl('', [RequireMatch]),
       excepcionEstatusId: new FormControl(),
-      fechaDesde: new FormControl(),
-      fechaHasta: new FormControl()
-    });
+      fechaDesde: new FormControl(''),
+      fechaHasta: new FormControl('')
+    }, dateRangeValidator);
   }
 
   consultarSistemaCombo() {
@@ -155,6 +151,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   buscar(filtrosDashboardModel: FiltrosDashboard) {
     this.submitted = true;
+    console.log(this.grupoFormulario);
     // if (this.grupoFormulario.valid) {
       
     //   this.opcion = 5;
@@ -177,33 +174,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     // }
   }
 
-  // Funciones para el manejo en el calendario de solo mes y año
-  chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-  }
-
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
-
-  chosenYearHandlerHasta(normalizedYear: Moment) {
-    const ctrlValue = this.date2.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date2.setValue(ctrlValue);
-  }
-
-  chosenMonthHandlerHasta(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date2.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date2.setValue(ctrlValue);
-    datepicker.close();
-  }
-
   // Función para consultar el listado de estatus para el combo estatus
   consultarExcepcionEstatusCombo() {
     const m = new ExcepcionEstatus();
@@ -212,8 +182,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
       (response: any) => {
         if (response.satisfactorio) {
           this.datosComboEstatus = response.datos;
-          console.log(this.datosComboEstatus);
-          this.selected = 1;
         } else {
           this.generalesService.notificar(new NotificacionModel('warning', `Error al consultar el combo de excepcionEstatus ${response.mensaje}`));
         }

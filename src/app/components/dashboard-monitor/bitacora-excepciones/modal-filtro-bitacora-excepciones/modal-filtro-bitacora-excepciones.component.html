@@ -32,18 +32,25 @@
                         {{item.descripcion}}
                     </mat-option>
                 </mat-select>
+
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4 form-group">
-                <label>Fecha</label>
-                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fD" (click)="fD.open()" [formControl]="date" [value]="datosFiltros.fechaString" formControlName="fechaDesde" placeholder="MM/YYYY">
-                <mat-datepicker #fD startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, fD)" panelClass="example-month-picker">
-                </mat-datepicker>
+                <label>Fecha Desde</label>
+                <input type="text" class="form-control input-date-time" [matDatepicker]="fD" (click)="fD.open()" formControlName="fechaDesde" [(ngModel)]="datosFiltros.fechaDesde" placeholder="dd/mmm/aaaa" readonly>
+                <mat-datepicker #fD></mat-datepicker>
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
+                    <div class="container-error" *ngIf="grupoFormulario.errors.invalidDateRange">
+                        <span class="tc-ff3300">Fecha Desde debe ser menor o igual que Fecha Hasta</span>
+                    </div>
+                    <div class="container-error" *ngIf="grupoFormulario.errors.moreThanRangeDays">
+                        <span class="tc-ff3300">{{grupoFormulario.errors.message}}</span>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4 form-group">
                 <label>Fecha Hasta</label>
-                <input readonly type="text" class="form-control date-time-disabled" [matDatepicker]="fH" (click)="fH.open()" [formControl]="date2" [value]="datosFiltros.fechaString" formControlName="fechaHasta" placeholder="MM/YYYY">
-                <mat-datepicker #fH startView="multi-year" (yearSelected)="chosenYearHandlerHasta($event)" (monthSelected)="chosenMonthHandlerHasta($event, fD)" panelClass="example-month-picker">
-                </mat-datepicker>
+                <input type="text" class="form-control input-date-time" [matDatepicker]="fH" (click)="fH.open()" formControlName="fechaHasta" [(ngModel)]="datosFiltros.fechaHasta" placeholder="dd/mmm/aaaa" readonly>
+                <mat-datepicker #fH></mat-datepicker>
             </div>
         </div>
 

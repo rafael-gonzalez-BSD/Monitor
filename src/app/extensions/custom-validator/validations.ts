@@ -60,41 +60,25 @@ export function inputText(required: boolean, minLength: number, maxLength: numbe
 }
 
 export function inputNumber(required: boolean, minLength: number, maxLength?: number): ValidatorFn {
+    const REG = /^(?:[1-9][0-9]*|0)$/;
  
     return (control: AbstractControl): ValidationErrors | null => {
         
-        const VALOR: number = control.value;
-        const VALORSTR: string = control.value;
-        const test = (~~control.value === control.value); 
-        console.log(test +'test');
-        // tslint:disable-next-line: radix
-        const V = parseInt(control.value);
-        console.log(V);
-        console.log(VALOR);
-        if (required) {
-            if (VALORSTR === null || VALORSTR === undefined || VALORSTR === '') {
-                return { inputNumber: true, message: `Campo requerido` }            
-            }
-            // tslint:disable-next-line: radix
-            
-            if (VALOR<=0) {
-                return { inputNumber: true, message: `Solo se aceptan números mayores a 0` }                
-            }
-            if (VALOR % 1 !== 0) {
-                return { inputNumber: true, message: `Solo se aceptan números enteros` }                  
-            }
-            if(isNaN(VALOR)){
-                return { inputNumber: true, message: `Solo se aceptan números` }
-
-            }
-            
-            
-        } else {
-            // Si no es requerido
-            
+        const VALOR: string = control.value;
+       
+        if (required && VALOR.trim() === '') {
+            return { inputNumber: true, message: `Campo requerido` }             
         }
-        
+        if (!required && VALOR.trim() === '') {
+            return null;           
+        }
+        if(!(REG.test(VALOR))){
+            return { inputNumber: true, message: `Solo números enteros mayor a 0` }
+        }
+        // tslint:disable-next-line: radix
+        if( parseInt( VALOR ) < 1){
+            return { inputNumber: true, message: `Solo números enteros mayor a 0` }
+        }     
         return null;      
-    }
-   
+    }   
 }

@@ -57,7 +57,7 @@ export function dateRangeValidator(formGroupValues: FormGroup) {
     let days = fechaHasta.diff(fechaDesde, 'days');
 
     if (days > permitedDays) {
-      return { moreThanRangeDays: true }
+      return { moreThanRangeDays: true, message: `El rango entre fechas supera los ${permitedDays} días` }
     }
 
   }
