@@ -125,7 +125,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     const source: MatSelect = e['source'];
     const seleccionado = source.selected['_element'];
     this.selectedText = seleccionado.nativeElement.outerText;
-    console.log(this.selectedText);
   }
 
   // Obtenemos los valores del formulario
@@ -177,7 +176,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
       this.filtrosExcepcion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
       this.filtrosExcepcion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
       localStorage.setItem('filtrosExcepcion', JSON.stringify(this.filtrosExcepcion));
-      debugger;
 
       this.excepcionService.setearFiltros();
       this.excepcionService.obtenerFiltros();
