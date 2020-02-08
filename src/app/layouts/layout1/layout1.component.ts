@@ -161,12 +161,6 @@ export class Layout1Component implements OnInit {
     m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
     m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
 
-    // localStorage.setItem('fechaDesdeBitacoras', moment(new Date(primerDia)).format('YYYY/MM/DD'));
-    // localStorage.setItem('fechaHastaBitacoras', moment(new Date(ultimoDia)).format('YYYY/MM/DD'));
-    // localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
-    // localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
-    
-
     localStorage.removeItem('filtrosExcepcion');
     localStorage.setItem('filtrosExcepcion', JSON.stringify(m));
   }

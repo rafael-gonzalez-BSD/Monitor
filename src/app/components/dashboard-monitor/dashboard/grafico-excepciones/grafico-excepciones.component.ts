@@ -124,6 +124,7 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
   irBitacora(){
     const excepcion = new FiltrosExcepcion();
     const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    excepcion.opcion = 4;
     excepcion.excepcionId = 0;
     excepcion.sistemaId = fD.sistemaId;
     excepcion.sistemaDescripcion = fD.sistemaDescripcion;
@@ -131,6 +132,7 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
     excepcion.excepcionEstatusDescripcion = 'Abierta';
     excepcion.fechaDesde = fD.fechaDesde;
     excepcion.fechaHasta = fD.fechaHasta;
+    excepcion.sistemaBaja = false;
     localStorage.setItem('filtrosExcepcion', JSON.stringify(excepcion));
     this.excepcionesService.setearFiltros();
     this.excepcionesService.obtenerFiltros();

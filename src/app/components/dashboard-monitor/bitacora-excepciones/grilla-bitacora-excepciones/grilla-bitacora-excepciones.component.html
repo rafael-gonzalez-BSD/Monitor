@@ -1,1 +1,45 @@
-<p>grilla-bitacora-excepciones works!</p>
+<div class="row">
+    <div class="col-12 div-loading" [ngClass]="{'mostrar mat-elevation-z5': !verTabla, 'ocultar': verTabla}">
+        <ngx-loading [show]="loadingTrue" [config]='loadingConfig'></ngx-loading>
+    </div>
+    <div class="col-12 " [ngClass]="{'mostrar': verTabla, 'ocultar': !verTabla}">
+        <div class="mat-elevation-z5 container-table">
+            <table datatable [dtOptions]=" dtOptions " [dtTrigger]="dtTrigger " class="row-border hover dt ">
+                <thead class="dtHead ">
+                    <tr>
+                        <th class="verMasDt"></th>
+                        <th class="editarDt">Acción</th>
+                        <th>Folio</th>
+                        <th>Sistema</th>
+                        <th>Fecha</th>
+                        <th>Servidor</th>
+                        <th>Error</th>
+                        <th>Codigo de Error</th>
+                        <th>Descripción</th>
+                        <th>Eventos</th>
+                        <th>Estatus</th>
+                    </tr>
+                </thead>
+                <tbody class="dtBody ">
+                    <tr *ngFor="let item of listadoBitacora ">
+                        <td class="verMasDt "></td>
+                        <td class="editarDt ">
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                        <td>{{ item.excepcionId }}</td>
+                        <td>{{ item.sistemaDescripcion }}</td>
+                        <td>{{ item.fechaOcurrencia }}</td>
+                        <td>{{ item.servidor }}</td>
+                        <td>{{ item.errorDescripcion }}</td>
+                        <td>{{ item.errorNumero }}</td>
+                        <td>{{ item.errorDescripcion }}</td>
+                        <td>{{ item.eventos }}</td>
+                        <td>{{ item.excepcionEstatusDescripcion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

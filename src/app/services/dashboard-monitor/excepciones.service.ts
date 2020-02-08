@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +14,35 @@ export class ExcepcionesService {
   constructor(private http: HttpClient) {}
 
   obtenerFiltros() {
-    const m: FiltrosExcepcion = JSON.parse(localStorage.getItem('filtrosDashboard'));
+
+    const m: FiltrosExcepcion = JSON.parse(localStorage.getItem('filtrosExcepcion'));
+    m.sistemaBaja = false;
     this.filtros.emit(m);
   }
 
   setearFiltros() {    
     const m = new FiltrosExcepcion();
-    // const filtrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
     const filtrosExcepcion = JSON.parse(localStorage.getItem('filtrosExcepcion'));
+    m.opcion = 4;
     m.excepcionId = filtrosExcepcion.excepcionId;
     m.excepcionEstatusId = filtrosExcepcion.excepcionEstatusId;
     m.fechaHasta = filtrosExcepcion.fechaHasta;
-    // tslint:disable-next-line: radix
-    // m.sistemaId = parseInt( localStorage.getItem('sistemaIdBitacoras'));
-    // m.fechaDesde = localStorage.getItem('fechaDesdeBitacoras');
-    // m.fechaHasta = localStorage.getItem('fechaHastaBitacoras');
     m.excepcionEstatusDescripcion = filtrosExcepcion.excepcionEstatusDescripcion;
-    // m.sistemaDescripcion =  localStorage.getItem('sistemaDescripcionBitacoras');
 
     m.sistemaId = filtrosExcepcion.sistemaId;
     m.sistemaDescripcion = filtrosExcepcion.sistemaDescripcion;
     m.fechaDesde = filtrosExcepcion.fechaDesde;
     m.fechaHasta = filtrosExcepcion.fechaHasta;
     this.setFiltros.emit(m);
+  }
+
+  consultarExcepciones(m: Excepcion) {
+    let parametros = new HttpParams();
+    for (const key in m) {
+      parametros = parametros.set(key, m[key]);
+    }
+    const url = `${environment.urlApi}Excepcion/all`;
+    const resultado = this.http.get(url, { params: parametros });
+    return resultado;
   }
 }

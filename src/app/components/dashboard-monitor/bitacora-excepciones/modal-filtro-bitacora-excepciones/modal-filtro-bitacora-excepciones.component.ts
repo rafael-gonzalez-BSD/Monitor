@@ -160,7 +160,6 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
 
   buscar(m: FiltrosExcepcion) {
     this.submitted = true;
-    console.log(this.grupoFormulario);
     if (this.grupoFormulario.valid) {
       this.filtrosExcepcion.opcion = this.opcion;
       if (this.grupoFormulario.value.sistemaId) {
@@ -175,6 +174,8 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
       this.filtrosExcepcion.excepcionEstatusDescripcion = this.selectedText;
       this.filtrosExcepcion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
       this.filtrosExcepcion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      this.filtrosExcepcion.sistemaBaja = false;
+      this.filtrosExcepcion.opcion = 4;
       localStorage.setItem('filtrosExcepcion', JSON.stringify(this.filtrosExcepcion));
 
       this.excepcionService.setearFiltros();
