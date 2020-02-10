@@ -1,1 +1,16 @@
-<p>detalle-excepciones works!</p>
+<div class="row row-detalle">
+    <div class="col-md-10 col-sm-10 col-10">
+        <li class="li-breadcrumb"><a><span class="tc-7b7b7b item-breadcrumb" [routerLink]="['../excepciones']">Bitácora de Excepciones</span></a></li> /
+        <li class="li-breadcrumb"><a class="tc-7b7b7b item-breadcrumb">Detalle</a></li>
+    </div>
+    <div class="col-md-2 col-sm-2 col-2 text-right">
+        <button class="btn-back-movil" mat-icon-button (click)="regresar()">
+            <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="home">arrow_back</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="wrapper">
+    <app-grilla-detalle-excepciones [excepcionId]="excepcionId">
+
+    </app-grilla-detalle-excepciones>
+</div>

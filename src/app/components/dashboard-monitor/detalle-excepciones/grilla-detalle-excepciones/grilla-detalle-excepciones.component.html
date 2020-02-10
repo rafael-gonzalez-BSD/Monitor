@@ -9,34 +9,30 @@
                     <tr>
                         <th class="verMasDt"></th>
                         <th class="editarDt">Acción</th>
-                        <th>Folio</th>
                         <th>Sistema</th>
                         <th>Fecha</th>
                         <th>Servidor</th>
                         <th>Error</th>
                         <th>Código de Error</th>
                         <th>Descripción</th>
-                        <th>Eventos</th>
-                        <th>Estatus</th>
+                        <th>Página</th>
                     </tr>
                 </thead>
                 <tbody class="dtBody ">
                     <tr *ngFor="let item of listadoBitacora ">
                         <td class="verMasDt "></td>
                         <td class="editarDt ">
-                            <button class="btn-detalle" mat-icon-button (click)="verDetalle(item.excepcionId)">
+                            <button class="btn-detalle" mat-icon-button (click)="verDetalle(item.excepcionDetalleId)">
                                 <i class="fas fa-plus-circle icono-detalle"></i>
                             </button>
                         </td>
-                        <td>{{ item.excepcionId }}</td>
                         <td>{{ item.sistemaDescripcion }}</td>
                         <td>{{ item.fechaOcurrencia }}</td>
                         <td>{{ item.servidor }}</td>
-                        <td>{{ item.errorDescripcion }}</td>
+                        <td>{{ item.error }}</td>
                         <td>{{ item.errorNumero }}</td>
                         <td>{{ item.errorDescripcion }}</td>
-                        <td>{{ item.eventos }}</td>
-                        <td>{{ item.excepcionEstatusDescripcion }}</td>
+                        <td>{{ item.pagina }}</td>
                     </tr>
                 </tbody>
             </table>

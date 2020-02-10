@@ -1,45 +1,45 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Input } from '@angular/core';
+import { ExcepcionDetalle } from 'src/app/models/dashboard-monitor/excepcion-detalle';
 import { Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
-import { GeneralesService } from 'src/app/services/general/generales.service';
+import { ExcepcionDetalleService } from 'src/app/services/dashboard-monitor/excepcion-detalle.service';
+import { FiltrosExcepcionDetalle } from 'src/app/models/dashboard-monitor/filtros-excepcion-detalle';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-grilla-bitacora-excepciones',
-  templateUrl: './grilla-bitacora-excepciones.component.html',
-  styleUrls: ['./grilla-bitacora-excepciones.component.scss']
+  selector: 'app-grilla-detalle-excepciones',
+  templateUrl: './grilla-detalle-excepciones.component.html',
+  styleUrls: ['./grilla-detalle-excepciones.component.scss']
 })
-export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDestroy, OnInit {
+export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  // tslint:disable-next-line: no-input-rename
+  @Input('excepcionId') excepcionId: number;
+
   dtOptions: any = {};
-  listadoBitacora: Excepcion[] = [];
-  dtTrigger: Subject<Excepcion> = new Subject();
+  listadoBitacora: ExcepcionDetalle[] = [];
+  dtTrigger: Subject<ExcepcionDetalle> = new Subject();
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   subscripcion: Subscription;
-  // sistemaModel = new Sistema();
 
   loadingTrue = true;
   loadingConfig = CONFIG_LOADING;
   verTabla = false;
+  generalesService: any;
 
   constructor(
-    private excepcionesService: ExcepcionesService,
-    private generalesService: GeneralesService,
-    private router: Router
+    private excepcionDetalleService: ExcepcionDetalleService
   ) { }
 
   ngOnInit() {
     this.dtOptions = CONFIGURACION
-    this.subscripcion = this.excepcionesService.filtros.subscribe((m: any) => {
-      this.obtenerBitacoras(m);
-    });
-    this.excepcionesService.obtenerFiltros();
-    this.excepcionesService.setearFiltros();
+    const M = new FiltrosExcepcionDetalle();
+    M.excepcionId = this.excepcionId;
+    this.obtenerBitacoras(M);
   }
 
   ngAfterViewInit(){
@@ -63,8 +63,8 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
     });
   }
 
-  obtenerBitacoras(m: Excepcion) {
-    this.excepcionesService.consultarExcepciones(m).subscribe(
+  obtenerBitacoras(m: FiltrosExcepcionDetalle) {
+    this.excepcionDetalleService.consultarExcepcionDetalles(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
           this.verTabla = false;
@@ -85,7 +85,7 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
           
         } else {
           this.generalesService.notificar(
-            new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
+            new NotificacionModel('warning', `Error al consultar el listado de ExcepcionesDetalle ${response.mensaje}`)
           );
         }
       },
@@ -97,8 +97,9 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
       }
     );
   }
-  
-  verDetalle(excepcionId){
-    this.router.navigate(['site/excepciones', excepcionId]);
+
+  verDetalle(excepcionDetalleId: number){
+    console.log(excepcionDetalleId);
   }
+
 }
