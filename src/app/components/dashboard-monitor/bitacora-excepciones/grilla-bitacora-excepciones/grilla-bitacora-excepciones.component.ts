@@ -95,5 +95,8 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
       }
     );
   }
-
+  
+  verDetalle(){
+    
+  }
 }
