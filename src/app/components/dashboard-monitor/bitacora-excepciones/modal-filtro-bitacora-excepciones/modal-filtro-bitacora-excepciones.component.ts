@@ -42,6 +42,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   selected = 1;
   selectedText = 'Abierta';
   submitted = false;
+  folio = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,6 +58,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosExcepcion'));
     this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
     this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    this.folio = this.datosFiltros.excepcionId === 0 ? '' : this.datosFiltros.excepcionId;
     
     this.consultarSistemaCombo();
     this.consultarExcepcionEstatusCombo();

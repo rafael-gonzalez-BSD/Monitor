@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4 form-group">
                 <label for="">Folio</label>
-                <input class="form-control input-ternium" type="text" matInput formControlName="excepcionId">
+                <input class="form-control input-ternium" type="text" matInput formControlName="excepcionId" [(ngModel)]="folio">
                 <div class="div-errors" *ngIf="submitted && excepcionId.errors">
                     <div class="container-error" *ngIf="excepcionId.errors.inputNumber">
                         <span class="tc-ff3300">{{excepcionId.errors.message}}</span>

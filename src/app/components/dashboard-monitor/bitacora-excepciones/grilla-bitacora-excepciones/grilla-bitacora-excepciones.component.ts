@@ -65,7 +65,6 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
     this.excepcionesService.consultarExcepciones(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
-          console.log(response)
           this.verTabla = false;
           this.listadoBitacora = response.datos;
 
