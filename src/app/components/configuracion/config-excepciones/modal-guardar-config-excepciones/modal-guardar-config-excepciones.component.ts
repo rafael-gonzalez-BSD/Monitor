@@ -261,4 +261,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
+
+  cambioInputSistema(){
+    this.datosEditar.ventanaMantenimiento = '';
+  }
 }

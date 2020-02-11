@@ -26,7 +26,7 @@
             <div class="col-md-6 col-lg-6 form-group">
                 <label for="">Alias</label>
                 <input formControlName="Alias" class="form-control" type="text" [ngModel]="datosEditar.alias">
-                <div class="div-errors" *ngIf="(submitted && Alias.errors) ">
+                <div class="div-errors" *ngIf="(submitted && Alias.errors) || Alias.invalid ">
                     <div class="container-error" *ngIf="Alias.errors.inputText">
                         <span class="tc-ff3300">{{Alias.errors.message}}</span>
                     </div>
