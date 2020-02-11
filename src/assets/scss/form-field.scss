@@ -52,3 +52,7 @@ input {
 .mat-option {
     margin: 0px !important;
 }
+
+.form-control::-ms-clear {
+    display: none !important;
+}

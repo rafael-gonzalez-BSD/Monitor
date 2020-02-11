@@ -54,7 +54,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
     return new FormGroup({
       SistemaId: new FormControl(),
       SistemaDescripcion: new FormControl('', [inputText(true, 3, 100)]),
-      Alias: new FormControl('', [inputText(true, 3, 100)]),
+      Alias: new FormControl('', [Validators.required, inputText(true, 3, 100)]),
       GerenciaId: new FormControl('-1', [validarCombo]),
       Descripcion: new FormControl('', [inputText(true, 3, 100)]),
       Baja: new FormControl()
@@ -103,6 +103,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   }
 
   guardarSistema(sistemaModel: Sistema) {
+    console.log(this.grupoFormulario);
     this.submitted = true;
 
     if (this.grupoFormulario.invalid) {
