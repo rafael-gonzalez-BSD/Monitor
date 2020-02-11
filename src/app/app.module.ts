@@ -94,6 +94,7 @@ import { GrillaDetalleEjecucionesComponent } from './components/dashboard-monito
 import { CintillaDetalleEjecucionesComponent } from './components/dashboard-monitor/detalle-ejecuciones/cintilla-detalle-ejecuciones/cintilla-detalle-ejecuciones.component';
 import { CintillaDetalleConectoresComponent } from './components/dashboard-monitor/detalle-conectores/cintilla-detalle-conectores/cintilla-detalle-conectores.component';
 import { GrillaDetalleConectoresComponent } from './components/dashboard-monitor/detalle-conectores/grilla-detalle-conectores/grilla-detalle-conectores.component';
+import { ModalLogExcepcionesComponent } from './components/dashboard-monitor/detalle-excepciones/modal-log-excepciones/modal-log-excepciones.component';
 /**
  * Custom angular notifier options
  */
@@ -192,6 +193,7 @@ export const MY_FORMATS = {
     CintillaDetalleEjecucionesComponent,
     CintillaDetalleConectoresComponent,
     GrillaDetalleConectoresComponent,
+    ModalLogExcepcionesComponent,
   ],
   imports: [
     BrowserModule,
