@@ -6,6 +6,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { MenuMovilComponent } from '../../../components/menu-movil/menu-movil.component';
 import { Router } from '@angular/router';
 import { GeneralesService } from '../../../services/general/generales.service';
+import { Sistema } from 'src/app/models/inventario/sistema';
 
 @Component({
   selector: 'app-sistemas',
@@ -30,6 +31,7 @@ export class SistemasComponent implements OnInit {
 
   ngOnInit() {
     this.setearTitulo('CATÁLOGO DE SISTEMAS');
+    this.resetearFiltrosSistemas();
   }
   setearTitulo(titulo) {
     this.generalesService.setearTituloMovil(titulo);
@@ -51,5 +53,16 @@ export class SistemasComponent implements OnInit {
   regresar() {
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
+  }
+
+  resetearFiltrosSistemas() {
+    const m = new Sistema();
+    m.opcion = 4;
+    m.bajaDescripcion = 'Ambos';
+    m.baja = null;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    localStorage.removeItem('filtrosSistemas');
+    localStorage.setItem('filtrosSistemas', JSON.stringify(m));
   }
 }

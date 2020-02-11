@@ -27,13 +27,13 @@ export class Layout1Component implements OnInit {
   mostrarMenu1 = false;
   mostrarMenu2 = false;
   mostrarMenu3 = false;
-  constructor(private sidebarService: SidebarService, private router: Router, private breakpointObserver: BreakpointObserver, private generalesService: GeneralesService) {
+  constructor(private sidebarService: SidebarService, 
+    private router: Router, 
+    private breakpointObserver: BreakpointObserver, 
+    private generalesService: GeneralesService) {
   }
 
   ngOnInit() {
-    this.resetearFiltrosProcesos();
-    this.resetearFiltrosSistemas();
-    this.resetearFiltrosMantenimientos();
     this.resetearFiltrosConfigExcepciones();
     this.resetearFiltrosConfigEjecuciones();
     this.resetearFiltrosConfigConectores();
@@ -56,41 +56,7 @@ export class Layout1Component implements OnInit {
     });
   }
 
-  resetearFiltrosProcesos() {
-    const m = new Proceso();
-    m.opcion = 4;
-    m.procesoId = 0;
-    m.procesoDescripcion = '';
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    m.sistemaBaja = false;
-    localStorage.removeItem('filtrosProcesos');
-    localStorage.setItem('filtrosProcesos', JSON.stringify(m));
-  }
-
-  resetearFiltrosSistemas() {
-    const m = new Sistema();
-    m.opcion = 4;
-    m.bajaDescripcion = 'Ambos';
-    m.baja = null;
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    localStorage.removeItem('filtrosSistemas');
-    localStorage.setItem('filtrosSistemas', JSON.stringify(m));
-  }
-
-  resetearFiltrosMantenimientos() {
-    const m = new Mantenimiento();
-    m.opcion = 4;
-    m.baja = null;
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    m.sistemaBaja = false;
-    m.fechaDesde = null;
-    m.fechaHasta = null;
-    localStorage.removeItem('filtrosMantenimientos');
-    localStorage.setItem('filtrosMantenimientos', JSON.stringify(m));
-  }
+  
 
   resetearFiltrosConfigExcepciones() {
     const m = new ConfigExcepciones();

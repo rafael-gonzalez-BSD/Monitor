@@ -4,6 +4,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalFiltrosMantenimientoComponent } from 'src/app/components/inventario/mantenimientos/modal-filtros-mantenimiento/modal-filtros-mantenimiento.component';
+import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 
 @Component({
   selector: 'app-mantenimientos',
@@ -24,6 +25,7 @@ export class MantenimientosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resetearFiltrosMantenimientos();
     this.setearTitulo('MANTENIMIENTOS');
   }
 
@@ -51,4 +53,16 @@ export class MantenimientosComponent implements OnInit {
     this.modal.open(ModalFiltrosMantenimientoComponent, dialogConfig);
   }
 
+  resetearFiltrosMantenimientos() {
+    const m = new Mantenimiento();
+    m.opcion = 4;
+    m.baja = null;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    m.fechaDesde = null;
+    m.fechaHasta = null;
+    localStorage.removeItem('filtrosMantenimientos');
+    localStorage.setItem('filtrosMantenimientos', JSON.stringify(m));
+  }
 }

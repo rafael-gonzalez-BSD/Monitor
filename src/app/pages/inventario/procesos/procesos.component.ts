@@ -5,6 +5,7 @@ import { ModalFiltrosProcesoComponent } from '../../../components/inventario/pro
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { GeneralesService } from '../../../services/general/generales.service';
 import { Router } from '@angular/router';
+import { Proceso } from 'src/app/models/inventario/proceso';
 
 @Component({
   selector: 'app-procesos',
@@ -28,6 +29,7 @@ export class ProcesosComponent implements OnInit {
 
   ngOnInit() {
     this.setearTitulo('CATÁLOGO DE PROCESOS');
+    this.resetearFiltrosProcesos();
   }
   setearTitulo(titulo) {
     this.generalesService.setearTituloMovil(titulo);
@@ -49,5 +51,17 @@ export class ProcesosComponent implements OnInit {
   regresar() {
     localStorage.setItem('indexMenu', '2');
     this.router.navigate(['site/menu']);
+  }
+
+  resetearFiltrosProcesos() {
+    const m = new Proceso();
+    m.opcion = 4;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    localStorage.removeItem('filtrosProcesos');
+    localStorage.setItem('filtrosProcesos', JSON.stringify(m));
   }
 }
