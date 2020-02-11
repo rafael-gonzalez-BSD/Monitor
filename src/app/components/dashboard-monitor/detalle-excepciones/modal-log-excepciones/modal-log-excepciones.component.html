@@ -1,1 +1,28 @@
-<p>modal-log-excepciones works!</p>
+<h2 mat-dialog-title>{{datosLog.fechaOcurrencia}}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-12">
+            <p><strong>{{datosLog.fechaOcurrencia}}</strong></p>
+        </div>
+        <div class="col-12">
+            <strong>Aplicacion: </strong>
+            <p> {{datosLog.pagina}}</p>
+        </div>
+        <div class="col-12">
+            <strong>Error: </strong>
+            <p style="word-break: break-word;"> {{datosLog.error}}</p>
+        </div>
+        <div class="col-12">
+            <strong>Error Descripción: </strong>
+            <p> {{datosLog.errorDescripcion}}</p>
+        </div>
+        <div class="col-12">
+            <strong>Objeto Json: </strong>
+            <p style="word-break: break-word;"> {{datosLog.logText}}</p>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button class="btn-ternium-secondary" mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
+<!-- <P>{{datosLog.logText}}</P> -->

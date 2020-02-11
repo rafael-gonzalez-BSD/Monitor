@@ -8,6 +8,8 @@ import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepcion
 import { ExcepcionDetalleService } from 'src/app/services/dashboard-monitor/excepcion-detalle.service';
 import { FiltrosExcepcionDetalle } from 'src/app/models/dashboard-monitor/filtros-excepcion-detalle';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ModalLogExcepcionesComponent } from '../modal-log-excepciones/modal-log-excepciones.component';
 
 @Component({
   selector: 'app-grilla-detalle-excepciones',
@@ -32,7 +34,8 @@ export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestr
   generalesService: any;
 
   constructor(
-    private excepcionDetalleService: ExcepcionDetalleService
+    private excepcionDetalleService: ExcepcionDetalleService,
+    private modal: MatDialog
   ) { }
 
   ngOnInit() {
@@ -69,6 +72,7 @@ export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestr
         if (response.satisfactorio) {
           this.verTabla = false;
           this.listadoBitacora = response.datos;
+          console.log(this.listadoBitacora);
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
@@ -100,6 +104,18 @@ export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestr
 
   verDetalle(excepcionDetalleId: number){
     console.log(excepcionDetalleId);
+  }
+
+  abrirModalLog(datosLog: any){
+    const CONFIG_MODAL = new MatDialogConfig();
+    CONFIG_MODAL.data = datosLog;
+    CONFIG_MODAL.data.tituloModal = 'Log';
+    CONFIG_MODAL.data = JSON.parse(JSON.stringify(CONFIG_MODAL.data));
+    CONFIG_MODAL.height = 'auto';
+    CONFIG_MODAL.width = '90%';
+    CONFIG_MODAL.maxWidth = '1024px';
+    this.modal.open(ModalLogExcepcionesComponent, CONFIG_MODAL);
+
   }
 
 }

@@ -22,7 +22,7 @@
                     <tr *ngFor="let item of listadoBitacora ">
                         <td class="verMasDt "></td>
                         <td class="editarDt ">
-                            <button class="btn-detalle" mat-icon-button (click)="verDetalle(item.excepcionDetalleId)">
+                            <button class="btn-detalle" mat-icon-button (click)="abrirModalLog(item)">
                                 <i class="far fa-file icono-detalle"></i>
                             </button>
                         </td>
