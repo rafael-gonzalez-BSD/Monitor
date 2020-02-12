@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Desde</label>
-                <input class="form-control input-date-time" [matDatepicker]="fD" (click)="fD.open()" readonly formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="DD/MM/YYYY">
+                <input class="form-control input-date-time" [matDatepicker]="fD" (click)="fD.open()" readonly formControlName="fechaDesde" [ngModel]="datosEditar.fechaDesde" placeholder="dd/mmm/aaaa">
                 <div class="div-errors" *ngIf="submitted && fechaDesde.errors">
                     <div class="container-error" *ngIf="fechaDesde.errors.requiredFromDate">
                         <span class="tc-ff3300">Campo requerido</span>
@@ -65,7 +65,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 form-group">
                 <label>Fecha Hasta</label>
-                <input class="form-control input-date-time" [matDatepicker]="fH" (click)="fH.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="DD/MM/YYYY">
+                <input class="form-control input-date-time" [matDatepicker]="fH" (click)="fH.open()" readonly formControlName="fechaHasta" [ngModel]="datosEditar.fechaHasta" placeholder="dd/mmm/aaaa">
                 <div class="div-errors" *ngIf="submitted && fechaHasta.errors">
                     <div class="container-error" *ngIf="fechaHasta.errors.requiredToDate">
                         <span class="tc-ff3300">Campo requerido</span>

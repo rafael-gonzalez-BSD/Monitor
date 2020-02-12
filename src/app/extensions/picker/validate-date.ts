@@ -89,7 +89,7 @@ export function dateTimeRangeValidator(formGroupValues: FormGroup) {
         const totalMinutesFrom = moment.duration(horaDesde).asMinutes();
         const totalMinutesTo = moment.duration(horaHasta).asMinutes();
 
-        if (totalMinutesFrom > totalMinutesTo) {
+        if (totalMinutesFrom >= totalMinutesTo) {
           return { invalidTimeRange: true };
         }
       }

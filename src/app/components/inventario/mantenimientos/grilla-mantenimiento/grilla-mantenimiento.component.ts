@@ -108,7 +108,7 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   consultarMantenimientoId(id: number) {
     const m = new Mantenimiento();
     m.opcion = 4;
-    m.sistemaId = id;
+    m.ventanaMantenimientoId = id;
 
     this.mantenimientoService.obtenerMantenimientos(m).subscribe(
       (res: RespuestaModel) => {
