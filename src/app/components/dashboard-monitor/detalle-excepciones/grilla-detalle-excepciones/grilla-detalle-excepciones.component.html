@@ -27,7 +27,7 @@
                             </button>
                         </td>
                         <td>{{ item.sistemaDescripcion }}</td>
-                        <td>{{ item.fechaOcurrencia }}</td>
+                        <td>{{ item.fechaOcurrencia | date: 'dd/MMM/yyyy' }}</td>
                         <td>{{ item.servidor }}</td>
                         <td>{{ item.error }}</td>
                         <td>{{ item.errorNumero }}</td>

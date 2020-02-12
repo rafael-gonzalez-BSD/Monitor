@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>{{datosLog.fechaOcurrencia}}</h2>
+<h2 mat-dialog-title>{{datosLog.fechaOcurrencia | date: 'dd/MMM/yyyy'}}</h2>
 <mat-dialog-content class="mat-typography">
     <div class="row">
         <div class="col-12">
-            <p><strong>{{datosLog.fechaOcurrencia}}</strong></p>
+            <p><strong>{{datosLog.fechaOcurrencia | date: 'dd/MMM/yyyy'}}</strong></p>
         </div>
         <div class="col-12">
             <strong>Aplicacion: </strong>

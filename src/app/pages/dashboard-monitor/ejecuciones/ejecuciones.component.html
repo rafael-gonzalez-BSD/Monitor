@@ -1,1 +1,20 @@
-<p>ejecuciones</p>
+<div class="row">
+    <div class="col-md-10 col-sm-10 col-10">
+        <li class="li-breadcrumb">
+            <a> <span class="tc-7b7b7b item-breadcrumb">Bitácora de Ejecución</span> </a>
+        </li>
+
+        <button mat-icon-button (click)="abrirModalFiltros()">
+            <i class="fa fa-filter" style="font-size:1.5em;"></i>
+        </button>
+    </div>
+    <div class="col-md-2 col-sm-2 col-2 text-right">
+        <button class="btn-back-movil" mat-icon-button (click)="regresar()">
+            <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="home">arrow_back</mat-icon>
+        </button>
+    </div>
+</div>
+<app-cintilla-bitacora-ejecuciones></app-cintilla-bitacora-ejecuciones>
+<div class="wrapper">
+    <app-grilla-bitacora-ejecuciones></app-grilla-bitacora-ejecuciones>
+</div>

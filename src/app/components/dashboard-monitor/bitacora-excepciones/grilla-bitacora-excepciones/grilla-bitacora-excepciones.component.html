@@ -30,7 +30,7 @@
                         </td>
                         <td>{{ item.excepcionId }}</td>
                         <td>{{ item.sistemaDescripcion }}</td>
-                        <td>{{ item.fechaOcurrencia }}</td>
+                        <td>{{ item.fechaOcurrencia | date: 'dd/MMM/yyyy' }}</td>
                         <td>{{ item.servidor }}</td>
                         <td>{{ item.errorDescripcion }}</td>
                         <td>{{ item.errorNumero }}</td>
