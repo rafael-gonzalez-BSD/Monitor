@@ -81,3 +81,7 @@ table.dataTable thead td {
 .dtr-data {
     word-break: break-word !important;
 }
+
+table.dataTable>tbody>tr.child span.dtr-title {
+    min-width: auto !important;
+}

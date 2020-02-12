@@ -4,6 +4,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ModalFiltrosConfigEjecucionesComponent } from '../../../components/configuracion/config-ejecuciones/modal-filtros-config-ejecuciones/modal-filtros-config-ejecuciones.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { ConfigEjecuciones } from 'src/app/models/configuracion/config-ejecuciones';
 
 @Component({
   selector: 'app-config-ejecuciones',
@@ -27,6 +28,7 @@ export class ConfigEjecucionesComponent implements OnInit {
 
   ngOnInit() {
     this.setearTitulo('BITACORA DE EJECUCIÓN');
+    this.resetearFiltrosConfigEjecuciones();
   }
 
   setearTitulo(titulo) {
@@ -51,4 +53,16 @@ export class ConfigEjecucionesComponent implements OnInit {
     this.router.navigate(['site/menu']);
   }
 
+  resetearFiltrosConfigEjecuciones() {
+    const m = new ConfigEjecuciones();
+    m.opcion = 4;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    m.procesoBaja = false;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    localStorage.removeItem('filtrosConfigEjecuciones');
+    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(m));
+  }
 }

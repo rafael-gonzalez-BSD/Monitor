@@ -34,9 +34,9 @@ export class Layout1Component implements OnInit {
   }
 
   ngOnInit() {
-    this.resetearFiltrosConfigExcepciones();
-    this.resetearFiltrosConfigEjecuciones();
-    this.resetearFiltrosConfigConectores();
+    
+    
+    
     this.resetearFiltrosDashboard();
     this.resetearFiltrosExcepcion();
 
@@ -58,40 +58,11 @@ export class Layout1Component implements OnInit {
 
   
 
-  resetearFiltrosConfigExcepciones() {
-    const m = new ConfigExcepciones();
-    m.opcion = 4;
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    m.sistemaBaja = false;
-    localStorage.removeItem('filtrosConfigExcepciones');
-    localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(m));
-  }
+  
 
-  resetearFiltrosConfigEjecuciones() {
-    const m = new ConfigEjecuciones();
-    m.opcion = 4;
-    m.procesoId = 0;
-    m.procesoDescripcion = '';
-    m.procesoBaja = false;
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    m.sistemaBaja = false;
-    localStorage.removeItem('filtrosConfigEjecuciones');
-    localStorage.setItem('filtrosConfigEjecuciones', JSON.stringify(m));
-  }
+  
 
-  resetearFiltrosConfigConectores() {
-    const m = new ConfigConectores();
-    m.opcion = 4;
-    m.conectorConfiguracionId = 0;
-    m.conectorConfiguracionDescripcion = '';
-    m.sistemaId = 0;
-    m.sistemaDescripcion = '';
-    m.sistemaBaja = false;
-    localStorage.removeItem('filtrosConfigConectores');
-    localStorage.setItem('filtrosConfigConectores', JSON.stringify(m));
-  }
+  
 
   resetearFiltrosDashboard() {
     const m = new FiltrosDashboard();

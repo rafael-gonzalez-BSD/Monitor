@@ -4,6 +4,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ModalFiltrosConfigExcepcionesComponent } from '../../../components/configuracion/config-excepciones/modal-filtros-config-excepciones/modal-filtros-config-excepciones.component';
+import { ConfigExcepciones } from 'src/app/models/configuracion/config-excepciones';
 
 @Component({
   selector: 'app-config-excepciones',
@@ -21,6 +22,7 @@ export class ConfigExcepcionesComponent implements OnInit {
 
   ngOnInit() {
     this.setearTitulo('BITÁCORA DE EXCEPCIÓN');
+    this.resetearFiltrosConfigExcepciones();
   }
 
   setearTitulo(titulo) {
@@ -44,5 +46,14 @@ export class ConfigExcepcionesComponent implements OnInit {
     localStorage.setItem('indexMenu', '1');
     this.router.navigate(['site/menu']);
   }
-
+  
+  resetearFiltrosConfigExcepciones() {
+    const m = new ConfigExcepciones();
+    m.opcion = 4;
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    localStorage.removeItem('filtrosConfigExcepciones');
+    localStorage.setItem('filtrosConfigExcepciones', JSON.stringify(m));
+  }
 }

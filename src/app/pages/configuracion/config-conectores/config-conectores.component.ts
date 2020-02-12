@@ -4,6 +4,7 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ModalFiltrosConfigConectoresComponent } from '../../../components/configuracion/config-conectores/modal-filtros-config-conectores/modal-filtros-config-conectores.component';
+import { ConfigConectores } from 'src/app/models/configuracion/config-conectores';
 
 @Component({
   selector: 'app-config-conectores',
@@ -23,6 +24,7 @@ export class ConfigConectoresComponent implements OnInit {
 
   ngOnInit() {
     this.setearTitulo('BITÁCORA DE MONITOREO');
+    this.resetearFiltrosConfigConectores();
   }
 
   setearTitulo(titulo) {
@@ -47,4 +49,15 @@ export class ConfigConectoresComponent implements OnInit {
     this.router.navigate(['site/menu']);
   }
 
+  resetearFiltrosConfigConectores() {
+    const m = new ConfigConectores();
+    m.opcion = 4;
+    m.conectorConfiguracionId = 0;
+    m.conectorConfiguracionDescripcion = '';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+    m.sistemaBaja = false;
+    localStorage.removeItem('filtrosConfigConectores');
+    localStorage.setItem('filtrosConfigConectores', JSON.stringify(m));
+  }
 }

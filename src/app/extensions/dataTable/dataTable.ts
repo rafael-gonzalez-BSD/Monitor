@@ -11,10 +11,10 @@ export const CONFIGURACION = {
   deferRender: true,
   sort: false,
   language: {
-    info: ' _START_ a _END_ de _TOTAL_ registros',
+    info: 'Mostrando registros del _START_ al _END_ de _TOTAL_ registros',
     decimal: '',
     emptyTable: 'Ningún dato disponible en esta tabla',
-    infoEmpty: ' 0 a 0 d 0 registros',
+    infoEmpty: ' Ningnua coincidencia',
     infoFiltered: '(filtrado de _MAX_ registros)',
     infoPostFix: '',
     thousands: ',',
