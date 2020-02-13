@@ -85,7 +85,7 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
           
         } else {
           this.generalesService.notificar(
-            new NotificacionModel('warning', `Error al consultar el listado de sistemas. ${response.mensaje}`)
+            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones. ${response.mensaje}`)
           );
         }
       },
