@@ -42,7 +42,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
+                        <span class="tc-ff3300">Hora Desde debe ser menor que Hora Hasta</span>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
+                        <span class="tc-ff3300">Hora Desde debe ser menor que Hora Hasta</span>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                         <span class="tc-ff3300">Haga clic en el boton Testear Ruta Para comprobar</span>
                     </div>
                     <div class="container-error" *ngIf="urlApi.valid && rutaExiste.errors.notExist">
-                        <span class="tc-ff3300">La ruta no existe</span>
+                        <span class="tc-ff3300">URL inválida</span>
                     </div>
                 </div>
             </div>

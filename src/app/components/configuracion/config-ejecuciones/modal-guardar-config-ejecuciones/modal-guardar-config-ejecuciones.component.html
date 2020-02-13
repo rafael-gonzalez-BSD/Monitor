@@ -51,7 +51,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
+                        <span class="tc-ff3300">Hora Desde debe ser menor que Hora Hasta</span>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidTimeRange')">
-                        <span class="tc-ff3300">HoraDesde debe ser menor que HoraHasta</span>
+                        <span class="tc-ff3300">Hora Desde debe ser menor que Hora Hasta</span>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                 <input formControlName="rutaExiste" type="hidden" [ngModel]="datosEditar.rutaExiste">
                 <div class="div-errors" *ngIf="rutaExiste.errors">
                     <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.required">
-                        <span class="tc-ff3300">Haga clic en el boton Testear Ruta Para comprobar</span>
+                        <span class="tc-ff3300">Haga clic en el botón Testear Ruta para comprobar</span>
                     </div>
                     <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.notExist">
                         <span class="tc-ff3300">La ruta no existe</span>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidMoreThan')">
-                        <span class="tc-ff3300">Tiempo Óptimo Ejecución debe ser menor que Tiempo Estimado Ejecución</span>
+                        <span class="tc-ff3300">Tiempo Óptimo de Ejecución debe ser menor que Tiempo Estimado de Ejecución</span>
                     </div>
                 </div>
             </div>
@@ -177,7 +177,7 @@
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidMoreThan')">
-                        <span class="tc-ff3300">Tiempo Óptimo Ejecución debe ser menor que Tiempo Estimado Ejecución</span>
+                        <span class="tc-ff3300">Tiempo Óptimo de Ejecución debe ser menor que Tiempo Estimado de Ejecución</span>
                     </div>
                 </div>
             </div>

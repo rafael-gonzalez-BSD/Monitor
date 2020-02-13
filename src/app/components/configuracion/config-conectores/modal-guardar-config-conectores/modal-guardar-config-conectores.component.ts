@@ -196,7 +196,7 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
             break;
           case 0:
             not.tipo = 'warning'
-            not.mensaje = `URL inválida, error desconocido`;
+            not.mensaje = `URL inválida`;
             break;
 
           default:
