@@ -53,7 +53,6 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
   }
 
   consultarGraficoExcepciones(m: FiltrosDashboard) {
-
     this.dashboardService.consultarGraficoExcepciones(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {

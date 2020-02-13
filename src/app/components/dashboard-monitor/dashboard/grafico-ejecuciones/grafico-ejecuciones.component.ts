@@ -7,6 +7,8 @@ import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
 import Chart from 'chart.js';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 import { Router } from '@angular/router';
+import { FiltrosEjecucion } from 'src/app/models/dashboard-monitor/filtros-ejecucion';
+import { EjecucionesService } from 'src/app/services/dashboard-monitor/ejecuciones.service';
 
 @Component({
   selector: 'app-grafico-ejecuciones',
@@ -27,19 +29,19 @@ export class GraficoEjecucionesComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private generalesService: GeneralesService,
-    private router: Router) { }
+    private router: Router,
+    private ejecucionesService: EjecucionesService) { }
 
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
-      this.consultarGraficoExcepciones(m);
+      this.consultarGraficoEjecuciones(m);
     });
 
     this.dashboardService.obtenerFiltros();
 
   }
 
-  consultarGraficoExcepciones(m: FiltrosDashboard) {
-
+  consultarGraficoEjecuciones(m: FiltrosDashboard) {
     this.dashboardService.consultarGraficoEjecuciones(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
@@ -47,7 +49,6 @@ export class GraficoEjecucionesComponent implements OnInit {
           
           this.dataEjecuciones = [];
           this.labelEjecuciones = [];
-          // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
               const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataEjecuciones.push(response.datos[I].cantidad);
@@ -91,11 +92,6 @@ export class GraficoEjecucionesComponent implements OnInit {
                 ]
               }
             });
-
-          // } else {
-
-          // }
-
         } else {
           this.generalesService.notificar(
             new NotificacionModel('warning', `Error al consultar el listado de ejecuciones ${response.mensaje}`)
@@ -111,21 +107,17 @@ export class GraficoEjecucionesComponent implements OnInit {
   }
 
   irBitacora(){
-    const ejec = new FiltrosExcepcion();
+    const ejec = new FiltrosEjecucion();
     const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
     ejec.opcion = 4;
-    ejec.excepcionId = 0;
     ejec.sistemaId = fD.sistemaId;
-    ejec.sistemaDescripcion = fD.sistemaDescripcion;
-    ejec.excepcionEstatusId = 1;
-    ejec.excepcionEstatusDescripcion = 'Abierta';
+    ejec.procesoId = fD.sistemaId;
     ejec.fechaDesde = fD.fechaDesde;
     ejec.fechaHasta = fD.fechaHasta;
-    ejec.sistemaBaja = false;
-    localStorage.setItem('filtrosExcepcion', JSON.stringify(ejec));
-    // this.ejecucionesService.setearFiltros();
-    // this.ejecucionesService.obtenerFiltros();
-    this.router.navigate(['site/excepciones']);
+    localStorage.setItem('filtrosEjecucion', JSON.stringify(ejec));
+    this.ejecucionesService.setearFiltros();
+    this.ejecucionesService.obtenerFiltros();
+    this.router.navigate(['site/ejecuciones']);
   }
 
 }

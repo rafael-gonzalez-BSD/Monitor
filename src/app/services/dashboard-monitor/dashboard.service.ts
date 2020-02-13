@@ -3,7 +3,7 @@ import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashbo
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { HttpParams, HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { yyyymmddToddmmyyyy } from 'src/app/extensions/utils/utils';
 
 @Injectable({
