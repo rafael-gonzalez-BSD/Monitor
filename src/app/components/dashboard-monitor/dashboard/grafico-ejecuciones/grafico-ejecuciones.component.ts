@@ -5,6 +5,8 @@ import { GeneralesService } from 'src/app/services/general/generales.service';
 import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashboard';
 import { labelToGraphics, getStepSize } from 'src/app/extensions/utils/utils';
 import Chart from 'chart.js';
+import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grafico-ejecuciones',
@@ -22,8 +24,10 @@ export class GraficoEjecucionesComponent implements OnInit {
   dataEjecuciones: number[] = [];
   labelEjecuciones: string[] = [];
 
-  constructor(private dashboardService: DashboardService,
-    private generalesService: GeneralesService) { }
+  constructor(
+    private dashboardService: DashboardService,
+    private generalesService: GeneralesService,
+    private router: Router) { }
 
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
@@ -45,12 +49,12 @@ export class GraficoEjecucionesComponent implements OnInit {
           this.labelEjecuciones = [];
           // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
-              const label = labelToGraphics(response.datos[I].fechaDesde);
+              const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataEjecuciones.push(response.datos[I].cantidad);
               this.labelEjecuciones.push(label);
             }
 
-            // teste
+            // test
             // this.dataEjecuciones = [12, 69, 45, 150, 23, 87, 56, 200, 167];
             // this.labelEjecuciones = ['Sep 3', 'Sep 4', 'Sep 5', 'Sep 7', 'Sep 8', 'Sep 23', 'Sep 25', 'Sep 29', 'Sep 30'];
 
@@ -104,7 +108,24 @@ export class GraficoEjecucionesComponent implements OnInit {
       () => {
       }
     );
+  }
 
+  irBitacora(){
+    const ejec = new FiltrosExcepcion();
+    const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    ejec.opcion = 4;
+    ejec.excepcionId = 0;
+    ejec.sistemaId = fD.sistemaId;
+    ejec.sistemaDescripcion = fD.sistemaDescripcion;
+    ejec.excepcionEstatusId = 1;
+    ejec.excepcionEstatusDescripcion = 'Abierta';
+    ejec.fechaDesde = fD.fechaDesde;
+    ejec.fechaHasta = fD.fechaHasta;
+    ejec.sistemaBaja = false;
+    localStorage.setItem('filtrosExcepcion', JSON.stringify(ejec));
+    // this.ejecucionesService.setearFiltros();
+    // this.ejecucionesService.obtenerFiltros();
+    this.router.navigate(['site/excepciones']);
   }
 
 }

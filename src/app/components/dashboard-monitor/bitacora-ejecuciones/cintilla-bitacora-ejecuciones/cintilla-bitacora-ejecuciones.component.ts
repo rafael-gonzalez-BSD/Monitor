@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cintilla-bitacora-ejecuciones.component.scss']
 })
 export class CintillaBitacoraEjecucionesComponent implements OnInit {
+  filtroSistema = 'Todos';
+  filtroProceso = 'Todos';
+  filtroFechaDesde = 'Todos';
+  filtroFechaHasta = 'Todos';
 
   constructor() { }
 
