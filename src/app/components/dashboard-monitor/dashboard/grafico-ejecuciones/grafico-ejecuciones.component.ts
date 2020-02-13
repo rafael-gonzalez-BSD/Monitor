@@ -111,7 +111,9 @@ export class GraficoEjecucionesComponent implements OnInit {
     const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
     ejec.opcion = 4;
     ejec.sistemaId = fD.sistemaId;
+    ejec.sistemaDescripcion = fD.sistemaDescripcion
     ejec.procesoId = fD.sistemaId;
+    ejec.procesoDescripcion = '';
     ejec.fechaDesde = fD.fechaDesde;
     ejec.fechaHasta = fD.fechaHasta;
     localStorage.setItem('filtrosEjecucion', JSON.stringify(ejec));

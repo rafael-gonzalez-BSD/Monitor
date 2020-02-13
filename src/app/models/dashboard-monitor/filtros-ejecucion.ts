@@ -2,8 +2,8 @@ export class FiltrosEjecucion {
     opcion: number;
     sistemaId: number;
     procesoId: number;
-    fechaDesde: Date;
-    fechaHasta: Date;
+    fechaDesde: string;
+    fechaHasta: string;
     sistemaDescripcion: string;
     procesoDescripcion: string;
 }

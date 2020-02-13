@@ -16,6 +16,7 @@ import { getFirstDayMonth, getLastDayMonth } from 'src/app/extensions/utils/util
 import { GeneralesService } from '../../services/general/generales.service';
 import { MonitorConfiguracion } from '../../models/base/monitor-configuracion';
 import { RespuestaModel } from '../../models/base/respuesta';
+import { FiltrosEjecucion } from 'src/app/models/dashboard-monitor/filtros-ejecucion';
 
 @Component({
   selector: 'app-layout1',
@@ -34,11 +35,9 @@ export class Layout1Component implements OnInit {
   }
 
   ngOnInit() {
-    
-    
-    
     this.resetearFiltrosDashboard();
     this.resetearFiltrosExcepcion();
+    this.resetearFiltrosEjecucion();
 
     let m = new MonitorConfiguracion();
     m.identificador = 10;
@@ -55,15 +54,7 @@ export class Layout1Component implements OnInit {
       this.open = open;
     });
   }
-
   
-
-  
-
-  
-
-  
-
   resetearFiltrosDashboard() {
     const m = new FiltrosDashboard();
     m.opcion = 5;
@@ -100,6 +91,24 @@ export class Layout1Component implements OnInit {
 
     localStorage.removeItem('filtrosExcepcion');
     localStorage.setItem('filtrosExcepcion', JSON.stringify(m));
+  }
+
+  resetearFiltrosEjecucion() {
+    const m = new FiltrosEjecucion();
+    m.opcion = 4;
+    m.procesoId = 0;
+    m.procesoDescripcion = '';
+    m.sistemaId = 0;
+    m.sistemaDescripcion = '';
+
+    const primerDia = getFirstDayMonth(new Date());
+    const ultimoDia = getLastDayMonth(new Date());
+
+    m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
+
+    localStorage.removeItem('filtrosEjecucion');
+    localStorage.setItem('filtrosEjecucion', JSON.stringify(m));
   }
 
 }
