@@ -80,7 +80,7 @@
             </div>
             <div class="col-12 col-md-9 col-lg-6 form-group">
                 <label for="">Ruta Log</label>
-                <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog">
+                <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog" (input)="changeRutaExisteValidation()">
                 <div class="div-errors" *ngIf="submitted && rutaLog.errors">
                     <div class="container-error" *ngIf="rutaLog.errors.required">
                         <span class="tc-ff3300">Campo requerido</span>

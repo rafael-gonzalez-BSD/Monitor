@@ -262,7 +262,11 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
 
-  cambioInputSistema(){
+  changeRutaExisteValidation() {
+    this.datosEditar.rutaExiste = "";
+  }
+
+  cambioInputSistema(){    
     this.datosEditar.ventanaMantenimiento = '';
   }
 }

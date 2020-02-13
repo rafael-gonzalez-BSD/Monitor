@@ -308,6 +308,11 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
+
+  changeRutaExisteValidation() {
+    this.datosEditar.rutaExiste = "";
+  }
+  
 }
 
 

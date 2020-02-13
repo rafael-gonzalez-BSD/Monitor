@@ -43,7 +43,12 @@ export class ModalFiltrosProcesoComponent implements OnInit {
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosProcesos'));
     this.consultarSistemaCombo();
-    // this.consultarProcesoCombo();
+    if (this.datosFiltros.sistemaId > 0) {
+      const m = new Combo();
+      m.identificador = this.datosFiltros.sistemaId;
+      m.descripcion = this.datosFiltros.sistemaDescripcion;
+      this.consultarProcesoCombo(m);
+    }
   }
 
   ngOnInit() {

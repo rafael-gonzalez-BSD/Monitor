@@ -42,7 +42,12 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosConfigConectores'));
     this.consultarSistemaCombo();
-    // this.consultarConectorCombo();
+    if (this.datosFiltros.sistemaId > 0) {
+      const m = new Combo();
+      m.identificador = this.datosFiltros.sistemaId;
+      m.descripcion = this.datosFiltros.sistemaDescripcion;
+      this.consultarConectorCombo(m);
+    }
   }
 
   ngOnInit() {
