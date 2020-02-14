@@ -35,7 +35,10 @@
                         <td>{{ item.rutaLog }}</td>
                         <td>{{ item.frecuencia }}</td>
                         <td>{{ item.horaDesde | hourFormat }} - {{ item.horaHasta | hourFormat }}</td>
-                        <td>{{item.ventanaMantenimiento}}</td>
+                        <td>
+                            <p class="fechas-ventana">Fecha Inicio: {{item.fechaDesdeVentana | date: 'dd/MMM/yyyy'}}, Hora Inicio: {{item.horaDesdeVentana | hourFormat}}</p>
+                            <p class="fechas-ventana">Fecha Fin: {{item.fechaHastaVentana | date: 'dd/MMM/yyyy'}}, Hora Fin: {{item.horaHastaVentana | hourFormat}}</p>
+                        </td>
                         <td>
                             <mat-slide-toggle [checked]="!item.baja" (change)="actualizarEstado($event, item)"></mat-slide-toggle>
                         </td>

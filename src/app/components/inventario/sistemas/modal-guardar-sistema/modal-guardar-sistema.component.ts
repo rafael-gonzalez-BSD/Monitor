@@ -103,7 +103,6 @@ export class ModalGuardarSistemaComponent implements OnInit {
   }
 
   guardarSistema(sistemaModel: Sistema) {
-    console.log(this.grupoFormulario);
     this.submitted = true;
 
     if (this.grupoFormulario.invalid) {
@@ -117,11 +116,11 @@ export class ModalGuardarSistemaComponent implements OnInit {
     }
     this.sistemaModel.opcion = this.opcion;
 
-    this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion;
+    this.sistemaModel.sistemaDescripcion = this.grupoFormulario.value.SistemaDescripcion.trim();
     this.sistemaModel.baja = !this.toggleBaja;
-    this.sistemaModel.alias = this.grupoFormulario.value.Alias;
+    this.sistemaModel.alias = this.grupoFormulario.value.Alias.trim();
     this.sistemaModel.gerenciaId = this.grupoFormulario.value.GerenciaId;
-    this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion;
+    this.sistemaModel.descripcion = this.grupoFormulario.value.Descripcion.trim();
 
 
     this.sistemaService.guardarSistema(sistemaModel, this.insercion).subscribe(

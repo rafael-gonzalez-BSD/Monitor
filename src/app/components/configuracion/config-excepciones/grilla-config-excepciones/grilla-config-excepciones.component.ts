@@ -20,7 +20,7 @@ import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestroy, OnInit {
   // DataTable
   dtOptions: any = {};
-  listadoConfiguExcepciones: ConfigExcepciones[] = [];
+  listadoConfiguExcepciones: any;
   dtTrigger: Subject<ConfigExcepciones> = new Subject();
   paginar = false;
 
@@ -78,7 +78,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
         if (response.satisfactorio) {
           this.verTabla = false;
           this.listadoConfiguExcepciones = response.datos;
-
+          console.log(this.listadoConfiguExcepciones)
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));

@@ -12,6 +12,7 @@ import { RequireMatch } from '../../../../extensions/autocomplete/require-match'
 import { GeneralesService } from '../../../../services/general/generales.service';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { RespuestaModel } from '../../../../models/base/respuesta';
+import { inputText } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-guardar-proceso',
@@ -79,7 +80,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       procesoId: new FormControl(),
-      procesoDescripcion: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
+      procesoDescripcion: new FormControl('', [inputText(true, 3, 250)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl(),
       critico: new FormControl()
@@ -114,7 +115,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
       this.procesoModel.procesoId = this.grupoFormulario.value.procesoId;
     }
 
-    this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion;
+    this.procesoModel.procesoDescripcion = this.grupoFormulario.value.procesoDescripcion.trim();
     this.procesoModel.baja = !this.toggleBaja;
     this.procesoModel.critico = this.toggleCritico;
     this.procesoModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;

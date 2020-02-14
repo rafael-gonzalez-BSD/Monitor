@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LOCALE_ID, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,7 +44,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ConfigExcepcionesComponent } from './pages/configuracion/config-excepciones/config-excepciones.component';
 import { ConfigEjecucionesComponent } from './pages/configuracion/config-ejecuciones/config-ejecuciones.component';
 import { ConfigConectoresComponent } from './pages/configuracion/config-conectores/config-conectores.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { CintillaSistemaComponent } from './components/inventario/sistemas/cintilla-sistema/cintilla-sistema.component';
 import { CintillaMantenimientosComponent } from './components/inventario/mantenimientos/cintilla-mantenimientos/cintilla-mantenimientos.component';
 import { GrillaMantenimientoComponent } from './components/inventario/mantenimientos/grilla-mantenimiento/grilla-mantenimiento.component';
@@ -98,6 +98,15 @@ import { ModalLogExcepcionesComponent } from './components/dashboard-monitor/det
 /**
  * Custom angular notifier options
  */
+
+ // Language
+ import localeEs from '@angular/common/locales/es';
+ 
+ // usar DatePipe
+ import { DatePipe } from '@angular/common';
+
+registerLocaleData(localeEs, 'es');
+
 const customNotifierOptions: NotifierOptions = options
 
 export const MY_MOMENT_FORMATS = {
@@ -212,6 +221,7 @@ export const MY_FORMATS = {
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MAT_DATE_LOCALE, useValue: 'es' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

@@ -10,14 +10,8 @@
                 <label for="">Nombre</label>
                 <input formControlName="procesoDescripcion" class="form-control" type="text" [ngModel]="datosEditar.procesoDescripcion">
                 <div class="div-errors" *ngIf="submitted && procesoDescripcion.errors">
-                    <div class="container-error" *ngIf="procesoDescripcion.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="procesoDescripcion.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="procesoDescripcion.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    <div class="container-error" *ngIf="procesoDescripcion.errors.inputText">
+                        <span class="tc-ff3300">{{procesoDescripcion.errors.message}}</span>
                     </div>
                 </div>
             </div>
