@@ -20,6 +20,7 @@ import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
 import { DatePipe } from '@angular/common';
 import { HourFormatPipe } from 'src/app/pipes/time/hour-format.pipe';
+import { inputText, inputNumber } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-guardar-config-excepciones',
@@ -102,19 +103,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       excepcionConfiguracionId: new FormControl(),
-      frecuencia: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(5),
-        Validators.min(1),
-        Validators.max(32767),
-        Validators.pattern('[(0-9)]*')]),
-      rutaLog: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(250)
-
-      ]),
+      frecuencia: new FormControl('', [inputNumber(true, 1, 32767)]),
+      rutaLog: new FormControl('', [inputText(true, 3, 250)]),
       rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [
         fromTimeRequiredValidator,
@@ -178,11 +168,11 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       this.configExcepcionesModel.excepcionConfiguracionId = this.grupoFormulario.value.excepcionConfiguracionId;
     }
 
-    this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia.trim();
     this.configExcepcionesModel.baja = !this.toggleBaja;
     this.configExcepcionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
     this.configExcepcionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
-    this.configExcepcionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.configExcepcionesModel.rutaLog = this.grupoFormulario.value.rutaLog.trim();
     this.configExcepcionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
     this.configExcepcionesService.guardarConfigExcepcion(configExcepcionesModel, this.esEdicion).subscribe(

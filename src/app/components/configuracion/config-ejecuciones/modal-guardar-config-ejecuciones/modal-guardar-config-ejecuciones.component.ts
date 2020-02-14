@@ -24,6 +24,7 @@ import { MantenimientoService } from 'src/app/services/inventario/mantenimiento.
 import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 import { DatePipe } from '@angular/common';
 import { HourFormatPipe } from 'src/app/pipes/time/hour-format.pipe';
+import { inputText, inputNumber } from 'src/app/extensions/custom-validator/validations';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -118,18 +119,8 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       ejecucionConfiguracionId: new FormControl(),
-      frecuencia: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(5),
-        Validators.min(1),
-        Validators.max(32767),
-        Validators.pattern('[(0-9)]*')]),
-      rutaLog: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(250)
-      ]),
+      frecuencia: new FormControl('', [inputNumber(true, 1, 32767)]),
+      rutaLog: new FormControl('', [inputText(true, 3, 250)]),
       rutaExiste: new FormControl('', [Validators.required, checkIfUrlExists]),
       horaDesde: new FormControl('', [
         fromTimeRequiredValidator,
@@ -141,8 +132,8 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       ]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       procesoId: new FormControl('', [Validators.required, RequireMatch]),
-      tiempoEstimadoEjecucion: new FormControl('', [Validators.required]),
-      tiempoOptimoEjecucion: new FormControl('', [Validators.required]),
+      tiempoEstimadoEjecucion: new FormControl('', [inputNumber(true, 1, 32767)]),
+      tiempoOptimoEjecucion: new FormControl('', [inputNumber(true, 1, 32767)]),
       baja: new FormControl()
     }, [timeRangeValidator, ejecucionTiempoValidate]);
   }
@@ -212,15 +203,15 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       this.configEjecucionesModel.ejecucionConfiguracionId = this.grupoFormulario.value.ejecucionConfiguracionId;
     }
 
-    this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia.trim();
     this.configEjecucionesModel.baja = !this.toggleBaja;
     this.configEjecucionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
     this.configEjecucionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
-    this.configEjecucionesModel.rutaLog = this.grupoFormulario.value.rutaLog;
+    this.configEjecucionesModel.rutaLog = this.grupoFormulario.value.rutaLog.trim();
     this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
     this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
-    this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion
-    this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion
+    this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion.trim();
+    this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion.trim();
 
     this.configEjecucionesService.guardarConfigEjecucion(configEjecucionesModel, this.esEdicion).subscribe(
       (response: any) => {

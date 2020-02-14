@@ -65,14 +65,17 @@ export function inputNumber(required: boolean, minLength: number, maxLength?: nu
     return (control: AbstractControl): ValidationErrors | null => {
         
         const VALOR: string = control.value;
-       
+
+        if (VALOR === undefined) {
+            return { inputNumber: true, message: `Campo requerido` }             
+        }       
         if (required && VALOR.trim() === '') {
             return { inputNumber: true, message: `Campo requerido` }             
         }
         if (!required && VALOR.trim() === '') {
             return null;           
         }
-        if(!(REG.test(VALOR))){
+        if(!(REG.test(VALOR.trim()))){
             return { inputNumber: true, message: `Solo números enteros mayor a 0` }
         }
         // tslint:disable-next-line: radix

@@ -76,23 +76,8 @@
                 <label for="">Frecuencia (Min)</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
-                    <div class="container-error" *ngIf="frecuencia.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="frecuencia.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 1 caracter</span>
-                    </div>
-                    <div class="container-error" *ngIf="frecuencia.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 5 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="frecuencia.errors.min">
-                        <span class="tc-ff3300">El valor numérico mínimo es de 1</span>
-                    </div>
-                    <div class="container-error" *ngIf="frecuencia.errors.max">
-                        <span class="tc-ff3300">El valor numérico máximo es de 32767</span>
-                    </div>
-                    <div class="container-error" *ngIf="frecuencia.errors.pattern">
-                        <span class="tc-ff3300">Formato inválido</span>
+                    <div class="container-error" *ngIf="frecuencia.errors.inputNumber">
+                        <span class="tc-ff3300">{{frecuencia.errors.message}}</span>
                     </div>
                 </div>
             </div>
@@ -100,14 +85,8 @@
                 <label for="">Ruta Log</label>
                 <input formControlName="rutaLog" class="form-control" type="text" [ngModel]="datosEditar.rutaLog" (input)="changeRutaExisteValidation()">
                 <div class="div-errors" *ngIf="submitted && rutaLog.errors">
-                    <div class="container-error" *ngIf="rutaLog.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="rutaLog.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 3 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="rutaLog.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 250 caracteres</span>
+                    <div class="container-error" *ngIf="rutaLog.errors.inputText">
+                        <span class="tc-ff3300">{{rutaLog.errors.message}}</span>
                     </div>
                     <div class="container-error" *ngIf="rutaLog.errors.pattern">
                         <span class="tc-ff3300">Formato inválido</span>
@@ -127,23 +106,8 @@
                 <label for="">Tiempo Estimado de Ejecución</label>
                 <input formControlName="tiempoEstimadoEjecucion" class="form-control" type="text" [ngModel]="datosEditar.tiempoEstimadoEjecucion">
                 <div class="div-errors" *ngIf="submitted && tiempoEstimadoEjecucion.errors">
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 1 caracter</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 5 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.min">
-                        <span class="tc-ff3300">El valor numérico mínimo es de 1</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.max">
-                        <span class="tc-ff3300">El valor numérico máximo es de 32767</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.pattern">
-                        <span class="tc-ff3300">Formato inválido</span>
+                    <div class="container-error" *ngIf="tiempoEstimadoEjecucion.errors.inputNumber">
+                        <span class="tc-ff3300">{{tiempoEstimadoEjecucion.errors.message}}</span>
                     </div>
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
@@ -156,23 +120,8 @@
                 <label for="">Tiempo Óptimo de Ejecución</label>
                 <input formControlName="tiempoOptimoEjecucion" class="form-control" type="text" [ngModel]="datosEditar.tiempoOptimoEjecucion">
                 <div class="div-errors" *ngIf="submitted && tiempoOptimoEjecucion.errors">
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.required">
-                        <span class="tc-ff3300">Campo requerido</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.minlength">
-                        <span class="tc-ff3300">Mínimo 1 caracter</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.maxlength">
-                        <span class="tc-ff3300">Máximo 5 caracteres</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.min">
-                        <span class="tc-ff3300">El valor numérico mínimo es de 1</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.max">
-                        <span class="tc-ff3300">El valor numérico máximo es de 32767</span>
-                    </div>
-                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.pattern">
-                        <span class="tc-ff3300">Formato inválido</span>
+                    <div class="container-error" *ngIf="tiempoOptimoEjecucion.errors.inputNumber">
+                        <span class="tc-ff3300">{{tiempoOptimoEjecucion.errors.message}}</span>
                     </div>
                 </div>
                 <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
