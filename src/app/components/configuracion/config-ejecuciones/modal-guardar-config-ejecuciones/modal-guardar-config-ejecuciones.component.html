@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-4 col-md-3 col-lg-2 form-group">
-                <label for="">Frecuencia</label>
+                <label for="">Frecuencia (Min)</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
                     <div class="container-error" *ngIf="frecuencia.errors.required">
@@ -197,7 +197,7 @@
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-12 form-group">
                 <label for="">Ventana Mantenimiento</label>
-                <p> {{datosEditar.ventanaMantenimiento}} </p>
+                <p [innerHTML]="datosEditar.ventanaMantenimiento"> </p>
             </div>
         </div>
         <!-- Fin Nueva Estructura -->

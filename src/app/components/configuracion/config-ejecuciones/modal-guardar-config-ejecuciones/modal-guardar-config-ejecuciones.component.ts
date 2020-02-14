@@ -22,6 +22,8 @@ import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-templa
 import { checkIfUrlExists } from 'src/app/extensions/url-validator/url-validator';
 import { MantenimientoService } from 'src/app/services/inventario/mantenimiento.service';
 import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
+import { DatePipe } from '@angular/common';
+import { HourFormatPipe } from 'src/app/pipes/time/hour-format.pipe';
 
 @Component({
   selector: 'app-modal-guardar-config-ejecuciones',
@@ -53,7 +55,9 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     private procesoService: ProcesoService,
     private mantenimientoService: MantenimientoService,
     private configEjecucionesService: ConfigEjecucionesService,
-    private modal: MatDialog
+    private modal: MatDialog,
+    private datePipe: DatePipe,
+    private hourFormat: HourFormatPipe
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
@@ -180,13 +184,14 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
     const m = new Mantenimiento();
     m.sistemaId = value.identificador;
     m.opcion = 2;
+    m.baja = false;
 
     this.mantenimientoService.obtenerMantenimiento(m).subscribe((res: RespuestaModel) => {
       if (res.satisfactorio) {
         this.datosMantenimiento = res.datos;
-        const fechaInicio = `Fecha Inicio: ${moment(this.datosMantenimiento.fechaDesde).format('DD/MM/YYYY')} - Hora: ${this.getTimeValue(this.datosMantenimiento.horaDesde)} hrs`
-        const fechaFin = `Fecha Fin: ${moment(this.datosMantenimiento.fechaHasta).format('DD/MM/YYYY')} - Hora ${this.getTimeValue(this.datosMantenimiento.horaHasta)} hrs`
-        this.datosEditar.ventanaMantenimiento = `${fechaInicio}. ${fechaFin}`;
+        const fechaInicio = `Fecha Inicio: ${this.datePipe.transform(this.datosMantenimiento.fechaDesde,'dd/MMM/yyyy')}, Hora Inicio: ${this.hourFormat.transform(this.datosMantenimiento.horaDesde)}`; 
+        const fechaFin = `Fecha Fin: ${this.datePipe.transform(this.datosMantenimiento.fechaHasta,'dd/MMM/yyyy')}, Hora Fin: ${this.hourFormat.transform(this.datosMantenimiento.horaHasta)}`; 
+        this.datosEditar.ventanaMantenimiento = `${fechaInicio} <br> ${fechaFin}`;
 
       }
       else {

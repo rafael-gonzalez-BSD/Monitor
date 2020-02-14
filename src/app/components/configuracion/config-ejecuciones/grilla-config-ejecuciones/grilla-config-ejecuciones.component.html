@@ -39,7 +39,10 @@
                         <td>{{ item.frecuencia }}</td>
                         <td>{{ item.rutaLog }}</td>
                         <td>{{ item.horaDesde | hourFormat }} - {{ item.horaHasta | hourFormat }}</td>
-                        <td>{{item.ventanaMantenimiento}}</td>
+                        <td>
+                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Inicio: {{item.fechaDesdeVentana | date: 'dd/MMM/yyyy'}}, Hora Inicio: {{item.horaDesdeVentana | hourFormat}}</p>
+                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Fin: {{item.fechaHastaVentana | date: 'dd/MMM/yyyy'}}, Hora Fin: {{item.horaHastaVentana | hourFormat}}</p>
+                        </td>
                         <td>{{ item.tiempoEstimadoEjecucion }}</td>
                         <td>{{ item.tiempoOptimoEjecucion }}</td>
                         <td>

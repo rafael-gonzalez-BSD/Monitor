@@ -8,29 +8,29 @@ export function labelToGraphics(cadena: string) {
     const dia = parseInt(cadena.substring(8, 10));
 
     switch (mes) {
-        case 1: label = 'Ene';
+        case 1: label = 'ene.';
             break;
-        case 2: label = 'Feb';
+        case 2: label = 'feb.';
             break;
-        case 3: label = 'Mar';
+        case 3: label = 'mar.';
             break;
-        case 4: label = 'Abr';
+        case 4: label = 'abr.';
             break;
-        case 5: label = 'May';
+        case 5: label = 'may.';
             break;
-        case 6: label = 'Jun';
+        case 6: label = 'jun.';
             break;
-        case 7: label = 'Jul';
+        case 7: label = 'jul.';
             break;
-        case 8: label = 'Ago';
+        case 8: label = 'ago.';
         break
-        case 9: label = 'Sep';
+        case 9: label = 'sep';
             break;
-        case 10: label = 'Oct';
+        case 10: label = 'oct.';
             break;
-        case 11: label = 'Nov';
+        case 11: label = 'nov.';
             break;
-        case 12: label = 'Dic';
+        case 12: label = 'dic.';
         break
 
         default: label = '';
@@ -69,29 +69,29 @@ export function convertFechaCintilla(cadena: string, tipoEntrada: string, tipoSa
      
 
     switch (mes) {
-        case 1: mesString = 'Ene';
+        case 1: mesString = 'ene.';
             break;
-        case 2: mesString = 'Feb';
+        case 2: mesString = 'feb.';
             break;
-        case 3: mesString = 'Mar';
+        case 3: mesString = 'mar.';
             break;
-        case 4: mesString = 'Abr';
+        case 4: mesString = 'abr.';
             break;
-        case 5: mesString = 'May';
+        case 5: mesString = 'may.';
             break;
-        case 6: mesString = 'Jun';
+        case 6: mesString = 'jun.';
             break;
-        case 7: mesString = 'Jul';
+        case 7: mesString = 'jul.';
             break;
-        case 8: mesString = 'Ago';
+        case 8: mesString = 'ago.';
         break
-        case 9: mesString = 'Sep';
+        case 9: mesString = 'sep';
             break;
-        case 10: mesString = 'Oct';
+        case 10: mesString = 'oct.';
             break;
-        case 11: mesString = 'Nov';
+        case 11: mesString = 'nov.';
             break;
-        case 12: mesString = 'Dic';
+        case 12: mesString = 'dic.';
         break
 
         default: mesString = '';

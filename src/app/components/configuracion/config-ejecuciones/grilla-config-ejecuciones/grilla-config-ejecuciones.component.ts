@@ -20,7 +20,7 @@ import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestroy, OnInit {
   // DataTable
   dtOptions: any = {};
-  config: ConfigEjecuciones[] = [];
+  config: any = [];
   dtTrigger: Subject<ConfigEjecuciones> = new Subject();
   paginar = false;
 
@@ -113,6 +113,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
     const m = new ConfigEjecuciones();
     m.opcion = 4;
     m.ejecucionConfiguracionId = id;
+    
 
     this.configEjecucionesService.obtenerConfigEjecuciones(m).subscribe(
       (res: RespuestaModel) => {

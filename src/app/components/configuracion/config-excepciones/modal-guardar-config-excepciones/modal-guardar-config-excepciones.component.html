@@ -21,7 +21,7 @@
                 </mat-autocomplete>
             </div>
             <div class="col-sm-4 col-md-3 col-lg-2 form-group">
-                <label for="">Frecuencia</label>
+                <label for="">Frecuencia (Min)</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
                     <div class="container-error" *ngIf="frecuencia.errors.required">
