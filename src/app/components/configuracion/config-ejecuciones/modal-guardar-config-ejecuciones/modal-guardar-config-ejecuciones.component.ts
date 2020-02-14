@@ -312,6 +312,10 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   changeRutaExisteValidation() {
     this.datosEditar.rutaExiste = "";
   }
+
+  cambioInputSistema(){
+    this.datosEditar.ventanaMantenimiento = '';
+  }
   
 }
 
