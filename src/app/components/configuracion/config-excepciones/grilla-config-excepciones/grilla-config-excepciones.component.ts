@@ -78,7 +78,6 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
         if (response.satisfactorio) {
           this.verTabla = false;
           this.listadoConfiguExcepciones = response.datos;
-          console.log(this.listadoConfiguExcepciones)
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
           const tamanioPaginar = parseInt(localStorage.getItem('tamanioPaginar'));

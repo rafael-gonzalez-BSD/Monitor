@@ -18,6 +18,8 @@ import { TimePickerTemplate } from 'src/app/extensions/picker/time-picker-templa
 import { checkIfUrlExists } from '../../../../extensions/url-validator/url-validator';
 import { Mantenimiento } from 'src/app/models/inventario/mantenimiento';
 import { MantenimientoService } from '../../../../services/inventario/mantenimiento.service';
+import { DatePipe } from '@angular/common';
+import { HourFormatPipe } from 'src/app/pipes/time/hour-format.pipe';
 
 @Component({
   selector: 'app-modal-guardar-config-excepciones',
@@ -46,7 +48,9 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     private sistemaService: SistemaService,
     private mantenimientoService: MantenimientoService,
     private configExcepcionesService: ConfigExcepcionesService,
-    private modal: MatDialog
+    private modal: MatDialog,
+    private datePipe: DatePipe,
+    private hourFormat: HourFormatPipe
   ) {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
@@ -144,14 +148,15 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   consultarVentanaMantenimientoId(value: Combo) {
     const m = new Mantenimiento();
     m.sistemaId = value.identificador;
+    m.baja = false;
     m.opcion = 2;
 
     this.mantenimientoService.obtenerMantenimiento(m).subscribe((res: RespuestaModel) => {
       if (res.satisfactorio) {
         this.datosMantenimiento = res.datos;
-        const fechaInicio = `Fecha Inicio: ${moment(this.datosMantenimiento.fechaDesde).format('DD/MMM/YYYY')} ${this.getTimeValue(this.datosMantenimiento.horaDesde)}`
-        const fechaFin = `Fecha Fin: ${moment(this.datosMantenimiento.fechaHasta).format('DD/MMM/YYYY')} ${this.getTimeValue(this.datosMantenimiento.horaHasta)}`
-        this.datosEditar.ventanaMantenimiento = `${fechaInicio}. ${fechaFin}`;
+        const fechaInicio = `Fecha Inicio: ${this.datePipe.transform(this.datosMantenimiento.fechaDesde,'dd/MMM/yyyy')}, Hora Inicio: ${this.hourFormat.transform(this.datosMantenimiento.horaDesde)}`; 
+        const fechaFin = `Fecha Fin: ${this.datePipe.transform(this.datosMantenimiento.fechaHasta,'dd/MMM/yyyy')}, Hora Fin: ${this.hourFormat.transform(this.datosMantenimiento.horaHasta)}`; 
+        this.datosEditar.ventanaMantenimiento = `${fechaInicio} <br> ${fechaFin}`;
 
       }
       else {
@@ -263,7 +268,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
   }
 
   changeRutaExisteValidation() {
-    this.datosEditar.rutaExiste = "";
+    this.datosEditar.rutaExiste = '';
   }
 
   cambioInputSistema(){    

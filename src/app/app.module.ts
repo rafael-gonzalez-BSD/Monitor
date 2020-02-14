@@ -101,7 +101,7 @@ import { ModalLogExcepcionesComponent } from './components/dashboard-monitor/det
 
  // Language
  import localeEs from '@angular/common/locales/es';
- 
+
  // usar DatePipe
  import { DatePipe } from '@angular/common';
 
@@ -225,7 +225,9 @@ export const MY_FORMATS = {
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MAT_DATE_LOCALE, useValue: 'es' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    DatePipe,
+    HourFormatPipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [
