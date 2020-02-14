@@ -44,6 +44,7 @@ export class ModalFiltrosConfigEjecucionesComponent implements OnInit {
     this.tituloModal = data.tituloModal;
     this.opcion = data.opcion;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosConfigEjecuciones'));
+    console.log(this.datosFiltros);
     this.consultarSistemaCombo();
     if (this.datosFiltros.sistemaId > 0) {
       const m = new Combo();

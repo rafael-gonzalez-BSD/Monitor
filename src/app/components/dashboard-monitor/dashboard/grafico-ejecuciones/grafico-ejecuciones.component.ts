@@ -112,7 +112,7 @@ export class GraficoEjecucionesComponent implements OnInit {
     ejec.opcion = 4;
     ejec.sistemaId = fD.sistemaId;
     ejec.sistemaDescripcion = fD.sistemaDescripcion
-    ejec.procesoId = fD.sistemaId;
+    ejec.procesoId = 0;
     ejec.procesoDescripcion = '';
     ejec.fechaDesde = fD.fechaDesde;
     ejec.fechaHasta = fD.fechaHasta;

@@ -52,7 +52,7 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
     private dashboardService: DashboardService,
     private excepcionService: ExcepcionesService,
     private excepcionEstatusService: ExcepcionEstatusService,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosExcepcion'));
