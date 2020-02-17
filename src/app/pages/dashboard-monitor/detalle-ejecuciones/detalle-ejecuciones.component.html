@@ -1,7 +1,16 @@
+<div class="row row-detalle">
+    <div class="col-md-10 col-sm-10 col-10">
+        <li class="li-breadcrumb"><a><span class="tc-7b7b7b item-breadcrumb" [routerLink]="['../ejecuciones']">Bitácora de Ejecuciones</span></a></li> /
+        <li class="li-breadcrumb"><a class="tc-7b7b7b item-breadcrumb">Detalle</a></li>
+    </div>
+    <div class="col-md-2 col-sm-2 col-2 text-right">
+        <button class="btn-back-movil" mat-icon-button (click)="regresar()">
+            <mat-icon class="icon-menu-toogle" aria-hidden="false" aria-label="home">arrow_back</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="wrapper">
+    <app-grilla-detalle-ejecuciones [ejecucionId]="ejecucionId">
 
-<button mat-button mat-icon-button >
-        <i class="fas fa-filter"></i>
-    </button>
-<div id="wrapper">
-    <h1>ejecuciones</h1>
+    </app-grilla-detalle-ejecuciones>
 </div>

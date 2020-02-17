@@ -10,7 +10,8 @@ export class DetalleExcepcionesComponent implements OnInit {
 
   
 
-  constructor(private rutaActiva: ActivatedRoute,
+  constructor(
+    private rutaActiva: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
