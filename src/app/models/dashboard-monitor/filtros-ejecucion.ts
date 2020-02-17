@@ -6,4 +6,6 @@ export class FiltrosEjecucion {
     fechaHasta: string;
     sistemaDescripcion: string;
     procesoDescripcion: string;
+    sistemaBaja: boolean;
+    procesoBaja: boolean;
 }

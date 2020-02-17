@@ -19,16 +19,16 @@
             <div class="col-lg-6 form-group">
                 <label for="">Proceso</label>
                 <input class="form-control input-ternium" type="text" formControlName="procesoId" matInput [matAutocomplete]="procId">
-                <div class="div-errors" *ngIf="submitted && procesoId.errors">
-                    <div class="container-error" *ngIf="procesoId.errors.incorrect">
-                        <span class="tc-ff3300">Campo Inválido</span>
-                    </div>
-                </div>
                 <mat-autocomplete #procId="matAutocomplete" [displayWith]="mostrarValor">
                     <mat-option *ngFor="let proceso of procesoCombo | async" [value]="proceso">
                         <span>{{proceso.descripcion}}</span>
                     </mat-option>
                 </mat-autocomplete>
+                <div class="div-errors" *ngIf="procesoId.invalid && (procesoId.touched)">
+                    <div class="container-error" *ngIf="procesoId.errors.incorrect">
+                        <span class="tc-ff3300">Campo Inválido</span>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6 form-group">
                 <label>Fecha Desde</label>

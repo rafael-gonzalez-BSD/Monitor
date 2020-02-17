@@ -18,6 +18,8 @@ import { startWith, map } from 'rxjs/operators';
 import { dateRangeValidator } from 'src/app/extensions/picker/validate-date';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
+import moment from 'moment';
+import { EjecucionesService } from 'src/app/services/dashboard-monitor/ejecuciones.service';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-ejecuciones',
@@ -51,7 +53,8 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
     private dashboardService: DashboardService,
     private excepcionService: ExcepcionesService,
     private excepcionEstatusService: ExcepcionEstatusService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private ejecucionService: EjecucionesService
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosEjecucion'));
@@ -133,7 +136,33 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
   buscar(m: FiltrosEjecucion) {
     this.submitted = true;
     if (this.grupoFormulario.valid) {
+      if (this.grupoFormulario.value.sistemaId) {
+        this.filtrosEjecucion.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosEjecucion.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.filtrosEjecucion.sistemaId = 0;
+        this.filtrosEjecucion.sistemaDescripcion = '';
+      } 
+
+      if (this.grupoFormulario.value.procesoId) {
+        this.filtrosEjecucion.procesoId = this.grupoFormulario.value.procesoId.identificador;
+        this.filtrosEjecucion.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
+      } else {
+        this.filtrosEjecucion.procesoId = 0;
+        this.filtrosEjecucion.procesoDescripcion = '';
+      } 
       
+      this.filtrosEjecucion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+      this.filtrosEjecucion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      this.filtrosEjecucion.sistemaBaja = false;
+      this.filtrosEjecucion.procesoBaja = false;
+      this.filtrosEjecucion.opcion = 4;
+      localStorage.setItem('filtrosEjecucion', JSON.stringify(this.filtrosEjecucion));
+
+      this.ejecucionService.setearFiltros();
+      this.ejecucionService.obtenerFiltros();
+
+      this.cerrarModal();
     }
   }
 
