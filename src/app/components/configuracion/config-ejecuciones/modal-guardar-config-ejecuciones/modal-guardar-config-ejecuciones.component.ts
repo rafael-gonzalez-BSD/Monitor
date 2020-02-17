@@ -155,6 +155,7 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
   }
 
   consultarProcesoCombo(value: Combo) {
+    
     const m = new Proceso();
     m.opcion = 3;
     m.sistemaId = value.identificador;

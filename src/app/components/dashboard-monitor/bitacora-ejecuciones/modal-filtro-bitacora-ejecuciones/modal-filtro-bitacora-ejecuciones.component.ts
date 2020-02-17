@@ -64,6 +64,11 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
       m.identificador = this.datosFiltros.sistemaId;
       m.descripcion = this.datosFiltros.sistemaDescripcion;
       this.consultarProcesoCombo(m);
+    }else{
+      const m = new Combo();
+      m.identificador = -1;
+      m.descripcion = '';   
+      this.consultarProcesoCombo(m);   
     }
    }
 
@@ -145,7 +150,6 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
         else {
           this.generalesService.notificar(new NotificacionModel('warning', 'Error al cargar el combo proceso.'));
         }
-
       },
       err => {
         this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error.'));
