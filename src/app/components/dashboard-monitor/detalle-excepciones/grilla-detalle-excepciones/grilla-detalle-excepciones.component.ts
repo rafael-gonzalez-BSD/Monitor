@@ -42,6 +42,7 @@ export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestr
     this.dtOptions = CONFIGURACION
     const M = new FiltrosExcepcionDetalle();
     M.excepcionId = this.excepcionId;
+    M.opcion = 4;
     this.obtenerBitacoras(M);
   }
 
@@ -115,7 +116,6 @@ export class GrillaDetalleExcepcionesComponent implements AfterViewInit, OnDestr
     CONFIG_MODAL.width = '90%';
     CONFIG_MODAL.maxWidth = '1024px';
     this.modal.open(ModalLogExcepcionesComponent, CONFIG_MODAL);
-
   }
 
 }

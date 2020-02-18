@@ -1,1 +1,41 @@
-<p>grilla-detalle-ejecuciones works!</p>
+<div class="row">
+    <div class="col-12 div-loading" [ngClass]="{'mostrar mat-elevation-z5': !verTabla, 'ocultar': verTabla}">
+        <ngx-loading [show]="loadingTrue" [config]='loadingConfig'></ngx-loading>
+    </div>
+    <div class="col-12 " [ngClass]="{'mostrar': verTabla, 'ocultar': !verTabla}">
+        <div class="mat-elevation-z5 container-table">
+            <table datatable [dtOptions]=" dtOptions " [dtTrigger]="dtTrigger " class="row-border hover dt ">
+                <thead class="dtHead ">
+                    <tr>
+                        <th class="verMasDt"></th>
+                        <th>Id Sistema</th>
+                        <th>Sistema</th>
+                        <th>Proceso</th>
+                        <th>servidor</th>
+                        <th>Fecha Desde</th>
+                        <th>Fecha Hasta</th>
+                        <th>Tiempo de Ejecución</th>
+                        <th>Tiempo Estimado de Ejecución</th>
+                        <th>Tiempo Óptimo de Ejecución</th>
+                        <th>Descripción de Proceso</th>
+                    </tr>
+                </thead>
+                <tbody class="dtBody ">
+                    <tr *ngFor="let item of listadoBitacora ">
+                        <td class="verMasDt "></td>
+                        <td>{{ item.sistemaId }}</td>
+                        <td>{{ item.sistemaDescripcion }}</td>
+                        <td>{{ item.procesoDescripcion }}</td>
+                        <td>{{ item.servidor }}</td>
+                        <td>{{ item.fechaInicio | date: 'dd/MMM/yyyy hh:mm' }}</td>
+                        <td>{{ item.fechaFin | date: 'dd/MMM/yyyy hh:mm'}}</td>
+                        <td>{{ item.tiempoEjecucion }}</td>
+                        <td>{{ item.tiempoEstimadoEjecucion }}</td>
+                        <td>{{ item.tiempoOptimoEjecucion }}</td>
+                        <td>{{ item.ejecucionDetalleDescripcion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

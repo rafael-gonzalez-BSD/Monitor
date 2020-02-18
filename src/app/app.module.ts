@@ -198,7 +198,7 @@ export const MY_FORMATS = {
     GrillaDetalleEjecucionesComponent,
     CintillaDetalleConectoresComponent,
     GrillaDetalleConectoresComponent,
-    ModalLogExcepcionesComponent,
+    ModalLogExcepcionesComponent
   ],
   imports: [
     BrowserModule,
