@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cintilla-bitacora-conectores.component.scss']
 })
 export class CintillaBitacoraConectoresComponent implements OnInit {
+  filtroSistema = 'Todos';
+  filtroConector = 'Todos';
+  filtroFechaDesde = 'Todos';
+  filtroFechaHasta = 'Todos';
 
   constructor() { }
 
