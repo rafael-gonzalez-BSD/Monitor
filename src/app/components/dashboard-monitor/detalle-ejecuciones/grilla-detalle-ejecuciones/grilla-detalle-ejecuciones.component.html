@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody class="dtBody ">
-                    <tr *ngFor="let item of listadoBitacora ">
+                    <tr *ngFor="let item of listadoBitacora " [ngClass]="{'tc-ff3300': item.ejecucionAlertaId === 3}">
                         <td class="verMasDt "></td>
                         <td>{{ item.sistemaId }}</td>
                         <td>{{ item.sistemaDescripcion }}</td>
