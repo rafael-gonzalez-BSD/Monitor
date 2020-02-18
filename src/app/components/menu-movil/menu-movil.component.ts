@@ -18,11 +18,11 @@ export class MenuMovilComponent implements OnInit {
       ruta: '../dashboard'
     },
     {
-      titulo: 'Bitácora de Excepciones',
+      titulo: 'Bitácora de Excepción',
       ruta: '../excepciones'
     },
     {
-      titulo: 'Bitácora de Ejecuciones',
+      titulo: 'Bitácora de Ejecución',
       ruta: '../ejecuciones'
     },
     {

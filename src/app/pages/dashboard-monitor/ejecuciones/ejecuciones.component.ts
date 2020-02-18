@@ -19,7 +19,7 @@ export class EjecucionesComponent implements OnInit {
     private modal: MatDialog,) {
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
-        this.setearTitulo('BITÁCORA DE EJECUCIONES');
+        this.setearTitulo('BITÁCORA DE EJECUCIÓN');
       }
     });
   }

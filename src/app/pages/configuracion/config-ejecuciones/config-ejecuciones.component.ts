@@ -21,13 +21,13 @@ export class ConfigEjecucionesComponent implements OnInit {
   ) {
     // this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
     //   if (!state.matches) {
-    //     this.setearTitulo('BITACORA DE EJECUCIÓN');
+    //     this.setearTitulo('BITÁCORA DE EJECUCIÓN');
     //   }
     // });
   }
 
   ngOnInit() {
-    this.setearTitulo('BITACORA DE EJECUCIÓN');
+    this.setearTitulo('BITÁCORA DE EJECUCIÓN');
     this.resetearFiltrosConfigEjecuciones();
   }
 

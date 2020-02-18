@@ -21,7 +21,7 @@ export class ExcepcionesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.setearTitulo('BITÁCORA DE EXCEPCIONES');
+    this.setearTitulo('BITÁCORA DE EXCEPCIÓN');
   }
 
   setearTitulo(titulo) {

@@ -36,8 +36,8 @@
                         <td>{{ item.frecuencia }}</td>
                         <td>{{ item.horaDesde | hourFormat }} - {{ item.horaHasta | hourFormat }}</td>
                         <td>
-                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Inicio: {{item.fechaDesdeVentana | date: 'dd/MMM/yyyy'}}, Hora Inicio: {{item.horaDesdeVentana | hourFormat}}</p>
-                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Fin: {{item.fechaHastaVentana | date: 'dd/MMM/yyyy'}}, Hora Fin: {{item.horaHastaVentana | hourFormat}}</p>
+                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Inicio: {{item.fechaDesdeVentana | date: 'dd/MMM/yyyy'}} {{item.horaDesdeVentana | hourFormat}}</p>
+                            <p *ngIf="!item.bajaVentana" class="fechas-ventana">Fecha Fin: {{item.fechaHastaVentana | date: 'dd/MMM/yyyy'}} {{item.horaHastaVentana | hourFormat}}</p>
                         </td>
                         <td>
                             <mat-slide-toggle [checked]="!item.baja" (change)="actualizarEstado($event, item)"></mat-slide-toggle>

@@ -144,8 +144,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
     this.mantenimientoService.obtenerMantenimiento(m).subscribe((res: RespuestaModel) => {
       if (res.satisfactorio) {
         this.datosMantenimiento = res.datos;
-        const fechaInicio = `Fecha Inicio: ${this.datePipe.transform(this.datosMantenimiento.fechaDesde,'dd/MMM/yyyy')}, Hora Inicio: ${this.hourFormat.transform(this.datosMantenimiento.horaDesde)}`; 
-        const fechaFin = `Fecha Fin: ${this.datePipe.transform(this.datosMantenimiento.fechaHasta,'dd/MMM/yyyy')}, Hora Fin: ${this.hourFormat.transform(this.datosMantenimiento.horaHasta)}`; 
+        const fechaInicio = `Fecha Inicio: ${this.datePipe.transform(this.datosMantenimiento.fechaDesde,'dd/MMM/yyyy')} ${this.hourFormat.transform(this.datosMantenimiento.horaDesde)}`; 
+        const fechaFin = `Fecha Fin: ${this.datePipe.transform(this.datosMantenimiento.fechaHasta,'dd/MMM/yyyy')} ${this.hourFormat.transform(this.datosMantenimiento.horaHasta)}`; 
         this.datosEditar.ventanaMantenimiento = `${fechaInicio} <br> ${fechaFin}`;
 
       }
