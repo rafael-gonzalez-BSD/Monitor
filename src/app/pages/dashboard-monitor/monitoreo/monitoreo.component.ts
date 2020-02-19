@@ -4,6 +4,9 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conector';
 import { getFirstDayMonth, getLastDayMonth } from 'src/app/extensions/utils/utils';
 import moment from 'moment';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
+import { ModalFiltroBitacoraConectoresComponent } from 'src/app/components/dashboard-monitor/bitacora-conectores/modal-filtro-bitacora-conectores/modal-filtro-bitacora-conectores.component';
 
 @Component({
   selector: 'app-monitoreo',
@@ -12,8 +15,11 @@ import moment from 'moment';
 })
 export class MonitoreoComponent implements OnInit {
 
-  constructor( private generalesService: GeneralesService,
-    private breakpointObserver: BreakpointObserver) { 
+  constructor( 
+    private generalesService: GeneralesService,
+    private breakpointObserver: BreakpointObserver,
+    private router: Router,
+    private modal: MatDialog) { 
     this.breakpointObserver.observe(['(min-width: 813px)']).subscribe((state: BreakpointState) => {
       if (!state.matches) {
         this.setearTitulo('BITÁCORA DE MONITOREO');
@@ -30,6 +36,7 @@ export class MonitoreoComponent implements OnInit {
   }
 
   resetearFiltrosConector() {
+    
     const m = new FiltrosConector();
     m.opcion = 4;
     m.conectorId = 0;
@@ -45,5 +52,22 @@ export class MonitoreoComponent implements OnInit {
 
     localStorage.removeItem('filtrosConector');
     localStorage.setItem('filtrosConector', JSON.stringify(m));
+  }
+
+  abrirModalFiltros() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      tituloModal: 'Filtro',
+    };
+    
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '90%';
+    dialogConfig.maxWidth = '1024px';
+    this.modal.open(ModalFiltroBitacoraConectoresComponent, dialogConfig);
+  }
+
+  regresar() {
+    localStorage.setItem('indexMenu', '0');
+    this.router.navigate(['site/menu']);
   }
 }

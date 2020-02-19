@@ -53,7 +53,7 @@ export class GraficoConectoresComponent implements OnInit {
           this.labelsConectores = [];
           // if (this.registrosConectores > 0) {
             for (const I in response.datos) {
-              const label = labelToGraphics(response.datos[I].fechaDesde);
+              const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataConectores.push(response.datos[I].cantidad);
               this.labelsConectores.push(label);
             }

@@ -17,6 +17,7 @@ import { GeneralesService } from '../../services/general/generales.service';
 import { MonitorConfiguracion } from '../../models/base/monitor-configuracion';
 import { RespuestaModel } from '../../models/base/respuesta';
 import { FiltrosEjecucion } from 'src/app/models/dashboard-monitor/filtros-ejecucion';
+import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conector';
 
 @Component({
   selector: 'app-layout1',
@@ -38,6 +39,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosDashboard();
     this.resetearFiltrosExcepcion();
     this.resetearFiltrosEjecucion();
+    this.resetearFiltrosConector();
 
     const m = new MonitorConfiguracion();
     m.identificador = 10;
@@ -109,6 +111,24 @@ export class Layout1Component implements OnInit {
 
     localStorage.removeItem('filtrosEjecucion');
     localStorage.setItem('filtrosEjecucion', JSON.stringify(m));
+  }
+
+  resetearFiltrosConector() {
+    const m = new FiltrosConector();
+    m.opcion = 4;
+    m.conectorId = 0;
+    m.conectorDescripcion = 'Todos'
+    m.sistemaId = 0;
+    m.sistemaDescripcion = 'Todos';   
+
+    const primerDia = getFirstDayMonth(new Date());
+    const ultimoDia = getLastDayMonth(new Date());
+
+    m.fechaDesde = moment(new Date(primerDia)).format('YYYY/MM/DD');
+    m.fechaHasta = moment(new Date(ultimoDia)).format('YYYY/MM/DD');
+
+    localStorage.removeItem('filtrosConector');
+    localStorage.setItem('filtrosConector', JSON.stringify(m));
   }
 
 }

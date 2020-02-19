@@ -242,7 +242,8 @@ export const MY_FORMATS = {
     ModalFiltrosDashboardComponent,
     ModalFiltroBitacoraExcepcionesComponent,
     ModalLogExcepcionesComponent,
-    ModalFiltroBitacoraEjecucionesComponent
+    ModalFiltroBitacoraEjecucionesComponent,
+    ModalFiltroBitacoraConectoresComponent
   ]
 })
 export class AppModule { }
