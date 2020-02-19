@@ -39,8 +39,6 @@ export function toTimeRequiredValidator(control: AbstractControl) {
 export function dateRangeValidator(formGroupValues: FormGroup) {
   let fechaDesde = formGroupValues.get('fechaDesde').value;
   let fechaHasta = formGroupValues.get('fechaHasta').value;
-
-
   if ((fechaDesde !== '' || moment.isMoment(fechaDesde)) && (fechaHasta !== '' || moment.isMoment(fechaHasta))) {
     if (!moment.isMoment(fechaDesde)) {
       fechaDesde = moment(fechaDesde);

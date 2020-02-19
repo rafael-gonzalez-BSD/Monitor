@@ -1,9 +1,10 @@
 export class FiltrosConector {
     opcion: number;
-    conectorId: number;
-    conectorDescripcion: string;
+    conectorConfiguracionId: number;
+    conectorConfiguracionDescripcion: string;
     sistemaId: number;
     sistemaDescripcion: string;
     fechaDesde: string;
     fechaHasta: string;
+    baja: boolean;
 }

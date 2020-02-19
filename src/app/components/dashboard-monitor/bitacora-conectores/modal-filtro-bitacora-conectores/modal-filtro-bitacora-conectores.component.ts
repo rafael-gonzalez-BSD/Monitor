@@ -16,6 +16,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ConfigConectoresService } from 'src/app/services/configuracion/config-conectores.service';
 import { ConfigConectores } from 'src/app/models/configuracion/config-conectores';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
+import moment from 'moment';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-conectores',
@@ -147,36 +148,46 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   }
 
   buscar(m: FiltrosConector) {
-    // this.submitted = true;
-    // if (this.grupoFormulario.valid) {
-    //   if (this.grupoFormulario.value.sistemaId) {
-    //     this.filtrosEjecucion.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
-    //     this.filtrosEjecucion.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
-    //   } else {
-    //     this.filtrosEjecucion.sistemaId = 0;
-    //     this.filtrosEjecucion.sistemaDescripcion = '';
-    //   } 
+    this.submitted = true;
+    if (this.grupoFormulario.valid) {
+      if (this.grupoFormulario.value.sistemaId) {
+        this.filtrosConector.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
+        this.filtrosConector.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
+      } else {
+        this.filtrosConector.sistemaId = 0;
+        this.filtrosConector.sistemaDescripcion = '';
+      } 
 
-    //   if (this.grupoFormulario.value.procesoId) {
-    //     this.filtrosEjecucion.procesoId = this.grupoFormulario.value.procesoId.identificador;
-    //     this.filtrosEjecucion.procesoDescripcion = this.grupoFormulario.value.procesoId.descripcion;
-    //   } else {
-    //     this.filtrosEjecucion.procesoId = 0;
-    //     this.filtrosEjecucion.procesoDescripcion = '';
-    //   } 
+      if (this.grupoFormulario.value.conectorConfiguracionId) {
+        this.filtrosConector.conectorConfiguracionId = this.grupoFormulario.value.procesoId.identificador;
+        this.filtrosConector.conectorConfiguracionDescripcion = this.grupoFormulario.value.procesoId.descripcion;
+      } else {
+        this.filtrosConector.conectorConfiguracionId = 0;
+        this.filtrosConector.conectorConfiguracionDescripcion = '';
+      }
       
-    //   this.filtrosEjecucion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
-    //   this.filtrosEjecucion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
-    //   this.filtrosEjecucion.sistemaBaja = false;
-    //   this.filtrosEjecucion.procesoBaja = false;
-    //   this.filtrosEjecucion.opcion = 4;
-    //   localStorage.setItem('filtrosEjecucion', JSON.stringify(this.filtrosEjecucion));
+      // Validamos si alguna de las dos fechas esta vacía
+      if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde != null) &&
+        (this.grupoFormulario.value.fechaHasta === '' || this.grupoFormulario.value.fechaHasta == null)) {
+        this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
+      }
 
-    //   this.ejecucionService.setearFiltros();
-    //   this.ejecucionService.obtenerFiltros();
+      if ((this.grupoFormulario.value.fechaDesde === '' || this.grupoFormulario.value.fechaDesde == null) &&
+        (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta != null)) {
+        this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
+      }
+      
+      this.filtrosConector.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+      this.filtrosConector.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      this.filtrosConector.baja = false;
+      this.filtrosConector.opcion = 4;
+      localStorage.setItem('filtrosConector', JSON.stringify(this.filtrosConector));
 
-    //   this.cerrarModal();
-    // }
+      this.conectorService.setearFiltros();
+      this.conectorService.obtenerFiltros();
+
+      this.cerrarModal();
+    }
   }
 
   setearValorAutocomplete(campo: string, id: number, desc: string) {

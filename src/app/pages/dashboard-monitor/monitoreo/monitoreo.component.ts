@@ -39,8 +39,8 @@ export class MonitoreoComponent implements OnInit {
     
     const m = new FiltrosConector();
     m.opcion = 4;
-    m.conectorId = 0;
-    m.conectorDescripcion = 'Todos'
+    m.conectorConfiguracionId = 0;
+    m.conectorConfiguracionDescripcion = 'Todos'
     m.sistemaId = 0;
     m.sistemaDescripcion = 'Todos';   
 
