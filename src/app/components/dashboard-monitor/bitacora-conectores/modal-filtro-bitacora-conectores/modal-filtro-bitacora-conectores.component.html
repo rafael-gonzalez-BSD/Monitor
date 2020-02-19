@@ -4,14 +4,28 @@
         <div class="row">
             <div class="col-lg-6 form-group">
                 <label for="">Sistema</label>
-                <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId">
-                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">
+                <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="sisId" formControlName="sistemaId" (keyup)="setearValorAutocomplete('conectorConfiguracionId', -1, '')">
+                <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarConfigconectorCombo($event.option.value)">
                     <mat-option *ngFor="let sistema of sistemaCombo | async" [value]="sistema">
                         <span>{{sistema.descripcion}}</span>
                     </mat-option>
                 </mat-autocomplete>
                 <div class="div-errors" *ngIf="sistemaId.invalid && ( sistemaId.touched )">
                     <div class="container-error" *ngIf="grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                        <span class="tc-ff3300">Campo Inválido</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 form-group">
+                <label for="">Conector</label>
+                <input class="form-control input-ternium" type="text" matInput [matAutocomplete]="conId" formControlName="conectorConfiguracionId">
+                <mat-autocomplete #conId="matAutocomplete" [displayWith]="mostrarValor">
+                    <mat-option *ngFor="let configConector of configConectorCombo | async" [value]="configConector">
+                        <span>{{configConector.descripcion}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+                <div class="div-errors" *ngIf="conectorConfiguracionId.invalid && ( conectorConfiguracionId.touched )">
+                    <div class="container-error" *ngIf="grupoFormulario.controls['conectorConfiguracionId'].hasError('incorrect')">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>

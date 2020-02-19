@@ -134,12 +134,12 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     if (this.grupoFormulario.value.conectorConfiguracionId) {
       this.configConectoresModel.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId;
     }
-    this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionDescripcion;
-    this.configConectoresModel.frecuencia = this.grupoFormulario.value.frecuencia;
+    this.configConectoresModel.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionDescripcion.trim();
+    this.configConectoresModel.frecuencia = this.grupoFormulario.value.frecuencia.trim();
     this.configConectoresModel.baja = !this.toggleBaja;
-    this.configConectoresModel.horaDesde = this.grupoFormulario.value.horaDesde;
-    this.configConectoresModel.horaHasta = this.grupoFormulario.value.horaHasta;
-    this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi;
+    this.configConectoresModel.horaDesde = this.grupoFormulario.value.horaDesde.trim();
+    this.configConectoresModel.horaHasta = this.grupoFormulario.value.horaHasta.trim();
+    this.configConectoresModel.urlApi = this.grupoFormulario.value.urlApi.trim();
     this.configConectoresModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
 
     this.configConectoresService.guardarConfigConector(configConectoresModel, this.esEdicion).subscribe(

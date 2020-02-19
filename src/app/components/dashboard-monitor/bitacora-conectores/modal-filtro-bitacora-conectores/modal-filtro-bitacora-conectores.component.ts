@@ -13,6 +13,9 @@ import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { dateRangeValidator } from 'src/app/extensions/picker/validate-date';
 import { startWith, map } from 'rxjs/operators';
+import { ConfigConectoresService } from 'src/app/services/configuracion/config-conectores.service';
+import { ConfigConectores } from 'src/app/models/configuracion/config-conectores';
+import { RespuestaModel } from 'src/app/models/base/respuesta';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-conectores',
@@ -25,9 +28,9 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   datosFiltros: any;
 
   sistemaCombo: Observable<Combo[]>;
-  procesoCombo: Observable<Combo[]>;
+  configConectorCombo: Observable<Combo[]>;
   datosComboSistema: Combo[];
-  datosComboProceso: Combo[];
+  datosComboConfigConector: Combo[];
 
   datosComboEstatus: Combo[];
   filtrosConector = new FiltrosConector();
@@ -42,7 +45,8 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
     private breakpointObserver: BreakpointObserver,
-    private conectorService: ConectoresService
+    private conectorService: ConectoresService,
+    private configConectoresService: ConfigConectoresService
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosConector'));
@@ -51,15 +55,15 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
     
     this.consultarSistemaCombo();
     if (this.datosFiltros.sistemaId > 0) {
-      // const m = new Combo();
-      // m.identificador = this.datosFiltros.sistemaId;
+      const m = new Combo();
+      m.identificador = this.datosFiltros.sistemaId;
       // m.descripcion = this.datosFiltros.sistemaDescripcion;
-      // this.consultarProcesoCombo(m);
+      this.consultarConfigconectorCombo(m);
     }else{
-      // const m = new Combo();
-      // m.identificador = -1;
-      // m.descripcion = '';   
-      // this.consultarProcesoCombo(m);   
+      const m = new Combo();
+      m.identificador = -1;
+      m.descripcion = '';   
+      this.consultarConfigconectorCombo(m);   
     }
    }
 
@@ -74,6 +78,17 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
     if (this.datosFiltros.sistemaId > 0) {
       this.setearValorAutocomplete('sistemaId', this.datosFiltros.sistemaId, this.datosFiltros.sistemaDescripcion);
     }
+
+    this.configConectorCombo = this.grupoFormulario.get('conectorConfiguracionId').valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.descripcion)),
+      map(name => this.filter(name, this.datosComboConfigConector))
+    );
+
+    if (this.datosFiltros.conectorConfiguracionId > 0) {
+      // tslint:disable-next-line: max-line-length
+      this.setearValorAutocomplete('conectorConfiguracionId', this.datosFiltros.conectorConfiguracionId, this.datosFiltros.conectorConfiguracionDescripcion);
+    }
   }
 
   filter(valor: string, datosCombo: Combo[]) {
@@ -85,6 +100,7 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       sistemaId: new FormControl('', [RequireMatch]),
+      conectorConfiguracionId: new FormControl('', [RequireMatch]),
       fechaDesde: new FormControl(''),
       fechaHasta: new FormControl('')
     }, dateRangeValidator);
@@ -104,6 +120,28 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
       },
       err => {        
         this.generalesService.notificar(new NotificacionModel('error', `Ocurrió un error:`));
+      },
+      () => { }
+    );
+  }
+
+  consultarConfigconectorCombo(value: Combo) {
+    const m = new ConfigConectores();
+    m.opcion = 3;
+    m.sistemaId = value.identificador;
+    m.baja = false;
+    this.configConectoresService.consultarConectorCombo(m).subscribe(
+      (res: RespuestaModel) => {
+        if (res.satisfactorio) {
+          this.datosComboConfigConector = res.datos;
+          console.log(this.datosComboConfigConector)
+        }
+        else {
+          this.generalesService.notificar(new NotificacionModel('warning', 'Error al cargar el combo de configuración de conectores'));
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('error', 'Ocurrió un error'));
       },
       () => { }
     );
@@ -160,6 +198,9 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   // Obtenemos los valores del formulario
   get sistemaId() {
     return this.grupoFormulario.get('sistemaId');
+  }
+  get conectorConfiguracionId() {
+    return this.grupoFormulario.get('conectorConfiguracionId');
   }
   get fechaDesde() {
     return this.grupoFormulario.get('fechaDesde');
