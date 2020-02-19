@@ -50,9 +50,6 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
     private sistemaService: SistemaService,
     private procesoService: ProcesoService,
     private generalesService: GeneralesService,
-    private dashboardService: DashboardService,
-    private excepcionService: ExcepcionesService,
-    private excepcionEstatusService: ExcepcionEstatusService,
     private breakpointObserver: BreakpointObserver,
     private ejecucionService: EjecucionesService
   ) {
