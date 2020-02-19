@@ -1,6 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 export function checkIfUrlExists(control: AbstractControl) {
-    if (control.value != null) {
+    console.log(control.value + ' - ' + new Date().toDateString());
+    if (control.value !== null && control.value !== "" && control.value !== undefined) {        
         if (control.value == false || control.value == 'false') {
             return { notExist: true };
         }
