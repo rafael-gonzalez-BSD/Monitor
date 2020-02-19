@@ -64,7 +64,7 @@ export function inputNumber(required: boolean, minLength: number, maxLength?: nu
  
     return (control: AbstractControl): ValidationErrors | null => {
         
-        const VALOR: string = control.value;
+        const VALOR: string = control.value.toString();
 
         if (VALOR === undefined) {
             return { inputNumber: true, message: `Campo requerido` }             

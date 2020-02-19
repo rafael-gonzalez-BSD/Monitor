@@ -203,15 +203,15 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       this.configEjecucionesModel.ejecucionConfiguracionId = this.grupoFormulario.value.ejecucionConfiguracionId;
     }
 
-    this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia.trim();
+    this.configEjecucionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
     this.configEjecucionesModel.baja = !this.toggleBaja;
     this.configEjecucionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
     this.configEjecucionesModel.horaHasta = this.grupoFormulario.value.horaHasta;
     this.configEjecucionesModel.rutaLog = this.grupoFormulario.value.rutaLog.trim();
     this.configEjecucionesModel.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
     this.configEjecucionesModel.procesoId = this.grupoFormulario.value.procesoId.identificador;
-    this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion.trim();
-    this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion.trim();
+    this.configEjecucionesModel.tiempoEstimadoEjecucion = this.grupoFormulario.value.tiempoEstimadoEjecucion;
+    this.configEjecucionesModel.tiempoOptimoEjecucion = this.grupoFormulario.value.tiempoOptimoEjecucion;
 
     this.configEjecucionesService.guardarConfigEjecucion(configEjecucionesModel, this.esEdicion).subscribe(
       (response: any) => {
