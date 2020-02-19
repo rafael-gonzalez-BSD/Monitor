@@ -134,7 +134,6 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
       (res: RespuestaModel) => {
         if (res.satisfactorio) {
           this.datosComboConfigConector = res.datos;
-          console.log(this.datosComboConfigConector)
         }
         else {
           this.generalesService.notificar(new NotificacionModel('warning', 'Error al cargar el combo de configuración de conectores'));
