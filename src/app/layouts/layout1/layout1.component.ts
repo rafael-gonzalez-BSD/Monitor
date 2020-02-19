@@ -39,7 +39,7 @@ export class Layout1Component implements OnInit {
     this.resetearFiltrosExcepcion();
     this.resetearFiltrosEjecucion();
 
-    let m = new MonitorConfiguracion();
+    const m = new MonitorConfiguracion();
     m.identificador = 10;
     this.generalesService.obtenerConfiguracion(m).subscribe((res: RespuestaModel) => {
       if (res.satisfactorio) {

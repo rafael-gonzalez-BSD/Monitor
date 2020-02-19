@@ -5,6 +5,9 @@ import { getStepSize, labelToGraphics } from 'src/app/extensions/utils/utils';
 import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashboard';
 import { GeneralesService } from 'src/app/services/general/generales.service';
 import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
+import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conector';
+import { ConectoresService } from 'src/app/services/dashboard-monitor/conectores.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grafico-conectores',
@@ -22,8 +25,12 @@ export class GraficoConectoresComponent implements OnInit {
   dataConectores: number[] = [];
   labelsConectores: string[] = [];
 
-  constructor(private dashboardService: DashboardService,
-    private generalesService: GeneralesService) { }
+  constructor(
+    private dashboardService: DashboardService,
+    private generalesService: GeneralesService,
+    private conectoresService: ConectoresService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.dashboardService.filtros.subscribe((m: any) => {
@@ -102,6 +109,20 @@ export class GraficoConectoresComponent implements OnInit {
       }
     );
 
+  }
+
+  irBitacora(){
+    const CONEC = new FiltrosConector();
+    const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    CONEC.opcion = 4;
+    CONEC.sistemaId = fD.sistemaId;
+    CONEC.sistemaDescripcion = fD.sistemaDescripcion
+    CONEC.fechaDesde = fD.fechaDesde;
+    CONEC.fechaHasta = fD.fechaHasta;
+    localStorage.setItem('filtrosConector', JSON.stringify(CONEC));
+    this.conectoresService.setearFiltros();
+    this.conectoresService.obtenerFiltros();
+    this.router.navigate(['site/monitoreo']);
   }
 
 }
