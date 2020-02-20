@@ -150,6 +150,7 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   buscar(m: FiltrosConector) {
     this.submitted = true;
     if (this.grupoFormulario.valid) {
+
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosConector.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
         this.filtrosConector.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
@@ -159,8 +160,8 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
       } 
 
       if (this.grupoFormulario.value.conectorConfiguracionId) {
-        this.filtrosConector.conectorConfiguracionId = this.grupoFormulario.value.procesoId.identificador;
-        this.filtrosConector.conectorConfiguracionDescripcion = this.grupoFormulario.value.procesoId.descripcion;
+        this.filtrosConector.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId.identificador;
+        this.filtrosConector.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionId.descripcion;
       } else {
         this.filtrosConector.conectorConfiguracionId = 0;
         this.filtrosConector.conectorConfiguracionDescripcion = '';
