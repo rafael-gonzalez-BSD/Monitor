@@ -25,7 +25,7 @@ export class ConectoresService {
     this.setFiltros.emit(m);
   }
 
-  consultarEjecuciones(m: Conector) {
+  consultarConectores(m: FiltrosConector) {
     let parametros = new HttpParams();
     for (const key in m) {
       parametros = parametros.set(key, m[key]);

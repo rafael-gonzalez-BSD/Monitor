@@ -1,6 +1,7 @@
 export class Conector {
     conectorId: number;
-    conectorDescripcion: string;
+    conectorConfiguracionId: number;
+    conectorConfiguracionDescripcion: string;
     fechaOcuerrencia: Date;
     sistemaId: number;
     sistemaDescripcion: string;
