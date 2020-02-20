@@ -168,7 +168,7 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
       this.configExcepcionesModel.excepcionConfiguracionId = this.grupoFormulario.value.excepcionConfiguracionId;
     }
 
-    this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia.trim();
+    this.configExcepcionesModel.frecuencia = this.grupoFormulario.value.frecuencia;
     this.configExcepcionesModel.baja = !this.toggleBaja;
     this.configExcepcionesModel.horaDesde = this.grupoFormulario.value.horaDesde;
     this.configExcepcionesModel.horaHasta = this.grupoFormulario.value.horaHasta;

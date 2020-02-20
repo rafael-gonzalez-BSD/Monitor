@@ -110,7 +110,7 @@
                         <span class="tc-ff3300">{{tiempoEstimadoEjecucion.errors.message}}</span>
                     </div>
                 </div>
-                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors">
+                <div class="div-errors" *ngIf="submitted && grupoFormulario.errors && !tiempoEstimadoEjecucion.errors">
                     <div class="container-error" *ngIf="grupoFormulario.hasError('invalidMoreThan')">
                         <span class="tc-ff3300">Tiempo Óptimo de Ejecución debe ser menor que Tiempo Estimado de Ejecución</span>
                     </div>
