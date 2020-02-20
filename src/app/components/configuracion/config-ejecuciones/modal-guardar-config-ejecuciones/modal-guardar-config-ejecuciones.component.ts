@@ -235,7 +235,8 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
 
   testearRuta() {
     const m = new ConfigEjecuciones();
-    m.rutaLog = this.grupoFormulario.value.rutaLog;
+    m.rutaLog = this.grupoFormulario.value.rutaLog.trim();
+    m.archivoTest = "LogEjec.txt";
     this.generalesService.testearRutaArchivos(m).subscribe((res: any) => {
       this.datosEditar.rutaExiste = res.satisfactorio;
       const not = new NotificacionModel();

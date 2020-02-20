@@ -21,4 +21,5 @@ export class ConfigEjecuciones {
   procesoBaja: boolean;
   ventanaMantenimiento: string | null;
   opcion: number;
+  archivoTest:string;
 }

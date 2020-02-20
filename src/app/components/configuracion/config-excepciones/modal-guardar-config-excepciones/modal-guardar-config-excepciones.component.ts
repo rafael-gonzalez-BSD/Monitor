@@ -197,7 +197,8 @@ export class ModalGuardarConfigExcepcionesComponent implements OnInit {
 
   testearRuta() {
     const m = new ConfigExcepciones();
-    m.rutaLog = this.grupoFormulario.value.rutaLog;
+    m.rutaLog = this.grupoFormulario.value.rutaLog.trim();
+    m.archivoTest = "LogExce.txt";
     this.generalesService.testearRutaArchivos(m).subscribe((res: any) => {
       this.datosEditar.rutaExiste = res.satisfactorio;
       const not = new NotificacionModel();

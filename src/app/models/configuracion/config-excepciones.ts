@@ -16,4 +16,5 @@ export class ConfigExcepciones {
   sistemaBaja: boolean;
   ventanaMantenimiento: string | null;
   opcion: number;
+  archivoTest:string;
 }
