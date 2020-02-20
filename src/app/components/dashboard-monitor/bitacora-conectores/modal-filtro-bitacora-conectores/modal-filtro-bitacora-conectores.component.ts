@@ -151,6 +151,7 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
     this.submitted = true;
     if (this.grupoFormulario.valid) {
 
+      debugger
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosConector.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
         this.filtrosConector.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;
@@ -158,8 +159,11 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
         this.filtrosConector.sistemaId = 0;
         this.filtrosConector.sistemaDescripcion = '';
       } 
+      if(this.grupoFormulario.value.conectorConfiguracionId.descripcion === ''){
+        this.filtrosConector.conectorConfiguracionId = 0;
 
-      if (this.grupoFormulario.value.conectorConfiguracionId) {
+      }
+      else if (this.grupoFormulario.value.conectorConfiguracionId) {
         this.filtrosConector.conectorConfiguracionId = this.grupoFormulario.value.conectorConfiguracionId.identificador;
         this.filtrosConector.conectorConfiguracionDescripcion = this.grupoFormulario.value.conectorConfiguracionId.descripcion;
       } else {
