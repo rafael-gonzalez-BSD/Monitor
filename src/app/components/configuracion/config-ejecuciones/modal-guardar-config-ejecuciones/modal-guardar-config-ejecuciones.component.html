@@ -93,12 +93,12 @@
                     </div>
                 </div>
                 <input formControlName="rutaExiste" type="hidden" [ngModel]="datosEditar.rutaExiste">
-                <div class="div-errors" *ngIf="submitted && rutaExiste.errors">
+                <div class="div-errors" *ngIf="rutaExiste.errors">
                     <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.required">
                         <span class="tc-ff3300">Haga clic en el botón Testear Ruta para comprobar</span>
                     </div>
                     <div class="container-error" *ngIf="rutaLog.valid && rutaExiste.errors.notExist">
-                        <span class="tc-ff3300">La ruta no existe</span>
+                        <span class="tc-ff3300">Ruta inválida</span>
                     </div>
                 </div>
             </div>
