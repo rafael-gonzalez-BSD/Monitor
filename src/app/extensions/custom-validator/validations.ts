@@ -24,6 +24,7 @@ export function TrimValidation(control: AbstractControl) {
 export function inputText(required: boolean, minLength: number, maxLength: number): ValidatorFn {
  
     return (control: AbstractControl): ValidationErrors | null => {
+        
         const VALOR: string = control.value;
         if (required) {
             if (VALOR === null || VALOR === undefined) {
@@ -63,8 +64,13 @@ export function inputNumber(required: boolean, minLength: number, maxLength?: nu
     const REG = /^(?:[1-9][0-9]*|0)$/;
  
     return (control: AbstractControl): ValidationErrors | null => {
+        let VALOR  = '';
+        if (control.value) {
+            VALOR = control.value.toString();
+        }else{
+            return { inputNumber: true, message: `Campo requerido` }   
+        }       
         
-        const VALOR: string = control.value.toString();
 
         if (VALOR === undefined) {
             return { inputNumber: true, message: `Campo requerido` }             
