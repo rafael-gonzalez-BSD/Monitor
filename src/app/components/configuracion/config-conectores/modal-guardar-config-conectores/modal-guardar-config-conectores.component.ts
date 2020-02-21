@@ -192,16 +192,11 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
         switch (err.status) {
           case 404:
             not.tipo = 'warning'
-            not.mensaje = `URL inválida, la URL no existe`;
+            not.mensaje = `La URL no existe`;
             break;
-          case 0:
-            not.tipo = 'warning'
-            not.mensaje = `URL inválida`;
-            break;
-
           default:
             not.tipo = 'warning'
-            not.mensaje = `URL inválida, ${err.message}`;
+            not.mensaje = `URL inválida`;
             break;
         }
 
@@ -265,5 +260,9 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
     }
 
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  }
+
+  changeRutaExisteValidation() {
+    this.datosEditar.rutaExiste = "";
   }
 }
