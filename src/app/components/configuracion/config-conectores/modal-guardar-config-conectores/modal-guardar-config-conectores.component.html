@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 col-lg-4 form-group">
-                <label for="">Frecuencia</label>
+                <label for="">Frecuencia (Min)</label>
                 <input formControlName="frecuencia" class="form-control" type="text" [ngModel]="datosEditar.frecuencia">
                 <div class="div-errors" *ngIf="submitted && frecuencia.errors">
                     <div class="container-error" *ngIf="frecuencia.errors.required">
@@ -89,7 +89,7 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                 <label for="">URL</label>
-                <input formControlName="urlApi" class="form-control" type="text" [ngModel]="datosEditar.urlApi">
+                <input formControlName="urlApi" class="form-control" type="text" [ngModel]="datosEditar.urlApi" (input)="changeRutaExisteValidation()">
                 <div class="div-errors" *ngIf="submitted && urlApi.errors">
                     <div class="container-error" *ngIf="urlApi.errors.inputText">
                         <span class="tc-ff3300">{{urlApi.errors.message}}</span>
@@ -99,9 +99,9 @@
                     </div>
                 </div>
                 <input formControlName="rutaExiste" class="form-control" type="hidden" [ngModel]="datosEditar.rutaExiste">
-                <div class="div-errors" *ngIf="submitted && rutaExiste.errors">
+                <div class="div-errors" *ngIf="rutaExiste.errors">
                     <div class="container-error" *ngIf="urlApi.valid && rutaExiste.errors.required">
-                        <span class="tc-ff3300">Haga clic en el boton Testear Ruta Para comprobar</span>
+                        <span class="tc-ff3300">Haga clic en el botón Test Ruta para comprobar</span>
                     </div>
                     <div class="container-error" *ngIf="urlApi.valid && rutaExiste.errors.notExist">
                         <span class="tc-ff3300">URL inválida</span>
