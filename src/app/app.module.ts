@@ -90,7 +90,6 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { DataTablesModule } from 'angular-datatables';
 import { GrillaDetalleExcepcionesComponent } from './components/dashboard-monitor/detalle-excepciones/grilla-detalle-excepciones/grilla-detalle-excepciones.component';
 import { GrillaDetalleEjecucionesComponent } from './components/dashboard-monitor/detalle-ejecuciones/grilla-detalle-ejecuciones/grilla-detalle-ejecuciones.component';
-import { CintillaDetalleConectoresComponent } from './components/dashboard-monitor/detalle-conectores/cintilla-detalle-conectores/cintilla-detalle-conectores.component';
 import { GrillaDetalleConectoresComponent } from './components/dashboard-monitor/detalle-conectores/grilla-detalle-conectores/grilla-detalle-conectores.component';
 import { ModalLogExcepcionesComponent } from './components/dashboard-monitor/detalle-excepciones/modal-log-excepciones/modal-log-excepciones.component';
 /**
@@ -196,7 +195,6 @@ export const MY_FORMATS = {
     GrillaBitacoraConectoresComponent,
     GrillaDetalleExcepcionesComponent,
     GrillaDetalleEjecucionesComponent,
-    CintillaDetalleConectoresComponent,
     GrillaDetalleConectoresComponent,
     ModalLogExcepcionesComponent
   ],

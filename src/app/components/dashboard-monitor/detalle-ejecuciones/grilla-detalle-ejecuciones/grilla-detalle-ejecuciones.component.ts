@@ -8,6 +8,7 @@ import { CONFIGURACION } from 'src/app/extensions/dataTable/dataTable';
 import { FiltrosEjecucionDetalle } from 'src/app/models/dashboard-monitor/filtros-ejecucion-detalle';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { EjecucionDetalle } from 'src/app/models/dashboard-monitor/ejecucion-detalle';
+import { GeneralesService } from 'src/app/services/general/generales.service';
 
 @Component({
   selector: 'app-grilla-detalle-ejecuciones',
@@ -28,12 +29,11 @@ export class GrillaDetalleEjecucionesComponent implements AfterViewInit, OnDestr
   loadingTrue = true;
   loadingConfig = CONFIG_LOADING;
   verTabla = false;
-  generalesService: any;
-  // generalesService: any;
 
   constructor(
     private ejecucionDetalleService: EjecucionDetalleService,
-    private modal: MatDialog
+    private modal: MatDialog,
+    private generalesService: GeneralesService,
   ) { }
 
   ngOnInit() {

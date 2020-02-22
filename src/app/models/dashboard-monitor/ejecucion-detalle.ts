@@ -4,7 +4,10 @@ export class EjecucionDetalle {
     procesoId: number;
     procesoDescripcion: string;
     servidor: string;
-    fechaDesde: Date;
-    fechaHasta: Date;
+    fechaInicio: Date;
+    fechaFin: Date;
+    tiempoOptimoEjecucion: number;
     tiempoEjecucion: number;
+    tiempoEstimadoEjecucion: number;
+    ejecucionDetalleDescripcion: number;
 }
