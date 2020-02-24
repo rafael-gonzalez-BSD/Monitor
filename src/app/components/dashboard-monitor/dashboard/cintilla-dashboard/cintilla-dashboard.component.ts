@@ -28,7 +28,7 @@ export class CintillaDashboardComponent implements OnInit {
 
     });
 
-    this.dashboardService.setearFiltros();
+    // this.dashboardService.setearFiltros();
   }
 
 }

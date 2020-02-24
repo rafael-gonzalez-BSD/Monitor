@@ -150,8 +150,6 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   buscar(m: FiltrosConector) {
     this.submitted = true;
     if (this.grupoFormulario.valid) {
-
-      debugger
       if (this.grupoFormulario.value.sistemaId) {
         this.filtrosConector.sistemaId = this.grupoFormulario.value.sistemaId.identificador;
         this.filtrosConector.sistemaDescripcion = this.grupoFormulario.value.sistemaId.descripcion;

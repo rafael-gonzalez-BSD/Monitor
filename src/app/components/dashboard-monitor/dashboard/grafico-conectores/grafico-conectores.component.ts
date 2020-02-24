@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import Chart from 'chart.js';
 import { getStepSize, labelToGraphics } from 'src/app/extensions/utils/utils';
@@ -8,14 +8,15 @@ import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.s
 import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conector';
 import { ConectoresService } from 'src/app/services/dashboard-monitor/conectores.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grafico-conectores',
   templateUrl: './grafico-conectores.component.html',
   styleUrls: ['./grafico-conectores.component.scss']
 })
-export class GraficoConectoresComponent implements OnInit {
-
+export class GraficoConectoresComponent implements OnInit, OnDestroy {
+  
   chart;
 
   stepSize = 1;
@@ -24,6 +25,7 @@ export class GraficoConectoresComponent implements OnInit {
   registrosConectores: number;
   dataConectores: number[] = [];
   labelsConectores: string[] = [];
+  subs: Subscription;
 
   constructor(
     private dashboardService: DashboardService,
@@ -33,13 +35,16 @@ export class GraficoConectoresComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.dashboardService.filtros.subscribe((m: any) => {
+    this.subs = this.dashboardService.filtrosGraficoConectores.subscribe((m: any) => {
       this.consultarGraficoExcepciones(m);
-
     });
+    this.dashboardService.obtenerFiltrosGraficoConectores();
+  }
 
-    this.dashboardService.obtenerFiltros();
-
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();      
+    } 
   }
 
   consultarGraficoExcepciones(m: FiltrosDashboard) {

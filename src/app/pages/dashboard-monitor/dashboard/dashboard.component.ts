@@ -26,9 +26,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    /// TODO: Quitar esta linea de codigo una vez haya integrado los indicadores del dashboard.
-    this.generalesService.quitarLoader();
-    // this.abrirModalFiltros();
+    
   }
 
   setearTitulo(titulo) {

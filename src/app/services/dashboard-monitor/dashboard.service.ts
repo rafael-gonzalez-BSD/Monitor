@@ -10,25 +10,32 @@ import { yyyymmddToddmmyyyy } from 'src/app/extensions/utils/utils';
   providedIn: 'root'
 })
 export class DashboardService {
-  filtros = new EventEmitter();
   filterevent = new EventEmitter();
+
+  filtrosGraficoExcepciones  = new EventEmitter();
+  filtrosGraficoEjecuciones  = new EventEmitter();
+  filtrosGraficoConectores  = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
-  setearFiltros() {
-    
+  setearFiltros() {    
     const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    localStorage.setItem('sistemaIdBitacoras', m.sistemaId.toString());
-    localStorage.setItem('sistemaDescripcionBitacoras', m.sistemaDescripcion);
-    localStorage.setItem('fechaDesdeBitacoras', m.fechaDesde );
-    localStorage.setItem('fechaHastaBitacoras', m.fechaHasta );
     this.filterevent.emit(m);
-
   }
 
-  obtenerFiltros() {
+  obtenerFiltrosGraficoExcepciones() {
     const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
-    this.filtros.emit(m);
+    this.filtrosGraficoExcepciones.emit(m);
+  }
+
+  obtenerFiltrosGraficoEjecuciones() {
+    const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.filtrosGraficoEjecuciones.emit(m);
+  }
+
+  obtenerFiltrosGraficoConectores() {
+    const m: FiltrosDashboard = JSON.parse(localStorage.getItem('filtrosDashboard'));
+    this.filtrosGraficoConectores.emit(m);
   }
 
   consultarGraficoExcepciones(m: FiltrosDashboard){

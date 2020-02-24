@@ -38,11 +38,11 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
     private excepcionesService: ExcepcionesService) { }
 
   ngOnInit() {
-    this.subs = this.dashboardService.filtros.subscribe((m: any) => {
+    this.subs = this.dashboardService.filtrosGraficoExcepciones.subscribe((m: any) => {
       this.consultarGraficoExcepciones(m);
 
     });
-    this.dashboardService.obtenerFiltros();
+    this.dashboardService.obtenerFiltrosGraficoExcepciones();
 
   }
 
@@ -60,7 +60,6 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
           
           this.dataExcepciones = [];
           this.labelsExcepciones = [];
-          // if (this.registrosExcepciones > 0) {
             for (const I in response.datos) {
               const label = labelToGraphics(response.datos[I].fechaOcurrencia);
               this.dataExcepciones.push(response.datos[I].cantidad);
@@ -100,11 +99,6 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
                 ]
               }
             });
-
-          // } else {
-
-          // }
-
         } else {
           this.generalesService.notificar(
             new NotificacionModel('warning', `Error al consultar el listado de excepciones ${response.mensaje}`)

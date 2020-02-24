@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificacionModel } from 'src/app/models/base/notificacion';
 import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
 import { GeneralesService } from 'src/app/services/general/generales.service';
@@ -9,22 +9,23 @@ import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excep
 import { Router } from '@angular/router';
 import { FiltrosEjecucion } from 'src/app/models/dashboard-monitor/filtros-ejecucion';
 import { EjecucionesService } from 'src/app/services/dashboard-monitor/ejecuciones.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grafico-ejecuciones',
   templateUrl: './grafico-ejecuciones.component.html',
   styleUrls: ['./grafico-ejecuciones.component.scss']
 })
-export class GraficoEjecucionesComponent implements OnInit {
+export class GraficoEjecucionesComponent implements OnInit, OnDestroy { 
 
   chart;
-
   stepSize = 1;
 
   // Excepciones
   registrosExcepciones: number;
   dataEjecuciones: number[] = [];
   labelEjecuciones: string[] = [];
+  subs: Subscription;
 
   constructor(
     private dashboardService: DashboardService,
@@ -33,12 +34,17 @@ export class GraficoEjecucionesComponent implements OnInit {
     private ejecucionesService: EjecucionesService) { }
 
   ngOnInit() {
-    this.dashboardService.filtros.subscribe((m: any) => {
+    this.subs = this.dashboardService.filtrosGraficoEjecuciones.subscribe((m: any) => {
       this.consultarGraficoEjecuciones(m);
     });
 
-    this.dashboardService.obtenerFiltros();
+    this.dashboardService.obtenerFiltrosGraficoEjecuciones();
+  }
 
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();      
+    } 
   }
 
   consultarGraficoEjecuciones(m: FiltrosDashboard) {
