@@ -22,6 +22,7 @@ import { getLastDayMonth, getFirstDayMonth } from 'src/app/extensions/utils/util
 import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
 import { Excepcion } from 'src/app/models/dashboard-monitor/excepcion';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 const moment = _rollupMoment || _moment;
 
@@ -71,7 +72,7 @@ export class ModalFiltrosDashboardComponent implements OnInit {
     private sistemaService: SistemaService,
     private generalesService: GeneralesService,
     private dashboardService: DashboardService,
-    private excepcionesService: ExcepcionesService
+    private breakpointObserver: BreakpointObserver
   ) { 
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosDashboard'));
@@ -165,6 +166,10 @@ export class ModalFiltrosDashboardComponent implements OnInit {
       },
       () => { }
     );
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 823px)');
   }
 
   // Obtenemos los valores del formulario
