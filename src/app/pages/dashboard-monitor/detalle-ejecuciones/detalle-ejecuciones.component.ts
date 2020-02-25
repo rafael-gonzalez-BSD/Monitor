@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { GeneralesService } from 'src/app/services/general/generales.service';
 
 @Component({
   selector: 'app-detalle-ejecuciones',
@@ -11,10 +12,12 @@ export class DetalleEjecucionesComponent implements OnInit {
 
   constructor(
     private rutaActiva: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private generalesService: GeneralesService
   ) { }
 
   ngOnInit() {
+    this.setearTitulo('EJECUCIóN // DETALLE')
     this.ejecucionId = this.rutaActiva.snapshot.params.id;
     this.rutaActiva.params.subscribe(
       (params: Params) => {
@@ -26,5 +29,9 @@ export class DetalleEjecucionesComponent implements OnInit {
   regresar() {
     localStorage.setItem('indexMenu', '0');
     this.router.navigate(['site/ejecuciones']);
+  }
+
+  setearTitulo(titulo) {
+    this.generalesService.setearTituloMovil(titulo);
   }
 }

@@ -23,8 +23,8 @@ export class CintillaBitacoraConectoresComponent implements OnInit {
   ngOnInit() {
     this.conectoresService.setFiltros.subscribe((m: any) => {
       this.filtroSistema = m.sistemaDescripcion === '' ? 'Todos' : m.sistemaDescripcion;
-      this.filtroFechaDesde = m.fechaDesde === '' ? 'Todos' : convertFechaCintilla( m.fechaDesde, 'YYYYMMDD', 'DDMMYYYY');
-      this.filtroFechaHasta = m.fechaHasta === '' ? 'Todos' : convertFechaCintilla( m.fechaHasta, 'YYYYMMDD', 'DDMMYYYY');
+      this.filtroFechaDesde = m.fechaDesde === '' || m.fechaDesde === undefined ? 'Todos' : convertFechaCintilla( m.fechaDesde, 'YYYYMMDD', 'DDMMYYYY');
+      this.filtroFechaHasta = m.fechaHasta === '' || m.fechaHasta === undefined ? 'Todos' : convertFechaCintilla( m.fechaHasta, 'YYYYMMDD', 'DDMMYYYY');
     }, err => {
       this.generalesService.notificar(new NotificacionModel('error', `Ocurrió un error`));
 

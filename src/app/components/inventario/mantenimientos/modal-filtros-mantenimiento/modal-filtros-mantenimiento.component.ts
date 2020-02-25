@@ -126,13 +126,13 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
       this.mantenimientoModel.sistemaDescripcion = '';
     }
 
-    if ((this.grupoFormulario.value.fechaDesde != '' || this.grupoFormulario.value.fechaDesde != null) &&
-      (this.grupoFormulario.value.fechaHasta == '' || this.grupoFormulario.value.fechaHasta == null)) {
+    if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde != null) &&
+      (this.grupoFormulario.value.fechaHasta === '' || this.grupoFormulario.value.fechaHasta == null)) {
       this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
     }
 
-    if ((this.grupoFormulario.value.fechaDesde == '' || this.grupoFormulario.value.fechaDesde == null) &&
-      (this.grupoFormulario.value.fechaHasta != '' || this.grupoFormulario.value.fechaHasta != null)) {
+    if ((this.grupoFormulario.value.fechaDesde === '' || this.grupoFormulario.value.fechaDesde == null) &&
+      (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta != null)) {
       this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
     }
 

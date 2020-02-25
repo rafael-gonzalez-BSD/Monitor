@@ -180,8 +180,15 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
         this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
       }
       
-      this.filtrosConector.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
-      this.filtrosConector.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+       if(this.grupoFormulario.value.fechaDesde !== null && this.grupoFormulario.value.fechaHasta !== null) {
+        this.filtrosConector.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+        this.filtrosConector.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+          
+      }
+      
+     
+      
+
       this.filtrosConector.baja = false;
       this.filtrosConector.opcion = 4;
       localStorage.setItem('filtrosConector', JSON.stringify(this.filtrosConector));
