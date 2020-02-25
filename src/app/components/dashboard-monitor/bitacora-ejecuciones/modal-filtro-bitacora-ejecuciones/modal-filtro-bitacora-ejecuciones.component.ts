@@ -20,6 +20,7 @@ import { RequireMatch } from 'src/app/extensions/autocomplete/require-match';
 import { RespuestaModel } from 'src/app/models/base/respuesta';
 import moment from 'moment';
 import { EjecucionesService } from 'src/app/services/dashboard-monitor/ejecuciones.service';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-modal-filtro-bitacora-ejecuciones',
@@ -55,8 +56,12 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosEjecucion'));
-    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
-    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    
+    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaDesde);
+
+    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaHasta);
     
     this.consultarSistemaCombo();
     if (this.datosFiltros.sistemaId > 0) {
@@ -131,6 +136,7 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
   }
 
   buscar(m: FiltrosEjecucion) {
+    console.log(this.grupoFormulario)
     this.submitted = true;
     if (this.grupoFormulario.valid) {
       if (this.grupoFormulario.value.sistemaId) {
@@ -149,8 +155,23 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
         this.filtrosEjecucion.procesoDescripcion = '';
       } 
       
-      this.filtrosEjecucion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
-      this.filtrosEjecucion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      // Validamos si alguna de las dos fechas esta vacía
+      if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde != null) &&
+        (this.grupoFormulario.value.fechaHasta === '' || this.grupoFormulario.value.fechaHasta == null)) {
+        this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
+      }
+
+      if ((this.grupoFormulario.value.fechaDesde === '' || this.grupoFormulario.value.fechaDesde == null) &&
+        (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta != null)) {
+        this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
+      }
+
+            
+      if(!(this.grupoFormulario.value.fechaDesde === null || this.grupoFormulario.value.fechaDesde === '' ) 
+      && !(this.grupoFormulario.value.fechaHasta === null || this.grupoFormulario.value.fechaHasta === '')) {
+        this.filtrosEjecucion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+        this.filtrosEjecucion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');          
+      }
       this.filtrosEjecucion.sistemaBaja = false;
       this.filtrosEjecucion.procesoBaja = false;
       this.filtrosEjecucion.opcion = 4;
@@ -158,6 +179,8 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
 
       this.ejecucionService.setearFiltros();
       this.ejecucionService.obtenerFiltros();
+
+      console.log(this.filtrosEjecucion)
 
       this.cerrarModal();
     }

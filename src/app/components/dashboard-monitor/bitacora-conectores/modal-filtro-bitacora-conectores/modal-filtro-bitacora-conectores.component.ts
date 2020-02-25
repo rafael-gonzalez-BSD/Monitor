@@ -51,8 +51,11 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosConector'));
-    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
-    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaDesde);
+
+    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaHasta);
     
     this.consultarSistemaCombo();
     if (this.datosFiltros.sistemaId > 0) {
@@ -170,24 +173,21 @@ export class ModalFiltroBitacoraConectoresComponent implements OnInit {
       }
       
       // Validamos si alguna de las dos fechas esta vacía
-      if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde != null) &&
+      if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde !== null) &&
         (this.grupoFormulario.value.fechaHasta === '' || this.grupoFormulario.value.fechaHasta == null)) {
         this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
       }
 
       if ((this.grupoFormulario.value.fechaDesde === '' || this.grupoFormulario.value.fechaDesde == null) &&
-        (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta != null)) {
+        (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta !== null)) {
         this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
       }
       
-       if(this.grupoFormulario.value.fechaDesde !== null && this.grupoFormulario.value.fechaHasta !== null) {
+      if(!(this.grupoFormulario.value.fechaDesde === null || this.grupoFormulario.value.fechaDesde === '' ) 
+      && !(this.grupoFormulario.value.fechaHasta === null || this.grupoFormulario.value.fechaHasta === '')) {
         this.filtrosConector.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
-        this.filtrosConector.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
-          
+        this.filtrosConector.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');          
       }
-      
-     
-      
 
       this.filtrosConector.baja = false;
       this.filtrosConector.opcion = 4;

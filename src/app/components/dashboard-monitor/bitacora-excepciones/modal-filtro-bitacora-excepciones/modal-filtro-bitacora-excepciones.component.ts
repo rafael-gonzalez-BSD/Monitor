@@ -56,8 +56,16 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
   ) {
     this.tituloModal = data.tituloModal;
     this.datosFiltros = JSON.parse(localStorage.getItem('filtrosExcepcion'));
-    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
-    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    // this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null ? '' : new Date(this.datosFiltros.fechaDesde);
+    // this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null ? '' : new Date(this.datosFiltros.fechaHasta);
+    
+
+    this.datosFiltros.fechaDesde = this.datosFiltros.fechaDesde === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaDesde);
+
+    this.datosFiltros.fechaHasta = this.datosFiltros.fechaHasta === null 
+    || !this.datosFiltros.fechaDesde ? '' : new Date(this.datosFiltros.fechaHasta);
+
     this.folio = this.datosFiltros.excepcionId === 0 ? '' : this.datosFiltros.excepcionId;
     
     this.consultarSistemaCombo();
@@ -174,8 +182,25 @@ export class ModalFiltroBitacoraExcepcionesComponent implements OnInit {
       this.filtrosExcepcion.excepcionId = this.grupoFormulario.value.excepcionId=== '' ? 0 :this.grupoFormulario.value.excepcionId;
       this.filtrosExcepcion.excepcionEstatusId = this.grupoFormulario.value.excepcionEstatusId;
       this.filtrosExcepcion.excepcionEstatusDescripcion = this.selectedText;
-      this.filtrosExcepcion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
-      this.filtrosExcepcion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');
+      
+      // Validamos si alguna de las dos fechas esta vacía
+      if ((this.grupoFormulario.value.fechaDesde !== '' || this.grupoFormulario.value.fechaDesde != null) &&
+        (this.grupoFormulario.value.fechaHasta === '' || this.grupoFormulario.value.fechaHasta == null)) {
+        this.grupoFormulario.value.fechaHasta = this.grupoFormulario.value.fechaDesde;
+      }
+
+      if ((this.grupoFormulario.value.fechaDesde === '' || this.grupoFormulario.value.fechaDesde == null) &&
+        (this.grupoFormulario.value.fechaHasta !== '' || this.grupoFormulario.value.fechaHasta != null)) {
+        this.grupoFormulario.value.fechaDesde = this.grupoFormulario.value.fechaHasta;
+      }
+
+      if(!(this.grupoFormulario.value.fechaDesde === null || this.grupoFormulario.value.fechaDesde === '' ) 
+      && !(this.grupoFormulario.value.fechaHasta === null || this.grupoFormulario.value.fechaHasta === '')) {
+        this.filtrosExcepcion.fechaDesde = moment(this.grupoFormulario.value.fechaDesde).format('YYYY/MM/DD');
+        this.filtrosExcepcion.fechaHasta = moment(this.grupoFormulario.value.fechaHasta).format('YYYY/MM/DD');          
+      }
+
+      
       this.filtrosExcepcion.sistemaBaja = false;
       this.filtrosExcepcion.opcion = 4;
       localStorage.setItem('filtrosExcepcion', JSON.stringify(this.filtrosExcepcion));

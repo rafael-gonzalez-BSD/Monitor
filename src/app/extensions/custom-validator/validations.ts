@@ -67,12 +67,8 @@ export function inputNumber(required: boolean, minLength: number, maxLength?: nu
         let VALOR  = '';
         if (control.value) {
             VALOR = control.value.toString();
-        }else{
-            return { inputNumber: true, message: `Campo requerido` }   
-        }       
-        
-
-        if (VALOR === undefined) {
+        }
+        if (required && VALOR === undefined) {
             return { inputNumber: true, message: `Campo requerido` }             
         }       
         if (required && VALOR.trim() === '') {
