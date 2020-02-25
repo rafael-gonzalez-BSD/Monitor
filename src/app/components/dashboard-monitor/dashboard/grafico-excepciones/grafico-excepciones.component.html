@@ -14,6 +14,9 @@
     </div>
     <mat-card-content>
         <div>
+            <ngx-loading [show]="!verGrafico" [config]='loadingConfig'></ngx-loading>
+        </div>
+        <div>
             <canvas id="graficoExcepciones"></canvas>
         </div>
     </mat-card-content>

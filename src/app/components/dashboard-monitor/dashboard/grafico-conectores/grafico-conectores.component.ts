@@ -9,6 +9,7 @@ import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conect
 import { ConectoresService } from 'src/app/services/dashboard-monitor/conectores.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grafico-conectores',
@@ -26,6 +27,9 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
   dataConectores: number[] = [];
   labelsConectores: string[] = [];
   subs: Subscription;
+
+  loadingConfig = CONFIG_LOADING;
+  verGrafico = false;
 
   constructor(
     private dashboardService: DashboardService,
@@ -111,6 +115,7 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
         this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de conectores ${err.statusText} ${err.message}`));
       },
       () => {
+        this.verGrafico = true;
       }
     );
 

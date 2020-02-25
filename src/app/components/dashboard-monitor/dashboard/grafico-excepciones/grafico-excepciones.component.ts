@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FiltrosExcepcion } from 'src/app/models/dashboard-monitor/filtros-excepcion';
 import { ExcepcionesService } from 'src/app/services/dashboard-monitor/excepciones.service';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grafico-excepciones',
@@ -31,6 +32,9 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
   labelsExcepciones: string[] = [];
 
   subs: Subscription;
+
+  loadingConfig = CONFIG_LOADING;
+  verGrafico = false;
 
   constructor(private dashboardService: DashboardService,
     private router: Router,
@@ -109,6 +113,7 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
         this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de excepciones ${err.statusText} ${err.message}`));
       },
       () => {
+        this.verGrafico = true;
       }
     );
 

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { FiltrosEjecucion } from 'src/app/models/dashboard-monitor/filtros-ejecucion';
 import { EjecucionesService } from 'src/app/services/dashboard-monitor/ejecuciones.service';
 import { Subscription } from 'rxjs';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
   selector: 'app-grafico-ejecuciones',
@@ -26,6 +27,9 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
   dataEjecuciones: number[] = [];
   labelEjecuciones: string[] = [];
   subs: Subscription;
+
+  loadingConfig = CONFIG_LOADING;
+  verGrafico = false;
 
   constructor(
     private dashboardService: DashboardService,
@@ -108,6 +112,7 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
         this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones ${err.statusText} ${err.message}`));
       },
       () => {
+        this.verGrafico = true;
       }
     );
   }
