@@ -61,6 +61,10 @@ app-navbar-movil {
     padding-left: 10px;
 }
 
+.menu-level1 {
+    cursor: pointer;
+}
+
 // =================== MEDIA QUERYS =====================================
 @media (max-width: 812px) {
     app-navbar-movil {

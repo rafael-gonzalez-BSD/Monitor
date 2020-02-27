@@ -14,7 +14,6 @@ export class ModalLogExcepcionesComponent implements OnInit {
     private modal: MatDialog
   ) { 
     this.datosLog = data;
-    console.log(this.datosLog)
   }
 
   ngOnInit() {
