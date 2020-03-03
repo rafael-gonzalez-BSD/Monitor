@@ -17,7 +17,7 @@ export const options: NotifierOptions = {
     autoHide: 5000,
     onClick: 'hide',
     onMouseover: 'pauseAutoHide',
-    showDismissButton: true,
+    showDismissButton: false,
     stacking: false
   },
   animations: {
