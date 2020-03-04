@@ -80,7 +80,7 @@ export class ModalGuardarProcesoComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       procesoId: new FormControl(),
-      procesoDescripcion: new FormControl('', [inputText(true, 3, 250)]),
+      procesoDescripcion: new FormControl('', [inputText(true, 4, 250)]),
       sistemaId: new FormControl('', [Validators.required, RequireMatch]),
       baja: new FormControl(),
       critico: new FormControl()

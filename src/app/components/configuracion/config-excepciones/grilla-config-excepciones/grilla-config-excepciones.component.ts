@@ -76,6 +76,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
     this.configExcepcionesService.obtenerConfigExcepciones(m).subscribe(
       (response: RespuestaModel) => {
         if (response.satisfactorio) {
+          
           this.verTabla = false;
           this.listadoConfiguExcepciones = response.datos;
           // Validamos si debemos paginar o no

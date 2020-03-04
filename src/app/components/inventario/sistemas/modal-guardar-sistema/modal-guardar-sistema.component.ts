@@ -53,7 +53,7 @@ export class ModalGuardarSistemaComponent implements OnInit {
   validarFormulario() {
     return new FormGroup({
       SistemaId: new FormControl(),
-      SistemaDescripcion: new FormControl('', [inputText(true, 3, 100)]),
+      SistemaDescripcion: new FormControl('', [inputText(true, 4, 100)]),
       Alias: new FormControl('', [Validators.required, inputText(true, 3, 100)]),
       GerenciaId: new FormControl('-1', [validarCombo]),
       Descripcion: new FormControl('', [inputText(true, 3, 100)]),
