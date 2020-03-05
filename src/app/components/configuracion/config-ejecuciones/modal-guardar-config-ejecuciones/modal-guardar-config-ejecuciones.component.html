@@ -28,7 +28,7 @@
                     <div class="container-error" *ngIf="grupoFormulario.controls['procesoId'].hasError('required')">
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
-                    <div class="container-error" *ngIf="!grupoFormulario.controls['procesoId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
+                    <div class="container-error" *ngIf="!grupoFormulario.controls['procesoId'].hasError('required') && grupoFormulario.controls['procesoId'].hasError('incorrect')">
                         <span class="tc-ff3300">Campo Inválido</span>
                     </div>
                 </div>
