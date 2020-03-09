@@ -263,6 +263,6 @@ export class ModalGuardarConfigConectoresComponent implements OnInit {
   }
 
   changeRutaExisteValidation() {
-    this.datosEditar.rutaExiste = "";
+    this.datosEditar.rutaExiste = '';
   }
 }
