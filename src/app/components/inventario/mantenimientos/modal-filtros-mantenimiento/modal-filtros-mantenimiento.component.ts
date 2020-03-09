@@ -112,6 +112,7 @@ export class ModalFiltrosMantenimientoComponent implements OnInit {
   }
 
   buscar(mantenimientoModel: Mantenimiento) {
+    console.log(this.grupoFormulario);
     this.submitted = true;
     if (this.grupoFormulario.invalid) {
       return;
