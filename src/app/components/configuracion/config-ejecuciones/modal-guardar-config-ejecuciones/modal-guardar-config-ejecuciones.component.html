@@ -12,7 +12,7 @@
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
-                        <span class="tc-ff3300">Campo Inválido</span>
+                        <span class="tc-ff3300">Dato Inválido</span>
                     </div>
                 </div>
                 <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarProcesoCombo($event.option.value);consultarVentanaMantenimientoId($event.option.value);">
@@ -29,7 +29,7 @@
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="!grupoFormulario.controls['procesoId'].hasError('required') && grupoFormulario.controls['procesoId'].hasError('incorrect')">
-                        <span class="tc-ff3300">Campo Inválido</span>
+                        <span class="tc-ff3300">Dato Inválido</span>
                     </div>
                 </div>
                 <mat-autocomplete #procId="matAutocomplete" [displayWith]="mostrarValor">
