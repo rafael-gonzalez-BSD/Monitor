@@ -14,7 +14,7 @@ export const CONFIGURACION = {
     info: 'Mostrando registros del _START_ al _END_ de _TOTAL_ registros',
     decimal: '',
     emptyTable: 'Ningún dato disponible en esta tabla',
-    infoEmpty: ' Ningnua coincidencia',
+    infoEmpty: ' Ninguna coincidencia',
     infoFiltered: '(filtrado de _MAX_ registros)',
     infoPostFix: '',
     thousands: ',',
@@ -26,8 +26,8 @@ export const CONFIGURACION = {
     paginate: {
       first: 'Primero',
       last: 'Último',
-      next: 'Sig',
-      previous: 'Ant'
+      next: 'Sig.',
+      previous: 'Ant.'
     }
   }
 }

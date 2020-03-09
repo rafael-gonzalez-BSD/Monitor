@@ -71,7 +71,6 @@ export class GrillaDetalleEjecucionesComponent implements AfterViewInit, OnDestr
         if (response.satisfactorio) {
           this.verTabla = false;
           this.listadoBitacora = response.datos;
-          console.log(this.listadoBitacora);
 
           // Validamos si debemos paginar o no
           // tslint:disable-next-line: radix
