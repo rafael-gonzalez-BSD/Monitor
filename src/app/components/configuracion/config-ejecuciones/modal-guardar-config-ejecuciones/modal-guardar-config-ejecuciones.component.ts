@@ -78,6 +78,10 @@ export class ModalGuardarConfigEjecucionesComponent implements OnInit {
       this.consultarVentanaMantenimientoId(m);
       this.consultarProcesoCombo(m);
     }
+    else{
+      this.datosProcesoCombo = [];
+    }
+    
 
     // this.consultarProcesoCombo();
   }

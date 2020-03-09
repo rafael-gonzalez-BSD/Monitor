@@ -49,6 +49,10 @@ export class ModalFiltrosProcesoComponent implements OnInit {
       m.descripcion = this.datosFiltros.sistemaDescripcion;
       this.consultarProcesoCombo(m);
     }
+    else{
+      debugger      
+      this.datosComboProceso = [];
+    }
   }
 
   ngOnInit() {

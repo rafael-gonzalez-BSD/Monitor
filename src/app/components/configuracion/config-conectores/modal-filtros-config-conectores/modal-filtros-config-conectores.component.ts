@@ -48,6 +48,9 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
       m.descripcion = this.datosFiltros.sistemaDescripcion;
       this.consultarConectorCombo(m);
     }
+    else{
+      this.datosComboConector = [];
+    }
   }
 
   ngOnInit() {
@@ -92,6 +95,7 @@ export class ModalFiltrosConfigConectoresComponent implements OnInit {
   }
 
   buscar(configConectoresModel: ConfigConectores) {
+    this.submitted = true;
     if (this.grupoFormulario.invalid) {
       return;
     }
