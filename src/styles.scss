@@ -200,3 +200,11 @@ select {
     color: #ff3300 !important;
     font-weight: bold;
 }
+
+.breadcrumb-no-cursor {
+    text-decoration: none !important;
+    &:hover {
+        color: #7b7b7b !important;
+        cursor: auto !important;
+    }
+}
