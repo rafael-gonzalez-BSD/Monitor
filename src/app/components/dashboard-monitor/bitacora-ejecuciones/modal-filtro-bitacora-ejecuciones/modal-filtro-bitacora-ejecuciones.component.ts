@@ -136,7 +136,6 @@ export class ModalFiltroBitacoraEjecucionesComponent implements OnInit {
   }
 
   buscar(m: FiltrosEjecucion) {
-    console.log(this.grupoFormulario)
     this.submitted = true;
     if (this.grupoFormulario.valid) {
       if (this.grupoFormulario.value.sistemaId) {
