@@ -24,7 +24,7 @@
                         <span class="tc-ff3300">Campo requerido</span>
                     </div>
                     <div class="container-error" *ngIf="!grupoFormulario.controls['sistemaId'].hasError('required') && grupoFormulario.controls['sistemaId'].hasError('incorrect')">
-                        <span class="tc-ff3300">Campo Inválido</span>
+                        <span class="tc-ff3300">Dato Inválido</span>
                     </div>
                 </div>
                 <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor">

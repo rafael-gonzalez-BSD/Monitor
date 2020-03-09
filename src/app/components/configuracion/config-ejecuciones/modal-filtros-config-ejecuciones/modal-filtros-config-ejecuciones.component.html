@@ -7,7 +7,7 @@
                 <input class="form-control input-ternium" type="text" formControlName="sistemaId" matInput [matAutocomplete]="sisId" (keyup)="setearValorAutocomplete('procesoId', 0, '')">
                 <div class="div-errors" *ngIf="submitted && sistemaId.errors">
                     <div class="container-error" *ngIf="sistemaId.errors.incorrect">
-                        <span class="tc-ff3300">Campo Inválido</span>
+                        <span class="tc-ff3300">Dato Inválido</span>
                     </div>
                 </div>
                 <mat-autocomplete #sisId="matAutocomplete" [displayWith]="mostrarValor" (optionSelected)="consultarProcesoCombo($event.option.value)">
@@ -21,7 +21,7 @@
                 <input class="form-control input-ternium" type="text" formControlName="procesoId" matInput [matAutocomplete]="procId">
                 <div class="div-errors" *ngIf="submitted && procesoId.errors">
                     <div class="container-error" *ngIf="procesoId.errors.incorrect">
-                        <span class="tc-ff3300">Campo Inválido</span>
+                        <span class="tc-ff3300">Dato Inválido</span>
                     </div>
                 </div>
                 <mat-autocomplete #procId="matAutocomplete" [displayWith]="mostrarValor">
