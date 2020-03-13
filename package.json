@@ -1,8 +1,8 @@
 {
-    "name": "com.demo.demo",
-    "displayName": "demo",
+    "name": "com.ternium.app.monitorprocesos.qa",
+    "displayName": "Monitor Procesos",
     "version": "1.0.0",
-    "description": "Monitor de Procesos - Demo",
+    "description": "Monitor de Procesos",
     "main": "index.js",
     "keywords": [
         "ecosystem:cordova"

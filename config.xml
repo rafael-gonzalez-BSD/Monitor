@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.demo.demo" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>demo</name>
+<widget id="com.ternium.app.monitorprocesos.qa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Monitor Procesos</name>
     <description>
-        Monitor Procesos - Demo
+        Monitor Procesos
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
+    <author email="rafael.gonzalez@bsdenterprise.com" href="http://cordova.io">
         ternium
     </author>
     <content src="index.html" />
