@@ -21,7 +21,6 @@ export class CintillaDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.dashboardService.filterevent.subscribe((m: any) => {
-      debugger
       this.filtroSistema = m.sistemaDescripcion === '' ? 'Todos' : m.sistemaDescripcion;
       this.filtroFecha = m.fechaDesdeCorta === '' ? 'Todos' : convertFechaCintilla( m.fechaDesde, 'YYYYMMDD', 'MMMYYYY' );
     }, err => {

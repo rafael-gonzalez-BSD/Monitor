@@ -72,6 +72,10 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
 
             this.stepSize = getStepSize(this.dataExcepciones);
 
+            if (this.chart !== undefined) {
+              this.chart.destroy();
+            }
+
             this.chart = new Chart('graficoExcepciones', {
               type: 'bar',
               options: {

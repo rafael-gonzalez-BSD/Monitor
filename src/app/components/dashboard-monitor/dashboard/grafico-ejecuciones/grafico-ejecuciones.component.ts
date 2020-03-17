@@ -71,6 +71,10 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
 
             this.stepSize = getStepSize(this.dataEjecuciones);
 
+            if (this.chart !== undefined) {
+              this.chart.destroy();
+            }
+
             this.chart = new Chart('graficoEjecuciones', {
               type: 'bar',
               options: {
