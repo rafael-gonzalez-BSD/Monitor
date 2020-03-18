@@ -129,12 +129,7 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
             for (const I in response.datos) {
               this.ejecucionesSerie3.push(response.datos[I].cantidad);
             }
-
-            // test
-            // this.dataEjecuciones2 = [12, 69, 45, 150, 23, 87, 56, 200, 167];
-            // this.labelEjecuciones2 = ['Sep 3', 'Sep 4', 'Sep 5', 'Sep 7', 'Sep 8', 'Sep 23', 'Sep 25', 'Sep 29', 'Sep 30'];
-
-
+            
             if (this.chart !== undefined) {
               this.chart.destroy();
             }
