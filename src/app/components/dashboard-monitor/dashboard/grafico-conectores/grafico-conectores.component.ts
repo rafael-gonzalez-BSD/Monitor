@@ -1,20 +1,20 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NotificacionModel } from "src/app/models/base/notificacion";
-import Chart from "chart.js";
-import { getStepSize, labelToGraphics } from "src/app/extensions/utils/utils";
-import { FiltrosDashboard } from "src/app/models/dashboard-monitor/filtrosDashboard";
-import { GeneralesService } from "src/app/services/general/generales.service";
-import { DashboardService } from "src/app/services/dashboard-monitor/dashboard.service";
-import { FiltrosConector } from "src/app/models/dashboard-monitor/filtros-conector";
-import { ConectoresService } from "src/app/services/dashboard-monitor/conectores.service";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { CONFIG_LOADING } from "src/app/extensions/loading/loading";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NotificacionModel } from 'src/app/models/base/notificacion';
+import Chart from 'chart.js';
+import { getStepSize, labelToGraphics } from 'src/app/extensions/utils/utils';
+import { FiltrosDashboard } from 'src/app/models/dashboard-monitor/filtrosDashboard';
+import { GeneralesService } from 'src/app/services/general/generales.service';
+import { DashboardService } from 'src/app/services/dashboard-monitor/dashboard.service';
+import { FiltrosConector } from 'src/app/models/dashboard-monitor/filtros-conector';
+import { ConectoresService } from 'src/app/services/dashboard-monitor/conectores.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CONFIG_LOADING } from 'src/app/extensions/loading/loading';
 
 @Component({
-  selector: "app-grafico-conectores",
-  templateUrl: "./grafico-conectores.component.html",
-  styleUrls: ["./grafico-conectores.component.scss"]
+  selector: 'app-grafico-conectores',
+  templateUrl: './grafico-conectores.component.html',
+  styleUrls: ['./grafico-conectores.component.scss']
 })
 export class GraficoConectoresComponent implements OnInit, OnDestroy {
   chart;
@@ -73,13 +73,14 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
             this.chart.destroy();
           }
 
-          this.chart = new Chart("graficoConectores", {
-            type: "bar",
+          this.chart = new Chart('graficoConectores', {
+            type: 'bar',
             options: {
               responsive: true,
+              aspectRatio: 1.2,
               title: {
                 display: false,
-                text: "BITÁCORA DE MONITOREO"
+                text: 'BITÁCORA DE MONITOREO'
               },
               scales: {
                 yAxes: [
@@ -95,11 +96,11 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
               labels: this.labelsConectores,
               datasets: [
                 {
-                  type: "line",
-                  label: "Conectores",
+                  type: 'line',
+                  label: 'Conectores',
                   data: this.dataConectores,
-                  backgroundColor: "#ff3300",
-                  borderColor: "#ff3300",
+                  backgroundColor: '#ff3300',
+                  borderColor: '#ff3300',
                   borderWidth: 1,
                   fill: false
                 }
@@ -113,7 +114,7 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
         } else {
           this.generalesService.notificar(
             new NotificacionModel(
-              "warning",
+              'warning',
               `Error al consultar el listado de conectores ${response.mensaje}`
             )
           );
@@ -122,7 +123,7 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
       err => {
         this.generalesService.notificar(
           new NotificacionModel(
-            "warning",
+            'warning',
             `Ocurrió un error al consultar el listado de conectores ${err.statusText} ${err.message}`
           )
         );
@@ -135,15 +136,15 @@ export class GraficoConectoresComponent implements OnInit, OnDestroy {
 
   irBitacora() {
     const CONEC = new FiltrosConector();
-    const fD = JSON.parse(localStorage.getItem("filtrosDashboard"));
+    const fD = JSON.parse(localStorage.getItem('filtrosDashboard'));
     CONEC.opcion = 4;
     CONEC.sistemaId = fD.sistemaId;
     CONEC.sistemaDescripcion = fD.sistemaDescripcion;
     CONEC.fechaDesde = fD.fechaDesde;
     CONEC.fechaHasta = fD.fechaHasta;
-    localStorage.setItem("filtrosConector", JSON.stringify(CONEC));
+    localStorage.setItem('filtrosConector', JSON.stringify(CONEC));
     this.conectoresService.setearFiltros();
     this.conectoresService.obtenerFiltros();
-    this.router.navigate(["site/monitoreo"]);
+    this.router.navigate(['site/monitoreo']);
   }
 }

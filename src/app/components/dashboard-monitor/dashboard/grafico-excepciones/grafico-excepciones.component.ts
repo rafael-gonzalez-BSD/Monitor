@@ -80,6 +80,7 @@ export class GraficoExcepcionesComponent implements OnDestroy, OnInit {
               type: 'bar',
               options: {
                 responsive: true,
+                aspectRatio: 1.2,
                 title: {
                   display: false,
                   text: 'BITÁCORA DE EXCEPCIONES'
