@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ternium.app.monitorprocesos.qa;
+package com.monitorprocesos.qa;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
