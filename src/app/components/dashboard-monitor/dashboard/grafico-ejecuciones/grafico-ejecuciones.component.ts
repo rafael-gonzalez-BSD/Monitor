@@ -24,12 +24,18 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
 
   // Excepciones
   registrosExcepciones: number;
-  dataEjecuciones: number[] = [];
+  ejecucionesSerie1: number[] = [];
   labelEjecuciones: string[] = [];
+
+  ejecucionesSerie2: number[] = [];
+  ejecucionesSerie3: number[] = [];
+
   subs: Subscription;
 
   loadingConfig = CONFIG_LOADING;
   verGrafico = false;
+
+  model: FiltrosDashboard;
 
   constructor(
     private dashboardService: DashboardService,
@@ -39,7 +45,9 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs = this.dashboardService.filtrosGraficoEjecuciones.subscribe((m: any) => {
-      this.consultarGraficoEjecuciones(m);
+      this.model = m;
+      this.model.opcion = 5;
+      this.consultarSerie1(this.model);
     });
 
     this.dashboardService.obtenerFiltrosGraficoEjecuciones();
@@ -51,30 +59,86 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
     } 
   }
 
-  consultarGraficoEjecuciones(m: FiltrosDashboard) {
+  consultarSerie1(m: FiltrosDashboard) {
     this.dashboardService.consultarGraficoEjecuciones(m).subscribe(
       (response: any) => {
         if (response.satisfactorio) {
           this.registrosExcepciones = response.datos.length;
           
-          this.dataEjecuciones = [];
+          this.ejecucionesSerie1 = [];
           this.labelEjecuciones = [];
             for (const I in response.datos) {
               const label = labelToGraphics(response.datos[I].fechaOcurrencia);
-              this.dataEjecuciones.push(response.datos[I].cantidad);
+              this.ejecucionesSerie1.push(response.datos[I].cantidad);
               this.labelEjecuciones.push(label);
             }
+            this.stepSize = getStepSize(this.ejecucionesSerie1);
 
-            // test
-            // this.dataEjecuciones = [12, 69, 45, 150, 23, 87, 56, 200, 167];
-            // this.labelEjecuciones = ['Sep 3', 'Sep 4', 'Sep 5', 'Sep 7', 'Sep 8', 'Sep 23', 'Sep 25', 'Sep 29', 'Sep 30'];
+            
+        } else {
+          this.generalesService.notificar(
+            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones, serie 1 ${response.mensaje}`)
+          );
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones, serie 1 ${err.statusText} ${err.message}`));
+      },
+      () => {
+        this.model.opcion = 6;
+        this.consultarSerie2(this.model);
+      }
+    );
+  }
 
-            this.stepSize = getStepSize(this.dataEjecuciones);
+  consultarSerie2(m: FiltrosDashboard) {
+    this.dashboardService.consultarGraficoEjecuciones(m).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.registrosExcepciones = response.datos.length;
+          
+          this.ejecucionesSerie2 = [];
+            for (const I in response.datos) {
+              this.ejecucionesSerie2.push(response.datos[I].cantidad);
+            }
+
+            
+        } else {
+          this.generalesService.notificar(
+            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones, serie 2 ${response.mensaje}`)
+          );
+        }
+      },
+      err => {
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones, serie 2 ${err.statusText} ${err.message}`));
+      },
+      () => {
+        this.model.opcion = 7;
+        this.consultarSerie3(this.model);
+      }
+    );
+  }
+
+  consultarSerie3(m: FiltrosDashboard) {
+    this.dashboardService.consultarGraficoEjecuciones(m).subscribe(
+      (response: any) => {
+        if (response.satisfactorio) {
+          this.registrosExcepciones = response.datos.length;
+          
+          this.ejecucionesSerie3 = [];
+            for (const I in response.datos) {
+              this.ejecucionesSerie3.push(response.datos[I].cantidad);
+            }
+            
+            if (this.chart !== undefined) {
+              this.chart.destroy();
+            }
 
             this.chart = new Chart('graficoEjecuciones', {
               type: 'bar',
               options: {
                 responsive: true,
+                aspectRatio: 1.2,
                 title: {
                   display: false,
                   text: 'BITÁCORA DE EJECUCIONES'
@@ -93,9 +157,27 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
                   {
                     type: 'line',
                     label: 'Ejecuciones',
-                    data: this.dataEjecuciones,
-                    backgroundColor: '#ff3300',
-                    borderColor: '#ff3300',
+                    data: this.ejecucionesSerie1,
+                    backgroundColor: '#7b7b7b',
+                    borderColor: '#7b7b7b',
+                    borderWidth: 1,
+                    fill: false
+                  },
+                  {
+                    type: 'line',
+                    label: 'Alertas',
+                    data: this.ejecucionesSerie2,
+                    backgroundColor: '#F09603',
+                    borderColor: '#F09603',
+                    borderWidth: 1,
+                    fill: false
+                  },
+                  {
+                    type: 'line',
+                    label: 'Excepciones',
+                    data: this.ejecucionesSerie3,
+                    backgroundColor: '#F30',
+                    borderColor: '#F30',
                     borderWidth: 1,
                     fill: false
                   }
@@ -104,12 +186,12 @@ export class GraficoEjecucionesComponent implements OnInit, OnDestroy {
             });
         } else {
           this.generalesService.notificar(
-            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones ${response.mensaje}`)
+            new NotificacionModel('warning', `Error al consultar el listado de ejecuciones, serie 3 ${response.mensaje}`)
           );
         }
       },
       err => {
-        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones ${err.statusText} ${err.message}`));
+        this.generalesService.notificar(new NotificacionModel('warning', `Ocurrió un error al consultar el listado de ejecuciones, serie 3 ${err.statusText} ${err.message}`));
       },
       () => {
         this.verGrafico = true;
