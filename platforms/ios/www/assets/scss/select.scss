@@ -1,0 +1,21 @@
+// .mat-select-panel mat-option.mat-option {
+//     height: unset;
+// }
+.mat-option-text.mat-option-text {
+    white-space: normal;
+}
+
+.mat-option {
+    margin: 1rem 0;
+    overflow: visible;
+    line-height: initial !important;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.mat-option i {
+    display: block;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    margin-left: 0.5rem;
+}

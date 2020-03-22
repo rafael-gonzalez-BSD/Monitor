@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // urlApi: 'http://ap.bsdenterprise.com:8095/MonitorProcesos/api/'
-  urlApi: 'http://localhost:63619/api/'
+   urlApi: 'http://ap.bsdenterprise.com:8095/MonitorProcesos/api/'
+  //urlApi: 'http://localhost:63619/api/'
 };
 
 /*

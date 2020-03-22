@@ -19,7 +19,7 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.ternium.app.monitorprocesos.qa"
+      "PACKAGE_NAME": "com.monitorprocesos.qa"
     }
   },
   "dependent_plugins": {},
