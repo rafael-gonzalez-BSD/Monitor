@@ -23,7 +23,7 @@ export class GrillaMantenimientoComponent implements AfterViewInit, OnDestroy, O
   listadoMantenimientos: Mantenimiento[] = [];
   dtTrigger: Subject<Mantenimiento> = new Subject();
   paginar = false;
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   mantenimientosSubs: Subscription;
   mantenimientoModel = new Mantenimiento();

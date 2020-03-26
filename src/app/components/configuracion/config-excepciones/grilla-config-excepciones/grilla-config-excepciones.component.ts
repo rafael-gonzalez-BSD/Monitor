@@ -24,7 +24,7 @@ export class GrillaConfigExcepcionesComponent implements AfterViewInit, OnDestro
   dtTrigger: Subject<ConfigExcepciones> = new Subject();
   paginar = false;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   configExcepcionesSubs: Subscription;

@@ -24,7 +24,7 @@ export class GrillaConfigConectoresComponent implements AfterViewInit, OnDestroy
   dtTrigger: Subject<ConfigConectores> = new Subject();
   paginar = false;
 
-   @ViewChild(DataTableDirective, {static: false})
+   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   configConectoresSubs: Subscription;

@@ -22,7 +22,7 @@ export class GrillaDetalleEjecucionesComponent implements AfterViewInit, OnDestr
   dtOptions: any = {};
   listadoBitacora: EjecucionDetalle[] = [];
   dtTrigger: Subject<[EjecucionDetalle]> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   subscripcion: Subscription;
 

@@ -24,7 +24,7 @@ export class GrillaConfigEjecucionesComponent implements AfterViewInit, OnDestro
   dtTrigger: Subject<ConfigEjecuciones> = new Subject();
   paginar = false;
 
-  @ViewChild(DataTableDirective, { static: false })
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   configEjecucionesModel = new ConfigEjecuciones();

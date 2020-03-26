@@ -22,7 +22,7 @@ export class GrillaDetalleConectoresComponent implements  AfterViewInit, OnDestr
   dtOptions: any = {};
   listadoBitacora: ConectorDetalle[] = [];
   dtTrigger: Subject<[ConectorDetalle]> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   subscripcion: Subscription;
 

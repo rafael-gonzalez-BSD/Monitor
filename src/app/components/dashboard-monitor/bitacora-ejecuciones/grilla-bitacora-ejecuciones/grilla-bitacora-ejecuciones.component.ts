@@ -18,7 +18,7 @@ export class GrillaBitacoraEjecucionesComponent implements AfterViewInit, OnDest
   dtOptions: any = {};
   listadoBitacora: Ejecucion[] = [];
   dtTrigger: Subject<Ejecucion> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   subscripcion: Subscription;
   // sistemaModel = new Sistema();

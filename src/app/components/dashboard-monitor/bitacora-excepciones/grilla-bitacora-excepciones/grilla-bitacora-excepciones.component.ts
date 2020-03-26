@@ -18,7 +18,7 @@ export class GrillaBitacoraExcepcionesComponent implements AfterViewInit, OnDest
   dtOptions: any = {};
   listadoBitacora: Excepcion[] = [];
   dtTrigger: Subject<Excepcion> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   subscripcion: Subscription;
   // sistemaModel = new Sistema();

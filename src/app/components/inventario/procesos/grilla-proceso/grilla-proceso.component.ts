@@ -27,7 +27,7 @@ export class GrillaProcesoComponent implements AfterViewInit, OnDestroy, OnInit 
   dtTrigger: Subject<Proceso> = new Subject();
   paginar = false;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   procesosSubs: Subscription;

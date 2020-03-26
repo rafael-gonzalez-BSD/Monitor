@@ -22,7 +22,7 @@ export class GrillaSistemaComponent implements AfterViewInit, OnDestroy, OnInit 
   dtOptions: any = {};
   listadoSistemas: Sistema[] = [];
   dtTrigger: Subject<Sistema> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   sistemasSubs: Subscription;
   sistemaModel = new Sistema();

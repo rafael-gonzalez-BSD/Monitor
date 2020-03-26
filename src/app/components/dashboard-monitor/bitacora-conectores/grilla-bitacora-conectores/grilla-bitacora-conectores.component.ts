@@ -19,7 +19,7 @@ export class GrillaBitacoraConectoresComponent implements AfterViewInit, OnDestr
   dtOptions: any = {};
   listadoBitacora: Conector[] = [];
   dtTrigger: Subject<Conector> = new Subject();
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   subscripcion: Subscription;
   // sistemaModel = new Sistema();
